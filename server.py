@@ -36,5 +36,5 @@ class servidorBasico(SimpleHTTPRequestHandler):
         self.wfile.write(json.dumps(resp).encode('utf-8'))
 
 server = HTTPServer(('localhost', 3307), servidorBasico)
-print("Servidor ejecutado en el puerto 3307 exitosamente")
+print("Servidor ejecutado en el puerto 3307 con exito")
 server.serve_forever()
