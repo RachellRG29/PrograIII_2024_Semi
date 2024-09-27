@@ -1,0 +1,188 @@
+* { 
+    box-sizing: border-box;
+}
+
+/* Cuerpo de sitio inicio */
+body {
+    background-color: #004182;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* cubre el 100% pantalla */
+    width: 100%; /* cubre 100% ancho de la pantalla */
+    max-width: 100%; /* Evita que el contenido se extienda demas */
+    margin: 0;
+    padding: 0; 
+    overflow-x: hidden; /* Previene que haya scroll horizontal si el contenido excede el ancho */
+}
+
+header{
+    align-items: center;
+    justify-content: right;
+    display: flex;
+    padding: auto;
+    margin-right: 10px;
+    margin-top: 30px;
+
+}
+
+/* Main inicio ConsoleXpress */
+.main_inicio {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    flex-wrap: nowrap; 
+    flex: 1;
+    left: 30px;
+}
+
+/* Lado derecho inicio */
+.derecha_inicio {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; 
+    flex: 1;
+    align-items: flex-end;
+}
+
+/* Ajustes para el flex de inicio, main, derecha y semicuadrado, para visualizar en distintas pantallas */
+@media all and (max-width: 550px) {
+    .main_inicio {
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    .header{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .derecha_inicio {
+        align-items: end; 
+        justify-content: end;
+        width: 100%;  
+    }
+
+    .semicuadrado_rojo {
+        position: relative;
+        width: 100%; 
+        max-width: 640px;
+        height: auto; 
+        margin: 0% 0;
+        right: auto;
+        bottom: auto;
+    }
+}
+
+/* Formatos para textos */
+.text_consoleXpress {
+    color: white;
+    font-size: 40px;
+    font-family: 'League Spartan';
+    margin-bottom: 10px;
+}
+
+.text_descripcion {
+    color: white;
+    font-family: 'Comfortaa';
+    font-size: 16px;
+}
+
+/* Formato para deco de inicio, lado derecho */
+.semicuadrado_rojo {
+    background-color: #dc3e57;
+    border-top-left-radius: 28px;
+    width: 630px;
+    height: 500px;
+    margin: 0;
+    align-self: flex-end; 
+}
+
+.consola_img{
+    align-self: center;
+    position: relative;
+    right: 20px;
+    top: 80px;
+    
+}
+
+.icon_ConsoleXpress{
+    display: flex;
+    filter: invert(1); 
+    padding: 4px;
+    justify-content: center;
+    margin-left: 4px;
+  
+    
+}
+
+/* Botones de inicio seccion y register- header */
+.btn_login, .btn_register{
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    padding: 6px 10px;
+    border: 1px solid #84b9ef;
+    border-radius: 10px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.btn_register:hover, .btn_login:hover{
+    animation: pulsate 1s ease-in-out;
+}
+
+@keyframes pulsate{
+    0%{ background-color: #dc3e57; }
+}
+
+/* Boton explorar */
+.btn_explorar{ /*propiedades*/
+    position: relative;
+    width: 200px;
+    height: 60px;
+    background-color: #e1646e;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Comfortaa';
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 2px;
+    border-top: 0.5px solid #84b9ef;
+    border-left: 0.5px solid #84b9ef;
+    padding-left: 30px;
+
+}
+
+.btn_explorar:hover{ /* animacion boton*/
+    padding-left: 0%;
+    padding-right: 40px;
+    color: white;
+
+}
+
+.btn_explorar span{ /*formato circulo*/
+    position: absolute;
+    left: 5px;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #e1646e;
+    font-size: 1.5em;
+
+}
+
+.btn_explorar:hover span{ /*animacion circulo*/
+    left: calc(100% - 55px);
+}
+
+
+
