@@ -1,20 +1,133 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Fuentes utilizadas -->
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    <title>ConsoleXpress</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
-
-    <!-- Nombre e icono de sitio web -->
-    <title>ConsoleXpress login</title>
-    <link rel="website icon" type="png" href="images/icon_consola.png">
-
-</head>
-<body>
-   
     
+    <style>
+        
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Contenedor principal que divide la pantalla en dos paneles (izquierdo y derecho) */
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        
+        .left-panel {     
+            background-color: #004182;
+            color: white;
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Estilos específicos para el título dentro del panel izquierdo */
+        .left-panel h1 {       
+            font-size: 32px;      
+            margin-bottom: 20px;  
+            text-align: center;
+            font-family: 'League Spartan'; 
+        }
+
+        /* Estilo del ícono en el panel izquierdo */
+        .left-panel .icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        
+        /* Estilo de la imagen del icono en el panel izquierdo */
+        .left-panel img {
+            width: 82px;
+            height: 82px;
+            filter: brightness(0) invert(1); /* Cambia el icono a color blanco */
+        }
+
+        /* Estilos de los campos de entrada de usuario y contraseña */
+        .left-panel input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 25px;
+            border: none;
+            font-size: 16px;
+            font-family: 'Comfortaa';
+        }
+
+        /* Estilos de los botones dentro del panel izquierdo */
+        .left-panel .btn {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 25px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'Comfortaa';
+        }
+
+        /* Estilos específicos para el botón de "Ingresar" */
+        .left-panel .btn.ingresa {
+            background-color: #e1646e;
+            color: white;
+        }
+
+        /* Estilos para el enlace de "¿Olvidaste la contraseña?" */
+        .left-panel .forgot-password {
+            margin-top: 10px;
+            font-size: 14px;
+            font-family: 'Comfortaa';
+        }
+
+        /* Panel derecho que contiene una imagen de fondo y el botón de registro */
+        .right-panel {
+            width: 60%;
+            background: url('https://www.gamebrothersstore.com/wp-content/uploads/2024/04/mario_red_switch_oled_front.jpg') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 20px;
+        }
+
+        /* Estilo del botón de "Regístrate" en el panel derecho */
+        .right-panel .btn.registrate {
+            background-color: #2f3640;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'Comfortaa';
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Contenedor principal que divide los paneles izquierdo y derecho -->
+    <div class="container">
+        <!-- Panel izquierdo: formulario de inicio de sesión -->
+        <div class="left-panel">  
+            <img src="images/icono_ConsoleXpress" width="82px" height="82px">
+            <h1>¡Bienvenido a<br>ConsoleXpress!</h1>
+            <input type="text" placeholder="Usuario">
+            <input type="password" placeholder="Contraseña">
+            <button class="btn ingresa">Ingresa</button>
+            <div class="forgot-password">¿Olvidaste la contraseña?</div>
+        </div>
+
+        <!-- Panel derecho: imagen de fondo y botón de registro -->
+        <div class="right-panel">
+            <button class="btn registrate">Regístrate</button>
+        </div>
+    </div>
 </body>
 </html>
