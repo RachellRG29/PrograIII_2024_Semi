@@ -1,2 +1,2 @@
 # PrograIII_2024_Semi
-Clases y ejemplo de programación computacional III- semipresencial.
+Bloque 2_ Python
