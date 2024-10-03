@@ -1,3 +1,6 @@
+/*Paleta colores
+azul #004182 - azul2 #225590 - rojo 1 #dc3e57 - rojo 2 #e1646e - amarillo #fbe4c9*/
+
 * { 
     box-sizing: border-box;
 }
@@ -27,13 +30,13 @@ header{
 
 /* Main inicio ConsoleXpress */
 .main_inicio {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    position: relative;
     flex-wrap: nowrap; 
     flex: 1;
-    left: 30px;
+    left: 4.5%;
 }
 
 /* Lado derecho inicio */
@@ -43,6 +46,7 @@ header{
     justify-content: flex-end; 
     flex: 1;
     align-items: flex-end;
+    margin-left: 30px;
 }
 
 /* Ajustes para el flex de inicio, main, derecha y semicuadrado, para visualizar en distintas pantallas */
@@ -98,22 +102,75 @@ header{
     align-self: flex-end; 
 }
 
+/* Imagen consola*/
 .consola_img{
     align-self: center;
     position: relative;
     right: 20px;
-    top: 80px;
-    
+    top: 80px; 
+    opacity: 100%;
 }
 
+.consola_img:hover {
+    display: block;
+    filter: drop-shadow(0 0 4px #fbe4c9);
+}
+
+/* Efecto estrellitas*/
+
+.animation_console img{
+    position: relative;
+    transition: transform .4s;
+    pointer-events: none;
+    z-index: 1;
+}
+
+
+/* estrellitas */
+.animation_sparkle {
+    position: relative;
+    pointer-events: none;
+    transition: transform -3s;
+    filter: drop-shadow(0 0 3px #e1646e);
+}
+
+.star-1{
+    width: 30px;
+    top: -38px;
+    right: -8px;
+    transform: rotate(38deg) scale(.1);
+}
+
+.star-2{
+    width: 50px;
+    right: -480px;
+    top: -390px;
+    transform: rotate(-48deg) scale(.1);
+}
+
+.animation_console:hover img {
+    opacity: 1;
+  }
+  
+  .animation_console:hover .star-1 {
+    transform: scale(1.1);
+    transition-delay: .1s;
+  }
+  
+  .animation_console:hover .star-2 {
+    transform: scale(1.1);
+  }
+  
+
+
+/* icono de consoleXpress */
 .icon_ConsoleXpress{
     display: flex;
-    filter: invert(1); 
+    filter: brightness(0) invert(1);
+    color: white;
     padding: 4px;
     justify-content: center;
-    margin-left: 4px;
-  
-    
+    margin-left: 4px;   
 }
 
 /* Botones de inicio seccion y register- header */
@@ -183,6 +240,3 @@ header{
 .btn_explorar:hover span{ /*animacion circulo*/
     left: calc(100% - 55px);
 }
-
-
-
