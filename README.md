@@ -1,2 +1,2 @@
 # PrograIII_2024_Semi
-Clases y ejemplo de programación computacional III- semipresencial.
+Bloque 2, creacion de rama para parte 2 con python y django
