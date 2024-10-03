@@ -177,6 +177,8 @@ header{
 .btn_login, .btn_register{
     display: inline-block;
     color: white;
+    font-family: 'Comfortaa';
+    font-size: 14px;
     text-decoration: none;
     padding: 6px 10px;
     border: 1px solid #84b9ef;

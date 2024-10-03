@@ -89,6 +89,7 @@
             font-family: 'Comfortaa';
         }
 
+
         /* Panel derecho que contiene una imagen de fondo y el botón de registro */
         .right-panel {
             width: 60%;
@@ -101,15 +102,18 @@
         }
 
         /* Estilo del botón de "Regístrate" en el panel derecho */
-        .right-panel .btn.registrate {
+        .right-panel .btn_registrate {
+            position: absolute;
+            bottom: 20px;
             background-color: #2f3640;
-            color: white;
+            color: #fff;
             padding: 10px 20px;
-            border-radius: 25px;
             border: none;
+            border-radius: 25px;
             font-size: 16px;
             cursor: pointer;
             font-family: 'Comfortaa';
+            text-decoration: none;
         }
     </style>
 </head>
@@ -129,7 +133,7 @@
 
         <!-- Panel derecho: imagen de fondo y botón de registro -->
         <div class="right-panel">
-            <button class="btn registrate">Regístrate</button>
+            <a class="btn_registrate" href="index_register.html"> Regístrate </a>
         </div>
     </div>
 </body>
