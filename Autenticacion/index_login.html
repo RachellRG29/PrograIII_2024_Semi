@@ -128,10 +128,13 @@
         <div class="left-panel">  
             <img src="images/icono_ConsoleXpress.svg" width="82px" height="82px">
             <h1>¡Bienvenido a<br>ConsoleXpress!</h1>
-            <input type="text" placeholder="Usuario">
-            <input type="password" placeholder="Contraseña">
-            <button class="btn ingresa">Ingresa</button>
-            <div class="forgot-password">¿Olvidaste la contraseña?</div>
+
+            <form method="POST" action="/login">
+                <input name="username" placeholder="Nombre" type="text" required />
+                <input name="password" placeholder="Contraseña" type="password" required />
+                <button class="btn ingresa" type="submit">Ingresa</button>
+                <div class="forgot-password">¿Olvidaste la contraseña?</div>
+            </form>
         </div>
 
         <!-- Panel derecho: imagen de fondo y botón de registro -->

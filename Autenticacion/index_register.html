@@ -146,11 +146,12 @@
                     <img src="images/icono_ConsoleXpress.svg" width="82px" height="82px">
                 </div>
             </div>
-            <form>
-                <input placeholder="Nombre" type="text"/>
-                <input placeholder="Correo electrónico" type="email"/>
-                <input placeholder="Contraseña" type="password"/>
-                <input placeholder="Confirmar contraseña" type="password"/>
+
+            <form method="POST" action="/register">
+                <input name="username" placeholder="Nombre" type="text" required />
+                <input name="email" placeholder="Correo electrónico" type="email" required />
+                <input name="password" placeholder="Contraseña" type="password" required />
+                <input name="confirm_password" placeholder="Confirmar contraseña" type="password" required />
                 <button class="register-button" type="submit">Registrar</button>
             </form>
         </div>
