@@ -1,22 +1,33 @@
-from http.server import HTTPServer, SimpleHTTPRequestHandler
-import ssl
+import http.server
+import socketserver
+import os
 
-# Clase que permite inicializar el servidor
-class servidorBasico(SimpleHTTPRequestHandler):
+#puerto 8000
+PORT = 8000
+
+#se establecio el diretorio 
+DIRECTORY = "PrograIII_2024_semi"
+
+class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
+    def translate_path(self, path):
+        #Modifica la ruta para que sirva desde el directorio especificado
+        path = super().translate_path(path)
+        return os.path.join(DIRECTORY, path.lstrip('/'))
+
     def do_GET(self):
+        #Redirige la raíz a la pagina de inicio
         if self.path == '/':
-            self.path = 'index_inicio.html' #para acceder a la pagina de inicio
-        return SimpleHTTPRequestHandler.do_GET(self)
+            self.path = '/index_inicio.html'
+        return super().do_GET()
 
-if __name__ == "__main__":
-    servidor = HTTPServer(('0.0.0.0', 8080), servidorBasico)
+    def list_directory(self, path):
+        #no muestra el listado del directorio
+        self.send_error(403, "Forbidden")
 
-    # Habilitar SSL/TLS
-    servidor.socket = ssl.wrap_socket(servidor.socket,
-                                      keyfile="server.pem",
-                                      certfile="server.pem",
-                                      server_side=True)
+# Configura el manejador de solicitudes
+handler = CustomHTTPRequestHandler
 
-    print("Servidor HTTPS corriendo en el puerto 8080...")
-    servidor.serve_forever()
-
+# Crea el servidor
+with socketserver.TCPServer(("", PORT), handler) as httpd:
+    print(f"Ejecutando en el puerto {PORT}")
+    httpd.serve_forever()
