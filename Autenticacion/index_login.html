@@ -1,7 +1,10 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <!-- Nombre e icono de sitio web -->
-     <title>ConsoleXpress</title>
+     <title>ConsoleXpress Login</title>
      <link rel="website icon" type="png" href="images/icon_consola.png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -89,6 +92,7 @@
             font-family: 'Comfortaa';
         }
 
+
         /* Panel derecho que contiene una imagen de fondo y el botón de registro */
         .right-panel {
             width: 60%;
@@ -101,15 +105,18 @@
         }
 
         /* Estilo del botón de "Regístrate" en el panel derecho */
-        .right-panel .btn.registrate {
+        .right-panel .btn_registrate {
+            position: absolute;
+            bottom: 20px;
             background-color: #2f3640;
-            color: white;
+            color: #fff;
             padding: 10px 20px;
-            border-radius: 25px;
             border: none;
+            border-radius: 25px;
             font-size: 16px;
             cursor: pointer;
             font-family: 'Comfortaa';
+            text-decoration: none;
         }
     </style>
 </head>
@@ -129,7 +136,7 @@
 
         <!-- Panel derecho: imagen de fondo y botón de registro -->
         <div class="right-panel">
-            <button class="btn registrate">Regístrate</button>
+            <a class="btn_registrate" href="index_register.html"> Regístrate </a>
         </div>
     </div>
 </body>
