@@ -1,0 +1,233 @@
+/* Estilo general del cuerpo de la página */
+body {
+    font-family: 'League Spartan';
+    background-color: whitesmoke;
+    margin: 0;
+    padding: 0;
+}
+
+/* Encabezado principal de la página */
+.header {
+    background-color: #e1646e;
+    padding: 2px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Contenedor del logo dentro del encabezado */
+.header .logo {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo de la imagen del logo */
+.header img {
+    height: 55px;
+    width: 55px;
+    margin-right: 10px;
+    filter: invert(1);
+}
+
+/* Estilo del texto ConsoleXpress*/
+.header .logo span {
+    color: whitesmoke;
+    font-size: 23px;
+    font-weight: bold;
+    font-family: 'League Spartan';
+}
+
+/* Contenedor de la barra de búsqueda */
+.header .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+    width: 400px;
+    margin-left: 300px;
+}
+
+/* Estilo del campo input de la barra de búsqueda */
+.header .search-bar input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    flex-grow: 1;
+    font-family: 'Comfortaa';
+}
+
+/* Icono de lupa en la barra de búsqueda */
+.header .search-bar i {
+    color: black;
+}
+
+/* Palabra admin del encabezado */
+.header .admin {
+    display: flex;
+    align-items: center;
+    font-family: 'Comfortaa';
+
+    
+}
+
+/* Icono de la sección de admin */
+.header .admin i {
+    margin-left: 18px;
+    font-size: 20px;
+    
+    
+}
+
+/* Contenido principal de la página */
+.content {
+    padding: 20px;
+}
+
+/* Estilo del texto Productos agregados de ConsoleXpress */
+.content h1 {
+    color: #004182;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'League Spartan';
+}
+
+/* Iconos de flecha izquierda y derecha */
+.content h1 i {
+    font-size: 18px;
+    color: black;
+}
+
+/* Contenedor de las categorías */
+.categories {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 60px;
+}
+
+/* Texto Categorías */
+.categories span {
+    font-size: 18px;
+    color: #004182;
+    margin-right: 18px;
+    font-family: 'Comfortaa';
+}
+
+/* Icono de Categorías */
+.categories i {
+    font-size: 16px;
+    color: #004182;
+    margin-left: -3px;
+}
+
+/* Contenedor de la lista de productos */
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+/* Diseño tarjeta individual de cada producto */
+.product-card {
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 580px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Imagen del producto dentro de las tarjetas */
+.product-card img {
+    width: 170px;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Contenedor de los detalles del producto */
+.product-card .details {
+    padding: 10px;
+    flex-grow: 1;
+    position: relative;
+}
+
+/* Nombre del producto de las tarjetas */
+.product-card .details h2 {
+    margin: 0;
+    font-size: 16px;
+    margin-top: 20px;
+    font-family: 'Comfortaa';
+}
+
+/* Descripción del producto */
+.product-card .details p {
+    margin: 5px 0;
+    font-size: 14px;
+    font-family: 'Comfortaa';
+}
+
+/* Precio del producto  */
+.product-card .details .price {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'League Spartan';
+}
+
+/* Categoría del producto */
+.product-card .details .category {
+    text-align: right;
+    font-size: 13px;
+    font-family: 'Comfortaa';
+}
+
+/* Línea decorativa en los detalles del producto */
+.product-card .details .line {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    width: calc(100% - 20px);
+    height: 2px;
+    background-color: #e1646e;
+}
+
+/* Círculo decorativo en los detalles del producto */
+.product-card .details .circle {
+    position: absolute;
+    top: 5px;
+    right: -3px;
+    width: 10px;
+    height: 10px;
+    background-color: #e1646e;
+    border-radius: 50%;
+}
+
+/* Contenedor de los botones de acción (editar/eliminar) */
+.product-card .actions {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Botones  de las acciones (añadir, editar/eliminar) */
+.product-card .actions button {
+    background-color: #225590;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    width: 47px;
+    height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
