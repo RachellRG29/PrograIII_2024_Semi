@@ -14,7 +14,7 @@
         
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Comfortaa';
         }
 
         /* Contenedor principal que divide la pantalla en dos paneles (izquierdo y derecho) */
@@ -22,8 +22,7 @@
             display: flex;
             height: 100vh;
         }
-
-        
+ 
         .left-panel {     
             background-color: #004182;
             color: white;
@@ -100,10 +99,6 @@
             align-items: center;
         }
 
-       
-
-    
-
         /* Panel derecho que contiene una imagen de fondo y el botón de registro */
         .right-panel {
             width: 60%;
@@ -129,7 +124,38 @@
             font-family: 'Comfortaa';
             text-decoration: none;
         }
+
+        /* Estilo para el diálogo de advertencia */
+        #warning-dialog-login {
+            display: none;
+            position: absolute;
+            top: 60%;
+            transform: translate(2%,50%);
+            background: #dc3e57;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        #warning-dialog-login button {
+            color: white; /* Color del ícono */
+            background: none; 
+            border: none; 
+            cursor: pointer; /* Cambia el cursor al pasar el mouse */
+            font-size: 18px; 
+        }
+
+        /* Alineación del texto y el botón */
+        #warning-dialog-login div {
+            display: flex;
+            align-items: center; 
+            justify-content: space-between; 
+        }
+
     </style>
+    
 </head>
 
 <body>
@@ -139,12 +165,25 @@
         <div class="left-panel">  
             <img src="images/icono_ConsoleXpress.svg" width="82px" height="82px">
             <h1>¡Bienvenido a<br>ConsoleXpress!</h1>
-
-            <form method="POST" action="/login">
+            
+            <form method="POST" action="/login" onsubmit="return handleSubmit();">
                 <input name="username" placeholder="Nombre" type="text" required />
-                <input name="password" placeholder="Contraseña" type="password" required />
+                <input name="password" placeholder="Contraseña" type="password" required>
+
+                    <!-- Diálogo de advertencia -->
+                    <div id="warning-dialog-login">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <p id="error-message">Usuario o contraseña inválido</p>
+                            <button onclick="closeDialog()" style="background: none; border: none; cursor: pointer;">
+                                <i class="fas fa-times"></i> <!-- Ícono de "X" para cerrar el dialogo -->
+                            </button>
+                        </div>
+                    </div>
+                </input>
+
                 <button class="btn ingresa" type="submit">Ingresa</button>
                 <div class="forgot-password">¿Olvidaste la contraseña?</div>
+            
             </form>
         </div>
 
@@ -153,5 +192,9 @@
             <a class="btn_registrate" href="index_register.html"> Regístrate </a>
         </div>
     </div>
+
+
+    <!-- script del login -->
+    <script src="script_login.js"></script>
 </body>
 </html>
