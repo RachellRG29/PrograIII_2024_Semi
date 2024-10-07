@@ -175,7 +175,7 @@
                         <div style="display: flex; align-items: center; justify-content: space-between;">
                             <p id="error-message">Usuario o contraseña inválido</p>
                             <button onclick="closeDialog()" style="background: none; border: none; cursor: pointer;">
-                                <i class="fas fa-times"></i> <!-- Ícono de "X" -->
+                                <i class="fas fa-times"></i> <!-- Ícono de "X" para cerrar el dialogo -->
                             </button>
                         </div>
                     </div>
@@ -185,10 +185,7 @@
                 <div class="forgot-password">¿Olvidaste la contraseña?</div>
             
             </form>
-
         </div>
-
-
 
         <!-- Panel derecho: imagen de fondo y botón de registro -->
         <div class="right-panel">
@@ -196,28 +193,8 @@
         </div>
     </div>
 
-    <script>
-        function handleSubmit() {
-            return true; // Permite el envío del formulario
-        }
 
-        function closeDialog() {
-            document.getElementById('warning-dialog-login').style.display = 'none';
-        }
-
-window.onload = function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const errorMessage = urlParams.get('error');
-
-    if (errorMessage) {
-        document.getElementById('error-message').innerText = errorMessage;
-        document.getElementById('warning-dialog-login').style.display = 'block';
-    }
-};
-
-    </script>
-    
-
+    <!-- script del login -->
     <script src="script_login.js"></script>
 </body>
 </html>

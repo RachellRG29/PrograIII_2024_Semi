@@ -17,8 +17,7 @@
 
 </head>
 <body>
-
-    <!-- Encabezado -->
+        <!-- Encabezado -->
         <header>
             <div>
                 <a class="btn_login" href="Autenticacion/index_login.html">Iniciar sesión</a><!-- login -->
@@ -32,7 +31,7 @@
         </header>
     
 
-    <!-- Cuerpo de la pagina inicio -->
+        <!-- Cuerpo de la pagina inicio -->
     <div class="main_inicio">
         <main>
             
@@ -48,31 +47,70 @@
                 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
             </div>
             
-            <!-- Categorias iconos, pendiente -->
+            <!-- Categorias iconos -->
             <div class="categorias_inicio">
-                
-            </div>
-        </main>
-
-    <!-- Lado derecho de la pagina inicio -->
-        <aside class="derecha_inicio">
-            <div class="semicuadrado_rojo"> 
-
-                <div class="animation_console">
-                    <div class="consola_img"> 
-                        <img src="images/consola_nintendo oled.avif" style="width: 580px;"> 
-    
-                            <div class="animation_sparkle">
-                                <img src="images/sparkle.png" alt="" class="star-1">
-                                <img src="images/sparkle.png" alt="" class="star-2">
-                            </div>
-                    </div> 
-
+                <div class="catg1">
+                    <p>Consolas</p>
+                    <img src="images/relleno_consola.png" class="catg_cons">
                 </div>
 
+                <div class="catg2">
+                    <p>Edición Especial</p>
+                    <img src="/images/relleno_consola_esp.png" class="catg_cons_esp" > 
+                </div>
+
+                <div class="catg3">
+                    <p>Accesorios</p>
+                    <img src="/images/relleno_accesorio_consola.png" class="catg_cons_acc" >
+                </div>
                 
+                <style> 
+                    .categorias_inicio{
+                        display: flex;
+                        justify-content: space-between;
+                        margin-top: 20%;
+                        margin-left: 1%;
+                        margin-right: 1%;
+                        
+                    }
+
+                    .catg1, .catg2, .catg3{
+                        font-family: 'Comfortaa';
+                        font-size: 14px;
+                        color: white;
+                        justify-self: center;
+
+                    }
+
+                    .catg_cons, .catg_cons_esp, .catg_cons_acc{
+                        filter: invert(1);
+                        width: 60px;
+                    }
+                    
+                </style>
             </div>
-        </aside>
+
+        </main>
+
+            <!-- Lado derecho de la pagina inicio -->
+            <aside class="derecha_inicio">
+                <div class="semicuadrado_rojo"> 
+
+                    <div class="animation_console">
+                        <div class="consola_img"> 
+                            <img src="images/consola_nintendo oled.avif" style="width: 580px;"> 
+        
+                                <div class="animation_sparkle">
+                                    <img src="images/sparkle.png" alt="" class="star-1">
+                                    <img src="images/sparkle.png" alt="" class="star-2">
+                                </div>
+                        </div> 
+
+                    </div>
+
+                    
+                </div>
+            </aside>
 
     </div>
     
