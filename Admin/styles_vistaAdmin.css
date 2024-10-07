@@ -1,0 +1,253 @@
+body {
+    font-family: League Spartan;
+    margin: 0;
+    padding: 0;
+}
+
+/* barra encabezado */
+.header {
+    background-color: #e1646e;
+    padding: 2px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+  
+/* Alineación texto ConsoleXpress  */
+.header .logo {
+    display: flex;
+    align-items: center;
+}
+
+
+
+/* estilo texto ConsoleXpress */
+.header .logo span {
+    color: whitesmoke;
+    font-size: 23px;
+    font-weight: bold;
+    font-family: 'League Spartan';
+}
+  
+ /* Cambia color icono de ConsoleXpress  */
+.header img {
+    height: 55px;
+    width: 55px;
+    margin-right: 10px;
+    filter: invert(1);
+}
+
+/* estilo texto Admin */
+.header .admin {
+    display: flex;
+    align-items: center;
+    font-family: 'Comfortaa';
+    color: white;
+}
+
+/* icono de la sección de admin */
+.header .admin i {
+    margin-left: 18px;
+    font-size: 20px;
+}
+
+/* Fondo diseño */
+.container {
+    display: flex;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 2px 20px;
+    position: relative;
+}
+ 
+/* Diseño fondo izquierdo */
+.product-details {
+    flex: 1;
+    padding: 20px;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+  /* Diseño del texto nombre del producto */
+.product-details h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-family: 'Comfortaa';
+}
+
+  /* Diseño del texto Nintendo switch oled */
+.product-details .product-name {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    position: relative;
+    font-family: 'League Spartan';
+}
+
+/* Linea decorativa  */
+.product-details .product-name::after {
+    content: '';
+    display: block;
+    width: 50%;
+    height: 2px;
+    background-color: #e57373;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+}
+
+/* Punto de la linea decorativa */
+.product-details .product-name::before {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: #e57373;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Ubicación elementos debajo de imagen consola */
+.product-details .product-image {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+/* Imagen consola */
+.product-details .product-image img {
+    width: 350px;
+    height: auto;
+    margin-right: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Botón de añadir "+" */
+.product-details .product-image i {
+    font-size: 20px;
+    background-color: black;
+    color: white;
+    border-radius: 55%;
+    padding: 18px;
+    position: relative;
+    z-index: 2;
+    top: 60px;  
+    margin-left: -56px;
+}
+
+/* Rectángulo debajo de la imagen del producto */
+.product-details .product-image::before {
+    content: '';
+    display: block;
+    width: 550px;
+    height: 150px;
+    background-color: #e1646e;
+    position: absolute;
+    left: -70px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 0;
+}
+
+ /* Diseño precio del producto  */
+.product-details .product-price {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-left: 400px;
+    position: relative;
+    top: -36px; 
+    font-family: 'League Spartan';
+}
+
+/* Diseño descripción del producto */
+.product-details .product-description {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-family: 'Comfortaa';
+}
+
+/* Diseño formulario de información del producto */
+.product-form {
+    flex: 1;
+    padding: 30px;
+    background-color: #84b9ef;
+    border-radius: 0px;
+    max-width: 370px;
+    transform: translateX(-60px);
+    min-height: 472px; 
+    margin-top: -22px;
+    position: relative;
+}
+ 
+  /* Texto de agregar producto en ConsoleXpress */
+.product-form h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    margin-left: 50px;
+}
+
+/* Input información del producto */
+.product-form label {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 5px;
+    font-family: 'League Spartan';
+}
+
+
+/* Diseño información input del producto */
+.product-form input, .product-form select {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px;
+    border-radius: 5px;
+    font-family: 'Comfortaa';
+    font-size: 15px;
+    background-color: whitesmoke;
+    box-sizing: border-box;
+}
+
+/* Botón de guardar producto */
+.product-form .save-button {
+    background-color: #e1646e;
+    color: white;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: right;
+    display: block;
+    margin-left: auto;
+    font-family: 'Comfortaa';
+}
+
+/* flechas izquierda y derecha */
+.arrow-left, .arrow-right {
+    position: absolute;
+    top: 10px;
+    font-size: 18px;
+    background-color: transparent;
+    color: black;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+ 
+/* flecha izquierda */
+.arrow-left {
+    left: -20px;
+}
+
+/* flecha derecha */
+.arrow-right {
+    right: -20px;
+}
