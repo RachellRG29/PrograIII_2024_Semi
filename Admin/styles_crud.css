@@ -13,12 +13,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-/* Contenedor del logo dentro del encabezado */
-.header .logo {
-    display: flex;
     align-items: center;
+    padding: auto;
 }
 
 /* Estilo de la imagen del logo */
@@ -27,6 +23,12 @@ body {
     width: 55px;
     margin-right: 10px;
     filter: invert(1);
+}
+
+/* Contenedor del logo dentro del encabezado */
+.logo {
+    display: flex;
+    align-items: center;
 }
 
 /* Estilo del texto ConsoleXpress*/
@@ -53,6 +55,7 @@ body {
     border: none;
     outline: none;
     padding: 5px;
+    display: flex;
     flex-grow: 1;
     font-family: 'Comfortaa';
 }
@@ -74,9 +77,7 @@ body {
 /* Icono de la sección de admin */
 .header .admin i {
     margin-left: 18px;
-    font-size: 20px;
-    
-    
+    font-size: 20px; 
 }
 
 /* Contenido principal de la página */
@@ -88,15 +89,7 @@ body {
 .content h1 {
     color: #004182;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
     font-family: 'League Spartan';
-}
-
-/* Iconos de flecha izquierda y derecha */
-.content h1 i {
-    font-size: 18px;
-    color: black;
 }
 
 /* Contenedor de las categorías */
@@ -217,8 +210,8 @@ body {
     gap: 5px;
 }
 
-/* Botones  de las acciones (añadir, editar/eliminar) */
-.product-card .actions button {
+/*Boton plus*/
+.product-card .actions .btn_plus .btn_pen .btn_delete{
     background-color: #225590;
     border: none;
     color: white;
@@ -230,4 +223,3 @@ body {
     justify-content: center;
     cursor: pointer;
 }
-

@@ -34,7 +34,7 @@
         <!-- Detalles producto -->
         <div class="product-details">
             <h2>Nombre del producto:</h2>
-            <div class="product-name">Nintendo switch oled</div>
+            <input class="product-name" type="text" placeholder="Nintendo switch oled"></input>
             <div class="product-image">
                 <img alt="Nintendo Switch OLED" height="450" src="images/consola_nintendo oled.avif" width="450"/>
                 <i class="fas fa-plus"></i>
@@ -52,7 +52,7 @@
         <div class="product-form">
             <h2>Agregar producto en ConsoleXpress</h2>
             <label for="codigo">Código:</label>
-            <input id="codigo" readonly type="text" value="USSS2332"/>
+            <input id="codigo" type="text" placeholder="USSS2332"/>
             <label for="categoria">Categoría:</label>
             <select id="categoria">
                 <option value="especial">Edición Especial</option>
@@ -60,7 +60,7 @@
                 <option value="especial">Consolas</option>
             </select>
             <label for="marca">Marca:</label>
-            <input id="marca" readonly type="text" value="Nintendo"/>
+            <input id="marca" type="text" placeholder="Nintendo"/>
             <label for="stock">Stock:</label>
             <input id="stock" type="number" value="1"/>
             <button class="save-button">Guardar</button>
@@ -70,5 +70,7 @@
             <i class="fas fa-chevron-right"></i>
         </div>
     </div>
+
+    <script src="script_vista_admi.js"></script>
 </body>
 </html>

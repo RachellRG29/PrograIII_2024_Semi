@@ -85,7 +85,6 @@ body {
   /* Diseño del texto Nintendo switch oled */
 .product-details .product-name {
     font-size: 28px;
-    font-weight: bold;
     margin-bottom: 10px;
     position: relative;
     font-family: 'League Spartan';
@@ -95,7 +94,7 @@ body {
 .product-details .product-name::after {
     content: '';
     display: block;
-    width: 50%;
+    width: 60%;
     height: 2px;
     background-color: #e57373;
     position: absolute;
@@ -193,6 +192,7 @@ body {
     min-height: 472px; 
     margin-top: -22px;
     height: 100%;
+    justify-content: center;
 
 }
  
@@ -201,6 +201,7 @@ body {
     font-size: 28px;
     margin-bottom: 20px;
     margin-left: 50px;
+    text-justify: inter-cluster;
 }
 
 /* Input información del producto */
@@ -226,7 +227,7 @@ body {
 }
 
 /* Botón de guardar producto */
-.product-form .save-button {
+.save-button {
     background-color: #e1646e;
     color: white;
     padding: 10px 10px;
