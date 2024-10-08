@@ -1,21 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Fuentes utilizadas -->
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-        
-    <!-- Nombre e icono de sitio web -->
-    <title>Tienda ConsoleXpress</title>
-    <link rel="website icon" type="png" href="images/icon_consola.png">
-
+    <title>ConsoleXpress</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Conecta el CSS externo -->
 </head>
 <body>
-    
+    <!-- Encabezado: Logo, barra de búsqueda, y opciones de usuario -->
+    <header class="header">
+        <div class="logo">
+            <img src="console-icon.png" alt="Console Icon"> <!-- Imagen del logo -->
+            <span>ConsoleXpress</span> <!-- Nombre de la tienda -->
+        </div>
+        <input type="search" placeholder="Buscar" class="search-bar"> <!-- Barra de búsqueda -->
+        <div class="admin">
+            <i class="fa fa-shopping-cart"></i> <!-- Icono carrito -->
+            <i class="fa fa-user"></i> <!-- Icono usuario -->
+        </div>
+    </header>
+
+    <!-- Contenedor principal -->
+    <main class="container">
+        <h2>Productos Disponibles</h2> <!-- Título de la sección de productos -->
+        <!-- Grilla de productos -->
+        <div class="product-grid">
+            <!-- Tarjeta de producto 1 -->
+            <div class="product-card">
+                <img src="nintendo-oled-red.png" alt="Nintendo Switch OLED Red">
+                <h3>Nintendo switch oled</h3> <!-- Nombre del producto -->
+                <p class="price">$400</p> <!-- Precio -->
+                <p class="category">Categoria normal</p> <!-- Categoría -->
+                <p class="description">Lorem Ipsum is simply dummy text...</p> <!-- Descripción -->
+            </div>
+            <!-- Tarjeta de producto 2 -->
+            <div class="product-card">
+                <img src="nintendo-oled-special.png" alt="Nintendo Switch OLED Special">
+                <h3>Nintendo switch oled</h3>
+                <p class="price">$400</p>
+                <p class="category">Categoria especial</p>
+                <p class="description">Lorem Ipsum is simply dummy text...</p>
+            </div>
+            <!-- Tarjeta de producto 3 -->
+            <div class="product-card">
+                <img src="nintendo-oled-special-red.png" alt="Nintendo Switch OLED Special Red">
+                <h3>Nintendo switch oled</h3>
+                <p class="price">$400</p>
+                <p class="category">Categoria especial</p>
+                <p class="description">Lorem Ipsum is simply dummy text...</p>
+            </div>
+            <!-- Tarjeta de producto 4 -->
+            <div class="product-card">
+                <img src="console-kit.png" alt="Console Accessory Kit">
+                <h3>Kit accesorios consola</h3>
+                <p class="price">$99</p>
+                <p class="category">Categoria accesorios</p>
+                <p class="description">Lorem Ipsum is simply dummy text...</p>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
