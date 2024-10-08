@@ -1,7 +1,7 @@
-//--- LOGICA DEL SCRIPT DEL LOGIN----
-//boton cerrar advertencia login error contra o usuario
+//--- LOGICA DEL SCRIPT DEL REGISTER----
+//boton cerrar advertencia register usuario registrado existente
 function closeDialog() {
-    document.getElementById('warning-dialog-login').style.display = 'none'; 
+    document.getElementById('warning-dialog-register').style.display = 'none';
 }
 
 window.onload = function() {
@@ -10,16 +10,12 @@ window.onload = function() {
 
     if (errorMessage) {
         document.getElementById('error-message').innerText = errorMessage;
-        document.getElementById('warning-dialog-login').style.display = 'block';
+        document.getElementById('warning-dialog-register').style.display = 'block';
     }
 };
 
-function handleSubmit() {
-    return true; // Permite el envío del formulario
-}
 
-//visile la contra
-/*function togglePassword() {
+function togglePassword() {
     const passwordInput = document.getElementById('password');
     const passwordIcon = document.getElementById('password-icon');
     
@@ -32,4 +28,4 @@ function handleSubmit() {
         passwordIcon.classList.remove('fa-eye-slash');
         passwordIcon.classList.add('fa-eye'); // Cambia al icono de ojo abierto
     }
-}*/
+}

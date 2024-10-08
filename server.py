@@ -41,9 +41,9 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Location', '/Autenticacion/index_login.html')
             self.end_headers()
         else:
-            self.send_response(400)  # Bad request
+            self.send_response(302)
+            self.send_header('Location', f'/Autenticacion/index_register.html?error={message}')
             self.end_headers()
-            self.wfile.write(message.encode('utf-8'))
 
     # En el método handle_login
     def handle_login(self):

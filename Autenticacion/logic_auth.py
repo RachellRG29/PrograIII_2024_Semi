@@ -48,10 +48,8 @@ def handle_register(post_data):
     cursor.execute("SELECT * FROM register WHERE username=%s", (username,))
     existing_user = cursor.fetchone()
     if existing_user:
-        print("Error: El nombre de usuario ya está registrado.")
-        return False, 'El nombre de usuario ya está registrado.'
+        return False, 'Usuario registrado, intente nuevamente'
     
-
     # Inserta el registro en la tabla register
     try:
         cursor.execute("INSERT INTO register (username, email, password, confirm_password) VALUES (%s, %s, %s, %s)", (username, email, password, confirm_password))
