@@ -16,7 +16,7 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         return os.path.join(DIRECTORY, path.lstrip('/'))
 
     def do_GET(self):
-        # Redirige la raíz a la página de inicio
+        # se redirige a la pagina de inicio
         if self.path == '/':
             self.path = '/index_inicio.html'
         return super().do_GET()
@@ -54,15 +54,19 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         success, message = logic_auth.handle_login(post_data)
 
         if success:
-            self.send_response(302)
-            self.send_header('Location', '/Pantalla_princ/index_pant_prin.html')
+            # Si es admin, redirige a crud_admi.html
+            if message == 'Admin':
+                self.send_response(302)
+                self.send_header('Location', '/Admin/crud_admi.html')
+            else:
+                self.send_response(302)
+                self.send_header('Location', '/Pantalla_princ/index_pant_prin.html')
             self.end_headers()
         else:
             # Redirige con un mensaje de error en la URL
             self.send_response(302)
             self.send_header('Location', f'/Autenticacion/index_login.html?error={message}')
             self.end_headers()
-
 
         def list_directory(self, path):
             # No muestra el listado del directorio

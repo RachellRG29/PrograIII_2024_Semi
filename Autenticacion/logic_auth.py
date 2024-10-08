@@ -18,8 +18,10 @@ def db_connect():
 def handle_register(post_data):
     data = parse_qs(post_data.decode('utf-8'))
 
+    print("Datos recibidos:", data)
+
     if 'username' not in data or 'email' not in data or 'password' not in data or 'confirm_password' not in data:
-        return False, 'Missing fields in registration form.'
+        return False, 'Faltan campos en el registro.'
 
     username = data['username'][0]
     email = data['email'][0]
@@ -28,15 +30,27 @@ def handle_register(post_data):
 
     if password != confirm_password:
         return jsonify({
-            "message": "por favor ingrese su contraseña",
-            "success": False
+            "message": "por favor ingrese su contraseña", #return False, 'Las contraseñas no concuerdan :c'
+            "success": False 
         })
-
-    #return False, 'Las contraseñas no concuerdan :c'
-
+    
     # Conectar a la base de datos
-    conn = db_connect()
-    cursor = conn.cursor()
+    try:
+        conn = db_connect()
+        cursor = conn.cursor()
+        print("Conexión a la base de datos exitosa.")
+    except mysql.connector.Error as err:
+        print(f"Error al conectar a la base de datos: {err}")
+        return False, f"Error al conectar a la base de datos: {err}"
+
+
+    # Verificar si el usuario ya existe
+    cursor.execute("SELECT * FROM register WHERE username=%s", (username,))
+    existing_user = cursor.fetchone()
+    if existing_user:
+        print("Error: El nombre de usuario ya está registrado.")
+        return False, 'El nombre de usuario ya está registrado.'
+    
 
     # Inserta el registro en la tabla register
     try:
@@ -53,6 +67,7 @@ def handle_register(post_data):
 
     return success, message
 
+#---------Login-----------------------------------------------------------
 # Maneja el inicio de sesión
 def handle_login(post_data):
     data = parse_qs(post_data.decode('utf-8'))
@@ -67,14 +82,22 @@ def handle_login(post_data):
     conn = db_connect()
     cursor = conn.cursor()
 
-    # Verifica el login
-    cursor.execute("SELECT * FROM register WHERE username=%s AND password=%s", (username, password))
-    user = cursor.fetchone()
+    try:
+        # Verifica el login
+        cursor.execute("SELECT * FROM register WHERE username=%s AND password=%s", (username, password))
+        user = cursor.fetchone()
 
-    cursor.close()
-    conn.close()
-
-    if user:
-        return True, 'Inicio de sesión exitoso.'
-    else:
-        return False, 'Usuario o contraseña incorrectos.'
+        if user:
+            if username=="Admin":
+                return True, 'Admin'
+            else: 
+                return True, 'Inicio de sesión exitoso'
+        else:
+            return False, 'Usuario o contraseña incorrectos'    
+       
+    except mysql.connector.Error as err:
+        print(f"Error en la base de datos: {err}")
+        return False, 'Error en la base de datos.'
+    finally:
+        cursor.close()
+        conn.close()

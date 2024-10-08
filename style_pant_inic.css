@@ -108,7 +108,6 @@ header{
     position: relative;
     right: 20px;
     top: 80px; 
-    opacity: 100%;
 }
 
 .consola_img:hover {
@@ -175,7 +174,25 @@ header{
 
 
 /* Botones de inicio seccion y register- header */
-.btn_login, .btn_register{
+.btn_login{
+    color: white;
+    background-color: #dc3e57;
+    font-family: 'Comfortaa';
+    font-size: 14px;
+    text-decoration: none;
+    padding: 6px 10px;
+    border: 1px solid #84b9ef;
+    border-radius: 10px;
+    margin-left: 4px;
+    margin-right: 4px; 
+}
+
+.btn_login:hover{
+    filter: drop-shadow(0 0 10px #dc3e57);
+    transition: all 1s;
+}
+
+.btn_register{
     display: inline-block;
     color: white;
     font-family: 'Comfortaa';
@@ -194,6 +211,7 @@ header{
 
 @keyframes pulsate{
     0%{ background-color: #dc3e57; }
+    10%{filter: blur(1);}
 }
 
 /* Boton explorar */

@@ -2,6 +2,8 @@ body {
     font-family: League Spartan;
     margin: 0;
     padding: 0;
+    max-height: 100%;
+    height: 100%;   
 }
 
 /* barra encabezado */
@@ -11,6 +13,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 0;
+    
 }
   
 /* Alineación texto ConsoleXpress  */
@@ -18,8 +22,6 @@ body {
     display: flex;
     align-items: center;
 }
-
-
 
 /* estilo texto ConsoleXpress */
 .header .logo span {
@@ -58,6 +60,10 @@ body {
     border-radius: 10px;
     margin: 2px 20px;
     position: relative;
+    height: 85vh; 
+    min-width: 85vh;
+    padding-bottom: 0;
+
 }
  
 /* Diseño fondo izquierdo */
@@ -176,14 +182,18 @@ body {
 /* Diseño formulario de información del producto */
 .product-form {
     flex: 1;
-    padding: 30px;
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 0;
     background-color: #84b9ef;
     border-radius: 0px;
     max-width: 370px;
     transform: translateX(-60px);
     min-height: 472px; 
     margin-top: -22px;
-    position: relative;
+    height: 100%;
+
 }
  
   /* Texto de agregar producto en ConsoleXpress */
