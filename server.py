@@ -2,6 +2,7 @@ import http.server
 import socketserver
 import os
 import Autenticacion.logic_auth as logic_auth #importamos la logica del login y register
+import Admin.logic_crud as logic_crud #La logica del crud 
 from urllib.parse import parse_qs
 
 PORT = 3307
