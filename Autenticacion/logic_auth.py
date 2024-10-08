@@ -83,10 +83,10 @@ def handle_login(post_data):
     try:
         # Verifica el login
         cursor.execute("SELECT * FROM register WHERE username=%s AND password=%s", (username, password))
-        user = cursor.fetchone()
+        user = cursor.fetchall()
 
         if user:
-            if username=="Admin":
+            if username=="Admin" and password=="admin1234":
                 return True, 'Admin'
             else: 
                 return True, 'Inicio de sesión exitoso'

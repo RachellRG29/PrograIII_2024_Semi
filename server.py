@@ -6,7 +6,7 @@ from urllib.parse import parse_qs
 
 PORT = 3307
 
-# Se estableció el directorio
+#Directorio del repositorio, ConsoleXpress
 DIRECTORY = "PrograIII_2024_semi"
 
 class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
@@ -25,7 +25,7 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         if self.path == '/register':
             self.handle_register()
         elif self.path == '/login':
-            self.handle_login()
+            self.handle_login() 
         else:
             self.send_error(404, "No encontrado :c ")
 
@@ -58,6 +58,7 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             if message == 'Admin':
                 self.send_response(302)
                 self.send_header('Location', '/Admin/crud_admi.html')
+                self.end_headers()
             else:
                 self.send_response(302)
                 self.send_header('Location', '/Pantalla_princ/index_pant_prin.html')
