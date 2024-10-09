@@ -210,8 +210,7 @@ body {
     gap: 5px;
 }
 
-/*Boton plus*/
-.product-card .actions .btn_plus .btn_pen .btn_delete{
+button .actions, .btn_plus {
     background-color: #225590;
     border: none;
     color: white;
@@ -222,4 +221,18 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+}
+
+button .actions, .btn_pen, .btn_delete{
+    display: flex;
+    background-color: #225590;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    width: 47px;
+    height: 47px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 10px;
 }
