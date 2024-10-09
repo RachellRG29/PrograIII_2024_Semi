@@ -8,11 +8,12 @@ body {
 
 /* Encabezado */
 .header {
-    background-color: #b71c1c; /* Fondo rojo oscuro */
-    padding: 10px 20px;
+    background-color: #e1646e; /* Fondo rojo oscuro */
+    padding: 2px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin:0;
 }
 
 .logo {
