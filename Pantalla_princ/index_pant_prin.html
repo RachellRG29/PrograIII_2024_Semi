@@ -1,62 +1,102 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ConsoleXpress</title>
-    <link rel="stylesheet" href="styles_pant_princ.css"> <!-- Conecta el CSS externo -->
+    <title>Pantalla principal ConsoleXpress</title>
+    <!-- Fuentes  -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Vinculación del archivo CSS -->
+    <link rel="stylesheet" href="styles_pantalla.css">
+    <link rel="website icon" type="png" href="Images/icon_consola.png">
+    <style>
+        /* Estilos para el botón circular del carrito */
+
+    </style>
 </head>
 <body>
-    <!-- Encabezado: Logo, barra de búsqueda, y opciones de usuario -->
-    <header class="header">
+    <!-- Header: Logo, barra de búsqueda y perfil Admin -->
+    <div class="header">
         <div class="logo">
+            <!-- Logo de ConsoleXpress -->
+            <img alt="ConsoleXpress Logo" height="50" src="images/icono_ConsoleXpress.svg" width="40"/>
+            <span>ConsoleXpress</span>
+        </div>
+        <div class="search-bar">
+            <!-- Barra de búsqueda -->
+            <input placeholder="Buscar" type="text"/>
+            <i class="fas fa-search"></i>
             <img alt="ConsoleXpress Logo" height="50" src="images/icono_ConsoleXpress.svg" width="40"/>  <!-- Imagen del logo -->
             <span>ConsoleXpress</span> <!-- Nombre de la tienda -->
         </div>
-        <input type="search" placeholder="Buscar" class="search-bar"> <!-- Barra de búsqueda -->
         <div class="admin">
-            <i class="fa fa-shopping-cart"></i> <!-- Icono carrito -->
-            <i class="fa fa-user"></i> <!-- Icono usuario -->
+            <!-- Sección Admin -->
+            <span style="color: white;">Admin</span>
+            <i class="fas fa-user" style="color: white;"></i>
         </div>
-    </header>
+    </div>
 
-    <!-- Contenedor principal -->
-    <main class="container">
-        <h2>Productos Disponibles</h2> <!-- Título de la sección de productos -->
-        <!-- Grilla de productos -->
-        <div class="product-grid">
-            <!-- Tarjeta de producto 1 -->
+
+    <!-- Contenido principal: Título de la página y productos -->
+    <div class="content">
+        <!-- Título de la sección -->
+        <h1>Productos disponibles</h1>
+
+        <!-- Sección de categorías -->
+        <div class="categories">
+            <span>Categorías</span>
+            <i class="fas fa-chevron-down"></i>
+
+
+        <!-- Lista de productos -->
+
+            <!-- Tarjeta 2 -->
+            <div class="card-consola">
+                <!-- Tarjeta de producto 1 -->
             <div class="product-card">
-                <img src="https://th.bing.com/th/id/OIP.x-2t_ymeGizE7kyucCF1XAHaHa?rs=1&pid=ImgDetMain" alt="Nintendo Switch OLED Red" width="40">
-                <h3>Nintendo switch oled</h3> <!-- Nombre del producto -->
-                <p class="price">$400</p> <!-- Precio -->
-                <p class="description">Lorem Ipsum is simply dummy text...</p> <!-- Descripción -->
+                <!-- Imagen de producto -->
+                <img alt="Product Image" height="150" src="https://img.freepik.com/foto-gratis/vista-controlador-videojuegos-3d_23-2151005755.jpg?w=826&t=st=1728005864~exp=1728006464~hmac=37131993c2fb7c7ff113f98c05fef11fc637031eec311bbcd7495943db7771e1" width="150"/>
+                <div class="details">
+                    <div class="line"></div>
+                    <div class="circle"></div>
+                    <h2>Nintendo switch oled</h2>
+                    <p class="price">$400</p>
+                    <p class="category">Categoria especial</p>
+                    <p>Consola especial, color rosa con blanco.</p>
+                </div>
             </div>
-            <!-- Tarjeta de producto 2 -->
-            <div class="product-card">
-                <img src="https://th.bing.com/th/id/OIP.ogfqBfIhuYo2a81VAiNUtwAAAA?rs=1&pid=ImgDetMain" alt="Nintendo Switch OLED Special" width="40">
-                <h3>Nintendo switch oled</h3>
-                <p class="price">$400</p>
-                <p class="category">Categoria especial</p>
-                <p class="description">Lorem Ipsum is simply dummy text...</p>
-            </div>
-            <!-- Tarjeta de producto 3 -->
-            <div class="product-card">
-                <img src="https://cdn.awsli.com.br/800x800/1610/1610163/produto/216599891/switchs-061-a-tyab6byjsl.jpg" alt="Nintendo Switch OLED Special Red" width="40">
-                <h3>Nintendo switch oled</h3>
-                <p class="price">$400</p>
-                <p class="category">Categoria especial</p>
-                <p class="description">Lorem Ipsum is simply dummy text...</p>
-            </div>
-            <!-- Tarjeta de producto 4 -->
-            <div class="product-card">
-                <img src="https://images-na.ssl-images-amazon.com/images/I/51AdJHvxPuL.jpg" alt="Console Accessory Kit" width="40">
-                <h3>Kit accesorios consola</h3>
-                <p class="price">$99</p>
-                <p class="category">Categoria accesorios</p>
-                <p class="description">Lorem Ipsum is simply dummy text...</p>
-            </div>
+                    <!-- Botón de carrito -->
+                    <button class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
         </div>
-    </main>
+            
+            <div class="card-consola">
+                    <!-- Tarjeta de producto 2 -->
+                <div class="product-card">
+                    <!-- Imagen de producto -->
+                    <img alt="Nintendo switch oled" height="150" src="https://storage.googleapis.com/a1aa/image/IGYeeZGaBTg1TkgWoiTClrvPUEooA88pJtrwsfc37jFMb5FnA.jpg" width="150"/>
+                    <div class="details">
+                        <div class="line"></div>
+                        <div class="circle"></div>
+                        <h2>Nintendo switch oled</h2>
+                        <p class="price">$400</p>
+                        <p class="category">Categoria especial</p>
+                        <p>Consola especial, color rosa con blanco.</p>
+                    </div>
+                </div>
+                        <!-- Botón de carrito -->
+                        <button class="cart-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+            </div>
+
+        </div> <!-- cierra product-list -->
+
+    </div>  <!-- cierra content -->
+
+    <script src="script_admi.js"></script>
 </body>
 </html>
