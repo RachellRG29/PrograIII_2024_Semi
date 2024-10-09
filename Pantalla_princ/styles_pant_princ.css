@@ -7,7 +7,7 @@ body {
 }
 
 /* Encabezado */
-.header {
+.header  {
     background-color: #e1646e; /* Fondo rojo oscuro */
     padding: 2px 20px;
     display: flex;
@@ -16,7 +16,7 @@ body {
     margin:0;
 }
 
-.logo {
+header.logo {
     display: flex;
     align-items: center;
 }
@@ -26,10 +26,11 @@ body {
     margin-right: 10px; /* Espacio entre imagen y texto */
 }
 
-.logo span {
+.header.logo span {
     color: whitesmoke; /* Texto color blanco */
-    font-size: 24px; /* Tamaño del texto */
+    font-size: 23px; /* Tamaño del texto */
     font-weight: bold;
+    font-family: 'League Spartan';
 }
 
 /* Barra de búsqueda */
@@ -41,10 +42,13 @@ body {
     border-radius: 5px;
 }
 
-.admin i {
+.header.admin i {
+    display: flex;
+    align-items: center;
+    font-family: comfortaa;
     color: white;
-    margin-left: 20px;
-    font-size: 24px; /* Tamaño iconos */
+    margin-left: 18px;
+    font-size: 20px; /* Tamaño iconos */
 }
 
 /* Contenedor principal */
