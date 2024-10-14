@@ -1,0 +1,28 @@
+body{
+    background-color: #22222b;
+    font-family: 'Plus Jakarta Sans'; 
+}
+
+table tr td{
+    vertical-align: middle;
+}
+td button{
+    margin: 5px;
+}
+
+td button i{
+    font-size: 18px;
+}
+
+.modal-header{
+    background-color: #fa425a;
+    color: white;
+}
+
+.modal-body form{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0;
+}
+
