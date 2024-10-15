@@ -1,132 +1,240 @@
 <!doctype html>
-<html lang="en">
-  <head>
+<html lang="es">
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--Bootstrap css-->
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!--Bootstrap icon-->
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'pelicula/style.css' %}">
     <link rel="icon" href="{% static 'icon_cinta.png' %}" type="image/png">
 
-    <title>Registro de peliculas</title>
-
-  </head>
-  <body>
+    <title>Registro de Películas</title>
+    
+    <header>
+        <img src="{% static 'icon_cinta.png' %}" alt="Logo Película" class="logo_pelicula">
+        <label for="lbl_peli">Películas</label>
+    </header>
+</head>
+<body>
 
     <section class="p-3">
         <div class="row">
             <div class="col-12">
-                <button class="btn btn-danger btn-outline-light" data-bs-toggle="modal" data-bs-target="#peliculaform">Agregar <i class="bi bi-plus-lg"></i></button>
+                <!-- Botón para agregar nueva película -->
+                <button class="btn btn-danger btn-outline-light" data-bs-toggle="modal" data-bs-target="#peliculaform">
+                    Agregar <i class="bi bi-plus-lg"></i>
+                </button>
             </div>
         </div>
-        <!-- Tabla para agregar las peliculas-->
+
+        <!-- Tabla para mostrar las películas -->
         <div class="row">
             <div class="col-12">
                 <table class="table table-dark table-hover mt-4 text-center border border-danger-subtle">
-                   <thead>
-                    <tr>
-                        <th>N_id</th>
-                        <th>Imagen</th>
-                        <th>Título</th>
-                        <th>Descripción</th>
-                        <th>Categoria</th>
-                        <th>Clasificación</th>
-                        <th>Fecha de estreno</th>
-                        <th>Director</th>
-                        <th>Duración</th>
-                        <th>Idioma</th>
-                        <th>Acciones</th>
-                    </tr>
-                   </thead>
+                    <thead>
+                        <tr>
+                            <th>N_id</th>
+                            <th>Imagen</th>
+                            <th>Título</th>
+                            <th>Descripción</th>
+                            <th>Categoría</th>
+                            <th>Clasificación</th>
+                            <th>Fecha de Estreno</th>
+                            <th>Director</th>
+                            <th>Duración</th>
+                            <th>Idioma</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
 
-                    <!-- datos manual-->
-                   <tbody id="data">
-                    <td>132343</td>
-                    <td><img src="{% static 'pelicula_ponyo.png' %}" alt="" width="100" height="150"></td>
-                    <td>Ponyo</td>
-                    <td>La historia se centra en una criatura marina similar a un pez dorado llamada Ponyo, 
-                        quien conoce y traba amistad con un niño de cinco años, Sōsuke,
-                        y desea convertirse en niña.</td>
-                    <td>Infantil</td>
-                    <td>Para toda la familia</td>
-                    <td>19/06/2008</td>
-                    <td>Hayao Miyazaki</td>
-                    <td>1h 43m</td>
-                    <td>Japones</td>
-                    <td>
-                        <button class="btn btn-success"><i class="bi bi-eye-fill"></i></button>
-                        <button class="btn btn-secondary"><i class="bi bi-pen-fill"></i></button>
-                        <button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
-                    </td>
-
-                   </tbody>
-
+                    <tbody id="data">
+                        {% for pelicula in peliculas %}
+                        <tr>
+                            <td>{{ pelicula.N_id }}</td>
+                            <td><img src="{{ pelicula.imagen.url }}" alt="Imagen Película" width="100" height="150"></td>
+                            <td>{{ pelicula.titulo }}</td>
+                            <td>{{ pelicula.descripcion }}</td>
+                            <td>{{ pelicula.categoria }}</td>
+                            <td>{{ pelicula.clasificacion }}</td>
+                            <td>{{ pelicula.fecha_estreno }}</td>
+                            <td>{{ pelicula.director }}</td>
+                            <td>{{ pelicula.duracion }} min</td>
+                            <td>{{ pelicula.idioma }}</td>
+                            <td>
+                                <!-- Botones de acciones -->
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#pelicularead" onclick="verPelicula('{{ pelicula.N_id }}')">
+                                    <i class="bi bi-eye-fill"></i>
+                                </button>
+                                <button class="btn btn-secondary" onclick="editarPelicula('{{ pelicula.N_id }}')">
+                                    <i class="bi bi-pen-fill"></i>
+                                </button>
+                                <button class="btn btn-danger" onclick="eliminarPelicula('{{ pelicula.N_id }}')">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="11">No hay películas registradas.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
         </div>
     </section>
     
-
-    <!-- Form para crear el registro individual de las peliculas -->
-     <div class="modal fade" id="peliculaform">
+    <!-- Modal para agregar nueva película -->
+    <div class="modal fade" id="peliculaform">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
-
                 <div class="modal-header">
-                    <h3 class="modal-title">Agrega la pelicula</h3>
-                    <button type="button" class="btn-close" data-bg-dismiss="modal" aria-label="Close"></button>
+                    <h3 class="modal-title">Agregar Película</h3>
+                    <!--<button type="button" class="btn-close" data-bg-dismiss="modal" aria-label="Close"></button>-->
                 </div>
 
-                <!-- Form inputs de las peliculas-->
-                <div class="modal-body">       
-                    <form action="#" id="myForm">
+                <div class="modal-body">
+                    <form action="{% url 'peliculas' %}" method="POST" enctype="multipart/form-data" id="myForm">
+                        {% csrf_token %}
+                        <!-- Input para imagen -->
                         <div class="card imgHolder">
-                            <label for="imgHolder" class="upload">
-                                <input type="file" name="" id="imgImput">
-                                <i class="bi bi-plus-circle-fill"></i>
-                                <img src="{% static 'icon_agregar_peli.png' %}" alt="" width="100">
+                            <label for="imgInput" class="upload">
+                                <input type="file" name="imagen" id="imgInput" required>
+                                <img src="{% static 'icon_agregar_peli.png' %}" alt="Icono agregar película" width="200" height="200">
                             </label>
                         </div>
 
-                        <!-- columnas de las peliculas minuto 10-->
+                        <!-- Campos del formulario -->
                         <div class="inputField">
                             <div>
-                                <label for="titulo">Título: </label>
-                                <input type="text" name="" id="titulo">
+                                <label for="titulo">Título:</label>
+                                <input type="text" name="titulo" id="titulo" maxlength="100" required>
                             </div>
 
                             <div>
                                 <label for="descripcion">Descripción:</label>
-                                <input type="text" name="" id="descripcion">
+                                <textarea name="descripcion" id="descripcion" rows="3" required></textarea>
                             </div>
 
                             <div>
                                 <label for="categoria">Categoría:</label>
-                                <input type="text" name="" id="categoria">
+                                <input type="text" name="categoria" id="categoria" maxlength="100" required>
                             </div>
 
+                            <div>
+                                <label for="clasificacion">Clasificación:</label>
+                                <input type="text" name="clasificacion" id="clasificacion" maxlength="20" required>
+                            </div>
+
+                            <div>
+                                <label for="fecha_estreno">Fecha de Estreno:</label>
+                                <input type="date" name="fecha_estreno" id="fecha_estreno" required>
+                            </div>
+
+                            <div>
+                                <label for="director">Director:</label>
+                                <input type="text" name="director" id="director" maxlength="100" required>
+                            </div>
+
+                            <div>
+                                <label for="duracion">Duración (minutos):</label>
+                                <input type="number" name="duracion" id="duracion" required>
+                            </div>
+
+                            <div>
+                                <label for="idioma">Idioma:</label>
+                                <input type="text" name="idioma" id="idioma" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botones de guardar y cancelar -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Guardar Película</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para ver los detalles de la película -->
+    <div class="modal fade" id="pelicularead">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Detalles de la Película</h3>
+                    <!--<button type="button" class="btn-close" data-bg-dismiss="modal" aria-label="Close"></button>-->
+                </div>
+
+                <div class="modal-body">
+                    <form id="myForm">
+                        <div class="card imgHolder">
+                            <img src="{% static 'icon_agregar_peli.png' %}" alt="Icono Película" width="200" height="200">
                         </div>
 
+                        <!-- Campos del formulario solo para visualizar -->
+                        <div class="inputField">
+                            <div>
+                                <label for="titulo">Título:</label>
+                                <input type="text" name="titulo" id="titulo" maxlength="100" disabled>
+                            </div>
+
+                            <div>
+                                <label for="descripcion">Descripción:</label>
+                                <textarea name="descripcion" id="descripcion" rows="3" disabled></textarea>
+                            </div>
+
+                            <div>
+                                <label for="categoria">Categoría:</label>
+                                <input type="text" name="categoria" id="categoria" disabled>
+                            </div>
+
+                            <div>
+                                <label for="clasificacion">Clasificación:</label>
+                                <input type="text" name="clasificacion" id="clasificacion" disabled>
+                            </div>
+
+                            <div>
+                                <label for="fecha_estreno">Fecha de Estreno:</label>
+                                <input type="date" name="fecha_estreno" id="fecha_estreno" disabled>
+                            </div>
+
+                            <div>
+                                <label for="director">Director:</label>
+                                <input type="text" name="director" id="director" disabled>
+                            </div>
+
+                            <div>
+                                <label for="duracion">Duración (minutos):</label>
+                                <input type="number" name="duracion" id="duracion" disabled>
+                            </div>
+
+                            <div>
+                                <label for="idioma">Idioma:</label>
+                                <input type="text" name="idioma" id="idioma" disabled>
+                            </div>
+                        </div>
                     </form>
                 </div>
 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
             </div>
         </div>
-     </div>
+    </div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-
-  </body>
+    <script src="{% static 'pelicula/script.js' %}"></script>
+</body>
 </html>

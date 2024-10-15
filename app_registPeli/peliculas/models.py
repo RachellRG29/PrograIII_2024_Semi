@@ -14,7 +14,7 @@ class Peliculas(models.Model):
     imagen = models.ImageField(upload_to='peliculas/')
     titulo = models.CharField(max_length=100)
     descripcion = models.TextField()
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE) # Relación con el modelo Categoria
+    categoria = models.CharField(max_length=100)
     clasificacion = models.CharField(max_length=10)
     fecha_estreno = models.DateField()
     director = models.CharField(max_length=100)
