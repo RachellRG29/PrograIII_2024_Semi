@@ -5,12 +5,15 @@ from django.db import models
 class Categoria(models.Model):
     nombre = models.CharField(max_length=50)
 
-    def __str__(self):
-        return self.nombre
+def __str__(self):
+    return self.nombre
+    
+def generate_unique_id():
+    return str(random.randint(100000, 999999))
 
 # Modelo para Películas
 class Peliculas(models.Model):
-    N_id = models.CharField(max_length=6, unique=True, editable=False, default=lambda: str(random.randint(100000, 999999)))
+    N_id = models.CharField(max_length=6, unique=True, editable=False, default=generate_unique_id)
     imagen = models.ImageField(upload_to='peliculas/')
     titulo = models.CharField(max_length=100)
     descripcion = models.TextField()

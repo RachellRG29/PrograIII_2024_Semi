@@ -19,7 +19,7 @@ def peliculas(request):
     # Renderiza la plantilla con el formulario y las películas
     return render(request, 'pelicula/index.html', {
         'form': form,
-        'pelicula': peliculas  # no cambiar xd
+        'peliculas': peliculas  # no cambiar xd
     })
 
 # Vista para ver una película en detalle

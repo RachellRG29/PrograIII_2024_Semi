@@ -15,6 +15,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'pelicula/style.css' %}">
     <link rel="icon" href="{% static 'icon_cinta.png' %}" type="image/png">
 
+    <link rel="stylesheet" href="index_detalles.html">
+
     <title>Registro de Películas</title>
     
     <header>
@@ -79,10 +81,6 @@
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
                             </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="11">No hay películas registradas.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -165,72 +163,7 @@
         </div>
     </div>
 
-    <!-- Modal para ver los detalles de la película -->
-    <div class="modal fade" id="pelicularead">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Detalles de la Película</h3>
-                    <!--<button type="button" class="btn-close" data-bg-dismiss="modal" aria-label="Close"></button>-->
-                </div>
 
-                <div class="modal-body">
-                    <form id="myForm">
-                        <div class="card imgHolder">
-                            <img src="{% static 'icon_agregar_peli.png' %}" alt="Icono Película" width="200" height="200">
-                        </div>
-
-                        <!-- Campos del formulario solo para visualizar -->
-                        <div class="inputField">
-                            <div>
-                                <label for="titulo">Título:</label>
-                                <input type="text" name="titulo" id="titulo" maxlength="100" disabled>
-                            </div>
-
-                            <div>
-                                <label for="descripcion">Descripción:</label>
-                                <textarea name="descripcion" id="descripcion" rows="3" disabled></textarea>
-                            </div>
-
-                            <div>
-                                <label for="categoria">Categoría:</label>
-                                <input type="text" name="categoria" id="categoria" disabled>
-                            </div>
-
-                            <div>
-                                <label for="clasificacion">Clasificación:</label>
-                                <input type="text" name="clasificacion" id="clasificacion" disabled>
-                            </div>
-
-                            <div>
-                                <label for="fecha_estreno">Fecha de Estreno:</label>
-                                <input type="date" name="fecha_estreno" id="fecha_estreno" disabled>
-                            </div>
-
-                            <div>
-                                <label for="director">Director:</label>
-                                <input type="text" name="director" id="director" disabled>
-                            </div>
-
-                            <div>
-                                <label for="duracion">Duración (minutos):</label>
-                                <input type="number" name="duracion" id="duracion" disabled>
-                            </div>
-
-                            <div>
-                                <label for="idioma">Idioma:</label>
-                                <input type="text" name="idioma" id="idioma" disabled>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
