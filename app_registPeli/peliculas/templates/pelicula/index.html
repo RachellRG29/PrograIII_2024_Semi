@@ -72,10 +72,12 @@
                             <td>{{ pelicula.idioma }}</td>
                             <td>
                                 <!-- Botones de acciones -->
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#pelicularead" onclick="verPelicula('{{ pelicula.N_id }}')">
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#pelicularead" 
+                                onclick="verPelicula('{{ pelicula.N_id }}')">
                                     <i class="bi bi-eye-fill"></i>
                                 </button>
-                                <button class="btn btn-secondary" onclick="editarPelicula('{{ pelicula.N_id }}')">
+                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#peliculaedit"
+                                onclick="editarPelicula('{{ pelicula.N_id }}')">
                                     <i class="bi bi-pen-fill"></i>
                                 </button>
                                 <button class="btn btn-danger" onclick="eliminarPelicula('{{ pelicula.N_id }}')">
@@ -170,6 +172,166 @@
                 </form>
             </div>
         </div>
+    </div>
+
+
+    <!-- Modal para ver detalles de las películas -->
+    <div class="modal fade" id="pelicularead">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Pelicula</h3>
+                    <!--<button type="button" class="btn-close" data-bg-dismiss="modal" aria-label="Close"></button>-->
+                </div>
+
+                <div class="modal-body">
+                    <form action="{% url 'peliculas' %}" method="POST" enctype="multipart/form-data" id="myForm">
+                        {% csrf_token %}
+                        <!-- Input para imagen -->
+                        <div class="card imgHolder">
+                            <div class="imgPeli">
+                                <img src="{% static 'icon_pelicula.png' %}" alt="Icono agregar película" width="200" height="200">
+                            </div>
+
+                            <label for="imgInput" class="upload">
+                                <i class="bi bi-file-plus" style="color: #22222b; background-color: rgb(230, 219, 68); width: 46px; height: 46px; border-radius: 10px; justify-self: center "></i>
+                                <input type="file" name="imagen" id="imgInput" required>    
+                            </label>
+                        </div>
+
+                        <!-- Campos del formulario -->
+                        <div class="inputField">
+                            <div>
+                                <label for="titulo">Título:</label>
+                                <input type="text" name="titulo" id="titulo" maxlength="100" disabled>
+                            </div>
+
+                            <div>
+                                <label for="descripcion">Descripción:</label>
+                                <textarea name="descripcion" id="descripcion" rows="3" disabled></textarea>
+                            </div>
+
+                            <div>
+                                <label for="categoria">Categoría:</label>
+                                <input type="text" name="categoria" id="categoria" maxlength="100" disabled>
+                            </div>
+
+                            <div>
+                                <label for="clasificacion">Clasificación:</label>
+                                <input type="text" name="clasificacion" id="clasificacion" maxlength="20" disabled>
+                            </div>
+
+                            <div>
+                                <label for="fecha_estreno">Fecha de Estreno:</label>
+                                <input type="date" name="fecha_estreno" id="fecha_estreno" disabled>
+                            </div>
+
+                            <div>
+                                <label for="director">Director:</label>
+                                <input type="text" name="director" id="director" maxlength="100" disabled>
+                            </div>
+
+                            <div>
+                                <label for="duracion">Duración (minutos):</label>
+                                <input type="number" name="duracion" id="duracion" value="1" min="0" disabled>
+                            </div>
+
+                            <div>
+                                <label for="idioma">Idioma:</label>
+                                <input type="text" name="idioma" id="idioma" maxlength="50" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botones de guardar y cancelar -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal para editar película -->
+    <div class="modal fade" id="peliculaedit">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Agregar Película</h3>
+                        <!--<button type="button" class="btn-close" data-bg-dismiss="modal" aria-label="Close"></button>-->
+                    </div>
+    
+                    <div class="modal-body">
+                        <form action="{% url 'peliculas' %}" method="POST" enctype="multipart/form-data" id="myForm">
+                            {% csrf_token %}
+                            <!-- Input para imagen -->
+                            <div class="card imgHolder">
+                                <div class="imgPeli">
+                                    <img src="{% static 'icon_pelicula.png' %}" alt="Icono agregar película" width="200" height="200">
+                                </div>
+    
+                                <label for="imgInput" class="upload">
+                                    <i class="bi bi-file-plus" style="color: #22222b; background-color: rgb(230, 219, 68); width: 46px; height: 46px; border-radius: 10px; justify-self: center "></i>
+                                    <input type="file" name="imagen" id="imgInput" required>
+                                    
+                                   
+                                      
+                                </label>
+                            </div>
+    
+                            <!-- Campos del formulario -->
+                            <div class="inputField">
+                                <div>
+                                    <label for="titulo">Título:</label>
+                                    <input type="text" name="titulo" id="titulo" maxlength="100" required>
+                                </div>
+    
+                                <div>
+                                    <label for="descripcion">Descripción:</label>
+                                    <textarea name="descripcion" id="descripcion" rows="3" required></textarea>
+                                </div>
+    
+                                <div>
+                                    <label for="categoria">Categoría:</label>
+                                    <input type="text" name="categoria" id="categoria" maxlength="100" required>
+                                </div>
+    
+                                <div>
+                                    <label for="clasificacion">Clasificación:</label>
+                                    <input type="text" name="clasificacion" id="clasificacion" maxlength="20" required>
+                                </div>
+    
+                                <div>
+                                    <label for="fecha_estreno">Fecha de Estreno:</label>
+                                    <input type="date" name="fecha_estreno" id="fecha_estreno" required>
+                                </div>
+    
+                                <div>
+                                    <label for="director">Director:</label>
+                                    <input type="text" name="director" id="director" maxlength="100" required>
+                                </div>
+    
+                                <div>
+                                    <label for="duracion">Duración (minutos):</label>
+                                    <input type="number" name="duracion" id="duracion" value="1" min="0" required>
+                                </div>
+    
+                                <div>
+                                    <label for="idioma">Idioma:</label>
+                                    <input type="text" name="idioma" id="idioma" maxlength="50" required>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!-- Botones de guardar y cancelar -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Guardar Película</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
     </div>
 
 
