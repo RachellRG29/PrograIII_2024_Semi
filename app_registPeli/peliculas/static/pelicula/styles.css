@@ -24,6 +24,7 @@ header .lbl_peli{
 table tr td{
     vertical-align: middle;
 }
+
 td button{
     margin: 5px;
 }
@@ -37,13 +38,12 @@ td button i{
     background-color: #fa425a;
     color: white;
 }
-
+ /* Cuerpo del formulario para agregar pelis*/
 .modal-body{
     justify-content: center;
     background-color: #22222b;
 }
 
-/*formulario body*/
 .modal-body form{
     display: flex;
     justify-content: space-evenly;
@@ -51,38 +51,52 @@ td button i{
     padding: 0;
 }
 
-/*formulario imagen de la pelicula*/
+.imgHolder .imgPeli{
+    position: relative;
+    justify-content: center;
+    justify-self: center;
+    right: 50%;
+    left: 50px;
+    top: 50px;
+}
+
 .modal-body form .imgHolder{
     height: 380px;
-    width: 260px;
+    width: 280px;
     position: relative;
-    border-radius: 20px;
+    border-radius: 18px;
     overflow: hidden;
-    justify-content: center;
-    align-items: center;
 }
 
 .imgHolder .upload{
     position: absolute;
-    bottom: 0;
-    left: 20;
     width: 100%;
     height: 100px;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7);
     display: none;
+    bottom: 0;
+    padding-left: 10px;
+    padding-bottom: 40px;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     cursor: pointer;
 }
 
 .upload i{
-    color: white;
-    font-size: 36px;
+    color: #22222b;
+    font-size: 28px;
+    justify-self: center;
+}
+
+.imgHolder .upload input{
+    display: none;
 }
 
 .imgHolder:hover .upload{
     display: flex;
+    cursor: pointer;
 }
+
 
 .modal-footer{
     background-color: #22222b;
@@ -94,8 +108,12 @@ td button i{
     font-family: 'Plus Jakarta Sans'; 
     color: white;
     padding-left: 20px;
+    padding-right: 20px;
     padding: 20px;
     border-left: 5px groove #fa425a;
+    flex-basis: 60%;
+    justify-content: center;
+    
 }
 
 form .inputField > div{

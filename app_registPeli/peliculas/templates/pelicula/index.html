@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'pelicula/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pelicula/styles.css' %}">
     <link rel="icon" href="{% static 'icon_cinta.png' %}" type="image/png">
 
     <link rel="stylesheet" href="index_detalles.html">
@@ -56,6 +56,7 @@
                         </tr>
                     </thead>
 
+                    <!-- Tabla para mostrar las películas agregadas por medio de pelicula -->
                     <tbody id="data">
                         {% for pelicula in peliculas %}
                         <tr>
@@ -89,6 +90,7 @@
         </div>
     </section>
     
+    <!-- FORMULARIO PARA AGREGAR LAS PELICULAS MODAL FADE -->
     <!-- Modal para agregar nueva película -->
     <div class="modal fade" id="peliculaform">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -103,9 +105,16 @@
                         {% csrf_token %}
                         <!-- Input para imagen -->
                         <div class="card imgHolder">
+                            <div class="imgPeli">
+                                <img src="{% static 'icon_pelicula.png' %}" alt="Icono agregar película" width="200" height="200">
+                            </div>
+
                             <label for="imgInput" class="upload">
+                                <i class="bi bi-file-plus" style="color: #22222b; background-color: rgb(230, 219, 68); width: 46px; height: 46px; border-radius: 10px; justify-self: center "></i>
                                 <input type="file" name="imagen" id="imgInput" required>
-                                <img src="{% static 'icon_agregar_peli.png' %}" alt="Icono agregar película" width="200" height="200">
+                                
+                               
+                                  
                             </label>
                         </div>
 
@@ -143,7 +152,7 @@
 
                             <div>
                                 <label for="duracion">Duración (minutos):</label>
-                                <input type="number" name="duracion" id="duracion" required>
+                                <input type="number" name="duracion" id="duracion" value="1" min="0" required>
                             </div>
 
                             <div>
