@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Peliculas
-from .forms import PeliculaForm
+from peliculas.models import Peliculas
+from peliculas.forms import PeliculaForm
+
 
 # Vista para la página principal de las películas
 def peliculas(request):
@@ -19,17 +20,17 @@ def peliculas(request):
     # Renderiza la plantilla con el formulario y las películas
     return render(request, 'pelicula/index.html', {
         'form': form,
-        'peliculas': peliculas  # no cambiar xd
+        'peliculas': peliculas  
     })
 
 # Vista para ver una película en detalle
-def ver_pelicula(request, N_id):
-    pelicula = get_object_or_404(Peliculas, N_id=N_id)
+def ver_pelicula(request, id):
+    pelicula = get_object_or_404(Peliculas, id=id) 
     return render(request, 'pelicula/ver.html', {'pelicula': pelicula})
 
 # Vista para editar una película
-def editar_pelicula(request, N_id):
-    pelicula = get_object_or_404(Peliculas, N_id=N_id)
+def editar_pelicula(request, id):
+    pelicula = get_object_or_404(Peliculas, id=id)  
     if request.method == 'POST':
         form = PeliculaForm(request.POST, request.FILES, instance=pelicula)
         if form.is_valid():
@@ -40,8 +41,8 @@ def editar_pelicula(request, N_id):
     return render(request, 'pelicula/editar.html', {'form': form, 'pelicula': pelicula})
 
 # Vista para eliminar una película
-def eliminar_pelicula(request, N_id):
-    pelicula = get_object_or_404(Peliculas, N_id=N_id)
+def eliminar_pelicula(request, id):
+    pelicula = get_object_or_404(Peliculas, id=id) 
     if request.method == 'POST':
         pelicula.delete()
         return redirect('peliculas')

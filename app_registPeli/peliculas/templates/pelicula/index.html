@@ -15,8 +15,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'pelicula/styles.css' %}">
     <link rel="icon" href="{% static 'icon_cinta.png' %}" type="image/png">
 
-    <link rel="stylesheet" href="index_detalles.html">
-
     <title>Registro de Películas</title>
     
     <header>
@@ -176,6 +174,7 @@
 
 
     <!-- Modal para ver detalles de las películas -->
+
     <div class="modal fade" id="pelicularead">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -253,12 +252,12 @@
     </div>
 
 
-    <!-- Modal para editar película -->
-    <div class="modal fade" id="peliculaedit">
+        <!-- Modal para editar pelicula película -->
+        <div class="modal fade" id="peliculaedit">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title">Agregar Película</h3>
+                        <h3 class="modal-title">Editar Película</h3>
                         <!--<button type="button" class="btn-close" data-bg-dismiss="modal" aria-label="Close"></button>-->
                     </div>
     
@@ -326,13 +325,15 @@
     
                         <!-- Botones de guardar y cancelar -->
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success">Guardar Película</button>
+                            <button type="submit" class="btn btn-success">Editar Película</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                     </form>
                 </div>
             </div>
-    </div>
+        </div>
+
+  
 
 
 
