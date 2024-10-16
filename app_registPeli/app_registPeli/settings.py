@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'app_registPeli.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': BASE_DIR / 'db_pelicula',
-        'USER': 'tu_usuario_mysql',
-        'PASSWORD': 'tu_contraseña_mysql',
-        'HOST': 'localhost',  # o '127.0.0.1'
-        'PORT': '3306',  # Puerto por defecto de MySQL
+        'NAME': 'db_pelicula',
+        'USER': 'root',  
+        'PASSWORD': '', 
+        'HOST': 'localhost',  
+        'PORT': '3306',  
     }
 }
 

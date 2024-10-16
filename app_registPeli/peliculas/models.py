@@ -7,6 +7,18 @@ class Categoria(models.Model):
 
 def __str__(self):
     return self.nombre
+
+# Modelo para la tabla de Usuarios
+class Usuario(models.Model):
+    idUsuario = models.AutoField(primary_key=True)  # id auto-incremental
+    usuario = models.CharField(max_length=35)
+    clave = models.CharField(max_length=35)
+    nombre = models.CharField(max_length=85)
+    direccion = models.CharField(max_length=100)
+    telefono = models.CharField(max_length=9)
+
+    def __str__(self):
+        return self.usuario
     
 def generate_unique_id():
     return str(random.randint(100000, 999999))
