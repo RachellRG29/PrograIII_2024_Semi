@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from peliculas.models import Peliculas
 from peliculas.forms import PeliculaForm
 
-
+def login(request):
+    return render(request, 'pelicula/index_login.html')
 # Vista para la página principal de las películas
 def peliculas(request):
     # Si el método es POST, entonces estamos agregando una película
