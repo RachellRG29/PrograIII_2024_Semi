@@ -1,9 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login as auth_login
 from peliculas.models import Peliculas
 from peliculas.forms import PeliculaForm
 
+
 def login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            auth_login(request, user)  
+            return redirect('peliculas')  # Redirige a 'index.html' (o la vista principal de las películas)
+        else:
+            error_message = "Credenciales incorrectas"
+            return render(request, 'pelicula/index_login.html', {'error': error_message})  # Retorna con mensaje de error
     return render(request, 'pelicula/index_login.html')
+
 # Vista para la página principal de las películas
 def peliculas(request):
     # Si el método es POST, entonces estamos agregando una película
