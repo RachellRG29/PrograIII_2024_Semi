@@ -1,4 +1,4 @@
-<form id="frmBusquedaMateria"></form>
+<form id="frmBusquedaMateria">
     <div class="card text-bg-dark mb-3">
         <div class="card-header">
             <div class="d-flex">
@@ -9,6 +9,9 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="mb-3">
+                <input type="text" id="search" class="form-control" placeholder="Buscar materias" oninput="buscarMaterias()">
+            </div>
             <table class="table table-hover" id="tblMaterias">
                 <thead>
                     <tr>
@@ -24,10 +27,8 @@
     </div>
 </form>
 <script>
-    /*
-    Tarea: Realizar la busqueda interactiva de materias, alumnos y docentes, por codigo, nombre y email.
-    Fecha: 23/10/2024
-    */
+    let materiasData=[];
+
     function eliminarMateria(idMateria){
         if(confirm("¿Desea eliminar este registro?")){
             let datos = {
@@ -41,10 +42,12 @@
         fetch('consultar_materias/')
         .then(res => res.json())
         .then(data => {
+            materiasData=data;
             mostrarFilasMaterias(data);
         })
         .catch(err => console.log(err));
     }
+
     function mostrarFilasMaterias(data = []){
         let filas = '';
         data.forEach(materia => {
@@ -63,5 +66,17 @@
         });
         document.querySelector('#tblMaterias > tbody').innerHTML = filas;
     }
+
+    function buscarMaterias(){
+        let searchQuery=document.getElementById('search').value.toLowerCase();
+        let materiasFiltrados = materiasData.filter(materia =>{
+            return materia.codigo.toLowerCase().includes(searchQuery) || 
+                   materia.nombre.toLowerCase().includes(searchQuery) || 
+                   materia.uv.toLowerCase().includes(searchQuery);
+        });
+        mostrarFilasMaterias(materiasFiltrados);
+    }
+
     consultarMaterias();
+    
 </script>

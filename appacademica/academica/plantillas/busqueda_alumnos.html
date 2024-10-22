@@ -1,4 +1,4 @@
-<form id="frmBusquedaAlumno"></form>
+<form id="frmBusquedaAlumno">
     <div class="card text-bg-dark mb-3">
         <div class="card-header">
             <div class="d-flex">
@@ -9,6 +9,9 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="mb-3">
+                <input type="text" id="search" class="form-control" placeholder="Buscar alumnos" oninput="buscarAlumnos()">
+            </div>
             <table class="table table-hover" id="tblAlumnos">
                 <thead>
                     <tr>
@@ -25,9 +28,9 @@
     </div>
 </form>
 <script>
-    /*
-    Tarea: Realizar la busqueda interactiva de alumnos, por codigo, nombre y email.
-    */
+
+    let alumnosData=[];
+
     function eliminarAlumno(idAlumno){
         if(confirm("¿Desea eliminar este registro?")){
             let datos = {
@@ -37,14 +40,17 @@
             enviarDatosAlumno(datos);
         }
     }
+
     function consultarAlumnos(){
         fetch('consultar_alumnos/')
         .then(res => res.json())
         .then(data => {
+            alumnosData= data;
             mostrarFilasAlumnos(data);
         })
         .catch(err => console.log(err));
     }
+
     function mostrarFilasAlumnos(data = []){
         let filas = '';
         data.forEach(alumno => {
@@ -64,5 +70,18 @@
         });
         document.querySelector('#tblAlumnos > tbody').innerHTML = filas;
     }
+
+
+    function buscarAlumnos(){
+        let searchQuery=document.getElementById('search').value.toLowerCase();
+        let alumnosFiltrados = alumnosData.filter(alumno =>{
+            return alumno.codigo.toLowerCase().includes(searchQuery) || 
+                   alumno.nombre.toLowerCase().includes(searchQuery) || 
+                   alumno.direccion.toLowerCase().includes(searchQuery);
+        });
+        mostrarFilasAlumnos(alumnosFiltrados);
+    }
+
     consultarAlumnos();
+
 </script>
