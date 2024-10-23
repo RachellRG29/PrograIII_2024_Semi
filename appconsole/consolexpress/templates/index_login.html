@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Fuentes utilizadas -->
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+ 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    {% load static %}
+    <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
+
+    <!-- Nombre e icono de sitio web -->
+    <title>Login ConsoleXpress</title>  
+    <style>
+        
+        body {
+            margin: 0;
+            font-family: 'Comfortaa';
+            
+        }
+
+        /* Contenedor principal que divide la pantalla en dos paneles (izquierdo y derecho) */
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+ 
+        .left-panel {     
+            background-color: #004182;
+            color: white;
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Estilos específicos para el título dentro del panel izquierdo */
+        .left-panel h1 {       
+            font-size: 32px;      
+            margin-bottom: 20px;  
+            text-align: center;
+            font-family: 'League Spartan'; 
+        }
+
+        /* Estilo del ícono en el panel izquierdo */
+        .left-panel .icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        
+        /* Estilo de la imagen del icono en el panel izquierdo */
+        .left-panel img {
+            width: 82px;
+            height: 82px;
+            filter: brightness(0) invert(1); /* Cambia el icono a color blanco */
+        }
+
+        /* Estilos de los campos de entrada de usuario y contraseña */
+        .left-panel input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 25px;
+            border: none;
+            font-size: 16px;
+            font-family: 'Comfortaa';
+        }
+
+        /* Estilos de los botones dentro del panel izquierdo */
+        .left-panel .btn {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 25px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'Comfortaa';
+        }
+
+        /* Estilos específicos para el botón de "Ingresar" */
+        .left-panel .btn.ingresa {
+            background-color: #e1646e;
+            color: white;
+        }
+
+        /* Estilos para el enlace de "¿Olvidaste la contraseña?" */
+        .left-panel .forgot-password {
+            margin-top: 10px;
+            font-size: 14px;
+            font-family: 'Comfortaa';
+        }
+
+        /*  para centrar los elementos del input */
+        .left-panel form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Panel derecho que contiene una imagen de fondo y el botón de registro */
+        .right-panel {
+            width: 60%;
+            background: url('https://www.gamebrothersstore.com/wp-content/uploads/2024/04/mario_red_switch_oled_front.jpg') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 20px;
+        }
+
+        /* Estilo del botón de "Regístrate" en el panel derecho */
+        .right-panel .btn_registrate {
+            position: absolute;
+            bottom: 100px;
+            background-color: rgba(64, 64, 64, 0.9); 
+            color: #fff;
+            padding: 10px 80px;
+            border: 1.5px solid #202020;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'Comfortaa';
+            text-decoration: none;
+        }
+
+        /* Estilo para el diálogo de advertencia */
+        #warning-dialog-login {
+            display: none;
+            position: absolute;
+            top: 60%;
+            transform: translate(2%,50%);
+            background: #dc3e57;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        #warning-dialog-login button {
+            color: white; /* Color del ícono */
+            background: none; 
+            border: none; 
+            cursor: pointer; /* Cambia el cursor al pasar el mouse */
+            font-size: 18px; 
+        }
+
+        /* Alineación del texto y el botón */
+        #warning-dialog-login div {
+            display: flex;
+            align-items: center; 
+            justify-content: space-between; 
+        }
+
+    </style>
+    
+</head>
+
+<body>
+    <!-- Contenedor principal que divide los paneles izquierdo y derecho -->
+    <div class="container">
+        <!-- Panel izquierdo: formulario de inicio de sesión -->
+        <div class="left-panel">  
+            <img src="images/icono_ConsoleXpress.svg" width="82px" height="82px">
+            <h1>¡Bienvenido a<br>ConsoleXpress!</h1>
+            
+            <form method="POST" action="/login" onsubmit="return handleSubmit();">
+                <input name="username" placeholder="Nombre" type="text" required />
+                <input name="password" placeholder="Contraseña" type="password" required>
+
+                    <!-- Diálogo de advertencia -->
+                    <div id="warning-dialog-login">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <p id="error-message">El usuario o la contraseña no concuerdan :c</p>
+                            <button onclick="closeDialog()" style="background: none; border: none; cursor: pointer;">
+                                <i class="fas fa-times"></i> <!-- Ícono de "X" para cerrar el dialogo -->
+                            </button>
+                        </div>
+                    </div>
+                </input>
+
+                <button class="btn ingresa" type="submit">Ingresa</button>
+                <div class="forgot-password">¿Olvidaste la contraseña?</div>
+            
+            </form>
+        </div>
+
+        <!-- Panel derecho: imagen de fondo y botón de registro -->
+        <div class="right-panel">
+            <a class="btn_registrate" href="index_register.html"> Regístrate </a>
+        </div>
+    </div>
+
+
+    <!-- script del login -->
+    <script src="script_login.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantalla principal ConsoleXpress</title>
+    <!-- Fuentes  -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Vinculación del archivo CSS -->
+    <link rel="stylesheet" href="styles_pantalla.css">
+    <link rel="website icon" type="png" href="Images/icon_consola.png">
+    <style>
+        /* Estilos para el botón circular del carrito */
+
+    </style>
+</head>
+<body>
+    <!-- Header: Logo, barra de búsqueda y perfil Admin -->
+    <div class="header">
+        <div class="logo">
+            <!-- Logo de ConsoleXpress -->
+            <img alt="ConsoleXpress Logo" height="50" src="images/icono_ConsoleXpress.svg" width="40"/>
+            <span>ConsoleXpress</span>
+        </div>
+        <div class="search-bar">
+            <!-- Barra de búsqueda -->
+            <input placeholder="Buscar" type="text"/>
+            <i class="fas fa-search"></i>
+            <img alt="ConsoleXpress Logo" height="50" src="images/icono_ConsoleXpress.svg" width="40"/>  <!-- Imagen del logo -->
+            <span>ConsoleXpress</span> <!-- Nombre de la tienda -->
+        </div>
+        <div class="admin">
+            <!-- Sección Admin -->
+            <span style="color: white;">Admin</span>
+            <i class="fas fa-user" style="color: white;"></i>
+        </div>
+    </div>
+
+
+    <!-- Contenido principal: Título de la página y productos -->
+    <div class="content">
+        <!-- Título de la sección -->
+        <h1>Productos disponibles</h1>
+
+        <!-- Sección de categorías -->
+        <div class="categories">
+            <span>Categorías</span>
+            <i class="fas fa-chevron-down"></i>
+
+
+        <!-- Lista de productos -->
+
+            <!-- Tarjeta 2 -->
+            <div class="card-consola">
+                <!-- Tarjeta de producto 1 -->
+            <div class="product-card">
+                <!-- Imagen de producto -->
+                <img alt="Product Image" height="150" src="https://img.freepik.com/foto-gratis/vista-controlador-videojuegos-3d_23-2151005755.jpg?w=826&t=st=1728005864~exp=1728006464~hmac=37131993c2fb7c7ff113f98c05fef11fc637031eec311bbcd7495943db7771e1" width="150"/>
+                <div class="details">
+                    <div class="line"></div>
+                    <div class="circle"></div>
+                    <h2>Nintendo switch oled</h2>
+                    <p class="price">$400</p>
+                    <p class="category">Categoria especial</p>
+                    <p>Consola especial, color rosa con blanco.</p>
+                </div>
+            </div>
+                    <!-- Botón de carrito -->
+                    <button class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+        </div>
+            
+            <div class="card-consola">
+                    <!-- Tarjeta de producto 2 -->
+                <div class="product-card">
+                    <!-- Imagen de producto -->
+                    <img alt="Nintendo switch oled" height="150" src="https://storage.googleapis.com/a1aa/image/IGYeeZGaBTg1TkgWoiTClrvPUEooA88pJtrwsfc37jFMb5FnA.jpg" width="150"/>
+                    <div class="details">
+                        <div class="line"></div>
+                        <div class="circle"></div>
+                        <h2>Nintendo switch oled</h2>
+                        <p class="price">$400</p>
+                        <p class="category">Categoria especial</p>
+                        <p>Consola especial, color rosa con blanco.</p>
+                    </div>
+                </div>
+                        <!-- Botón de carrito -->
+                        <button class="cart-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+            </div>
+
+        </div> <!-- cierra product-list -->
+
+    </div>  <!-- cierra content -->
+
+    <script src="script_admi.js"></script>
+</body>
+</html>

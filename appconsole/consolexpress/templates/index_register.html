@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Fuentes utilizadas -->
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+ 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    {% load static %}
+    <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
+
+    <!-- Nombre e icono de sitio web -->
+    <title>Register ConsoleXpress</title>
+
+    <style>
+
+        /* Estilos generales para el cuerpo del documento */
+        body {
+            margin: 0;
+            font-family: 'League Spartan';
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Estilos para el panel izquierdo */
+        .left {
+            background-color: #e60012;
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Imagen de fondo que cubre todo el panel izquierdo */
+        .left img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Estilo del botón en la parte inferior del panel izquierdo */
+        .left .btn_ingresa {
+            position: absolute;
+            bottom: 100px;
+            background-color: rgba(64, 64, 64, 0.9); 
+            color: #fff;
+            padding: 10px 80px;
+            border: 1.5px solid #202020;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'Comfortaa';
+            text-decoration: none;
+        }
+
+        /* Estilos para el panel derecho */
+        .right {
+            background-color: #004182;
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #fff;
+            position: relative;
+        }
+
+        /* Estilos para el encabezado dentro del panel derecho */
+        .right .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo para el título del formulario de registro */
+        .right .header h2 {
+            font-size: 29px;
+            margin: 0;
+            margin-right: 20px;
+            text-align: right;
+        }
+
+        /* Tamaño del icono */
+        .right .icon {
+            font-size: 40px;
+        }
+
+        /* Estilo del formulario de registro */
+        .right form {
+            display: flex;
+            flex-direction: column;
+            width: 60%;
+            align-items: center;
+        }
+
+        .left-panel img {
+            width: 80px;
+            height: 80px;
+            filter: brightness(0) invert(1); /* Cambia el icono a color blanco */
+        }
+
+
+        /* Estilo de los campos de entrada en el formulario */
+
+        .right form input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            width: 105%;
+            font-family: 'Comfortaa';
+        }
+
+        /* Estilo del botón de registro */
+        .right form .register-button {
+            background-color: #e1646e;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 89%;
+            font-family: 'Comfortaa';
+        }
+
+        /* Estilo para el diálogo de advertencia */
+        #warning-dialog-register {
+            display: none;
+            position: absolute;
+            top: 60%;
+            transform: translate(2%,90%);
+            background: #dc3e57;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        #warning-dialog-register button {
+            color: white; /* Color del ícono */
+            background: none; 
+            border: none; 
+            cursor: pointer; /* Cambia el cursor al pasar el mouse */
+            font-size: 18px; 
+        }
+
+        /* Alineación del texto y el botón */
+        #warning-dialog-register div {
+            display: flex;
+            align-items: center; 
+            justify-content: space-between; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <img alt="Nintendo Switch and accessories" src="https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2021/02/nintendo-switch-edicion-mario-2240845.jpg?tf=1200x"/>
+            <a class="btn_ingresa" href="index_login.html"> Ingresa </a>
+
+            
+        </div>
+        <div class="right">
+            <div class="header">
+                <h2>Regístrate en<br/>ConsoleXpress</h2>
+                <div class="left-panel">
+                    <img src="images/icono_ConsoleXpress.svg" width="82px" height="82px">
+                </div>
+            </div>
+
+            <form method="POST" action="/register" onsubmit="return handleSubmit();">
+                <input name="username" placeholder="Nombre" type="text" required />
+                <input name="email" placeholder="Correo electrónico" type="email" required />
+                <input name="password" placeholder="Contraseña" type="password" required />
+                <input name="confirm_password" placeholder="Confirmar contraseña" type="password" required >
+                <!-- Diálogo de advertencia -->
+                <div id="warning-dialog-register">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <p id="error-message">Usuario registrado, intente nuevamente</p>
+                        <button onclick="closeDialog()" style="background: none; border: none; cursor: pointer;">
+                            <i class="fas fa-times"></i> <!-- Ícono de "X" para cerrar el dialogo -->
+                        </button>
+                    </div>
+                </div>
+            </input> <!-- cierra para confirmar la contra -->
+                
+
+
+                <button class="register-button" type="submit">Registrar</button>
+            </form>
+        </div>
+    </div>
+
+        <!-- script del register -->
+        <script src="script_register.js"></script>
+</body>
+</html>
