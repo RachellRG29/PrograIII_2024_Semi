@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
             <div class="mb-3">
-                <input type="text" id="search" class="form-control" placeholder="Buscar docentes" oninput="buscarDocentes()">
+                <input type="text" id="searchDocente" class="form-control" placeholder="Buscar docentes" oninput="buscarDocentes()">
             </div>
             <table class="table table-hover" id="tblDocentes">
                 <thead>
@@ -72,13 +72,13 @@
         document.querySelector('#tblDocentes > tbody').innerHTML = filas;
     }
 
-    function buscarDocentes(){
-        let searchQuery=document.getElementById('search').value.toLowerCase();
+    function buscarDocentes(filas){
+        let searchQuery=document.getElementById('searchDocente').value.toLowerCase();
         let docentesFiltrados = docentesData.filter(docente =>{
             return docente.codigo.toLowerCase().includes(searchQuery) || 
                    docente.nombre.toLowerCase().includes(searchQuery) || 
-                   docente.direccion.toLowerCase().includes(searchQuery)||
-                   docente.telefono.toLowerCase().includes(searchQuery)||
+                   docente.direccion.toLowerCase().includes(searchQuery) ||
+                   docente.telefono.toLowerCase().includes(searchQuery) ||
                    docente.email.toLowerCase().includes(searchQuery);
         });
         mostrarFilasDocentes(docentesFiltrados);

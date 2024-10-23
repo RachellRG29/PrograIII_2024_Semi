@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
             <div class="mb-3">
-                <input type="text" id="search" class="form-control" placeholder="Buscar materias" oninput="buscarMaterias()">
+                <input type="text" id="searchMateria" class="form-control" placeholder="Buscar materias" oninput="buscarMaterias()">
             </div>
             <table class="table table-hover" id="tblMaterias">
                 <thead>
@@ -67,8 +67,8 @@
         document.querySelector('#tblMaterias > tbody').innerHTML = filas;
     }
 
-    function buscarMaterias(){
-        let searchQuery=document.getElementById('search').value.toLowerCase();
+    function buscarMaterias(filas){
+        let searchQuery=document.getElementById('searchMateria').value.toLowerCase();
         let materiasFiltrados = materiasData.filter(materia =>{
             return materia.codigo.toLowerCase().includes(searchQuery) || 
                    materia.nombre.toLowerCase().includes(searchQuery) || 

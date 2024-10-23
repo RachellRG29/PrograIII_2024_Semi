@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
             <div class="mb-3">
-                <input type="text" id="search" class="form-control" placeholder="Buscar alumnos" oninput="buscarAlumnos()">
+                <input type="text" id="searchAlumno" class="form-control" placeholder="Buscar alumnos" oninput="buscarAlumnos()">
             </div>
             <table class="table table-hover" id="tblAlumnos">
                 <thead>
@@ -71,9 +71,8 @@
         document.querySelector('#tblAlumnos > tbody').innerHTML = filas;
     }
 
-
-    function buscarAlumnos(){
-        let searchQuery=document.getElementById('search').value.toLowerCase();
+    function buscarAlumnos(filas){
+        let searchQuery=document.getElementById('searchAlumno').value.toLowerCase();
         let alumnosFiltrados = alumnosData.filter(alumno =>{
             return alumno.codigo.toLowerCase().includes(searchQuery) || 
                    alumno.nombre.toLowerCase().includes(searchQuery) || 
