@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+   integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Fuentes utilizadas -->
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'Admin/style_vistaAdmin.css' %}">
+    <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
+
+    <title>Vista de producto - admin</title>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <!-- Logo de ConsoleXpress -->
+            <img alt="ConsoleXpress Logo" height="50" src="{% static 'icono_ConsoleXpress.svg' %}" width="40"/> 
+            <span>ConsoleXpress</span>
+        </div>
+        <div class="admin">
+            <!-- Sección Admin -->
+            <span>Admin</span>
+            <i class="fas fa-user"></i>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- boton izquierda -->
+        <div class="arrow-left">
+            <i class="fas fa-chevron-left"></i>  
+        </div>
+
+        <!-- Detalles producto -->
+        <div class="product-details">
+            <h2>Nombre del producto:</h2>
+            <input class="product-name" type="text" placeholder="Nintendo switch oled"></input>
+            <div class="product-image">
+                <img alt="Nintendo Switch OLED" height="450" src="{% static 'consola_nintendo_oled.avif' %}" width="450"/>
+                <i class="fas fa-plus"></i>
+            </div>
+
+            <!-- Detalles precio y descipción producto -->
+            <div class="product-price">$400</div>
+            <div class="product-description">
+                <strong>Descripción:</strong>
+                <p>Nintendo switch oled.</p>
+            </div>
+        </div>
+
+        <!-- Detalles input del producto -->
+        <div class="product-form">
+            <h2>Agregar producto en ConsoleXpress</h2>
+            <label for="codigo">Código:</label>
+            <input id="codigo" type="text" placeholder="USSS2332"/>
+            <label for="categoria">Categoría:</label>
+            <select id="categoria">
+                <option value="especial">Edición Especial</option>
+                <option value="especial">Accesorios</option>
+                <option value="especial">Consolas</option>
+            </select>
+            <label for="marca">Marca:</label>
+            <input id="marca" type="text" placeholder="Nintendo"/>
+            <label for="stock">Stock:</label>
+            <input id="stock" type="number" value="1"/>
+            <button class="save-button">Guardar</button>
+        </div>
+        <!-- boton derecha -->
+        <div class="arrow-right">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+    </div>
+
+    <script src="script_vista_admi.js"></script>
+</body>
+</html>
