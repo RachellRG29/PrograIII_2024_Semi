@@ -37,6 +37,7 @@ header{
     flex-wrap: nowrap; 
     flex: 1;
     left: 4.5%;
+    gap: 5px;
 }
 
 /* Lado derecho inicio */
