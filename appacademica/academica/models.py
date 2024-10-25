@@ -5,13 +5,13 @@ class alumno(models.Model):
     codigo = models.CharField(max_length=10)
     nombre = models.CharField(max_length=75)
     direccion = models.CharField(max_length=150)
-    telefono = models.CharField(max_length=10)
+    telefono = models.CharField(max_length=9)
 
 class docente(models.Model):
     codigo = models.CharField(max_length=10)
     nombre = models.CharField(max_length=75)
     direccion = models.CharField(max_length=150)
-    telefono = models.CharField(max_length=10)
+    telefono = models.CharField(max_length=9)
     email = models.CharField(max_length=150)
 
 class materia(models.Model):

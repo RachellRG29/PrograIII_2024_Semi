@@ -12,7 +12,19 @@
             <div class="row p-1">
                 <div class="col-3 col-md-2">CODIGO </div>
                 <div class="col-9 col-md-4">
-                    <input type="text" class="form-control" id="txtCodigoAlumno" name="txtCodigoAlumno" required>
+                    <input type="text" class="form-control" id="txtCodigoAlumno" name="txtCodigoAlumno" required oninput="validarCodigo(this)" required>
+                    <script>
+                        function validarCodigo(input){
+                            const codigo_valor = input.value;
+                            const regex = /^[A-Za-z]{4}\d{6}$/; 
+                            //Validar 
+                                if(codigo_valor.length == 10){
+                                    if(!regex.test(codigo_valor)){
+                                    alertify.error('El codigo debe contener 4 letras y 6 numeros seguidos');
+                                } 
+                            }
+                        }
+                    </script>
                 </div>
             </div>
             <div class="row p-1">
@@ -20,15 +32,16 @@
                 <div class="col-9 col-md-6">
                     <input type="text" class="form-control" id="txtNombreAlumno" name="txtNombreAlumno" required oninput="validarNombre(this)" required>
                     <script>
-                        function validarNombre(input){
-                            const valor = input.value;
-                            // Verifica si el valor contiene caracteres no permitidos
-                            if (/[^A-Za-z\s]/.test(valor)) {
-                                alertify.error('Solo se permiten letras y espacios en el nombre');
+                        function validarNombre(input) {
+                            const nombre_valor = input.value;
+                            validar = /[^A-Za-záéíóúÁÉÍÓÚñÑ\s]/;
+                            // Validar caracteres permitidos
+                            if (validar.test(nombre_valor)) {
+                                alertify.error('Solo se permiten letras (incluyendo acentos y ñ) y espacios en el nombre');
                                 // Elimina los caracteres no permitidos
-                                input.value = valor.replace(/[^A-Za-z\s]/g, '');
-                            }
-
+                                input.value = nombre_valor.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ\s]/g, '');
+                                return false;
+                            } return true;
                         }
                     </script>
                 </div>
@@ -42,7 +55,7 @@
             <div class="row p-1">
                 <div class="col-3 col-md-2">TELEFONO </div>
                 <div class="col-9 col-md-4">
-                    <input type="text" class="form-control" id="txtTelefonoAlumno" name="txtTelefonoAlumno" required>
+                    <input type="number" class="form-control" id="txtTelefonoAlumno" name="txtTelefonoAlumno" required>
                 </div>
             </div>
             <div class="row p-1">
