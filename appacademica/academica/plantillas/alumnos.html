@@ -18,7 +18,19 @@
             <div class="row p-1">
                 <div class="col-3 col-md-2">NOMBRE </div>
                 <div class="col-9 col-md-6">
-                    <input type="text" class="form-control" id="txtNombreAlumno" name="txtNombreAlumno" required>
+                    <input type="text" class="form-control" id="txtNombreAlumno" name="txtNombreAlumno" required oninput="validarNombre(this)" required>
+                    <script>
+                        function validarNombre(input){
+                            const valor = input.value;
+                            // Verifica si el valor contiene caracteres no permitidos
+                            if (/[^A-Za-z\s]/.test(valor)) {
+                                alertify.error('Solo se permiten letras y espacios en el nombre');
+                                // Elimina los caracteres no permitidos
+                                input.value = valor.replace(/[^A-Za-z\s]/g, '');
+                            }
+
+                        }
+                    </script>
                 </div>
             </div>
             <div class="row p-1">
