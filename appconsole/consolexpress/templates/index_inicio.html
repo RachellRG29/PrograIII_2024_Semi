@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
@@ -16,7 +13,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'Inicio/style_inicio.css' %}">
+
+    <link rel="stylesheet" href="{% static 'Inicio/style_inicioce.css'  %}" type="text/css">
     <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
 
     <!-- Nombre e icono de sitio web -->
@@ -24,10 +22,17 @@
 
 </head>
 <body>
-    
+
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+
         <!-- Encabezado -->
         <header>
-            <div>
+            <div class="circle"></div>
+
+            <div class="autenticacion">
+
                 <a class="btn_login" href="{% url 'index_login' %}">Iniciar sesión</a> <!-- login -->
                 <a class="btn_register" href="{% url 'index_register' %}">Registrar</a> <!-- register -->
             </div>
@@ -35,17 +40,19 @@
             <div class="icon_ConsoleXpress">
                 <img src="{% static 'icono_ConsoleXpress.svg' %}" width="60px" height="60px">
             </div>
+
+            <div class="line"></div>
                
         </header>
+
     
 
         <!-- Cuerpo de la pagina inicio -->
     <div class="main_inicio">
         <main>
             
-            <div class="text_consoleXpress"> <h1>ConsoleXpress</h1> </div>
-            <div class="text_descripcion">  <h2>Tienda online
-                de Consolas Switch y accesorios. </h2>
+            <div class="text_consoleXpress"> <h1>CONSOLEXPRESS</h1> </div>
+            <div class="text_descripcion">  <h2>Somos tu tienda en línea especializada en consolas y accesorios. </h2>
             </div>
 
             <div>
@@ -94,8 +101,11 @@
                 </div>
             </aside>
 
+         
+
     </div>
-    
+
+    <div class="line2"></div>   
 
     
 </body>
