@@ -1,4 +1,9 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+import json
+from .models import consola
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def index_inicio(request):
@@ -16,5 +21,9 @@ def index_pant_prin(request):
 def crud_admi(request):
     return render(request, 'crud_admi.html')
 
-def vistaAdmin_producto(request):
-    return render(request, 'vistaAdmin_producto.html')
+def consultar_consolas(request):
+    datos = consola.objects.values('id', 'codigo', 'nombre', 'descripcion', 'categoria', 'marca', 'precio', 'stock')
+    return JsonResponse(list(datos), safe=False)
+
+def vistaprincipal_producto(request):
+    return render(request, 'vistaprincipal_producto.html')
