@@ -45,7 +45,6 @@
     </header>
 
 
-
     <section class="p-3">
         <div class="row">
             <div class="col-12 d-flex align-items-center">
@@ -53,6 +52,32 @@
                 <button class="btn btn-danger btn-outline-warning me-5 gap-2 col-2" data-bs-toggle="modal" data-bs-target="#formCrud">
                     Agregar <i class="bi bi-plus-lg"></i>
                 </button>
+                 <!-- script que permite abrir el boton de agregar con el formulario -->
+                <script>
+                document.addEventListener('DOMContentLoaded', event => {
+                    mnxAgregar.addEventListener('click', e => {
+                        e.preventDefault();
+                        let form = e.target.dataset.form;
+                        abrirVentana(form);
+                    });
+                });
+
+                function abrirVentana(form) {
+                    let $element = $(`#${form}`);
+                    if( $element.find("form").length > 0) {
+                        $element.show();
+                    } else {
+                        let url = `/consolas/${form}`;
+                        fetch(url).then(resp=>resp.text()).then(vista => {
+                            $(`#${form}`).html(vista).draggable();
+                            cerrarVentana();
+                        });
+                    }
+                }
+
+
+                </script>
+                
                 <!-- Caja de busqueda -->
                 <div class="col-8">
                     <input type="text" id="searchConsola" class="form-control" placeholder="Buscar consolas" oninput="buscarConsolas()">
@@ -83,8 +108,6 @@
 
         </div>
     </section>
-
-
 
 
     <script>
