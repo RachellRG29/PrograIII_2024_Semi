@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-   <!-- Bootstrap CSS -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-   integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
@@ -23,78 +23,109 @@
 </head>
 <body>
     <!-- Header: Logo, barra de búsqueda y perfil Admin -->
-    <div class="header">
+    <header>
         <div class="logo">
             <!-- Logo de ConsoleXpress -->
             <img alt="ConsoleXpress Logo" height="50" src="{% static 'icono_ConsoleXpress.svg' %}" width="40"/>
             <span>ConsoleXpress</span>
         </div>
-        <div class="search-bar">
-            <!-- Barra de búsqueda -->
-            <input placeholder="Buscar" type="text"/>
-            <i class="fas fa-search"></i>
-        </div>
+
         <div class="admin">
             <!-- Sección Admin -->
-            <span style="color: white;">Admin</span>
+            <span id="lblAdmin" style="color: white;">Usuario</span>
             <i class="fas fa-user" style="color: white;"></i>
         </div>
-    </div>
 
-    <!-- Contenido principal: Título de la página y productos -->
-    <div class="content">
-        <!-- Título de la sección -->
-        <h1>Productos agregados de ConsoleXpress</h1>
-
-        <!-- Sección de categorías -->
-        <div class="categories">
-            <span>Categorías</span>
-            <i class="fas fa-chevron-down"></i>
+        <div class="logout">
+            <button class="border border-danger-subtle" id="btn_logout" style="margin-right: 15px;">
+                <i class="bi bi-box-arrow-right"></i>
+            </button>
         </div>
 
-        <!-- Lista de productos -->
-        <div class="product-list">
-            <!-- Tarjeta de producto 1 -->
-            <div class="product-card">
-                <div class="actions">
-                   <!-- <button><i class="fas fa-plus"></i></button>-->
-                    <button class="btn_plus"><i class="fas fa-plus"></i></button>
-                </div>
-                <!-- Imagen de producto -->
-                <img alt="Product Image" height="150" src="https://img.freepik.com/foto-gratis/vista-controlador-videojuegos-3d_23-2151005755.jpg?w=826&t=st=1728005864~exp=1728006464~hmac=37131993c2fb7c7ff113f98c05fef11fc637031eec311bbcd7495943db7771e1" width="150"/>
-                <div class="details">
-                    <div class="line"></div>
-                    <div class="circle"></div>
-                    <h2>Nombre</h2>
-                    <p class="price">$000</p>
-                    <p class="category">Categoria I</p>
-                    <p>Consola multicolor.</p>
+    </header>
+
+
+
+    <section class="p-3">
+        <div class="row">
+            <div class="col-12 d-flex align-items-center">
+                <!-- Botón para agregar una nueva consola -->
+                <button class="btn btn-danger btn-outline-warning me-5 gap-2 col-2" data-bs-toggle="modal" data-bs-target="#formCrud">
+                    Agregar <i class="bi bi-plus-lg"></i>
+                </button>
+                <!-- Caja de busqueda -->
+                <div class="col-8">
+                    <input type="text" id="searchConsola" class="form-control" placeholder="Buscar consolas" oninput="buscarConsolas()">
                 </div>
             </div>
 
-            <!-- Tarjeta de producto 2 -->
-            <div class="product-card">
-                <div class="actions">
-                    <button class="btn_pen"><i class="fas fa-pen"></i></button>
-                    <button class="btn_delete"><i class="fas fa-trash"></i></button>
+            <!-- TABLA DE LAS CONSOLAS AGREGADAS -->
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-dark table-hover mt-4 text-center border border-danger-subtle" id="tblConsolas">
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+                                <th>Descripcion</th>
+                                <th>Categoria</th>
+                                <th>Marca</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        
+                    </table>
                 </div>
-                <img alt="Nintendo switch oled" height="150" src="https://storage.googleapis.com/a1aa/image/IGYeeZGaBTg1TkgWoiTClrvPUEooA88pJtrwsfc37jFMb5FnA.jpg" width="150"/>
-                <div class="details">
-                    <div class="line"></div>
-                    <div class="circle"></div>
-                    <h2>Nintendo switch oled</h2>
-                    <p class="price">$400</p>
-                    <p class="category">Categoria especial</p>
-                    <p>Consola especial, color rosa con blanco.</p>
-                </div>
+
             </div>
-        </div> <!-- cierra product-list -->
+
+        </div>
+    </section>
 
 
-    </div>  <!-- cierra content -->
 
 
+    <script>
+        function eliminarConsola(idConsola){
+            if(confirm("¿Desea eliminar este registro?")){
+                let datos = {
+                    accion : "eliminar",
+                    idConsola,
+                };
+                enviarDatosConsola(datos);
+            }
+        }
+        function consultarConsola(){
+            fetch('consultar_consolas/')
+            .then(res => res.json())
+            .then(data => {
+                mostrarFilasConsolas(data);
+            })
+            .catch(err => console.log(err));
+        }
+        function mostrarFilasConsolas(data = []){
+            let filas = '';
+            data.forEach(consola => {
+                filas += `
+                    <tr onClick='modificarConsola(${JSON.stringify(consola)})'>
+                        <td>${consola.codigo}</td>
+                        <td>${consola.nombre}</td>
+                        <td>${consola.direccion}</td>
+                        <td>${consola.telefono}</td>
+                        <td>
+                            <button type="button" class="btn btn-outline-danger" 
+                                onClick='eliminarConsola(${consola.id})'>DEL
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            document.querySelector('#tblConsola > tbody').innerHTML = filas;
+        }
+        consultarAlumnos();
+    </script>
 
-    <script src="script_admi.js"></script>
 </body>
 </html>
