@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path
-from consolexpress.views import index_inicio, index_login, index_register, index_pant_prin, crud_admi, vistaprincipal_producto
+from consolexpress.views import (index_inicio, index_login, index_register, index_pant_prin, 
+                                 crud_admi, guardar_consola, consultar_consolas, editar_consola, eliminar_consola, 
+                                 vistaprincipal_producto,)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -8,6 +10,10 @@ urlpatterns = [
     path('login/', index_login, name='index_login'), 
     path('register/', index_register, name='index_register'),  
     path('pantalla_prin/', index_pant_prin, name='index_pant_prin'),
-    path('crud_admi/', crud_admi, name='crud_admi'),    
+    path('crud_admi/', crud_admi, name='crud_admi'), 
+    path('guardar_consola/', guardar_consola, name='guardar_consola'),  
+    path('consultar_consolas/', consultar_consolas, name='consultar_consolas'), 
+    path('eliminar_consola/<int:id>/', eliminar_consola, name='eliminar_consola'),
+    path('editar_consola/<int:id>/', editar_consola, name='editar_consola'),
     path('vistaprincipal_producto/', vistaprincipal_producto, name='vistaprincipal_producto'),   
 ]

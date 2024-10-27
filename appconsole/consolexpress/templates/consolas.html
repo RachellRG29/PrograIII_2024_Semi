@@ -1,3 +1,58 @@
-<form action="frmConsola" data-action="nuevo" data-idconsola="0">
+{% load static %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'Admin/style_consola.css' %}" type="text/css">
 
-</form>
+
+<!-- Popover personalizado para agregar consola -->
+<div id="popoverConsola" class="popover-consola">
+    <div class="popover-header">
+        <h5>Agregar Consola</h5>
+        <button type="button" class="btn-close" onclick="cerrarPopover()">×</button>
+    </div>
+    <div class="popover-body">
+        <form id="formAgregarConsola" method="post" enctype="multipart/form-data" action="{% url 'guardar_consola' %}">
+            {% csrf_token %}
+            <div class="row">
+                <!-- Columna Izquierda para la imagen -->
+                <div class="col-4">
+                    <div class="mb-3">
+                        <label for="imagen">Imagen:</label>
+                        <input type="file" class="form-control" name="imagen" accept="image/*">
+                    </div>
+                </div>
+                <!-- Columna Derecha para el resto de campos -->
+                <div class="col-8">
+                    <div class="mb-3 d-flex align-items-center">
+                        <label for="codigo" class="col-form-label me-3">Código:</label>
+                        <input type="text" class="form-control" name="codigo" required>
+                    </div>
+                    <div class="mb-3 d-flex align-items-center">
+                        <label for="nombre" class="col-form-label me-3">Nombre:</label>
+                        <input type="text" class="form-control" name="nombre" required>
+                    </div>
+                    <div class="mb-3 d-flex align-items-center">
+                        <label for="descripcion" class="col-form-label me-3">Descripción:</label>
+                        <textarea class="form-control" name="descripcion" rows="2"></textarea>
+                    </div>
+                    <div class="mb-3 d-flex align-items-center">
+                        <label for="categoria" class="col-form-label me-3">Categoría:</label>
+                        <input type="text" class="form-control" name="categoria" required>
+                    </div>
+                    <div class="mb-3 d-flex align-items-center">
+                        <label for="marca" class="col-form-label me-3">Marca:</label>
+                        <input type="text" class="form-control" name="marca" required>
+                    </div>
+                    <div class="mb-3 d-flex align-items-center">
+                        <label for="precio" class="col-form-label me-3">Precio:</label>
+                        <input type="text" class="form-control" name="precio" required>
+                    </div>
+                    <div class="mb-3 d-flex align-items-center">
+                        <label for="stock" class="col-form-label me-3">Stock:</label>
+                        <input type="number" class="form-control" name="stock" required>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

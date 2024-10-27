@@ -10,6 +10,11 @@
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+    <!-- Alertify CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.css" />
+    <!-- Alertify Theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/themes/default.min.css" />
+
     <!-- Fuentes utilizadas -->
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
@@ -49,34 +54,22 @@
         <div class="row">
             <div class="col-12 d-flex align-items-center">
                 <!-- Botón para agregar una nueva consola -->
-                <button class="btn btn-danger btn-outline-warning me-5 gap-2 col-2" data-bs-toggle="modal" data-bs-target="#formCrud">
-                    Agregar <i class="bi bi-plus-lg"></i>
+
+                <button type="button" id="btnAgregarConsola" class="btn btn-danger btn-outline-warning me-5 gap-2 col-2" data-bs-toggle="popover" title="Agregar Consola" data-bs-html="true">
+                    Agregar consola <i class="bi bi-plus-lg"></i>
                 </button>
                  <!-- script que permite abrir el boton de agregar con el formulario -->
-                <script>
-                document.addEventListener('DOMContentLoaded', event => {
-                    mnxAgregar.addEventListener('click', e => {
-                        e.preventDefault();
-                        let form = e.target.dataset.form;
-                        abrirVentana(form);
+                  <script>
+                    // Función para mostrar el popover
+                    document.getElementById("btnAgregarConsola").addEventListener("click", function () {
+                        document.getElementById("popoverConsola").style.display = "block";
                     });
-                });
 
-                function abrirVentana(form) {
-                    let $element = $(`#${form}`);
-                    if( $element.find("form").length > 0) {
-                        $element.show();
-                    } else {
-                        let url = `/consolas/${form}`;
-                        fetch(url).then(resp=>resp.text()).then(vista => {
-                            $(`#${form}`).html(vista).draggable();
-                            cerrarVentana();
-                        });
+                    // Función para cerrar el popover
+                    function cerrarPopover() {
+                        document.getElementById("popoverConsola").style.display = "none";
                     }
-                }
-
-
-                </script>
+                  </script>
                 
                 <!-- Caja de busqueda -->
                 <div class="col-8">
@@ -101,6 +94,9 @@
                                 <th></th>
                             </tr>
                         </thead>
+                        <tbody  id="consolasBody">
+
+                        </tbody>
                         
                     </table>
                 </div>
@@ -109,47 +105,80 @@
 
         </div>
     </section>
+        <!-- Modal para Agregar Consola -->
+        {% include 'consolas.html' %}
+       
+        <script>
 
+        document.getElementById('formAgregarConsola').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevenir el envío por defecto del formulario
 
-    <script>
-        function eliminarConsola(idConsola){
-            if(confirm("¿Desea eliminar este registro?")){
-                let datos = {
-                    accion : "eliminar",
-                    idConsola,
-                };
-                enviarDatosConsola(datos);
-            }
-        }
-        function consultarConsola(){
-            fetch('consultar_consolas/')
-            .then(res => res.json())
-            .then(data => {
-                mostrarFilasConsolas(data);
+            const formData = new FormData(this); 
+
+            fetch("{% url 'guardar_consola' %}", {
+                method: 'POST',
+                body: formData,
             })
-            .catch(err => console.log(err));
-        }
-        function mostrarFilasConsolas(data = []){
-            let filas = '';
-            data.forEach(consola => {
-                filas += `
-                    <tr onClick='modificarConsola(${JSON.stringify(consola)})'>
-                        <td>${consola.codigo}</td>
-                        <td>${consola.nombre}</td>
-                        <td>${consola.direccion}</td>
-                        <td>${consola.telefono}</td>
-                        <td>
-                            <button type="button" class="btn btn-outline-danger" 
-                                onClick='eliminarConsola(${consola.id})'>DEL
-                            </button>
-                        </td>
-                    </tr>
-                `;
+            .then(response => response.json())
+            .then(data => {
+                if (data.msg === 'success') {
+                    // Agregar la nueva consola a la tabla
+                    const tbody = document.getElementById("consolasBody");
+                    const nuevaFila = tbody.insertRow();
+                    nuevaFila.innerHTML = `
+                        <td>${data.consola.codigo}</td>
+                        <td><img src="${data.consola.imagen}" alt="${data.consola.nombre}" style="width: 50px;"></td>
+                        <td>${data.consola.nombre}</td>
+                        <td>${data.consola.descripcion}</td>
+                        <td>${data.consola.categoria}</td>
+                        <td>${data.consola.marca}</td>
+                        <td>${data.consola.precio}</td>
+                        <td>${data.consola.stock}</td>
+                        <td><button class="btn btn-danger" onclick="eliminarConsola(${data.consola.id})">Eliminar</button></td>
+                    `;
+                    alertify.success('¡Consola guardada exitosamente!'); // Mensaje de éxito
+                    cerrarPopover(); // Cerrar el popover
+                } else {
+                    alertify.error('Error al guardar la consola.'); // Mensaje de error
+                }
+            })
+            .catch(error => {
+                alertify.error('Error en la comunicación con el servidor.'); // Mensaje de error
+                console.error('Error:', error);
             });
-            document.querySelector('#tblConsola > tbody').innerHTML = filas;
-        }
-        consultarAlumnos();
-    </script>
+        });
+
+
+            // Cargar las consolas al inicio
+            function cargarConsolas() {
+                fetch("{% url 'consultar_consolas' %}")  // URL para obtener las consolas
+                    .then(response => response.json())
+                    .then(data => {
+                        const tbody = document.getElementById("consolasBody");
+                        tbody.innerHTML = ''; // Limpiar la tabla antes de llenarla
+                        data.forEach(consola => {
+                            tbody.innerHTML += `
+                                <tr>
+                                    <td>${consola.codigo}</td>
+                                    <td><img src="${consola.imagen}" alt="${consola.nombre}" style="width: 50px;"></td>
+                                    <td>${consola.nombre}</td>
+                                    <td>${consola.descripcion}</td>
+                                    <td>${consola.categoria}</td>
+                                    <td>${consola.marca}</td>
+                                    <td>${consola.precio}</td>
+                                    <td>${consola.stock}</td>
+                                    <td><button class="btn btn-danger" onclick="eliminarConsola(${consola.id})">Eliminar</button></td>
+                                </tr>
+                            `;
+                        });
+                    });
+            }
+            document.addEventListener("DOMContentLoaded", cargarConsolas);
+        </script>
+        
+
+<!-- Alertify JS -->
+<script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
 </body>
 </html>
