@@ -13,6 +13,7 @@
     <div class="card-body">
         <form id="formAgregarConsola" method="post" enctype="multipart/form-data" action="{% url 'guardar_consola' %}">
             {% csrf_token %}
+            <input type="hidden" id="consolaId" name="consolaId"> <!-- Campo oculto para el ID -->
             <div class="row">
                 <!-- Columna Izquierda para la imagen -->
                 <div class="col-4">

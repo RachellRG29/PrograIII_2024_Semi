@@ -10,10 +10,8 @@
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- Alertify CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.css" />
-    <!-- Alertify Theme -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/themes/default.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/themes/default.min.css"/>
 
     <!-- Fuentes utilizadas -->
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
@@ -54,7 +52,6 @@
         <div class="row justify-content-center">
             <div class="col-12 d-flex align-items-center">
                 <!-- Botón para agregar una nueva consola -->
-
                 <button type="button" id="btnAgregarConsola" class="btn btn-danger btn-outline-warning me-5 gap-2 col-2" data-bs-toggle="popover" title="Agregar Consola" data-bs-html="true">
                     Agregar consola <i class="bi bi-plus-lg"></i>
                 </button>
@@ -92,6 +89,7 @@
                                 <th>Precio</th>
                                 <th>Stock</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody  id="consolasBody">
@@ -105,6 +103,7 @@
 
         </div>
     </section>
+
         <!-- Modal para Agregar Consola -->
         {% include 'consolas.html' %}
        
@@ -134,8 +133,11 @@
                         <td>${data.consola.marca}</td>
                         <td>${data.consola.precio}</td>
                         <td>${data.consola.stock}</td>
-                        <td><button class="btn btn-danger" onclick="eliminarConsola(${data.consola.id})">Eliminar</button></td>
-                    `;
+                        <td>
+                            <button class="btn btn-warning" onclick="editarConsola(${data.consola.id})"><i class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-danger" onclick="eliminarConsola(${data.consola.id})"><i class="bi bi-trash3"></i></button>
+                        </td>`;
+                    cargarConsolas();
                     alertify.success('¡Consola guardada exitosamente!'); // Mensaje de éxito
                     cerrarPopover(); // Cerrar el popover
                 } else {
@@ -167,16 +169,92 @@
                                     <td>${consola.marca}</td>
                                     <td>${consola.precio}</td>
                                     <td>${consola.stock}</td>
-                                    <td><button class="btn btn-danger" onclick="eliminarConsola(${consola.id})">Eliminar</button></td>
+                                    <td><button class="btn btn-warning" onclick="editarConsola(${consola.id})"><i class="bi bi-pencil-square"></i></button></td>
+                                    <td><button class="btn btn-danger" onclick="eliminarConsola(${consola.id})"><i class="bi bi-trash3"></i></button></td>
+                                    
                                 </tr>
                             `;
                         });
                     });
             }
+
+
+            function editarConsola(id) {
+            fetch(`{% url 'consultar_consolas' %}`, { // Asegúrate de que la URL correcta esté definida
+                method: 'GET',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify({ id: id }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Prellenar el modal con los datos de la consola
+                document.querySelector('input[name="codigo"]').value = data.codigo;
+                document.querySelector('input[name="nombre"]').value = data.nombre;
+                document.querySelector('input[name="descripcion"]').value = data.descripcion;
+                document.querySelector('input[name="categoria"]').value = data.categoria;
+                document.querySelector('input[name="marca"]').value = data.marca;
+                document.querySelector('input[name="precio"]').value = data.precio;
+                document.querySelector('input[name="stock"]').value = data.stock;
+                // Mostrar el modal
+                const myModal = new bootstrap.Modal(document.getElementById('modalConsola'));
+                myModal.show();
+            });
+        }
+
+
+function eliminarConsola(id) {
+    fetch("{% url 'eliminar_consola' %}", {  // Cambia esto a la URL de eliminación
+        method: 'DELETE',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Content-Type': 'application/json' // Asegúrate de que el tipo de contenido esté bien definido
+        },
+        body: JSON.stringify({ id: id }),
+    })
+    .then(response => {
+        if (response.ok) {
+            alertify.success('¡Consola eliminada exitosamente!');
+            cargarConsolas(); // Recargar la lista de consolas
+        } else {
+            alertify.error('Error al eliminar la consola.');
+        }
+    })
+    .catch(error => {
+        alertify.error('Error en la comunicación con el servidor.');
+        console.error('Error:', error);
+    });
+}
+
+
+
+// Función para obtener el token CSRF (puedes agregar esto al final de tu script)
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Verifica si este es el cookie que estás buscando
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
             document.addEventListener("DOMContentLoaded", cargarConsolas);
+
+            
+   
+
+            
         </script>
         
-
+        
 <!-- Alertify JS -->
 <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 

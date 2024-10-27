@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import JsonResponse
+import json
 from .models import consola  # Asegúrate de que el modelo se llame correctamente
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
@@ -41,6 +42,12 @@ def consultar_consolas(request):
 @csrf_exempt  
 def guardar_consola(request):
     if request.method == 'POST':
+        # Validación básica de campos requeridos
+        required_fields = ['codigo', 'nombre', 'descripcion', 'categoria', 'marca', 'precio', 'stock']
+        for field in required_fields:
+            if field not in request.POST:
+                return JsonResponse({'msg': 'error', 'error': f'El campo {field} es requerido'}, status=400)
+        
         nueva_consola = consola(
             codigo=request.POST['codigo'],
             nombre=request.POST['nombre'],
@@ -69,6 +76,32 @@ def guardar_consola(request):
             }
         })
     return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
+
+def editar_consola(request):
+    if request.method == 'POST':
+        consola = consultar_consolas.objects.get(id=request.POST['id'])
+        consola.codigo = request.POST['codigo']
+        consola.nombre = request.POST['nombre']
+        consola.descripcion = request.POST['descripcion']
+        consola.categoria = request.POST['categoria']
+        consola.marca = request.POST['marca']
+        consola.precio = request.POST['precio']
+        consola.stock = request.POST['stock']
+        consola.save()
+        return JsonResponse({'msg': 'success'})
+
+
+# Función para eliminar consola
+@csrf_exempt
+def eliminar_consola(request):
+    if request.method == 'DELETE':
+        data = json.loads(request.body)
+        consola_id = data.get('id')
+        consola_obj = get_object_or_404(consola, id=consola_id)
+        consola_obj.delete()  # Eliminar el objeto
+        return JsonResponse({'msg': 'success'})
+    return JsonResponse({'msg': 'error'}, status=400)
+
 
 def vistaprincipal_producto(request):
     return render(request, 'vista_principal_producto.html')  
