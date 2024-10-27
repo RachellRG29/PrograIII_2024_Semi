@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .models import consola  # Asegúrate de que el modelo se llame correctamente
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 
 # Create your views here.
 def index_inicio(request):
@@ -20,10 +21,24 @@ def crud_admi(request):
     return render(request, 'crud_admi.html')
 
 def consultar_consolas(request):
-    datos = consola.objects.values('id', 'imagen', 'codigo', 'nombre', 'descripcion', 'categoria', 'marca', 'precio', 'stock')
-    return JsonResponse(list(datos), safe=False)
+    datos = consola.objects.all()  # Obtener todas las consolas
+    data = [
+        {
+            'id': c.id,
+            'imagen': f"{settings.MEDIA_URL}{c.imagen}" if c.imagen else None,  # URL completa de la imagen
+            'codigo': c.codigo,
+            'nombre': c.nombre,
+            'descripcion': c.descripcion,
+            'categoria': c.categoria,
+            'marca': c.marca,
+            'precio': c.precio,
+            'stock': c.stock,
+        }
+        for c in datos
+    ]
+    return JsonResponse(data, safe=False)
 
-@csrf_exempt  # Asegúrate de entender las implicaciones de deshabilitar CSRF
+@csrf_exempt  
 def guardar_consola(request):
     if request.method == 'POST':
         nueva_consola = consola(
@@ -43,7 +58,7 @@ def guardar_consola(request):
             'msg': 'success',
             'consola': {
                 'codigo': nueva_consola.codigo,
-                'imagen': nueva_consola.imagen.url,  # URL de la imagen
+                'imagen': f"{settings.MEDIA_URL}{nueva_consola.imagen}" if nueva_consola.imagen else None,  # URL de la imagen
                 'nombre': nueva_consola.nombre,
                 'descripcion': nueva_consola.descripcion,
                 'categoria': nueva_consola.categoria,
@@ -53,39 +68,6 @@ def guardar_consola(request):
                 'id': nueva_consola.id,  # ID para eliminar más tarde
             }
         })
-    return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
-
-@csrf_exempt  
-def eliminar_consola(request, id):
-    if request.method == 'DELETE':  
-        try:
-            consola_obj = consola.objects.get(id=id)
-            consola_obj.delete()
-            return JsonResponse({'msg': 'success'})
-        except consola.DoesNotExist:
-            return JsonResponse({'msg': 'error', 'error': 'Consola no encontrada'}, status=404)
-    return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
-
-@csrf_exempt  
-def editar_consola(request, id):
-    if request.method == 'PUT':
-        try:
-            consola_obj = consola.objects.get(id=id)
-            consola_obj.codigo = request.POST.get('codigo', consola_obj.codigo)
-            consola_obj.nombre = request.POST.get('nombre', consola_obj.nombre)
-            consola_obj.descripcion = request.POST.get('descripcion', consola_obj.descripcion)
-            consola_obj.categoria = request.POST.get('categoria', consola_obj.categoria)
-            consola_obj.marca = request.POST.get('marca', consola_obj.marca)
-            consola_obj.precio = request.POST.get('precio', consola_obj.precio)
-            consola_obj.stock = request.POST.get('stock', consola_obj.stock)
-
-            if 'imagen' in request.FILES:
-                consola_obj.imagen = request.FILES['imagen']
-
-            consola_obj.save()
-            return JsonResponse({'msg': 'success'})
-        except consola.DoesNotExist:
-            return JsonResponse({'msg': 'error', 'error': 'Consola no encontrada'}, status=404)
     return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
 
 def vistaprincipal_producto(request):

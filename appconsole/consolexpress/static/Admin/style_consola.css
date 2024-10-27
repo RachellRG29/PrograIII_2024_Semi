@@ -5,11 +5,10 @@ body{
 /* Popover estilo rectangular y más ancho */
 .popover-consola {
     display: none;
-    position: absolute;
-    top: 15%;
-    left: 50%;
-    transform: translate(-50%, -15%);
-    width: 75%; /* Más ancho para el diseño horizontal */
+    position: fixed;
+    top: 6%; /* Define posición inicial */
+    left: 12%; /* Define posición inicial */
+    width: 75%;
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -26,6 +25,7 @@ body{
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
     margin-bottom: 10px;
+    cursor: move;
 }
 
 /* Alineación horizontal de cada campo */

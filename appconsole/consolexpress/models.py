@@ -4,7 +4,7 @@ from django.db import models
 # Tabla consolas 
 class consola(models.Model):
     codigo = models.CharField(max_length=10)
-    imagen = models.ImageField(upload_to='imagenes_consolas/')
+    imagen = models.ImageField(upload_to='img_consolas/')
     nombre = models.CharField(max_length=75)
     descripcion = models.TextField()
     categoria = models.CharField(max_length=75)

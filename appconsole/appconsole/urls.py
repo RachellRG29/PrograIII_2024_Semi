@@ -1,7 +1,9 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from consolexpress.views import (index_inicio, index_login, index_register, index_pant_prin, 
-                                 crud_admi, guardar_consola, consultar_consolas, editar_consola, eliminar_consola, 
+                                 crud_admi, guardar_consola, consultar_consolas, 
                                  vistaprincipal_producto,)
 
 urlpatterns = [
@@ -13,7 +15,8 @@ urlpatterns = [
     path('crud_admi/', crud_admi, name='crud_admi'), 
     path('guardar_consola/', guardar_consola, name='guardar_consola'),  
     path('consultar_consolas/', consultar_consolas, name='consultar_consolas'), 
-    path('eliminar_consola/<int:id>/', eliminar_consola, name='eliminar_consola'),
-    path('editar_consola/<int:id>/', editar_consola, name='editar_consola'),
     path('vistaprincipal_producto/', vistaprincipal_producto, name='vistaprincipal_producto'),   
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
