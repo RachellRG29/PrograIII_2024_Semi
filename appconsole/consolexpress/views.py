@@ -1,4 +1,5 @@
 from django.shortcuts import render,get_object_or_404
+from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
 import json
 from .models import consola  # Asegúrate de que el modelo se llame correctamente
@@ -98,17 +99,11 @@ def guardar_consola(request):
     return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
 
 
-from django.views.decorators.http import require_http_methods
-from django.utils.decorators import method_decorator
-import json
-from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
-from .models import consola
 
 @csrf_exempt
-@require_http_methods(["PATCH"])
+@require_http_methods(["POST"])
 def editar_consola(request, id):
-    if request.method == 'PATCH':
+    if request.method == 'POST':
         # Cargar el cuerpo de la solicitud
         data = json.loads(request.body)
 

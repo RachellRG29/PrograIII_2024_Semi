@@ -19,7 +19,7 @@
     <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
 
     <!-- Alertify JS -->
-<script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
     <title>Crud ConsoleXpress</title>
 
@@ -227,7 +227,7 @@ document.getElementById('formAgregarConsola').addEventListener('submit', functio
 
     // Realizar la solicitud PUT
     fetch(`consultar_consolas/${consolaId}/`, {
-        method: 'PATCH',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
