@@ -89,7 +89,10 @@ body {
 /* Panel derecho que contiene una imagen de fondo y el botón de registro */
 .right-panel {
     width: 100%;
-    background: url('https://www.gamebrothersstore.com/wp-content/uploads/2024/04/mario_red_switch_oled_front.jpg') no-repeat center center;
+    
+        background-image: url('{% static "appconsole/consolexpress/static/170693_fondo neon azul oscuro, plantas neon, predominante_xl-1024-v1-0.png" %}');
+        background-repeat: no-repeat;
+        background-position: center center;
     background-size: cover;
     display: flex;
     justify-content: center;
