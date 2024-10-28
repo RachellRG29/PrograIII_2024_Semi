@@ -109,6 +109,10 @@
        
         <script>
 
+        document.addEventListener("DOMContentLoaded", function(){
+            cargarConsolas();
+        });
+
         document.getElementById('formAgregarConsola').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevenir el envío por defecto del formulario
 
@@ -179,29 +183,42 @@
             }
 
 
-            function editarConsola(id) {
-            fetch(`{% url 'consultar_consolas' %}`, { // Asegúrate de que la URL correcta esté definida
-                method: 'GET',
-                headers: {
-                    'X-CSRFToken': getCookie('csrftoken'),
-                },
-                body: JSON.stringify({ id: id }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Prellenar el modal con los datos de la consola
+
+    // Función para abrir el form y editar sus datos :3
+function editarConsola(id) {
+    $.ajax({
+        url: `{% url 'editar_consola' %}`,
+        type: 'GET',
+        data: { id: id },
+        success: function(data) {
+            if (data) {
                 document.querySelector('input[name="codigo"]').value = data.codigo;
                 document.querySelector('input[name="nombre"]').value = data.nombre;
-                document.querySelector('input[name="descripcion"]').value = data.descripcion;
+                document.querySelector('textarea[name="descripcion"]').value = data.descripcion;
                 document.querySelector('input[name="categoria"]').value = data.categoria;
                 document.querySelector('input[name="marca"]').value = data.marca;
                 document.querySelector('input[name="precio"]').value = data.precio;
                 document.querySelector('input[name="stock"]').value = data.stock;
-                // Mostrar el modal
-                const myModal = new bootstrap.Modal(document.getElementById('modalConsola'));
-                myModal.show();
-            });
+                document.getElementById('consolaId').value = data.id; //Id oculto 
+
+                // Mostrar el popover
+                document.getElementById("popoverConsola").style.display = "block"; 
+            } else {
+                console.error('No se pudieron cargar los datos de la consola.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
         }
+    });
+}
+
+// Función para cerrar el popover
+function cerrarPopover() {
+    document.getElementById("popoverConsola").style.display = "none"; // Ocultar el popover
+}
+
+
 
 
 function eliminarConsola(id) {
@@ -245,11 +262,6 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-
-            document.addEventListener("DOMContentLoaded", cargarConsolas);
-
-            
-   
 
             
         </script>

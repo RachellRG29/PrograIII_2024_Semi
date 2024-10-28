@@ -78,17 +78,23 @@ def guardar_consola(request):
     return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
 
 def editar_consola(request):
-    if request.method == 'POST':
-        consola = consultar_consolas.objects.get(id=request.POST['id'])
-        consola.codigo = request.POST['codigo']
-        consola.nombre = request.POST['nombre']
-        consola.descripcion = request.POST['descripcion']
-        consola.categoria = request.POST['categoria']
-        consola.marca = request.POST['marca']
-        consola.precio = request.POST['precio']
-        consola.stock = request.POST['stock']
-        consola.save()
-        return JsonResponse({'msg': 'success'})
+    if request.method == 'GET':
+        consola_id = request.GET.get('id')
+        consola_instance = get_object_or_404(consola, id=consola_id)  # Cambia 'Consola' al nombre de tu modelo
+
+        data = {
+            'id': consola_instance.id,
+            'codigo': consola_instance.codigo,
+            'nombre': consola_instance.nombre,
+            'descripcion': consola_instance.descripcion,
+            'categoria': consola_instance.categoria,
+            'marca': consola_instance.marca,
+            'precio': consola_instance.precio,
+            'stock': consola_instance.stock,
+        }
+        return JsonResponse(data)
+
+    return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
 
 
 # Función para eliminar consola
