@@ -1,11 +1,9 @@
 /* Estilo general del cuerpo de la página */
 body {
     font-family: 'League Spartan';
-    background-color: whitesmoke;
     margin: 0;
     padding: 0;
 }
-
 /* Encabezado principal de la página */
 header {
     background-color: #e1646e;
@@ -60,3 +58,11 @@ header .logout{
     position: absolute;
 }
 
+
+
+.alertify {
+    position: fixed; 
+    top: 20px; 
+    right: 20px; 
+    z-index: 9999; 
+}

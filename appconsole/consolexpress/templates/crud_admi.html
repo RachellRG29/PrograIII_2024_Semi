@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,19 +11,29 @@
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/themes/default.min.css"/>
-
     <!-- Fuentes utilizadas -->
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    {% load static %}
+    
     <link rel="stylesheet" type="text/css" href="{% static 'Admin/style_crud.css' %}">
     <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
 
+    <!-- Alertify JS -->
+<script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
     <title>Crud ConsoleXpress</title>
+
+    <style>
+        body {
+            font-family: 'League Spartan';
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'fondo_cinematico_nintendo.png' %}");
+            background-size: cover;
+            height: 100vh; 
+        }
+    </style>
+
 </head>
 <body>
     <!-- Header: Logo, barra de búsqueda y perfil Admin -->
@@ -185,33 +196,60 @@
 
 
     // Función para abrir el form y editar sus datos :3
-function editarConsola(id) {
-    $.ajax({
-        url: `{% url 'editar_consola' %}`,
-        type: 'GET',
-        data: { id: id },
-        success: function(data) {
-            if (data) {
-                document.querySelector('input[name="codigo"]').value = data.codigo;
-                document.querySelector('input[name="nombre"]').value = data.nombre;
-                document.querySelector('textarea[name="descripcion"]').value = data.descripcion;
-                document.querySelector('input[name="categoria"]').value = data.categoria;
-                document.querySelector('input[name="marca"]').value = data.marca;
-                document.querySelector('input[name="precio"]').value = data.precio;
-                document.querySelector('input[name="stock"]').value = data.stock;
-                document.getElementById('consolaId').value = data.id; //Id oculto 
-
-                // Mostrar el popover
-                document.getElementById("popoverConsola").style.display = "block"; 
-            } else {
-                console.error('No se pudieron cargar los datos de la consola.');
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('Error:', error);
-        }
-    });
+    function editarConsola(id) {
+    // Cargar datos de la consola
+    fetch(`consultar_consolas/${id}/`)
+        .then(response => response.json())
+        .then(consola => {
+            // Rellenar los campos del modal con los datos obtenidos
+            document.getElementById("editConsolaId").value = consola.id;
+            document.getElementById("editCodigo").value = consola.codigo;
+            document.getElementById("editNombre").value = consola.nombre;
+            // Completa los demás campos según tu formulario
+            
+            // Mostrar el modal de edición
+            const modal = new bootstrap.Modal(document.getElementById("modalEditarConsola"));
+            modal.show();
+        });
 }
+
+// Escuchar el envío del formulario de edición
+document.getElementById('formAgregarConsola').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevenir el envío por defecto
+
+    // Obtener datos del formulario
+    const consolaId = document.getElementById("consolaId").value;
+    const data = {
+        codigo: document.getElementById("editCodigo").value,
+        nombre: document.getElementById("editNombre").value,
+        // Completa con los demás datos de la consola
+    };
+
+    // Realizar la solicitud PUT
+    fetch(`consultar_consolas/${consolaId}/`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.msg === 'success') {
+            alertify.success('Consola editada exitosamente');
+            cargarConsolas(); // Recargar la tabla
+            // Cerrar el modal de edición
+            const modal = bootstrap.Modal.getInstance(document.getElementById("popoverConsola"));
+            modal.hide();
+        } else {
+            alertify.error('Error al editar la consola');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+
+
 
 // Función para cerrar el popover
 function cerrarPopover() {
@@ -221,7 +259,7 @@ function cerrarPopover() {
 
 
 
-function eliminarConsola(id) {
+/*function eliminarConsola(id) {
     fetch("{% url 'eliminar_consola' %}", {  // Cambia esto a la URL de eliminación
         method: 'DELETE',
         headers: {
@@ -242,7 +280,40 @@ function eliminarConsola(id) {
         alertify.error('Error en la comunicación con el servidor.');
         console.error('Error:', error);
     });
+}*/
+
+
+function eliminarConsola(id) {
+    alertify.confirm("¿Estás seguro de que deseas eliminar esta consola?",
+        function() {
+            // Acción a realizar si el usuario confirma la eliminación
+            fetch("{% url 'eliminar_consola' %}", {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    alertify.success('¡Consola eliminada exitosamente!');
+                    cargarConsolas(); // Recargar la lista de consolas
+                } else {
+                    alertify.error('Error al eliminar la consola.');
+                }
+            })
+            .catch(error => {
+                alertify.error('Error en la comunicación con el servidor.');
+                console.error('Error:', error);
+            });
+        },
+        function() {
+            alertify.message('Cancelado'); // Mensaje si se cancela la eliminación
+        }
+    ).set('closable', false); // Evita el cierre al hacer clic fuera
 }
+
 
 
 
@@ -266,9 +337,8 @@ function getCookie(name) {
             
         </script>
         
-        
-<!-- Alertify JS -->
-<script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+
 
 </body>
 </html>
