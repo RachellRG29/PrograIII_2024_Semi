@@ -9,54 +9,44 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="row p-1">
+            <div class="row p-1"> <!-- Codigo alumno--->
                 <div class="col-3 col-md-2">CODIGO </div>
                 <div class="col-9 col-md-4">
                     <input type="text" class="form-control" id="txtCodigoAlumno" name="txtCodigoAlumno" required oninput="validarCodigo(this)" required>
                     <script>
-                       /* function validarCodigo(input){
+
+                        function validarCodigo(input) {
                             const codigo_valor = input.value;
                             const regex = /^[A-Za-z]{4}\d{6}$/; 
-                            //Validar 
-                            if(codigo_valor.length === 10){
-                                if(!regex.test(codigo_valor)){
-                                    Swal.fire({
-                                        toast: true,
-                                        position: 'bottom-end',
-                                        icon: "info",
-                                        title: "El codigo debe contener 4 letras y 6 numeros seguidos",
-                                        showConfirmButton: false,
-                                        timer: 3000
-                                    });
-                                } 
-                            }
-                        }*/
 
-                    function validarCodigo(input) {
-                        const codigo_valor = input.value;
-                        const regex = /^[A-Za-z]{4}\d{6}$/; 
-                        //valida si el codigo tiene 10 valores (4 letras y 6 numeros)
-                        if (codigo_valor.length === 10) {
-                            if (!regex.test(codigo_valor)) { 
-                                Swal.fire({
-                                    toast: true,
-                                    position: 'bottom-end',
-                                    icon: "info",
-                                    title: "El código debe contener 4 letras y 6 números seguidos",
-                                    showConfirmButton: false,
-                                    timer: 3000
-                                });
+                                // 10 caracteres
+                                if (codigo_valor.length === 10) {
+                                    if (regex.test(codigo_valor)) { 
+                                        // Si es válido, devolver true
+                                        return true;
+                                    } else { 
+                                        Swal.fire({
+                                            toast: true,
+                                            position: 'bottom-end',
+                                            icon: "info",
+                                            title: "El código debe contener 4 letras y 6 números seguidos",
+                                            showConfirmButton: false,
+                                            timer: 3000
+                                        });
+                                        return false; // sino es correcto devolver false
+                                    }
+                                } else if (codigo_valor.length > 10) {
+                                    // permite 10 numeros si no los borra
+                                    input.value = codigo_valor.slice(0, 10);
+                                }
+                                
+                                return false; //en caso de no tener 10digitos
                             }
-                        } else if (codigo_valor.length > 10) {
-                            // solo permite los 10, sino lo borra
-                            input.value = codigo_valor.slice(0, 10);
-                        }
-                    }
 
                     </script>
                 </div>
             </div>
-            <div class="row p-1">
+            <div class="row p-1"> <!-- Nombre alumno--->
                 <div class="col-3 col-md-2">NOMBRE </div>
                 <div class="col-9 col-md-6">
                     <input type="text" class="form-control" id="txtNombreAlumno" name="txtNombreAlumno" oninput="validarNombre(this)" required>
@@ -81,13 +71,35 @@
                     </script>
                 </div>
             </div>
-            <div class="row p-1">
+            <div class="row p-1"> <!-- Direccion alumno--->
                 <div class="col-3 col-md-2">DIRECCION</div>
                 <div class="col-9 col-md-10">
-                    <input type="text" class="form-control" id="txtDireccionAlumno" name="txtDireccionAlumno" required>
+                    <input type="text" class="form-control" id="txtDireccionAlumno" name="txtDireccionAlumno" oninput="validarDireccion(this)" required>
+                <script>
+                    function validarDireccion(input){
+                        const direccion_valor= input.value;
+                        regexDirec =  /[^A-Za-z0-9áéíóúÁÉÍÓÚñÑ\s#,]/;
+
+                        //validar que direccion no tenga caracteres no necesarios
+                        if(regexDirec.test(direccion_valor)){
+                            Swal.fire({
+                                toast:true,
+                                position:'bottom-end',
+                                icon: "info",
+                                title: "Editó una dirección inválida",
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
+                            //eliminar lo q no es valido
+                            input.value = direccion_valor.replace(/[^A-Za-z0-9áéíóúÁÉÍÓÚñÑ\s#,]/g, '');
+                            return false;
+                        }
+                        return true;
+                    }
+                </script>
                 </div>
             </div>
-            <div class="row p-1">
+            <div class="row p-1"> <!-- Telefono alumno--->
                 <div class="col-3 col-md-2">TELEFONO </div>
                 <div class="col-9 col-md-4">
                     <input type="text" class="form-control" id="txtTelefonoAlumno" name="txtTelefonoAlumno" placeholder="0000-0000" oninput="validarTelefono(this)" required>
@@ -134,12 +146,24 @@
 <script>
     document.querySelector('#frmAlumno').addEventListener('submit', (e)=>{
         e.preventDefault();
-        const txtTelefonoAlumno = document.querySelector('#txtTelefonoAlumno');
-        
-        if(!validarTelefono(txtTelefonoAlumno)){
-            return false;
-        }
-        
+
+    const txtCodigoAlumno = document.querySelector('#txtCodigoAlumno');
+    const txtNombreAlumno = document.querySelector('#txtNombreAlumno');
+    const txtDireccionAlumno = document.querySelector('#txtDireccionAlumno');
+    const txtTelefonoAlumno = document.querySelector('#txtTelefonoAlumno');
+    
+
+    //validar los inputs
+    const isCodigoValido = validarCodigo(txtCodigoAlumno);
+    const isNombreValido = validarNombre(txtNombreAlumno);
+    const isDireccionValido = validarDireccion(txtDireccionAlumno);
+    const isTelefonoValido = validarTelefono(txtTelefonoAlumno); 
+    
+
+    if (!isCodigoValido || !isNombreValido || !isTelefonoValido || !isDireccionValido) {
+        return; //detener envio hasta q todo este correcto
+    }
+    
         let datos = {
             accion : frmAlumno.dataset.accion,
             idAlumno : frmAlumno.dataset.idalumno,
@@ -151,37 +175,56 @@
         enviarDatosAlumno(datos);
     });
 
-    function enviarDatosAlumno(datos){
-        fetch('guardar_alumno/',{
-                method : 'POST',
-                body : JSON.stringify(datos)
-            })
-            .then(res => res.json())
-            .then(data => {
-                if( data.msg==='ok' ){
-                    consultarAlumnos();
-                    limpiarDatosAlumnos();
-                    Swal.fire({
-                        toast: true,
-                        position: 'bottom-end',
-                        icon: "success",
-                        title: "Registro agregado con éxito",
-                        showConfirmButton: false,
-                        timer: 2050
-                    });    
-
-                }
-            })
-            .catch(err => console.log(err));
+    function enviarDatosAlumno(datos) {
+    fetch('guardar_alumno/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', // Asegúrate de enviar el tipo correcto
+        },
+        body: JSON.stringify(datos)
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data); // Para depuración
+        if (data.msg === 'ok') {
+            consultarAlumnos();
+            limpiarDatosAlumnos();
             Swal.fire({
-                    toast: true,
-                    position: 'bottom-end',
-                    icon: "error",
-                    title: "Fallo en registrar",
-                    showConfirmButton: false,
-                    timer: 2050
-                });
-    }
+                toast: true,
+                position: 'bottom-end',
+                icon: "success",
+                title: "Registro agregado con éxito",
+                showConfirmButton: false,
+                timer: 2050
+            });
+        } else {
+            // Manejar el error si no se guarda correctamente
+            Swal.fire({
+                toast: true,
+                position: 'bottom-end',
+                icon: "error",
+                title: "Fallo en registrar",
+                showConfirmButton: false,
+                timer: 2050
+            });
+        }
+    })
+    .catch(err => {
+        console.error("Error al enviar datos:", err);
+        Swal.fire({
+            toast: true,
+            position: 'bottom-end',
+            icon: "error",
+            title: "Fallo en registrar",
+            showConfirmButton: false,
+            timer: 2050
+        });
+    });
+}
+
+
+
+
 
     function modificarAlumno(alumno){
         frmAlumno.dataset.accion = 'modificar';
