@@ -21,8 +21,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Admin/style_crud.css' %}">
     <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
 
-    
-
     <title>Crud ConsoleXpress</title>
 
     <style>
@@ -43,7 +41,7 @@
 
         <div class="logo">
             <!-- Logo de ConsoleXpress -->
-            <img alt="ConsoleXpress Logo" height="50" src="{% static 'icono_ConsoleXpress.svg' %}" width="40"/>
+            <img alt="ConsoleXpress Logo" height="50px" src="{% static 'icono_ConsoleXpress.svg' %}" width="40"/>
             <span>ConsoleXpress</span>
         </div>    
 
@@ -58,7 +56,11 @@
             <span id="lblUserAdmin" style="color: white;">Usuario</span>
             
             <button class="btn_user_img" onclick="toggleUserMenu()">
-                <img src="{% static 'icon_user.svg' %}" alt="" width="28px">
+                <svg width="28px" height="28px" class="user-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                    <rect fill="none" height="256" width="256"/>
+                    <circle cx="128" cy="120" r="44"/>
+                    <path d="M128,24A104,104,0,1,0,232,128,104.2,104.2,0,0,0,128,24Zm65.8,162.4a81.3,81.3,0,0,0-24.5-23,59.7,59.7,0,0,1-82.6,0,81.3,81.3,0,0,0-24.5,23,88,88,0,1,1,131.6,0Z"/>
+                </svg>
             </button>
 
             <!-- Menú desplegable de usuario -->
