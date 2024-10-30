@@ -11,7 +11,9 @@ body {
    
 }
 .left-panel {     
-    background-color: #004182;
+    
+    background: linear-gradient(to bottom right, #004182, #004182 );
+
     color: white;
     width: 60%;
     display: flex;
@@ -27,30 +29,41 @@ body {
     margin-bottom: 20px;  
     text-align: center;
     font-family: 'League Spartan'; 
+    margin-top: -4px; 
 }
 
 /* Estilo del ícono en el panel izquierdo */
 .left-panel .icon {
     font-size: 50px;
     margin-bottom: 20px;
+    animation: glow 1.5s infinite alternate;
 }
 
 /* Estilo de la imagen del icono en el panel izquierdo */
 .left-panel img {
-    width: 82px;
+    width: 84px;
     height: 82px;
     filter: brightness(0) invert(1); /* Cambia el icono a color blanco */
+   
 }
 
 /* Estilos de los campos de entrada de usuario y contraseña */
 .left-panel input {
-    width: 80%;
-    padding: 10px;
+    width: 74%;
+    padding: 12px;
     margin: 10px 0;
     border-radius: 25px;
-    border: none;
+    border: 1px solid #ddd;
     font-size: 16px;
-    font-family: 'Comfortaa';
+    font-family: 'Comfortaa', sans-serif;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.left-panel input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Estilos de los botones dentro del panel izquierdo */
@@ -68,7 +81,27 @@ body {
 /* Estilos específicos para el botón de "Ingresar" */
 .left-panel .btn.ingresa {
     background-color: #e1646e;
-    color: white;
+    color: #fff;
+    width: 58%;
+    padding: 12px 0;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.left-panel .btn.ingresa:hover {
+    background-color: #d4535d;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.left-panel .btn.ingresa:active {
+    background-color: #c3444d;
+    transform: translateY(0);
 }
 
 /* Estilos para el enlace de "¿Olvidaste la contraseña?" */
@@ -76,6 +109,9 @@ body {
     margin-top: 10px;
     font-size: 14px;
     font-family: 'Comfortaa';
+    margin-left: -50%;
+   
+
 }
 
 /*  para centrar los elementos del input */
@@ -90,7 +126,7 @@ body {
 .right-panel {
     width: 100%;
     
-        background-image: url('{% static "appconsole/consolexpress/static/170693_fondo neon azul oscuro, plantas neon, predominante_xl-1024-v1-0.png" %}');
+    background-image: url("{% static 'consola_login.jpg' %}");
         background-repeat: no-repeat;
         background-position: center center;
     background-size: cover;
@@ -100,17 +136,43 @@ body {
     padding-bottom: 20px;
 }
 
+.welcome-message {
+    text-align: center;
+    position: relative;
+    top: -60px; 
+    font-size: 25px;
+    font-weight: bold;
+    color: whitesmoke;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+    font-family: 'League Spartan';
+    margin-left: -290px;
+}
+
 /* Estilo del botón de "Regístrate" en el panel derecho */
 .right-panel .btn_registrate {
     position: absolute;
-    bottom: 100px;
-    background-color: rgba(64, 64, 64, 0.9); 
+    top: 33px;
+    right: 32px;
+    background-color: rgba(64, 64, 64, 0.9);
     color: #fff;
-    padding: 10px 80px;
+    padding: 10px 30px;
     border: 1.5px solid #202020;
     border-radius: 25px;
     font-size: 16px;
     cursor: pointer;
-    font-family: 'Comfortaa';
+    font-family: 'Comfortaa', sans-serif;
     text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.right-panel .btn_registrate:hover {
+    background-color: rgba(80, 80, 80, 0.9);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.right-panel .btn_registrate:active {
+    background-color: rgba(50, 50, 50, 0.9);
+    transform: scale(1);
 }
