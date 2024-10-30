@@ -29,7 +29,7 @@
 <script>
     let materiasData=[];
 
-    function eliminarMateria(idMateria){
+    /*function eliminarMateria(idMateria){
         if(confirm("¿Desea eliminar este registro?")){
             let datos = {
                 accion : "eliminar",
@@ -37,7 +37,49 @@
             };
             enviarDatosMateria(datos);
         }
+    }*/
+
+    function eliminarMateria(idMateria){
+        Swal.fire({
+            title:"¿Estas seguro de eliminar esta materia?",
+            text:"Recuerda no se puede recuperar",
+            icon:"warning",
+            showCancelButton:true,
+            confirmButtonColor:"#3085d6",
+            cancelButtonColor:"#d33",
+            confirmButtonText:"Si, eliminar",
+            cancelButtonText:"Cancelar"
+        }).then((result) => {
+            if(result.isConfirmed){
+                let datos={
+                    accion:"eliminar",
+                    idMateria,
+                };
+                enviarDatosMateria(datos);
+                Swal.fire({
+                    toast:true,
+                    position:'bottom-end',
+                    icon:"success",
+                    title:"Materia eliminada",
+                    showConfirmButton:false,
+                    timer:2050
+                });
+            }
+            else{
+                Swal.fire({
+                    toast:true,
+                    position:'bottom-end',
+                    icon:"error",
+                    title:"No se elimino la materia",
+                    showConfirmButton:false,
+                    timer:2050
+                });
+
+            }
+        });
     }
+
+
     function consultarMaterias(){
         fetch('consultar_materias/')
         .then(res => res.json())
@@ -45,7 +87,16 @@
             materiasData=data;
             mostrarFilasMaterias(data);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            Swal.fire({
+                toast: true,
+                position: 'bottom-end',
+                icon: 'error',
+                title: 'Error al cargar las materias',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        });
     }
 
     function mostrarFilasMaterias(data = []){

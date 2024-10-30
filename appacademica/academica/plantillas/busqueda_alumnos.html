@@ -31,16 +31,6 @@
 
     let alumnosData=[];
 
-   /* function eliminarAlumno(idAlumno){
-        if(confirm("¿Desea eliminar este registro?")){
-            let datos = {
-                accion : "eliminar",
-                idAlumno,
-            };
-            enviarDatosAlumno(datos);
-        }
-    }*/
-
     function eliminarAlumno(idAlumno){
         Swal.fire({
             title:"¿Estas seguro de eliminar este registro?",
@@ -88,7 +78,16 @@
             alumnosData= data;
             mostrarFilasAlumnos(data);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            Swal.fire({
+                toast: true,
+                position: 'bottom-end',
+                icon: 'error',
+                title: 'Error al cargar los alumnos',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        });
     }
 
     function mostrarFilasAlumnos(data = []){

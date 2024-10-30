@@ -32,14 +32,44 @@
     let docentesData=[];
 
     function eliminarDocente(idDocente){
-        if(confirm("¿Desea eliminar este registro?")){
-            let datos = {
-                accion : "eliminar",
-                idDocente,
-            };
-            enviarDatosDocente(datos);
-        }
+        Swal.fire({
+            title:"¿Estas seguro de eliminar este registro?",
+            text:"Recuerda no se puede recuperar",
+            icon:"warning",
+            showCancelButton:true,
+            confirmButtonColor:"#3085d6",
+            cancelButtonColor:"#d33",
+            confirmButtonText:"Si, eliminar",
+            cancelButtonText:"Cancelar"
+        }).then((result) => {
+            if(result.isConfirmed){
+                let datos={
+                    accion:"eliminar",
+                    idDocente,
+                };
+                enviarDatosDocente(datos);
+                Swal.fire({
+                    toast:true,
+                    position:'bottom-end',
+                    icon:"success",
+                    title:"Registro eliminado",
+                    showConfirmButton:false,
+                    timer:2050
+                });
+            } 
+            else{
+                Swal.fire({
+                    toast:true,
+                    position:'bottom-end',
+                    icon:"error",
+                    title:"No se elimino el registro",
+                    showConfirmButton:false,
+                    timer:2050
+                });
+            }
+        });
     }
+
 
     function consultarDocentes(){
         fetch('consultar_docentes/')
@@ -48,7 +78,16 @@
             docentesData = data;
             mostrarFilasDocentes(data);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            Swal.fire({
+                toast: true,
+                position: 'bottom-end',
+                icon: 'error',
+                title: 'Error al cargar los docentes',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        });
     }
 
     function mostrarFilasDocentes(data = []){
@@ -85,5 +124,18 @@
     }
 
     consultarDocentes();
+
+
+
+
+        /*function eliminarDocente(idDocente){
+        if(confirm("¿Desea eliminar este registro?")){
+            let datos = {
+                accion : "eliminar",
+                idDocente,
+            };
+            enviarDatosDocente(datos);
+        }
+    }*/
     
 </script>

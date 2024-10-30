@@ -12,19 +12,87 @@
             <div class="row p-1"> <!-- Codigo materia--->
                 <div class="col-3 col-md-2">CODIGO </div>
                 <div class="col-9 col-md-4">
-                    <input type="text" class="form-control" id="txtCodigoMateria" name="txtCodigoMateria" required>
+                    <input type="text" class="form-control" id="txtCodigoMateria" name="txtCodigoMateria" oninput="validarCodigoMateria(this)" required>
+                <script>
+                function validarCodigoMateria(input) {
+                    const codigoMateria_valor = input.value;
+                    const regexCMateria = /^[0-9]+$/;
+
+                    if (!regexCMateria.test(codigoMateria_valor)) {
+                        Swal.fire({
+                            toast: true,
+                            position: 'bottom-end',
+                            icon: "info",
+                            title: "Solo se permiten números",
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                        //borra lo q no es necesario o valido
+                        input.value = codigoMateria_valor.replace(/[^0-9]/g, '');
+                        return false; 
+                    }
+
+                    if (codigoMateria_valor.length > 4) {
+                        input.value = codigoMateria_valor.slice(0, 4);
+                    }
+                    return true;
+                }
+                </script>
                 </div>
             </div>
             <div class="row p-1"> <!-- nombre materia--->
                 <div class="col-3 col-md-2">NOMBRE </div>
                 <div class="col-9 col-md-6">
-                    <input type="text" class="form-control" id="txtNombreMateria" name="txtNombreMateria" required>
+                    <input type="text" class="form-control" id="txtNombreMateria" name="txtNombreMateria" oninput="validarNombreMateria(this)" required>
+                <script>
+                    function validarNombreMateria(input) {
+                            const nombreMateria_valor = input.value;
+                            regexMateria =  /^[A-Za-z0-9áéíóúÁÉÍÓÚñÑ\s]+$/;
+                            if (!regexMateria.test(nombreMateria_valor)) {
+                                Swal.fire({
+                                    toast: true,
+                                    position: 'bottom-end',
+                                    icon: "info",
+                                    title: "Escriba letras y numeros",
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                });
+                                // Elimina lo que no se permite
+                                input.value = nombreMateria_valor.replace(/[^A-Za-z0-9áéíóúÁÉÍÓÚñÑ\s]/g, '');
+                                return false;
+                            } return true;
+                        }
+                </script>
                 </div>
             </div>
             <div class="row p-1"> <!-- Uv materia--->
                 <div class="col-3 col-md-2">UV</div>
-                <div class="col-9 col-md-10">
-                    <input type="number" class="form-control" id="txtUvMateria" name="txtUvMateria" required>
+                <div class="col-9 col-md-6">
+                    <input type="text" class="form-control" id="txtUvMateria" name="txtUvMateria" oninput="validarUvMateria(this)" required>
+                <script>
+                    function validarUvMateria(input){
+                        const UvMateria_valor = input.value;
+                        const regexUvMateria = /^[0-9]+$/;
+
+                        
+                        if(!regexUvMateria.test(UvMateria_valor)){
+                                Swal.fire({
+                                    toast: true,
+                                    position: 'bottom-end',
+                                    icon: "info",
+                                    title: "Solo se permiten numeros",
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                }); 
+                                input.value = UvMateria_valor.replace(/[^0-9]/g, '');
+                            return false; 
+                        }
+                         if(UvMateria_valor.length > 4){
+                                input.value = UvMateria_valor.slice(0, 4);      
+                        } return true;
+                    }
+                </script>
+
                 </div>
             </div>
             <div class="row p-1">
@@ -44,6 +112,19 @@
 <script>
     document.querySelector('#frmMateria').addEventListener('submit', (e)=>{
         e.preventDefault();
+
+    const txtCodigoMateria = document.querySelector('#txtCodigoMateria');
+    const txtNombreMateria = document.querySelector('#txtNombreMateria');
+    const txtUvMateria = document.querySelector('#txtUvMateria');
+
+    // Validar los inputs en materias
+    const isCodigoMateriaValido = validarCodigoMateria(txtCodigoMateria);
+    const isNombreMateriaValido = validarNombreMateria(txtNombreMateria);
+    const isUvMateriaValido = validarUvMateria(txtUvMateria);
+
+    if (!isCodigoMateriaValido || !isNombreMateriaValido || !isUvMateriaValido) {
+        return; // detener envío hasta que todo esté correcto
+    }
         
         let datos = {
             accion : frmMateria.dataset.accion,
@@ -54,7 +135,9 @@
         };
         enviarDatosMateria(datos);
     });
-    function enviarDatosMateria(datos){
+
+
+    /*function enviarDatosMateria(datos){
         fetch('guardar_materia/',{
                 method : 'POST',
                 body : JSON.stringify(datos)
@@ -67,7 +150,52 @@
                 }
             })
             .catch(err => console.log(err));
-    }
+    }*/
+
+    function enviarDatosMateria(datos) {
+    fetch('guardar_materia/', {
+        method: 'POST',
+        body: JSON.stringify(datos)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.msg === 'ok') {
+            consultarMaterias();
+            limpiarDatosMaterias();
+            Swal.fire({
+                toast: true,
+                position: 'bottom-end',
+                icon: "success",
+                title: "Materia agregada con éxito",
+                showConfirmButton: false,
+                timer: 2050
+            });
+        } else {
+            // Manejar el error si no se guarda correctamente
+            Swal.fire({
+                toast: true,
+                position: 'bottom-end',
+                icon: "error",
+                title: "Fallo en registrar materia",
+                showConfirmButton: false,
+                timer: 2050
+            });
+        }
+    })
+    .catch(err => {
+        console.error("Error al enviar datos:", err);
+        Swal.fire({
+            toast: true,
+            position: 'bottom-end',
+            icon: "error",
+            title: "Error en enviar los datos",
+            showConfirmButton: false,
+            timer: 2050
+        });
+    });
+}
+
+
     function modificarMateria(materia){
         frmMateria.dataset.accion = 'modificar';
         frmMateria.dataset.idmateria = materia.id;
