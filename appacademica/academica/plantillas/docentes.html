@@ -12,31 +12,149 @@
             <div class="row p-1"> <!-- Codigo docente--->
                 <div class="col-3 col-md-2">CODIGO </div>
                 <div class="col-9 col-md-4">
-                    <input type="text" class="form-control" id="txtCodigoDocente" name="txtCodigoDocente" required>
+                    <input type="text" class="form-control" id="txtCodigoDocente" name="txtCodigoDocente" oninput="validarCodigoDocente(this)" required>
+                <script>
+                        function validarCodigoDocente(input) {
+                            const codigoDocente_valor = input.value;
+                            const regexDocente = /^[A-Za-z]{4}\d{6}$/; 
+
+                            // 10 caracteres
+                            if (codigoDocente_valor.length === 10) {
+                                if (regexDocente.test(codigoDocente_valor)) { 
+                                    // Si es válido, devolver true
+                                     return true;
+                                } else { 
+                                    Swal.fire({
+                                        toast: true,
+                                        position: 'bottom-end',
+                                        icon: "info",
+                                        title: "El código debe contener 4 letras y 6 números seguidos",
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                    });
+                                    return false; // sino es correcto devolver false
+                                }
+                            } else if (codigoDocente_valor.length > 10) {
+                                // permite 10 numeros si no los borra
+                                input.value = codigoDocente_valor.slice(0, 10);
+                            }
+                                
+                            return false; //en caso de no tener 10digitos
+                        }
+
+                </script>
                 </div>
             </div>
             <div class="row p-1"> <!-- nombre docente--->
                 <div class="col-3 col-md-2">NOMBRE </div>
                 <div class="col-9 col-md-6">
-                    <input type="text" class="form-control" id="txtNombreDocente" name="txtNombreDocente" required>
+                    <input type="text" class="form-control" id="txtNombreDocente" name="txtNombreDocente" oninput="validarNombreDocente(this)" required>
+                <script>
+                    function validarNombreDocente(input){
+                        const nombreDocente_valor = input.value;
+                        regexNDocente = /[^A-Za-záéíóúÁÉÍÓÚñÑ\s]/;
+                        if(regexNDocente.test(nombreDocente_valor)){
+                            Swal.fire({
+                                    toast: true,
+                                    position: 'bottom-end',
+                                    icon: "info",
+                                    title: "Solo se permiten letras (incluyendo acentos y ñ) y espacios en el nombre",
+                                    showConfirmButton: false,
+                                    timer: 3000
+                            }); 
+                        //Elimina lo que no es valido :3
+                        input.value = nombreDocente_valor.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ\s]/g, '');
+                        return false;
+                        } return true;   
+                    }
+
+                </script>
                 </div>
             </div>
             <div class="row p-1"> <!-- direccion docente--->
                 <div class="col-3 col-md-2">DIRECCION</div>
                 <div class="col-9 col-md-10">
-                    <input type="text" class="form-control" id="txtDireccionDocente" name="txtDireccionDocente" required>
+                    <input type="text" class="form-control" id="txtDireccionDocente" name="txtDireccionDocente" oninput="validarDireccionDocente(this)"  required>
+                <script>
+                    function validarDireccionDocente(input){
+                        const direccionDocente_valor= input.value;
+                        regexDirecDocente =  /[^A-Za-z0-9áéíóúÁÉÍÓÚñÑ\s#,]/;
+
+                        //validar que direccion de los docentes no tenga caracteres no necesarios
+                        if(regexDirecDocente.test(direccionDocente_valor)){
+                            Swal.fire({
+                                toast:true,
+                                position:'bottom-end',
+                                icon: "info",
+                                title: "Editó una dirección inválida",
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
+                            //eliminar lo q no es valido
+                            input.value = direccionDocente_valor.replace(/[^A-Za-z0-9áéíóúÁÉÍÓÚñÑ\s#,]/g, '');
+                            return false;
+                        }
+                        return true;
+                    }
+                </script>
                 </div>
             </div>
             <div class="row p-1"> <!-- telefono docente--->
                 <div class="col-3 col-md-2">TELEFONO </div>
                 <div class="col-9 col-md-4">
-                    <input type="text" class="form-control" id="txtTelefonoDocente" name="txtTelefonoDocente" required>
+                    <input type="text" class="form-control" id="txtTelefonoDocente" placeholder="0000-0000" name="txtTelefonoDocente" oninput="validarTelefonoDocente(this)" required>
+                <script>
+                        function validarTelefonoDocente(input){
+                            const telefonoDocente_valor = input.value;
+                            const regexTelDocente= /^\d{4}-\d{4}$/;
+
+                            if(telefonoDocente_valor.length===9){
+                                if(!regexTelDocente.test(telefonoDocente_valor)){
+                                    Swal.fire({
+                                        toast: true,
+                                        position: 'bottom-end',
+                                        icon: "info",
+                                        title: "El número de teléfono debe estar en el formato 0000-0000",
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                    }); 
+                                    return false;  
+                                }
+                            } else if(telefonoDocente_valor.length > 9){
+                                input.value = telefonoDocente_valor.slice(0, 9);      
+                            } 
+                            return true;
+                        }
+                </script>
                 </div>
             </div>
             <div class="row p-1"> <!-- email docente--->
                 <div class="col-3 col-md-2">EMAIL </div>
                 <div class="col-9 col-md-4">
-                    <input type="text" class="form-control" id="txtEmailDocente" name="txtEmailDocente" required>
+                    <input type="text" class="form-control" id="txtEmailDocente" name="txtEmailDocente" onblur="validarEmailDocente(this)" required>
+                <script>
+                   function validarEmailDocente(input) {
+                        const EmailDocente_valor = input.value;
+                        const regexEmailDocente = /^[a-zA-Z0-9._%+-]+@ugb\.edu\.sv$/;
+                        
+                        if (!regexEmailDocente.test(EmailDocente_valor)) {
+                            Swal.fire({
+                                toast: true,
+                                position: 'bottom-end',
+                                icon: "info",
+                                title: "Digite un correo de la institución",
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
+                            return false;
+                        }
+                        
+                        // Si el correo es válido, devuelve true
+                        return true;
+                    }
+
+
+                </script>
                 </div>
             </div>
             <div class="row p-1">
@@ -56,7 +174,24 @@
 <script>
     document.querySelector('#frmDocente').addEventListener('submit', (e)=>{
         e.preventDefault();
-        
+
+    const txtCodigoDocente = document.querySelector('#txtCodigoDocente');
+    const txtNombreDocente = document.querySelector('#txtNombreDocente');
+    const txtDireccionDocente = document.querySelector('#txtDireccionDocente');
+    const txtTelefonoDocente = document.querySelector('#txtTelefonoDocente');
+    const txtEmailDocente = document.querySelector('#txtEmailDocente');
+
+    //validamos los inputs de docentes
+    const isCodigoDocenteValido = validarCodigoDocente(txtCodigoDocente);
+    const isNombreDocenteValido = validarNombreDocente(txtNombreDocente);
+    const isDireccionDocenteValido = validarDireccionDocente(txtDireccionDocente);
+    const isTelefonoDocenteValido = validarTelefonoDocente(txtTelefonoDocente); 
+    const isEmailDocenteValido = validarEmailDocente(txtEmailDocente);
+
+    if (!isCodigoDocenteValido || !isNombreDocenteValido || !isTelefonoDocenteValido || !isDireccionDocenteValido || !isEmailDocenteValido) {
+        return; //detener envio hasta q todo este correcto
+    }
+    
         let datos = {
             accion : frmDocente.dataset.accion,
             idDocente : frmDocente.dataset.iddocente,
@@ -68,6 +203,7 @@
         };
         enviarDatosDocente(datos);
     });
+
     function enviarDatosDocente(datos){
         fetch('guardar_docente/',{
                 method : 'POST',
@@ -78,9 +214,36 @@
                 if( data.msg==='ok' ){
                     consultarDocentes();
                     limpiarDatosDocentes();
+                    Swal.fire({
+                        toast: true,
+                        position: 'bottom-end',
+                        icon: "success",
+                        title: "Registro agregado con éxito",
+                        showConfirmButton: false,
+                        timer: 2050
+                    });
+                } else{
+                    Swal.fire({
+                        toast: true,
+                        position: 'bottom-end',
+                        icon: "error",
+                        title: "Fallo en registrar",
+                        showConfirmButton: false,
+                        timer: 2050
+                    }); 
                 }
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.error("Error al enviar datos:", err);
+                Swal.fire({
+                    toast: true,
+                    position: 'bottom-end',
+                    icon: "error",
+                    title: "Error en enviar los datos",
+                    showConfirmButton: false,
+                    timer: 2050
+                });
+            });
     }
     function modificarDocente(docente){
         frmDocente.dataset.accion = 'modificar';
@@ -100,4 +263,5 @@
         txtTelefonoDocente.value = '';
         txtEmailDocente.value = '';
     }
+
 </script>

@@ -12,7 +12,7 @@
             <div class="row p-1"> <!-- Codigo alumno--->
                 <div class="col-3 col-md-2">CODIGO </div>
                 <div class="col-9 col-md-4">
-                    <input type="text" class="form-control" id="txtCodigoAlumno" name="txtCodigoAlumno" required oninput="validarCodigo(this)" required>
+                    <input type="text" class="form-control" id="txtCodigoAlumno" name="txtCodigoAlumno" oninput="validarCodigo(this)" required>
                     <script>
 
                         function validarCodigo(input) {
@@ -179,7 +179,7 @@
     fetch('guardar_alumno/', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json', // Asegúrate de enviar el tipo correcto
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(datos)
     })
@@ -223,9 +223,6 @@
 }
 
 
-
-
-
     function modificarAlumno(alumno){
         frmAlumno.dataset.accion = 'modificar';
         frmAlumno.dataset.idalumno = alumno.id;
@@ -234,6 +231,7 @@
         txtDireccionAlumno.value = alumno.direccion;
         txtTelefonoAlumno.value = alumno.telefono;
     }
+
     function limpiarDatosAlumnos(){
         frmAlumno.dataset.accion = 'nuevo';
         frmAlumno.dataset.idalumno = '';
@@ -242,4 +240,5 @@
         txtDireccionAlumno.value = '';
         txtTelefonoAlumno.value = '';
     }
+
 </script>
