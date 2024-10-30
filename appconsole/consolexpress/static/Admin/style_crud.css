@@ -1,60 +1,133 @@
-/* Estilo general del cuerpo de la página */
+/* Estilo general */
+* {
+    box-sizing: border-box;
+}
+
 body {
-   
     margin: 0;
     padding: 0;
 }
-/* Encabezado principal de la página */
+
+/* Header */
 header {
-    background-color: #e1646e;
-    padding: 2px 10px;
+    background-color: #dc3e57;
+    padding: 5px 20px;
+}
+
+/* Navbar */
+.navbar {
     display: flex;
     align-items: center;
-    
-}
-
-/* Estilo de la imagen del logo */
-header img {
-    height: 55px;
-    width: 55px;
-    margin-right: 10px;
-    margin-left: 10px;
-    filter: invert(1);
-
-}
-
-/* Contenedor del logo dentro del encabezado */
-.logo {
-    display: flex;
-    align-items: center;   
-}
-
-/* Estilo del texto ConsoleXpress*/
-header .logo span {
-    color: whitesmoke;
-    font-size: 23px;
-    font-weight: bold;
-    font-family: 'League Spartan';
-    align-items: center;
-
-}
-
-
-/* Palabra admin del encabezado */
-.admin {
-    display: flex;
+    justify-content: space-between;
+    color: white;
     font-family: 'Comfortaa';
-    font-size: 20px;    
-    position: absolute;
-    margin-right: 10px;
-    right: 60px;
-    align-items: center;
-   
 }
 
-header .logout{
-    align-self: center;
-    right: 5px;
-    position: absolute;
+/* Logo alineado a la izquierda */
+.logo{
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+    filter: invert();
+    height:"50px";
 }
+
+.logo img { 
+    margin-right: 8px;
+}
+
+/* Nav links (centrado) */
+.nav-links {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 2rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+/* Efecto hover en los links */
+.nav-links a:hover {
+    background-color: #e1646e;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+/* Sección de usuario (alineada a la derecha) */
+.user_admin {
+    display: flex;
+    align-items: center;
+}
+
+.lblUserAdmin {
+    margin-right: 10px;
+    color: white;
+}
+
+.btn_user_img,
+.btn_logout {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    margin-left: 6px;
+    padding: 8px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Hover para boton de usuario */
+.btn_user_img:hover {
+    background-color: #e1646e;
+}
+
+/* Estilos para el menú de usuario */
+.user_admin {
+    position: relative;
+}
+
+.user-menu {
+    display: none;
+    position: absolute;
+    top: 40px; /* Ajusta según el tamaño del botón de usuario */
+    right: 0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    min-width: 120px;
+}
+
+.user-menu .btn_logout {
+    width: 100%;
+    background-color: transparent;
+    color: #333;
+    text-align: left;
+    padding: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.user-menu:hover {
+    background-color:  #e1646e;
+    color: white;
+    border-radius: 8px;
+}
+
+
+
+
 

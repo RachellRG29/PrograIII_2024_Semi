@@ -37,26 +37,39 @@
 
 </head>
 <body>
-    <!-- Header: Logo, barra de búsqueda y perfil Admin -->
+    <!-- Header- Navbar: Logo, perfil Admin y logout -->
     <header>
+        <nav class="navbar">
+
         <div class="logo">
             <!-- Logo de ConsoleXpress -->
             <img alt="ConsoleXpress Logo" height="50" src="{% static 'icono_ConsoleXpress.svg' %}" width="40"/>
             <span>ConsoleXpress</span>
-        </div>
+        </div>    
 
-        <div class="admin">
-            <!-- Sección Admin -->
-            <span id="lblAdmin" style="color: white;">Usuario</span>
-            <i class="fas fa-user" style="color: white;"></i>
-        </div>
+        <ul class="nav-links">
+            <li><a href="">Consolas</a></li>
+            <li><a href="">Categorias</a></li>
+            <li><a href="">Compra</a></li>
+           
+        </ul>
 
-        <div class="logout">
-            <button class="border border-danger-subtle" id="btn_logout" style="margin-right: 15px;">
-                <i class="bi bi-box-arrow-right"></i>
+        <div class="user_admin">
+            <span id="lblUserAdmin" style="color: white;">Usuario</span>
+            
+            <button class="btn_user_img" onclick="toggleUserMenu()">
+                <img src="{% static 'icon_user.svg' %}" alt="" width="28px">
             </button>
+
+            <!-- Menú desplegable de usuario -->
+            <div id="user-menu" class="user-menu">
+                <button class="btn_logout">
+                    <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Logout
+                </button>
+            </div>
         </div>
 
+        </nav>
     </header>
 
 
@@ -369,6 +382,23 @@ function getCookie(name) {
 
             
         </script>
+
+    <!-- Script de navbar - menu-logout -->
+    <script>
+        function toggleUserMenu() {
+            const userMenu = document.getElementById("user-menu");
+            userMenu.style.display = userMenu.style.display === "none" || userMenu.style.display === "" ? "block" : "none";
+        }
+        
+        // Cerrar el menú al hacer clic fuera de él
+        window.onclick = function(event) {
+            const userMenu = document.getElementById("user-menu");
+            if (!event.target.closest('.btn_user_img') && !event.target.closest('.user-menu')) {
+                userMenu.style.display = "none";
+            }
+        };
+        </script>
+        
         
     <!-- Script del sweetalert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
