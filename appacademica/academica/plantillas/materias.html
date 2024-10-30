@@ -162,11 +162,12 @@
         if (data.msg === 'ok') {
             consultarMaterias();
             limpiarDatosMaterias();
+            let mensaje = datos.accion==='nuevo' ? "Registro agregado con exito" : "Materia eliminada";
             Swal.fire({
                 toast: true,
                 position: 'bottom-end',
                 icon: "success",
-                title: "Materia agregada con éxito",
+                title: mensaje,
                 showConfirmButton: false,
                 timer: 2050
             });

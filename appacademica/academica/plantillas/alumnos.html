@@ -178,9 +178,6 @@
     function enviarDatosAlumno(datos) {
     fetch('guardar_alumno/', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
         body: JSON.stringify(datos)
     })
     .then(res => res.json())
@@ -189,11 +186,13 @@
         if (data.msg === 'ok') {
             consultarAlumnos();
             limpiarDatosAlumnos();
+
+            let mensaje = datos.accion==='nuevo' ? "Registro agregado con exito" : "Registro eliminado";
             Swal.fire({
                 toast: true,
                 position: 'bottom-end',
                 icon: "success",
-                title: "Registro agregado con éxito",
+                title: mensaje,
                 showConfirmButton: false,
                 timer: 2050
             });
