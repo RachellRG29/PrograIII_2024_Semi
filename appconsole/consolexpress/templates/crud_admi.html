@@ -11,8 +11,11 @@
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
-    <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="sweetalert2.min.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Fuentes utilizadas -->
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
@@ -36,103 +39,105 @@
 </head>
 <body>
     <!-- Header- Navbar: Logo, perfil Admin y logout -->
-    <header>
+    <header> 
         <nav class="navbar">
+            <div class="container-fluid">
+                <div class="logo d-flex align-items-center">
+                    <!-- Logo de ConsoleXpress -->
+                    <img alt="ConsoleXpress Logo" height="50" style="filter: invert();" src="{% static 'icono_ConsoleXpress.svg '%}" width="40"/>
+                    <span class="text-white ms-2">ConsoleXpress</span>
+                </div>  
 
-        <div class="logo">
-            <!-- Logo de ConsoleXpress -->
-            <img alt="ConsoleXpress Logo" height="50px" src="{% static 'icono_ConsoleXpress.svg' %}" width="40"/>
-            <span>ConsoleXpress</span>
-        </div>    
+                <ul class="nav-links navbar-nav ms-auto d-flex flex-row">
+                    <li class="nav-item"><a href="#" id="linkConsolas" class="nav-link text-white">Consolas</a></li>
+                    <li class="nav-item"><a href="#" id="linkCategorias" class="nav-link text-white">Categorías</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link text-white">Compra</a></li>
+                </ul>
 
-        <ul class="nav-links">
-            <li><a href="">Consolas</a></li>
-            <li><a href="">Categorias</a></li>
-            <li><a href="">Compra</a></li>
-           
-        </ul>
-
-        <div class="user_admin">
-            <span id="lblUserAdmin" style="color: white;">Usuario</span>
-            
-            <button class="btn_user_img" onclick="toggleUserMenu()">
-                <svg width="28px" height="28px" class="user-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                    <rect fill="none" height="256" width="256"/>
-                    <circle cx="128" cy="120" r="44"/>
-                    <path d="M128,24A104,104,0,1,0,232,128,104.2,104.2,0,0,0,128,24Zm65.8,162.4a81.3,81.3,0,0,0-24.5-23,59.7,59.7,0,0,1-82.6,0,81.3,81.3,0,0,0-24.5,23,88,88,0,1,1,131.6,0Z"/>
-                </svg>
-            </button>
-
-            <!-- Menú desplegable de usuario -->
-            <div id="user-menu" class="user-menu">
-                <button class="btn_logout">
-                    <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Logout
-                </button>
+                <div class="user_admin">
+                    <span id="lblUserAdmin" style="color: white;">Usuario</span>
+                    
+                    <button class="btn_user_img" onclick="toggleUserMenu()">
+                        <svg width="28px" height="28px" class="user-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                            <rect fill="none" height="256" width="256"/>
+                            <circle cx="128" cy="120" r="44"/>
+                            <path d="M128,24A104,104,0,1,0,232,128,104.2,104.2,0,0,0,128,24Zm65.8,162.4a81.3,81.3,0,0,0-24.5-23,59.7,59.7,0,0,1-82.6,0,81.3,81.3,0,0,0-24.5,23,88,88,0,1,1,131.6,0Z"/>
+                        </svg>
+                    </button>
+        
+                    <!-- Menú desplegable de usuario -->
+                    <div id="user-menu" class="user-menu">
+                        <button class="btn_logout">
+                            <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Logout
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
-
         </nav>
     </header>
+    
+    
+        <!-- Contenedor del formulario que aparece al hacer clic en "Consolas" -->
+        <form class="frmAbrirConsola container-fluid d-none" id="formularioConsolasContainer">
+            <div class="card text-white bg-dark">
+                <div class="card-header">
+                    <div class="d-flex">
+                        Consolas
+                        <button type="button" class="ms-auto btn-close btn-close-white" aria-label="Close" onclick="cerrarFormulario()"></button>
+                    </div>
 
-
-    <section class="p-3">
-        <div class="row justify-content-center">
-        
-            <!-- TABLA DE LAS CONSOLAS AGREGADAS -->
-            <div class="row">
-                <div class="col-12 center">
-                    <table class="table table-dark table-hover mt-4 text-center border border-danger-subtle" id="tblConsolas">
-                        <thead>
-                            <div class="col-12 d-flex align-items-center">
-                                <!-- Botón para agregar una nueva consola -->
-                                <button type="button" id="btnAgregarConsola" class="btn btn-danger btn-outline-warning me-5 gap-2 col-2" data-bs-toggle="popover" title="Agregar Consola" data-bs-html="true">
-                                    Agregar consola <i class="bi bi-plus-lg"></i>
-                                </button>
-                                 <!-- script que permite abrir el boton de agregar con el formulario -->
-                                  <script>
-                                    // Función para mostrar el popover
-                                    document.getElementById("btnAgregarConsola").addEventListener("click", function () {
-                                        document.getElementById("popoverConsola").style.display = "block";
-                                    });
-                
-                                    // Función para cerrar el popover
-                                    function cerrarPopover() {
-                                        document.getElementById("popoverConsola").style.display = "none";
-                                    }
-                                  </script>
-                                
-                                <!-- Caja de busqueda -->
-                                <div class="col-8">
-                                    <input type="text" id="searchConsola" class="form-control" placeholder="Buscar consolas" oninput="buscarConsolas()">
-                                </div>
-                            </div>
-                            <tr>
-                                <th>Codigo</th>
-                                <th>Imagen</th>
-                                <th>Nombre</th>
-                                <th>Descripcion</th>
-                                <th>Categoria</th>
-                                <th>Marca</th>
-                                <th>Precio</th>
-                                <th>Stock</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody  id="consolasBody">
-
-                        </tbody>
+                    <div class="card-body  ms-auto">
+                        <!-- Contenido del formulario - FORMULARIO CONSOLAS AGREGAR Y VISUALIZAR -->
+                            <!-- TABLA DE LAS CONSOLAS AGREGADAS -->
+                            <table class="table table-dark table-hover mt-4 text-center border border-danger-subtle" id="tblConsolas">
+                                <thead>
+                                    <div class="col-12 d-flex align-items-center">
+                                        <!-- Botón para agregar una nueva consola -->
+                                        <button type="button" id="btnAgregarConsola" class="btn btn-danger btn-outline-warning me-5 gap-2 col-2" data-bs-toggle="popover" title="Agregar Consola" data-bs-html="true">
+                                            Agregar consola <i class="bi bi-plus-lg"></i>
+                                        </button>
+                                         <!-- script que permite abrir el boton de agregar con el formulario -->
+                                          <script>
+                                            // Función para mostrar el popover
+                                            document.getElementById("btnAgregarConsola").addEventListener("click", function () {
+                                                document.getElementById("popoverConsola").style.display = "block";
+                                            });
                         
-                    </table>
-                </div>
-
+                                            // Función para cerrar el popover
+                                            function cerrarPopover() {
+                                                document.getElementById("popoverConsola").style.display = "none";
+                                            }
+                                          </script>
+                                        
+                                        <!-- Caja de busqueda -->
+                                        <div class="col-8">
+                                            <input type="text" id="searchConsola" class="form-control" placeholder="Buscar consolas" oninput="buscarConsolas()">
+                                        </div>
+                                    </div>
+                                    <tr>
+                                        <th>Codigo</th>
+                                        <th>Imagen</th>
+                                        <th>Nombre</th>
+                                        <th>Descripcion</th>
+                                        <th>Categoria</th>
+                                        <th>Marca</th>
+                                        <th>Precio</th>
+                                        <th>Stock</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody  id="consolasBody">
+        
+                                </tbody>
+                                
+                            </table>
+                 
+                    </div>
+                </div>    
+   
             </div>
-
-        </div>
-    </section>
-
-
-
+        </form>
 
         <!-- Modal para Agregar Consola -->
         {% include 'consolas.html' %}
@@ -170,7 +175,7 @@
                         <td>${data.consola.stock}</td>
                         <td>
                             <button class="btn btn-warning" onclick="editarConsola(${data.consola.id})"><i class="bi bi-pencil-square"></i></button>
-                            <button class="btn btn-danger" onclick="eliminarConsola(${data.consola.id})"><i class="bi bi-trash3"></i></button>
+                            <button class="btn btn-danger" type="button" onclick="eliminarConsola(${data.consola.id})"><i class="bi bi-trash3"></i></button>
                         </td>`;
                     cargarConsolas();
                     //Mensaje de exito de consola guardada
@@ -229,8 +234,8 @@
                                     <td>${consola.marca}</td>
                                     <td>${consola.precio}</td>
                                     <td>${consola.stock}</td>
-                                    <td><button class="btn btn-warning" onclick="editarConsola(${consola.id})"><i class="bi bi-pencil-square"></i></button></td>
-                                    <td><button class="btn btn-danger" onclick="eliminarConsola(${consola.id})"><i class="bi bi-trash3"></i></button></td>
+                                    <td><button class="btn btn-warning" type="button" onclick="editarConsola(${consola.id})"><i class="bi bi-pencil-square"></i></button></td>
+                                    <td><button class="btn btn-danger" type="button" onclick="eliminarConsola(${consola.id})"><i class="bi bi-trash3"></i></button></td>
                                     
                                 </tr>
                             `;
@@ -388,8 +393,25 @@ function getCookie(name) {
             
         </script>
 
-    <!-- Script de navbar - menu-logout -->
+
+
+    <!-- Script de navbar - menu- CONSOLAS -->
     <script>
+        // Función para mostrar el formulario
+        document.getElementById("linkConsolas").addEventListener("click", function(event) {
+            event.preventDefault(); // Evita la redirección de enlace
+            document.getElementById("formularioConsolasContainer").classList.remove("d-none");
+        });
+
+        // Función para cerrar el formulario
+        function cerrarFormulario() {
+            document.getElementById("formularioConsolasContainer").classList.add("d-none");
+        }
+
+    </script>
+
+    <!-- Script de navbar - menu-logout -->
+      <script>
         function toggleUserMenu() {
             const userMenu = document.getElementById("user-menu");
             userMenu.style.display = userMenu.style.display === "none" || userMenu.style.display === "" ? "block" : "none";
@@ -404,9 +426,7 @@ function getCookie(name) {
         };
         </script>
         
-        
-    <!-- Script del sweetalert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 
 </body>
 </html>
