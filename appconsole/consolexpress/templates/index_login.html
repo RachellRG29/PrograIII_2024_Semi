@@ -13,10 +13,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'Autenticacion/style_login.css' %}">
-    <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
+    <link rel="icon" href="{% static 'icon_consola.png' %}" type="image/png">
 
     <!-- Nombre e icono de sitio web -->
     <title>Login ConsoleXpress</title>  
+
+    <style>
+        /* Panel derecho que contiene una imagen de fondo y el botón de registro */
+        .right-panel {
+            width: 100%;
+            background-image: url("{% static 'consola_login.png' %}");
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 20px;
+        }
+    </style>
     
 </head>
 
@@ -25,32 +40,30 @@
     <div class="container">
         <!-- Panel izquierdo: formulario de inicio de sesión -->
         <div class="left-panel">  
-            <img src="{% static 'icono_ConsoleXpress.svg' %}" width="82px" height="82px">
+            <img src="{% static 'icono_ConsoleXpress.svg' %}" width="82" height="82" alt="Logo ConsoleXpress">
             <h1>Login</h1>
             
             <form method="POST" action="/login" onsubmit="return handleSubmit();">
                 <input id="txtUsername" name="username" placeholder="Nombre" type="text" required />
-                <input name="password" placeholder="Contraseña" type="password" required>
-
-                    <!-- Diálogo de advertencia -->
-
-                </input>
+                <input name="password" placeholder="Contraseña" type="password" required />
 
                 <button class="btn ingresa" type="submit">Ingresa</button>
+
+                <!-- Texto de "¿Olvidaste la contraseña?" -->
                 <div class="forgot-password">¿Olvidaste la contraseña?</div>
-            
+                
+                <!-- Botón de IA  -->
+                <button class="btn ia-btn" type="button">
+                    <img src="{% static 'ia_login.png' %}" alt="IA Icon" class="icon-img">
+                </button>
             </form>
         </div>
         
-           
-
         <!-- Panel derecho: imagen de fondo y botón de registro -->
         <div class="right-panel">
             <a class="btn_registrate" href="{% url 'index_register' %}"> Regístrate </a>
             <p class="welcome-message">¡Bienvenido a ConsoleXpress!</p>
         </div>
     </div>
-
-    
 </body>
 </html>
