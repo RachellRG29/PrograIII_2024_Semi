@@ -48,3 +48,12 @@ body{
     cursor: pointer;
 }
 
+.glass {
+    background: rgba(255, 255, 255, 0.2); /* Fondo translúcido */
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px); /* Efecto de desenfoque */
+    -webkit-backdrop-filter: blur(10px); /* Para compatibilidad con Safari */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}

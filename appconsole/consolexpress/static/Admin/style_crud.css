@@ -107,6 +107,7 @@ header {
 .user_admin {
     position: relative;
     margin-right: 2rem;
+    margin-left: 2rem;
 }
 
 .user-menu {
@@ -147,20 +148,14 @@ header {
     
 }
 
-.col {
-    transition: width 0.3s;
-}
-
-
-
 /*
-// Efecto al pasar el mouse 
-.card:hover {
-    transform: scale(1.02); 
+.table-glass {
+    background: rgba(255, 255, 255, 0.15); 
+    border-radius: 12px;
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
-
 */
-
-
-
 

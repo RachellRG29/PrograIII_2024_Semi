@@ -5,8 +5,8 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
 <!-- Popover personalizado para agregar consola -->
-<div id="popoverConsola" class="card text-bg-dark mb-3 popover-consola">
-    <div class="popover-header d-flex">
+<div id="popoverConsola" class="card mb-3 popover-consola" >
+    <div class="popover-header d-flex" >
         <h5>Agregar Consola</h5>
         <button type="button" class="btn-close" onclick="cerrarPopover()">×</button>
     </div>
@@ -38,7 +38,11 @@
                     </div>
                     <div class="mb-3 d-flex align-items-center">
                         <label for="categoria" class="col-form-label me-3">Categoría:</label>
-                        <input type="text" class="form-control" name="categoria" required>
+                        <select id="categoria" name="categoria" class="form-select">
+                            <option value="Consola">Consola</option>
+                            <option value="Especial">Especial</option>
+                            <option value="Accesorio">Accesorio</option>
+                        </select>
                     </div>
                     <div class="mb-3 d-flex align-items-center">
                         <label for="marca" class="col-form-label me-3">Marca:</label>

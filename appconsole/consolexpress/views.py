@@ -57,7 +57,9 @@ def guardar_consola(request):
             consola_instance.codigo = request.POST['codigo']
             consola_instance.nombre = request.POST['nombre']
             consola_instance.descripcion = request.POST['descripcion']
-            consola_instance.categoria = request.POST['categoria']
+            #consola_instance.categoria = request.POST['categoria']
+            consola_instance= consola.CATEGORIA_CHOICES
+            return render(request, 'consolas.html',{'consola_instance':'categoria'})
             consola_instance.marca = request.POST['marca']
             consola_instance.precio = request.POST['precio']
             consola_instance.stock = request.POST['stock']
