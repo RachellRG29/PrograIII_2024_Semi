@@ -7,7 +7,7 @@
 <!-- Popover personalizado para agregar consola -->
 <div id="popoverConsola" class="card mb-3 popover-consola" >
     <div class="popover-header d-flex" >
-        <h5>Agregar Consola</h5>
+        <h5 id="popoverTitle">Agregar Consola</h5> 
         <button type="button" class="btn-close" onclick="cerrarPopover()">×</button>
     </div>
     <div class="card-body">
@@ -19,7 +19,10 @@
                 <div class="col-4">
                     <div class="mb-3">
                         <label for="imagen">Imagen:</label>
-                        <input type="file" class="form-control" name="imagen" accept="image/*">
+                        <div class="image-preview" id="imagePreview">
+                            <img id="imgPreview" src="" alt="Imagen seleccionada" class="img-fluid">
+                        </div>
+                        <input type="file" class="form-control" name="imagen" accept="image/*" onchange="previewImage(event)">
                     </div>
                 </div>
                 <!-- Columna Derecha para el resto de campos -->
@@ -65,14 +68,41 @@
 
 
 <script>
-    $(document).ready(function() {
+        $(document).ready(function() {
         // Hacemos el popoverConsola arrastrable
-        $("#popoverConsola").draggable({containment: "window", });
-        
+        $("#popoverConsola").draggable({ containment: "window" });
+
+        // Cambiar el título del popover según la acción
+        if (dataset.accion==='editar') {
+            $("#popoverTitle").text("Editar Consola");
+            $("button[type='submit']").text("Actualizar"); // Cambia el texto del botón también si es necesario
+        } else {
+            $("#popoverTitle").text("Agregar Consola");
+            $("button[type='submit']").text("Guardar");
+        }
     });
 
     // Función para cerrar el popover
     function cerrarPopover() {
         document.getElementById("popoverConsola").style.display = "none";
     }
+
+    function previewImage(event) {
+    const imagePreview = document.getElementById('imagePreview');
+    const imgElement = document.getElementById('imgPreview');
+    const file = event.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imgElement.src = e.target.result;
+            imgElement.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    } else {
+        imgElement.src = '';
+        imgElement.style.display = 'none';
+    }
+}
+
 </script>
