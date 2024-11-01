@@ -125,45 +125,62 @@ def consultar_consola_edit(request):
 def editar_consola(request):
     if request.method == 'PUT':
         import json
-        data = json.loads(request.body)
-        id_consola = data.get('id')
-        
         try:
-            consola_obj = consola.objects.get(id=id_consola)
-            consola_obj.codigo = data.get('codigo', consola_obj.codigo)
-            consola_obj.nombre = data.get('nombre', consola_obj.nombre)
-            consola_obj.descripcion = data.get('descripcion', consola_obj.descripcion)
-            consola_obj.categoria = data.get('categoria', consola_obj.categoria)
-            consola_obj.marca = data.get('marca', consola_obj.marca)
-            consola_obj.precio = data.get('precio', consola_obj.precio)
-            consola_obj.stock = data.get('stock', consola_obj.stock)
+            if not request.body:
+                return JsonResponse({'error': 'Cuerpo de la solicitud vacío'}, status=400)
 
-            # Actualizar la imagen si se proporciona
-            if 'imagen' in data:
-                consola_obj.imagen = data['imagen']
+            data = json.loads(request.body)
 
-            consola_obj.save()
+            # Comprobar que el ID de la consola está presente
+            id_consola = data.get('id')
+            if id_consola is None:
+                return JsonResponse({'error': 'ID de consola no proporcionado'}, status=400)
 
-            return JsonResponse({
-                'msg': 'success',
-                'consola': {
-                    'id': consola_obj.id,
-                    'codigo': consola_obj.codigo,
-                    'nombre': consola_obj.nombre,
-                    'descripcion': consola_obj.descripcion,
-                    'categoria': consola_obj.categoria,
-                    'marca': consola_obj.marca,
-                    'precio': str(consola_obj.precio),  # Convertir a string si es necesario
-                    'stock': consola_obj.stock,
-                    'imagen': consola_obj.imagen.url if consola_obj.imagen else ''
-                }
-            })
-        except consola.DoesNotExist:
-           return JsonResponse({'message': 'Consola editada correctamente'}, status=200)
+            # Verificar que todos los campos necesarios están presentes
+            required_fields = ['codigo', 'nombre', 'descripcion', 'categoria', 'marca', 'precio', 'stock']
+            for field in required_fields:
+                if field not in data:
+                    return JsonResponse({'error': f'Falta el campo: {field}'}, status=400)
+
+            try:
+                consola_obj = consola.objects.get(id=id_consola)
+                consola_obj.codigo = data['codigo']
+                consola_obj.nombre = data['nombre']
+                consola_obj.descripcion = data['descripcion']
+                consola_obj.categoria = data['categoria']
+                consola_obj.marca = data['marca']
+                consola_obj.precio = data['precio']
+                consola_obj.stock = data['stock']
+
+                # Actualizar la imagen si se proporciona
+                if 'imagen' in data:
+                    consola_obj.imagen = data['imagen']
+
+                consola_obj.save()
+
+                return JsonResponse({
+                    'msg': 'success',
+                    'consola': {
+                        'id': consola_obj.id,
+                        'codigo': consola_obj.codigo,
+                        'nombre': consola_obj.nombre,
+                        'descripcion': consola_obj.descripcion,
+                        'categoria': consola_obj.categoria,
+                        'marca': consola_obj.marca,
+                        'precio': str(consola_obj.precio),
+                        'stock': consola_obj.stock,
+                        'imagen': consola_obj.imagen.url if consola_obj.imagen else ''
+                    }
+                })
+            except consola.DoesNotExist:
+                return JsonResponse({'error': 'Consola no encontrada'}, status=404)
+
         except json.JSONDecodeError:
             return JsonResponse({'error': 'JSON inválido'}, status=400)
     else:
         return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
 
 
 # Función para eliminar consola
