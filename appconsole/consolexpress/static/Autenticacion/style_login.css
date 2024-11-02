@@ -12,7 +12,6 @@ body {
 /* Panel izquierdo */
 .left-panel {     
     background: linear-gradient(145deg, #002f6c, #004182, #5a80b2, #a0c1e8);
-
     color: white;
     width: 60%;
     display: flex;

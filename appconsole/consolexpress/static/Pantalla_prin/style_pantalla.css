@@ -1,14 +1,40 @@
+/* Personalizar ancho de la scrollbar */
+::-webkit-scrollbar {
+    width: 12px; 
+    height: 12px; 
+}
+
+/* Color de fondo de la scrollbar */
+::-webkit-scrollbar-track {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+}
+
+
+/* Color y diseño de la barra de desplazamiento */
+::-webkit-scrollbar-thumb {
+    background-color: #202020;
+    border-radius: 10px;
+    border: 3px solid #f1f1f1;
+}
+
+/* Color cuando se pasa el mouse por encima de la scrollbar */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #0d0d0e;
+}
+
 /* Estilo general del cuerpo de la página */
 body {
     font-family: 'League Spartan';
-    background: radial-gradient(#dc3e57, #004182); /* Fondo rojo oscuro */
+    background: radial-gradient(#dc3e57 , #205ea5);
     margin: 0;
     padding: 0;
+    color: white;
 }
 
 /* Encabezado principal de la página */
 .header {
-    background-color: #e1646e; /* Fondo rojo oscuro */
+    background-color: #e1646e; 
     padding: 2px 20px;
     display: flex;
     align-items: center;
@@ -32,7 +58,7 @@ body {
     align-items: center;
 }
 
-/* Estilo del texto ConsoleXpress*/
+/* Estilo del texto ConsoleXpress */
 .header .logo span {
     color: whitesmoke;
     font-size: 23px;
@@ -47,8 +73,8 @@ body {
     background-color: white;
     border-radius: 5px;
     padding: 5px;
-    width: 400px;
-    margin-left: 300px;
+    width: 350px;
+    margin-left: 315px;
 }
 
 /* Estilo del campo input de la barra de búsqueda */
@@ -66,7 +92,7 @@ body {
     color: black;
 }
 
-/* Palabra admin del encabezado */
+/* Palabra usuario del encabezado */
 .header .admin {
     display: flex;
     align-items: center;
@@ -75,10 +101,19 @@ body {
     
 }
 
-/* Icono de la sección de admin */
+/* Icono de la sección de usuario */
 .header .admin i {
     margin-left: 18px;
     font-size: 20px; 
+}
+
+/* Estilo icono de compra en el encabezado */
+.header-cart-icon {
+    font-size: 26px; 
+    color: white; 
+    position: absolute;
+    margin-left: -55px; 
+     transform: translateY(-50%); /* Ajusta para centrar mejor el icono */   
 }
 
 /* Contenido principal de la página */
@@ -86,35 +121,12 @@ body {
     padding: 20px;
 }
 
-/* Estilo del texto Productos disponibles de ConsoleXpress */
+/* Estilo del texto Productos disponibles */
 .content h1 {
     color: white;
     display: flex;
     font-family: 'League Spartan';
-}
-
-/* Contenedor de las categorías */
-.categories {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-bottom: 20px;
-    margin-left: 60px;
-}
-
-/* Texto Categorías */
-.categories span {
-    font-size: 18px;
-    color: #004182;
-    margin-right: 18px;
-    font-family: 'Comfortaa';
-}
-
-/* Icono de Categorías */
-.categories i {
-    font-size: 16px;
-    color: #004182;
-    margin-left: -3px;
+    font-size: 29px;
 }
 
 /* Contenedor de la lista de productos */
@@ -125,111 +137,195 @@ body {
     justify-content: center;
 }
 
-/* Diseño tarjeta individual de cada producto */
+.content h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 700;
+}
+
+/* Contenedor de la lista de productos */
+.product-list {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: flex-start; 
+    padding: 20px;
+}
+
+/* Estilo de las cards */
 .product-card {
-    background-color: black;
-    color: white;
-    border-radius: 20px;
-    overflow: hidden;
-    width: 580px;
-    position: relative;
     display: flex;
     align-items: center;
-}
-
-/* Imagen del producto dentro de las tarjetas */
-.card-consola img{
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    margin: 0;
-}
-
-/* Contenedor de los detalles del producto */
-.card-consola .details{
-    padding: 10px;
-    flex-grow: 1;
+    background: #1a1919;
+    border-radius: 16px;
+    overflow: hidden;
+    width: calc(49% - 19px); /* Ajusta el ancho para que dos tarjetas quepan por fila */
+    margin-right: 31px; /* Espacio entre tarjetas */
+    margin-bottom: 30px; /* Espacio entre filas */
     position: relative;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
-/* Nombre del producto de las tarjetas */
-.card-consola .details h2 {
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); 
+}
+
+.product-card img {
+    width: 230px;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 16px 0 0 16px;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover img {
+    transform: scale(1.05); 
+}
+
+/* Detalles del producto */
+.details {
+    padding: 20px;
+    flex: 1;
+}
+
+/* nombre consola card */
+.details h2 {
+    font-size: 26px;
     margin: 0;
-    font-size: 16px;
-    margin-top: 20px;
-    font-family: 'Comfortaa';
-}
-
-/* Descripción del producto */
-.card-consola .details p {
-    margin: 5px 0;
-    font-size: 14px;
-    font-family: 'Comfortaa';
-}
-
-/* Precio del producto  */
-.product-card .details .price {
-    font-size: 20px;
-    font-weight: bold;
     font-family: 'League Spartan';
+    color: white;
 }
 
-/* Categoría del producto */
-.product-card .details .category {
+/* precio consola card */
+.details .price {
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
+    margin: 5px 0;
+}
+
+/* tipo categoría consola card */
+.details .category {
+    color: whitesmoke;
+    font-size: 16px;
+    margin: 10px 0;
     text-align: right;
-    font-size: 13px;
-    font-family: 'Comfortaa';
 }
 
-/* Línea decorativa en los detalles del producto */
-.product-card .details .line {
+.details p {
+    font-family: 'Comfortaa', sans-serif;
+    line-height: 1.4;
+}
+
+/* Botón de carrito */
+.cart-btn {
+    background-color: #e1646e;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
     position: absolute;
     top: 10px;
-    right: 0;
-    width: calc(100% - 20px);
-    height: 2px;
-    background-color: #e1646e;
+    right: 10px;
+    transition: background-color 0.3s ease;
 }
 
-/* Círculo decorativo en los detalles del producto */
-.product-card .details .circle {
-    position: absolute;
-    top: 5px;
-    right: -3px;
-    width: 10px;
-    height: 10px;
-    background-color: #e1646e;
-    border-radius: 50%;
+.cart-btn:hover {
+    background-color: #004182; 
+    transform: scale(1.1);
 }
 
-/* Contenedor de los botones de acción */
-.card-consola .actions {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    gap: 5px;
-}
 
-/*Boton carrito*/
-.card-consola .actions, .cart-btn{
-    background-color: #dc3e57;
+
+/* Estilo del botón de Chatbot */
+.chatbot-btn {
+    position: fixed;
+    bottom: 37px;
+    right: 40px;
+    background-color: black;
     border: none;
-    color: white;
     border-radius: 50%;
-    width: 47px;
-    height: 47px;
-    font-size: 16px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    position: relative;
-    top: -20px;
-    bottom: 0;
-
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+.chatbot-btn:hover {
+    
+    transform: scale(1.1);
+   
+}
+
+/* Estilo del icono del Chatbot */
+.chatbot-icon {
+    width: 41px !important;  
+    height: 41px !important; 
+ 
+}
+
+/* Estilo del contenedor de categorías */
+.category-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: -250px;
+}
+
+/* Estilo del botón de categorías */
+.category-button {
+    background-color: #e1646e; 
+    color: white;
+    font-size: 17px;
+    font-family: 'Comfortaa';
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.category-button:hover {
+    background-color: #c54f57;
+}
+
+/* Contenido desplegable categorías */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+/* Estilo de las opciones dentro del menú desplegable de categorías */
+.dropdown-content a {
+    color: black;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    font-family: 'Comfortaa';
+    font-size: 14px;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* Mostrar el contenido del dropdown cuando se hace hover en el contenedor */
+.category-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
