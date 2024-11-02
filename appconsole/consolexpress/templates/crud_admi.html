@@ -151,34 +151,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Guardar consola (método POST)
 document.getElementById('formAgregarConsola').addEventListener('submit', function (event) {
-    event.preventDefault(); // Previene el envío por defecto
+    event.preventDefault();
 
     const formData = new FormData(this);
     const accion = this.dataset.accion; // 'modificar' o 'agregar'
     const idConsola = this.dataset.idconsola; // Solo estará definido si es 'editar'
 
-    let url;
-    let method;
-
-    if (accion === 'editar') {
-        url = "{% url 'editar_consola' %}";
-        method = 'PUT'; // Usar PUT para editar
-        formData.append('id', idConsola); // Agregar el ID de la consola a editar
-    } else {
-        url = "{% url 'guardar_consola' %}";
-        method = 'POST'; // Usar POST para agregar
-    }
+    let url = "{% url 'guardar_consola' %}";
+    formData.append('id', idConsola || ''); // Agregar el ID solo si existe
 
     fetch(url, {
-        method: method,
+        method: 'POST',
         body: formData,
     })
     .then(response => response.json())
     .then(data => {
         if (data.msg === 'success') {
-            // Si es una edición, actualiza la fila existente en lugar de agregar una nueva
             if (accion === 'editar') {
-                const row = document.querySelector("tr[data-id='${idConsola}']");
+                const row = document.querySelector(`tr[data-id='${idConsola}']`);
                 row.innerHTML = 
                     `<td>${data.consola.codigo}</td>
                     <td><img src="${data.consola.imagen}" style="width: 90px;"></td>
@@ -191,12 +181,11 @@ document.getElementById('formAgregarConsola').addEventListener('submit', functio
                     <td>
                         <button class="btn btn-warning" type="button" onclick="editarConsola(${data.consola.id})"><i class="bi bi-pencil-square"></i></button>
                         <button class="btn btn-danger" type="button" onclick="eliminarConsola(${data.consola.id})"><i class="bi bi-trash3"></i></button>
-                    </td>
-                `;
+                    </td>`;
             } else {
-                // Agregar la nueva consola a la tabla
                 const tbody = document.getElementById("consolasBody");
                 const nuevaFila = tbody.insertRow();
+                nuevaFila.setAttribute('data-id', data.consola.id);
                 nuevaFila.innerHTML = 
                     `<td>${data.consola.codigo}</td>
                     <td><img src="${data.consola.imagen}" style="width: 90px;"></td>
@@ -213,19 +202,19 @@ document.getElementById('formAgregarConsola').addEventListener('submit', functio
             }
             cargarConsolas();
             limpiarConsolas();
-            // Mensaje de éxito de consola guardada
+
+            let mensaje = accion === 'editar' ? "Consola editada" : "Consola guardada";
+
             Swal.fire({
                 toast: true,
                 position: 'top-end',
                 icon: "success",
-                title: "Consola guardada",
+                title: mensaje, /*Mensaje de ambas partes*/
                 showConfirmButton: false,
                 timer: 3000
             });
-            
-            cerrarPopover(); // Cerrar el popover
+            cerrarPopover();
         } else {
-            // Mensaje de error al guardar consola
             Swal.fire({
                 toast: true,
                 position: 'top-end',
@@ -237,7 +226,6 @@ document.getElementById('formAgregarConsola').addEventListener('submit', functio
         }
     })
     .catch(error => {
-        // Mensaje de error con el servidor
         Swal.fire({
             toast: true,
             position: 'top-end',
@@ -256,7 +244,7 @@ document.getElementById('formAgregarConsola').addEventListener('submit', functio
             .then(response => response.json())
             .then(data => {
                 const tbody = document.getElementById("consolasBody");
-                tbody.innerHTML = ''; // Limpiar la tabla antes de llenarla
+                tbody.innerHTML = ''; // Limpia la tabla antes de llenarla
                 data.forEach(consola => {
                     const nuevaFila = tbody.insertRow();
                     nuevaFila.setAttribute('data-id', consola.id); // Agregar atributo data-id
@@ -310,6 +298,7 @@ document.getElementById('formAgregarConsola').addEventListener('submit', functio
         })
         .catch(error => console.error('Error al cargar los datos:', error));
 }
+
 
 
 //---ELIMINAR CON ALERTAR NO INVASIVAS----
@@ -387,7 +376,7 @@ function eliminarConsola(id) {
     document.getElementById('formAgregarConsola').dataset.accion = 'agregar'; 
     delete document.getElementById('formAgregarConsola').dataset.idconsola; 
      
-    }
+}
 
 // Función para obtener el token CSRF (puedes agregar esto al final de tu script)
 function getCookie(name) {
@@ -427,7 +416,7 @@ function getCookie(name) {
     </script>
 
     <!-- Script de navbar - menu-logout -->
-      <script>
+    <script>
         function toggleUserMenu() {
             const userMenu = document.getElementById("user-menu");
             userMenu.style.display = userMenu.style.display === "none" || userMenu.style.display === "" ? "block" : "none";
@@ -440,7 +429,7 @@ function getCookie(name) {
                 userMenu.style.display = "none";
             }
         };
-        </script>
+    </script>
         
     
 

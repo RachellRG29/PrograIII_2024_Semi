@@ -42,7 +42,7 @@ def consultar_consolas(request):
 
 @csrf_exempt
 def guardar_consola(request):
-    if request.method in ['POST', 'PUT']:
+    if request.method == 'POST':
         consola_id = request.POST.get('id')  # Obtener el id de consola si existe
 
         required_fields = ['codigo', 'nombre', 'descripcion', 'categoria', 'marca', 'precio', 'stock']
@@ -50,38 +50,34 @@ def guardar_consola(request):
             if field not in request.POST:
                 return JsonResponse({'msg': 'error', 'error': f'El campo {field} es requerido'}, status=400)
 
-        if consola_id:  # Si estamos editando
+        # Si consola_id existe, estamos en modo edición; de lo contrario, creamos una nueva instancia
+        if consola_id:
             consola_instance = get_object_or_404(consola, id=consola_id)
-            consola_instance.codigo = request.POST['codigo']
-            consola_instance.nombre = request.POST['nombre']
-            consola_instance.descripcion = request.POST['descripcion']
-            consola_instance.categoria = request.POST['categoria']
-            consola_instance.marca = request.POST['marca']
-            consola_instance.precio = request.POST['precio']
-            consola_instance.stock = request.POST['stock']
-            if 'imagen' in request.FILES:
-                consola_instance.imagen = request.FILES['imagen']
-            consola_instance.save()
             action = 'updated'
-        else:  # Si estamos agregando
-            consola_instance = consola(
-                codigo=request.POST['codigo'],
-                nombre=request.POST['nombre'],
-                descripcion=request.POST['descripcion'],
-                categoria=request.POST['categoria'],
-                marca=request.POST['marca'],
-                precio=request.POST['precio'],
-                stock=request.POST['stock'],
-            )
-            if 'imagen' in request.FILES:
-                consola_instance.imagen = request.FILES['imagen']
-            consola_instance.save()
+        else:
+            consola_instance = consola()  # Nueva instancia
             action = 'created'
+
+        # Asignación de valores
+        consola_instance.codigo = request.POST['codigo']
+        consola_instance.nombre = request.POST['nombre']
+        consola_instance.descripcion = request.POST['descripcion']
+        consola_instance.categoria = request.POST['categoria']
+        consola_instance.marca = request.POST['marca']
+        consola_instance.precio = request.POST['precio']
+        consola_instance.stock = request.POST['stock']
+        
+        # Actualización de imagen solo si es necesario
+        if 'imagen' in request.FILES:
+            consola_instance.imagen = request.FILES['imagen']
+        
+        consola_instance.save()
 
         return JsonResponse({
             'msg': 'success',
             'action': action,
             'consola': {
+                'id': consola_instance.id,
                 'codigo': consola_instance.codigo,
                 'imagen': f"{settings.MEDIA_URL}{consola_instance.imagen}" if consola_instance.imagen else None,
                 'nombre': consola_instance.nombre,
@@ -90,12 +86,10 @@ def guardar_consola(request):
                 'marca': consola_instance.marca,
                 'precio': consola_instance.precio,
                 'stock': consola_instance.stock,
-                'id': consola_instance.id,
             }
         })
 
     return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
-
 
 @csrf_exempt
 def consultar_consola_edit(request):
@@ -123,7 +117,7 @@ def consultar_consola_edit(request):
 
 @csrf_exempt
 def editar_consola(request):
-    if request.method == 'PUT':
+    if request.method == 'POST':
         import json
         try:
             if not request.body:
@@ -137,7 +131,7 @@ def editar_consola(request):
                 return JsonResponse({'error': 'ID de consola no proporcionado'}, status=400)
 
             # Verificar que todos los campos necesarios están presentes
-            required_fields = ['codigo', 'nombre', 'descripcion', 'categoria', 'marca', 'precio', 'stock']
+            required_fields = ['codigo', 'nombre', 'descripcion', 'categoria', 'marca', 'precio', 'stock','imagen']
             for field in required_fields:
                 if field not in data:
                     return JsonResponse({'error': f'Falta el campo: {field}'}, status=400)
