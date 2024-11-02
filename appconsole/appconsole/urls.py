@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from consolexpress.views import (index_inicio, index_login, index_register, index_pant_prin, 
-                                 crud_admi, guardar_consola, consultar_consolas, editar_consola, consultar_consola_edit, eliminar_consola,
+                                 crud_admi, guardar_consola, consultar_consolas, editar_consola, consultar_consola_edit, eliminar_consola, verificar_codigo_existente,
                                  vistaprincipal_producto,)
 
 urlpatterns = [
@@ -18,6 +18,7 @@ urlpatterns = [
     path('editar_consola/', editar_consola, name='editar_consola'), 
     path('consultar_consola_edit/', consultar_consola_edit, name='consultar_consola_edit'),
     path('eliminar_consola/', eliminar_consola, name='eliminar_consola'),
+    path('verificar_codigo_existente/', verificar_codigo_existente, name='verificar_codigo_existente'),
     path('vistaprincipal_producto/', vistaprincipal_producto, name='vistaprincipal_producto'),   
 ]
 

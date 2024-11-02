@@ -48,8 +48,8 @@
 
                 <ul class="nav-links ms-auto d-flex flex-row">
                     <li class="nav-item"><a href="#" id="linkConsolas" class="nav-link text-white">Consolas</a></li>
-                    <li class="nav-item"><a href="#" id="linkCategorias" class="nav-link text-white">Categorías</a></li>
-                    <li class="nav-item"><a href="#" id="linkCompras text-white">Compra</a></li>
+                    <li class="nav-item"><a href="#" id="linkCompras" class="nav-link text-white">Compra</a></li>
+                    <li class="nav-item"><a href="#" id="linkClientes" class="nav-link text-white" >Clientes</a></li>
                 </ul>
 
                 <div class="user_admin">
@@ -115,11 +115,12 @@
                 <table class="table table-dark table-hover text-center border border-danger-subtle" id="tblConsolas">
                     <thead style="background-color: #dc3e57;">
                         <tr>
-                            <th>Codigo</th>
+                            <th>Código</th>
                             <th>Imagen</th>
                             <th>Nombre</th>
-                            <th>Descripcion</th>
-                            <th>Categoria</th>
+                            <th>Descripción</th>
+                            <th>Presentación</th>
+                            <th>Categoría</th>
                             <th>Marca</th>
                             <th>Precio</th>
                             <th>Stock</th>
@@ -137,13 +138,10 @@
 </form>
 
 
-
-
-
     <!-- Modal para Agregar Consola -->
     {% include 'consolas.html' %}
        
-<!-- SCRIPT PRINCIPAL PARA EL FORMULARIO CONSOLAS-AGREGAR-ELIMINAR -->
+<!-- SCRIPT PRINCIPAL PARA EL FORMULARIO CONSOLAS (CRUD)-AGREGAR-EDITAR-ELIMINAR-ACTUALIZAR -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     cargarConsolas();
@@ -174,6 +172,7 @@ document.getElementById('formAgregarConsola').addEventListener('submit', functio
                     <td><img src="${data.consola.imagen}" style="width: 90px;"></td>
                     <td>${data.consola.nombre}</td>
                     <td>${data.consola.descripcion}</td>
+                    <td>${data.consola.presentacion}</td>
                     <td>${data.consola.categoria}</td>
                     <td>${data.consola.marca}</td>
                     <td>${data.consola.precio}</td>
@@ -191,6 +190,7 @@ document.getElementById('formAgregarConsola').addEventListener('submit', functio
                     <td><img src="${data.consola.imagen}" style="width: 90px;"></td>
                     <td>${data.consola.nombre}</td>
                     <td>${data.consola.descripcion}</td>
+                    <td>${data.consola.presentacion}</td>
                     <td>${data.consola.categoria}</td>
                     <td>${data.consola.marca}</td>
                     <td>${data.consola.precio}</td>
@@ -253,6 +253,7 @@ document.getElementById('formAgregarConsola').addEventListener('submit', functio
                         <td><img src="${consola.imagen}" style="width: 90px;"></td>
                         <td>${consola.nombre}</td>
                         <td>${consola.descripcion}</td>
+                        <td>${consola.presentacion}</td>
                         <td>${consola.categoria}</td>
                         <td>${consola.marca}</td>
                         <td>${consola.precio}</td>
@@ -278,6 +279,7 @@ document.getElementById('formAgregarConsola').addEventListener('submit', functio
             document.querySelector('input[name="codigo"]').value = data.codigo;
             document.querySelector('input[name="nombre"]').value = data.nombre;
             document.querySelector('textarea[name="descripcion"]').value = data.descripcion;
+            document.querySelector('select[name="presentacion"]').value = data.presentacion;
             document.querySelector('select[name="categoria"]').value = data.categoria;
             document.querySelector('input[name="marca"]').value = data.marca;
             document.querySelector('input[name="precio"]').value = data.precio;
@@ -378,7 +380,7 @@ function eliminarConsola(id) {
      
 }
 
-// Función para obtener el token CSRF (puedes agregar esto al final de tu script)
+// Función para obtener el token CSRF
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -397,7 +399,6 @@ function getCookie(name) {
 
             
 </script>
-
 
 
     <!-- Script de navbar - menu- CONSOLAS -->

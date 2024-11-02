@@ -9,10 +9,16 @@ class consola(models.Model):
         ('accesorio', 'Accesorio'),
     ]
 
+    PRESENTACION_CHOICES = [
+        ('paquete_completo', 'Paquete completo'),
+        ('individual', 'Individual'),
+    ]
+
     codigo = models.CharField(max_length=10)
     imagen = models.ImageField(upload_to='img_consolas/')
     nombre = models.CharField(max_length=75)
     descripcion = models.TextField()
+    presentacion = models.CharField(max_length=20, choices=PRESENTACION_CHOICES, default='individual' )
     categoria = models.CharField(max_length=20, choices=CATEGORIA_CHOICES)
     marca = models.CharField(max_length=75)
     precio = models.DecimalField(max_digits=10, decimal_places=2)

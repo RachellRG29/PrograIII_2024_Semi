@@ -22,42 +22,49 @@
                         <div class="image-preview" id="imagePreview">
                             <img id="imgPreview" src="" alt="Imagen seleccionada" class="img-fluid">
                         </div>
-                        <input type="file" class="form-control" name="imagen" accept="image/*" onchange="previewImage(event)">
+                        <input type="file" class="form-control" name="imagen" accept="image/*" onchange="previewImage(event)" required>
                     </div>
                 </div>
                 <!-- Columna Derecha para el resto de campos -->
                 <div class="col-8">
-                    <div class="mb-3 d-flex align-items-center">
+                    <div class="mb-3 d-flex align-items-center"> <!-- CODIGO -->
                         <label for="codigo" class="col-form-label me-3">Código:</label>
-                        <input type="text" class="form-control" name="codigo" required>
+                        <input type="text" class="form-control" name="codigo" onblur="validarCodigo(this)" required>
                     </div>
-                    <div class="mb-3 d-flex align-items-center">
+                    <div class="mb-3 d-flex align-items-center"> <!-- NOMBRE -->
                         <label for="nombre" class="col-form-label me-3">Nombre:</label>
-                        <input type="text" class="form-control" name="nombre" required>
+                        <input type="text" class="form-control" name="nombre" oninput="validarNombre(this)" required>
                     </div>
-                    <div class="mb-3 d-flex align-items-center">
+                    <div class="mb-3 d-flex align-items-center"> <!-- DESCRIPCION -->
                         <label for="descripcion" class="col-form-label me-3">Descripción:</label>
-                        <textarea class="form-control" name="descripcion" rows="2"></textarea>
+                        <textarea class="form-control" name="descripcion" rows="2" oninput="validarDescripcion(this)" required></textarea>
                     </div>
-                    <div class="mb-3 d-flex align-items-center">
+                    <div class="mb-3 d-flex align-items-center"><!-- PRESENTACION -->
+                        <label for="presentacion" class="col-form-label me-3">Presentación:</label>
+                        <select id="presentacion" name="presentacion" class="form-select" required>
+                            <option value="Paquete completo">Paquete completo</option>
+                            <option value="Individual">Individual</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 d-flex align-items-center"> <!-- CATEGORIA -->
                         <label for="categoria" class="col-form-label me-3">Categoría:</label>
-                        <select id="categoria" name="categoria" class="form-select">
+                        <select id="categoria" name="categoria" class="form-select" required>
                             <option value="Consola">Consola</option>
                             <option value="Especial">Especial</option>
                             <option value="Accesorio">Accesorio</option>
                         </select>
                     </div>
-                    <div class="mb-3 d-flex align-items-center">
+                    <div class="mb-3 d-flex align-items-center"> <!-- MARCA -->
                         <label for="marca" class="col-form-label me-3">Marca:</label>
-                        <input type="text" class="form-control" name="marca" required>
+                        <input type="text" class="form-control" name="marca" oninput="validarMarca(this)" required>
                     </div>
-                    <div class="mb-3 d-flex align-items-center">
+                    <div class="mb-3 d-flex align-items-center"> <!-- PRECIO -->
                         <label for="precio" class="col-form-label me-3">Precio:</label>
-                        <input type="text" class="form-control" name="precio" required>
+                        <input type="text" class="form-control" name="precio" oninput="validarPrecio(this)" required>
                     </div>
-                    <div class="mb-3 d-flex align-items-center">
+                    <div class="mb-3 d-flex align-items-center"> <!-- STOCK -->
                         <label for="stock" class="col-form-label me-3">Stock:</label>
-                        <input type="number" class="form-control" name="stock" required>
+                        <input type="number" class="form-control" name="stock" oninput="validarStock(this)" required>
                     </div>
                     <button type="submit" class="btn btn-success mt-2">Guardar</button>
                 </div>
@@ -66,7 +73,303 @@
     </div>
 </div>
 
+<!-- VALIDACIONES DEL FORM AGREGAR Y EDITAR CONSOLAS -->
+ <script>
 
+// VALIDACION DE CODIGO
+function validarCodigo(input) {
+    const codigo = input.value.trim(); 
+    const regexCodigo = /^[A-Za-z]{4}-\d{3}$/; // Formato: ABCD-123
+
+    // Verificar si el campo está vacío
+    if (codigo === '') {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'error',
+            title: 'El código no puede estar vacío.',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        return false;
+    }
+
+    // Limitar la longitud a 8 caracteres
+    if (codigo.length > 8) {
+        input.value = codigo.slice(0, 8); // Limitar a los primeros 8 caracteres
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'info',
+            title: 'El código no puede exceder 8 caracteres.',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        return false;
+    }
+
+    // Verificar la longitud exacta del código
+    if (codigo.length !== 8) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'info',
+            title: 'El código debe tener exactamente 8 caracteres (ABCD-123).',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        return false;
+    }
+
+    // Verificar el formato del código
+    if (!regexCodigo.test(codigo)) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'info',
+            title: 'El código debe tener el siguiente formato: ABCD-123',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        return false;
+    }
+
+    return true; // El código es válido
+}
+
+
+// Ejemplo de uso con el evento blur
+/*
+document.getElementById('codigo').addEventListener('blur', function () {
+    const codigo = this.value.trim();
+
+    // Limitar la longitud a 8 caracteres
+    if (this.value.length > 8) {
+        this.value = this.value.slice(0, 8);
+    }
+
+    // Primero, valida el código
+    if (!validarCodigo(this)) {
+        return; // Si la validación de formato falla, no procede
+    }
+
+    // Verificar si el código ya existe en la base de datos
+    fetch(`/verificar_codigo_existente/?codigo=${codigo}`)
+        .then(response => {
+            if (!response.ok) { // Comprobar si la respuesta es correcta
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.existe) {
+                // Código ya existe
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'info',
+                    title: 'Código existente',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                // Aquí puedes evitar que se guarde el código
+                document.getElementById('guardar').disabled = true; // Deshabilitar el botón de guardar
+            } else {
+                // Código no existe, habilitar el botón de guardar
+                document.getElementById('guardar').disabled = false; // Habilitar el botón de guardar
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+*/
+
+
+//---VALIDACION DE NOMBRE
+function validarNombre(input) {
+    const nombre = input.value;
+    regexNombre = /[^A-Za-záéíóúÁÉÍÓÚñÑ\s]/;
+
+    // Verificar si el campo está vacío
+    if (nombre === '') {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'error',
+            title: 'El nombre no puede estar vacío.',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        return false;
+    }
+
+    if (regexNombre.test(nombre)) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: "info",
+            title: "Solo se permiten letras (incluyendo acentos y ñ) y espacios en el nombre",
+            showConfirmButton: false,
+            timer: 3000
+        });
+        // Elimina lo que no se permite
+            input.value = nombre.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ\s]/g, '');
+            return false;
+    } return true;
+                                                               
+}
+
+//VALIDACION DE DESCRIPCION
+function validarDescripcion(input) {
+    const descripcion= input.value;
+    regexDescripcion = /[^A-Za-záéíóúÁÉÍÓÚñÑ\s-.:;,]/;
+
+    // Verificar si el campo está vacío
+    if (descripcion === '') {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'error',
+            title: 'La descripción no puede estar vacía.',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        return false;
+    }
+
+    if (regexDescripcion.test(descripcion)) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: "info",
+            title: "Solo se permiten letras (acentos y ñ, guiones y puntos) en la descripción.",
+            showConfirmButton: false,
+            timer: 3000
+        });
+        // Elimina lo que no se permite
+            input.value = descripcion.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ\s-.:;,]/g, '');
+            return false;
+    } return true;
+                                                               
+}
+
+//VALIDACION DE MARCA
+function validarMarca(input) {
+    const marca = input.value;
+    regexMarca = /[^A-Za-záéíóúÁÉÍÓÚñÑ\s]/;
+
+    // Verificar si el campo está vacío
+    if (marca === '') {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'error',
+            title: 'La marca no puede estar vacía.',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        return false;
+    }
+
+    if (regexMarca.test(marca)) {
+        Swal.fire({
+            toast: true,
+            position: 'bottom-end',
+            icon: "info",
+            title: "Solo se permiten letras (incluyendo acentos y ñ) y espacios en la marca",
+            showConfirmButton: false,
+            timer: 3000
+        });
+        // Elimina lo que no se permite
+            input.value = marca.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ\s]/g, '');
+            return false;
+    } return true;
+                                                               
+}
+
+
+//VALIDACION DE PRECIO
+function validarPrecio(input){
+    const precio = input.value.trim(); 
+    const regexPrecio = /^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$/; // Formato: entero o decimal con hasta 2 decimales
+
+    // Verificar si el campo está vacío
+    if (precio === '') {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'error',
+            title: 'El precio no puede estar vacío.',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        return false;
+    }
+                        
+    // Verificar si el precio es un número válido
+    if (!regexPrecio.test(precio)) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: "info",
+            title: "El precio debe ser un número positivo y puede incluir hasta dos decimales.",
+            showConfirmButton: false,
+            timer: 3000
+        });
+        input.value = precio.replace(/[^0-9.]/g, ''); // Eliminar caracteres no válidos
+        return false;
+    }
+
+    // Limitar a un máximo de 10 caracteres 
+    if (precio.length > 10) {
+        input.value = precio.slice(0, 10); // Limitar la longitud del precio a 10 caracteres
+    }
+
+    return true; 
+}
+
+
+//VALIDACION DE STOCK
+function validarStock(input){
+    const stock = input.value;
+    const regexStock = /^[0-9]+$/;
+
+    // Verificar si el campo está vacío
+    if (stock === '') {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'error',
+            title: 'El stock no puede estar vacío.',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        return false;
+    }
+                        
+    if(!regexStock.test(stock)){
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: "info",
+            title: "Solo se permiten numeros",
+            showConfirmButton: false,
+            timer: 3000
+        }); 
+            input.value = stock.replace(/^[0-9]/g, '');
+            return false; 
+        }
+    if(stock.length > 4){
+        input.value = stock.slice(0, 4);      
+    } return true;
+}
+
+ </script>
+
+
+
+<!-- SCRIPT POPOVER CIERRE, ARRASTRABLE, VISUALIZACION IMAGEN ,Y CAMBIAR TITULO DEL POPOVER SEGUN ACCION -->
 <script>
         $(document).ready(function() {
         // Hacemos el popoverConsola arrastrable
@@ -75,7 +378,7 @@
         // Cambiar el título del popover según la acción
         if (dataset.accion==='editar') {
             $("#popoverTitle").text("Editar Consola");
-            $("button[type='submit']").text("Actualizar"); // Cambia el texto del botón también si es necesario
+            $("button[type='submit']").text("Editar"); 
         } else {
             $("#popoverTitle").text("Agregar Consola");
             $("button[type='submit']").text("Guardar");

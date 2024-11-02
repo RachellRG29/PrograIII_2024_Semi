@@ -22,6 +22,7 @@ def index_pant_prin(request):
 def crud_admi(request):
     return render(request, 'crud_admi.html')
 
+# Función para consultar todas las consolas
 def consultar_consolas(request):
     datos = consola.objects.all()  # Obtener todas las consolas
     data = [
@@ -31,6 +32,7 @@ def consultar_consolas(request):
             'codigo': c.codigo,
             'nombre': c.nombre,
             'descripcion': c.descripcion,
+            'presentacion': c.presentacion,
             'categoria': c.categoria,
             'marca': c.marca,
             'precio': c.precio,
@@ -40,12 +42,13 @@ def consultar_consolas(request):
     ]
     return JsonResponse(data, safe=False)
 
+# Función para guardar consola
 @csrf_exempt
 def guardar_consola(request):
     if request.method == 'POST':
         consola_id = request.POST.get('id')  # Obtener el id de consola si existe
 
-        required_fields = ['codigo', 'nombre', 'descripcion', 'categoria', 'marca', 'precio', 'stock']
+        required_fields = ['codigo', 'nombre', 'descripcion', 'presentacion', 'categoria', 'marca', 'precio', 'stock']
         for field in required_fields:
             if field not in request.POST:
                 return JsonResponse({'msg': 'error', 'error': f'El campo {field} es requerido'}, status=400)
@@ -62,6 +65,7 @@ def guardar_consola(request):
         consola_instance.codigo = request.POST['codigo']
         consola_instance.nombre = request.POST['nombre']
         consola_instance.descripcion = request.POST['descripcion']
+        consola_instance.presentacion = request.POST['presentacion']
         consola_instance.categoria = request.POST['categoria']
         consola_instance.marca = request.POST['marca']
         consola_instance.precio = request.POST['precio']
@@ -82,6 +86,7 @@ def guardar_consola(request):
                 'imagen': f"{settings.MEDIA_URL}{consola_instance.imagen}" if consola_instance.imagen else None,
                 'nombre': consola_instance.nombre,
                 'descripcion': consola_instance.descripcion,
+                'presentacion': consola_instance.presentacion,
                 'categoria': consola_instance.categoria,
                 'marca': consola_instance.marca,
                 'precio': consola_instance.precio,
@@ -91,6 +96,7 @@ def guardar_consola(request):
 
     return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
 
+# Función para consultar 1 consola y editarla
 @csrf_exempt
 def consultar_consola_edit(request):
     if request.method == 'GET':
@@ -104,6 +110,7 @@ def consultar_consola_edit(request):
                     'codigo': consola_obj.codigo,
                     'nombre': consola_obj.nombre,
                     'descripcion': consola_obj.descripcion,
+                    'presentacion': consola_obj.presentacion,
                     'categoria': consola_obj.categoria,
                     'marca': consola_obj.marca,
                     'precio': consola_obj.precio,
@@ -115,6 +122,7 @@ def consultar_consola_edit(request):
 
     return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
 
+# Función para editar consola
 @csrf_exempt
 def editar_consola(request):
     if request.method == 'POST':
@@ -131,7 +139,7 @@ def editar_consola(request):
                 return JsonResponse({'error': 'ID de consola no proporcionado'}, status=400)
 
             # Verificar que todos los campos necesarios están presentes
-            required_fields = ['codigo', 'nombre', 'descripcion', 'categoria', 'marca', 'precio', 'stock','imagen']
+            required_fields = ['codigo', 'nombre', 'descripcion', 'presentacion','categoria', 'marca', 'precio', 'stock','imagen']
             for field in required_fields:
                 if field not in data:
                     return JsonResponse({'error': f'Falta el campo: {field}'}, status=400)
@@ -141,6 +149,7 @@ def editar_consola(request):
                 consola_obj.codigo = data['codigo']
                 consola_obj.nombre = data['nombre']
                 consola_obj.descripcion = data['descripcion']
+                consola_obj.presentacion = data['presentacion']
                 consola_obj.categoria = data['categoria']
                 consola_obj.marca = data['marca']
                 consola_obj.precio = data['precio']
@@ -159,6 +168,7 @@ def editar_consola(request):
                         'codigo': consola_obj.codigo,
                         'nombre': consola_obj.nombre,
                         'descripcion': consola_obj.descripcion,
+                        'presentacion': consola_obj.presentacion,
                         'categoria': consola_obj.categoria,
                         'marca': consola_obj.marca,
                         'precio': str(consola_obj.precio),
@@ -174,9 +184,6 @@ def editar_consola(request):
     else:
         return JsonResponse({'error': 'Método no permitido'}, status=405)
 
-
-
-
 # Función para eliminar consola
 @csrf_exempt
 def eliminar_consola(request):
@@ -188,6 +195,15 @@ def eliminar_consola(request):
         return JsonResponse({'msg': 'success'})
     return JsonResponse({'msg': 'error'}, status=400)
 
+@csrf_exempt
+def verificar_codigo_existente(request):
+    if request.method == 'GET':
+        codigo = request.GET.get('codigo')
+        if codigo:
+            existe = consola.objects.filter(codigo=codigo).exists()  # Verificar si el código ya existe
+            return JsonResponse({'existe': existe})
+        return JsonResponse({'existe': False})  # Si no hay código, devuelve false
+    return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
 
 def vistaprincipal_producto(request):
     return render(request, 'vista_principal_producto.html')  
