@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,89 +20,81 @@
     <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
 
     <title>Pantalla principal ConsoleXpress</title>
-
 </head>
 <body>
-    <!-- Header: Logo, barra de búsqueda y perfil Admin -->
+    <!-- Header: Logo, barra de búsqueda y perfil de usuario -->
     <div class="header">
         <div class="logo">
             <!-- Logo de ConsoleXpress -->
-            <img alt="ConsoleXpress Logo" height="50" src="{% static 'icono_ConsoleXpress.svg '%}" width="40"/>
+            <img alt="ConsoleXpress Logo" height="50" src="{% static 'icono_ConsoleXpress.svg' %}" width="40"/>
             <span>ConsoleXpress</span>
         </div>
+           <!-- Categorías -->
+        <div class="category-dropdown">
+            <button class="category-button">Categorías</button>
+            <div class="dropdown-content">
+                <a href="#">Accesorios</a>
+                <a href="#">Edición Especial</a>
+                <a href="#">Categoría Normal</a>
+            </div>
+        </div>
+        
         <div class="search-bar">
-            <!-- Barra de búsqueda -->
+            <!-- Barra de búsqueda única -->
             <input placeholder="Buscar" type="text"/>
             <i class="fas fa-search"></i>
-            <img alt="ConsoleXpress Logo" height="50" src="{% static 'icono_ConsoleXpress.svg' %}" width="40"/>  <!-- Imagen del logo -->
-            <span>ConsoleXpress</span> <!-- Nombre de la tienda -->
+        </div>
+        <!-- Contenedor para el ícono del carrito -->
+        <div class="header-cart">
+            <i class="bi bi-cart header-cart-icon"></i> 
         </div>
         <div class="admin">
-            <!-- Sección Admin -->
-            <span style="color: white;">Admin</span>
+
+            <!-- Botón de Chatbot -->
+<button class="chatbot-btn">
+    <img src="{% static 'chatbot.png' %}" alt="Chatbot Icon" class="chatbot-icon">
+</button>
+
+            <!-- Sección Usuario -->
+            <span style="color: white;">Usuario</span>
             <i class="fas fa-user" style="color: white;"></i>
         </div>
     </div>
-
 
     <!-- Contenido principal: Título de la página y productos -->
     <div class="content">
         <!-- Título de la sección -->
         <h1>Productos disponibles</h1>
 
-        <!-- Sección de categorías -->
-        <div class="categories">
-            <span>Categorías</span>
-            <i class="fas fa-chevron-down"></i>
-
-
-        <!-- Lista de productos -->
-
-            <!-- Tarjeta 2 -->
-            <div class="card-consola">
-                <!-- Tarjeta de producto 1 -->
+        <div class="product-list">
+            <!-- Card 1 -->
             <div class="product-card">
-                <!-- Imagen de producto -->
-                <img alt="Product Image" height="150" src="https://img.freepik.com/foto-gratis/vista-controlador-videojuegos-3d_23-2151005755.jpg?w=826&t=st=1728005864~exp=1728006464~hmac=37131993c2fb7c7ff113f98c05fef11fc637031eec311bbcd7495943db7771e1" width="150"/>
+                <img src="https://i.blogs.es/4e64e6/playstation-5/1366_2000.webp" alt="Nintendo Switch OLED" class="product-image">
                 <div class="details">
-                    <div class="line"></div>
-                    <div class="circle"></div>
-                    <h2>Nintendo switch oled</h2>
-                    <p class="price">$400</p>
-                    <p class="category">Categoria especial</p>
+                    <h2>Nintendo Switch </h2>
+                    <p class="price">$100</p>
+                    <p class="category">Categoría especial</p>
                     <p>Consola especial, color rosa con blanco.</p>
-                </div>
-            </div>
-                    <!-- Botón de carrito -->
                     <button class="cart-btn">
-                        <i class="fas fa-shopping-cart"></i>
+                        <i class="bi bi-cart"></i>
                     </button>
-        </div>
-            
-            <div class="card-consola">
-                    <!-- Tarjeta de producto 2 -->
-                <div class="product-card">
-                    <!-- Imagen de producto -->
-                    <img alt="Nintendo switch oled" height="150" src="https://storage.googleapis.com/a1aa/image/IGYeeZGaBTg1TkgWoiTClrvPUEooA88pJtrwsfc37jFMb5FnA.jpg" width="150"/>
-                    <div class="details">
-                        <div class="line"></div>
-                        <div class="circle"></div>
-                        <h2>Nintendo switch oled</h2>
-                        <p class="price">$400</p>
-                        <p class="category">Categoria especial</p>
-                        <p>Consola especial, color rosa con blanco.</p>
-                    </div>
                 </div>
-                        <!-- Botón de carrito -->
-                        <button class="cart-btn">
-                            <i class="fas fa-shopping-cart"></i>
-                        </button>
             </div>
-
-        </div> <!-- cierra product-list -->
-
-    </div>  <!-- cierra content -->
-
-    <script src="script_admi.js"></script>
+            
+            <!-- Card 2 -->
+            <div class="product-card">
+                <img src="https://storage.googleapis.com/a1aa/image/IGYeeZGaBTg1TkgWoiTClrvPUEooA88pJtrwsfc37jFMb5FnA.jpg" alt="Nintendo Switch OLED" class="product-image">
+                <div class="details">
+                    <h2>Nintendo Switch </h2>
+                    <p class="price">$100</p>
+                    <p class="category">Categoría especial</p>
+                    <p>Consola especial, color rosa con blanco.</p>
+                    <button class="cart-btn">
+                        <i class="bi bi-cart"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-</html>
+</html> 
