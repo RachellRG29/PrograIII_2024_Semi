@@ -3,6 +3,31 @@
     box-sizing: border-box;
 }
 
+/* Personalizar ancho de la scrollbar */
+::-webkit-scrollbar {
+    width: 12px; /*ancho*/
+    height: 12px; /*alto*/
+}
+
+/* Color de fondo de la scrollbar */
+::-webkit-scrollbar-track {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+}
+
+
+/* Color y diseño de la barra de desplazamiento */
+::-webkit-scrollbar-thumb {
+    background-color: #202020;
+    border-radius: 10px;
+    border: 3px solid #f1f1f1;
+}
+
+/* Color cuando se pasa el mouse por encima de la scrollbar */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #0d0d0e;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -11,7 +36,7 @@ body {
 /* Header */
 header {
     background-color: #dc3e57;
-    padding: 5px 20px;
+    padding: 0px 20px;
 }
 
 /* Navbar */
@@ -20,7 +45,7 @@ header {
     align-items: center;
     justify-content: space-between;
     color: white;
-    font-family: 'Comfortaa';
+    font-family: 'League Spartan';
 }
 
 /* Logo alineado a la izquierda */
@@ -29,13 +54,14 @@ header {
     align-items: center;
     font-size: 1.5rem;
     font-weight: bold;
-    color: black;
-    filter: invert();
-    height:"50px";
+    
 }
 
 .logo img { 
     margin-right: 8px;
+    height: 55px;
+    width: 55px;
+    color: white;
 }
 
 /* Nav links (centrado) */
@@ -47,7 +73,9 @@ header {
 }
 
 .nav-links li {
+    margin-top: 1rem;
     margin-left: 2rem;
+    
 }
 
 .nav-links a {
@@ -61,7 +89,9 @@ header {
 .nav-links a:hover {
     background-color: #e1646e;
     border-radius: 20px;
-    padding: 10px 20px;
+    padding-left:5px;
+    padding-right: 5px;
+    transition: color 0.1s;
 }
 
 /* Sección de usuario (alineada a la derecha) */
@@ -88,6 +118,11 @@ header {
     transition: background-color 0.3s;
 }
 
+.btn_user_img svg,
+.btn_logout svg {
+    fill: white; /* Cambia el color de relleno del SVG a blanco */
+}
+
 /* Hover para boton de usuario */
 .btn_user_img:hover {
     background-color: #e1646e;
@@ -96,6 +131,8 @@ header {
 /* Estilos para el menú de usuario */
 .user_admin {
     position: relative;
+    margin-right: 2rem;
+    margin-left: 2rem;
 }
 
 .user-menu {
@@ -128,6 +165,22 @@ header {
 }
 
 
+/*FORMULARIO PARA CONSOLAS*/
+/* Mostrar formulario en el centro */
+.frmAbrirConsola {
+    margin: auto;
+    padding: 10px;
+    
+}
 
-
+/*
+.table-glass {
+    background: rgba(255, 255, 255, 0.15); 
+    border-radius: 12px;
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+*/
 

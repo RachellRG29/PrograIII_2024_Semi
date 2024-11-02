@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
-    <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="sweetalert2.min.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!--<link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@4/bulma.css" rel="stylesheet"> -->
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Fuentes utilizadas -->
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
@@ -21,15 +22,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Admin/style_crud.css' %}">
     <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
 
-    
-
     <title>Crud ConsoleXpress</title>
 
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-image: url("{% static 'fondo_cinematico_nintendo.png' %}");
+            background-image: url("{% static 'img_fondo_crud.jpg' %}");
             background-size: cover;
             height: 100vh; 
         }
@@ -38,260 +37,268 @@
 </head>
 <body>
     <!-- Header- Navbar: Logo, perfil Admin y logout -->
-    <header>
+    <header> 
         <nav class="navbar">
+            <div class="container-fluid">
+                <div class="logo d-flex align-items-center">
+                    <!-- Logo de ConsoleXpress -->
+                    <img alt="ConsoleXpress Logo" height="50" style="filter: invert();" src="{% static 'icono_ConsoleXpress.svg '%}" width="40"/>
+                    <span class="text-white ms-2">ConsoleXpress</span>
+                </div>  
 
-        <div class="logo">
-            <!-- Logo de ConsoleXpress -->
-            <img alt="ConsoleXpress Logo" height="50" src="{% static 'icono_ConsoleXpress.svg' %}" width="40"/>
-            <span>ConsoleXpress</span>
-        </div>    
+                <ul class="nav-links ms-auto d-flex flex-row">
+                    <li class="nav-item"><a href="#" id="linkConsolas" class="nav-link text-white">Consolas</a></li>
+                    <li class="nav-item"><a href="#" id="linkCategorias" class="nav-link text-white">Categorías</a></li>
+                    <li class="nav-item"><a href="#" id="linkCompras text-white">Compra</a></li>
+                </ul>
 
-        <ul class="nav-links">
-            <li><a href="">Consolas</a></li>
-            <li><a href="">Categorias</a></li>
-            <li><a href="">Compra</a></li>
-           
-        </ul>
-
-        <div class="user_admin">
-            <span id="lblUserAdmin" style="color: white;">Usuario</span>
-            
-            <button class="btn_user_img" onclick="toggleUserMenu()">
-                <img src="{% static 'icon_user.svg' %}" alt="" width="28px">
-            </button>
-
-            <!-- Menú desplegable de usuario -->
-            <div id="user-menu" class="user-menu">
-                <button class="btn_logout">
-                    <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Logout
-                </button>
+                <div class="user_admin">
+                    <span id="lblUserAdmin" style="color: white;">Usuario</span>
+                    
+                    <button class="btn_user_img" onclick="toggleUserMenu()">
+                        <svg width="28px" height="28px" class="user-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                            <rect fill="none" height="256" width="256"/>
+                            <circle cx="128" cy="120" r="44"/>
+                            <path d="M128,24A104,104,0,1,0,232,128,104.2,104.2,0,0,0,128,24Zm65.8,162.4a81.3,81.3,0,0,0-24.5-23,59.7,59.7,0,0,1-82.6,0,81.3,81.3,0,0,0-24.5,23,88,88,0,1,1,131.6,0Z"/>
+                        </svg>
+                    </button>
+        
+                    <!-- Menú desplegable de usuario -->
+                    <div id="user-menu" class="user-menu">
+                        <button class="btn_logout">
+                            <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Logout
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
-
         </nav>
     </header>
+    
+    
 
-
-    <section class="p-3">
-        <div class="row justify-content-center">
-            <div class="col-12 d-flex align-items-center">
+<!-- Contenedor del formulario que aparece al hacer clic en "Consolas" -->
+<form class="frmAbrirConsola container-fluid d-none " id="formularioConsolasContainer" >
+    <div class="card text-white" style="background: rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 0px; border: 1px solid rgba(255, 255, 255, 0.3);  ">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                Consolas agregadas
+                <button type="button" class="btn-close btn-close-white" aria-label="Close" onclick="cerrarFormulario()"></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
                 <!-- Botón para agregar una nueva consola -->
-                <button type="button" id="btnAgregarConsola" class="btn btn-danger btn-outline-warning me-5 gap-2 col-2" data-bs-toggle="popover" title="Agregar Consola" data-bs-html="true">
+                <button type="button" id="btnAgregarConsola" class="btn btn-outline-light" data-bs-toggle="popover" title="Agregar Consola" data-bs-html="true">
                     Agregar consola <i class="bi bi-plus-lg"></i>
                 </button>
-                 <!-- script que permite abrir el boton de agregar con el formulario -->
-                  <script>
-                    // Función para mostrar el popover
-                    document.getElementById("btnAgregarConsola").addEventListener("click", function () {
-                        document.getElementById("popoverConsola").style.display = "block";
-                    });
 
-                    // Función para cerrar el popover
-                    function cerrarPopover() {
-                        document.getElementById("popoverConsola").style.display = "none";
-                    }
-                  </script>
-                
-                <!-- Caja de busqueda -->
-                <div class="col-8">
-                    <input type="text" id="searchConsola" class="form-control" placeholder="Buscar consolas" oninput="buscarConsolas()">
-                </div>
-            </div>
-
-            <!-- TABLA DE LAS CONSOLAS AGREGADAS -->
-            <div class="row">
-                <div class="col-12 center">
-                    <table class="table table-dark table-hover mt-4 text-center border border-danger-subtle" id="tblConsolas">
-                        <thead>
-                            <tr>
-                                <th>Codigo</th>
-                                <th>Imagen</th>
-                                <th>Nombre</th>
-                                <th>Descripcion</th>
-                                <th>Categoria</th>
-                                <th>Marca</th>
-                                <th>Precio</th>
-                                <th>Stock</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody  id="consolasBody">
-
-                        </tbody>
-                        
-                    </table>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-
-        <!-- Modal para Agregar Consola -->
-        {% include 'consolas.html' %}
-       
-        <script>
-
-        document.addEventListener("DOMContentLoaded", function(){
-            cargarConsolas();
-        });
-
-        //Guardar consola metodo post
-        document.getElementById('formAgregarConsola').addEventListener('submit', function (event) {
-            event.preventDefault(); // Previene el envio default
-
-            const formData = new FormData(this); 
-
-            fetch("{% url 'guardar_consola' %}", {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.msg === 'success') {
-                    // Agregar la nueva consola a la tabla
-                    const tbody = document.getElementById("consolasBody");
-                    const nuevaFila = tbody.insertRow();
-                    nuevaFila.innerHTML = `
-                        <td>${data.consola.codigo}</td>
-                        <td><img src="${data.consola.imagen}" style="width: 90px;"></td>
-                        <td>${data.consola.nombre}</td>
-                        <td>${data.consola.descripcion}</td>
-                        <td>${data.consola.categoria}</td>
-                        <td>${data.consola.marca}</td>
-                        <td>${data.consola.precio}</td>
-                        <td>${data.consola.stock}</td>
-                        <td>
-                            <button class="btn btn-warning" onclick="editarConsola(${data.consola.id})"><i class="bi bi-pencil-square"></i></button>
-                            <button class="btn btn-danger" onclick="eliminarConsola(${data.consola.id})"><i class="bi bi-trash3"></i></button>
-                        </td>`;
-                    cargarConsolas();
-                    //Mensaje de exito de consola guardada
-                    Swal.fire({
-                        toast: true,
-                        position: 'top-end',
-                        icon: "success",
-                        title: "Consola guardada",
-                        showConfirmButton: false,
-                        timer: 3000
-                    });
-                    
-                    cerrarPopover(); // Cerrar el popover
-                } else {
-                    //Mensaje de error al guardar consola
-                    Swal.fire({
-                        toast: true,
-                        position: 'top-end',
-                        icon: "error",
-                        title: "Error al guardar la consola",
-                        showConfirmButton: false,
-                        timer: 3000
-                    });
-                }
-            })
-            .catch(error => {
-                //Mensaje de error con el servidor
-                Swal.fire({
-                    toast: true,
-                    position: 'top-end',
-                    icon: "error",
-                    title: "Error con la comunicacion con el servidor",
-                    showConfirmButton: false,
-                    timer: 3000
+                <script>
+                //FORMULARIO ABRIR NUEVA CONSOLA DENTRO DEL CRUD_ADMI.HMTL
+                // Función para mostrar el popover
+                document.getElementById("btnAgregarConsola").addEventListener("click", function () {
+                    document.getElementById("popoverConsola").style.display = "block";
                 });
-                console.error('Error:', error);
-            });
-        });
+
+                // Función para cerrar el popover
+                function cerrarPopover() {
+                    document.getElementById("popoverConsola").style.display = "none";
+                }
+                </script>
+
+                <!-- Caja de búsqueda -->
+                <div class="col-8">
+                    <input type="text" id="searchConsola" class="form-control border border-danger" placeholder="Buscar consolas" oninput="buscarConsolas()">
+                </div>
+            </div>
+            <!-- TABLA DE LAS CONSOLAS AGREGADAS -->
+            <div class="table-responsive">
+                <table class="table table-dark table-hover text-center border border-danger-subtle" id="tblConsolas">
+                    <thead style="background-color: #dc3e57;">
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Categoria</th>
+                            <th>Marca</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="consolasBody">
+                        <!-- Aquí irán las filas de consolas agregadas -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
 
 
-        // Cargar las consolas al inicio
-            function cargarConsolas() {
-                fetch("{% url 'consultar_consolas' %}")  // URL para obtener las consolas
-                    .then(response => response.json())
-                    .then(data => {
-                        const tbody = document.getElementById("consolasBody");
-                        tbody.innerHTML = ''; // Limpiar la tabla antes de llenarla
-                        data.forEach(consola => {
-                            tbody.innerHTML += `
-                                <tr>
-                                    <td>${consola.codigo}</td>
-                                    <td><img src="${consola.imagen}" style="width: 90px;"></td> 
-                                    <td>${consola.nombre}</td>
-                                    <td>${consola.descripcion}</td>
-                                    <td>${consola.categoria}</td>
-                                    <td>${consola.marca}</td>
-                                    <td>${consola.precio}</td>
-                                    <td>${consola.stock}</td>
-                                    <td><button class="btn btn-warning" onclick="editarConsola(${consola.id})"><i class="bi bi-pencil-square"></i></button></td>
-                                    <td><button class="btn btn-danger" onclick="eliminarConsola(${consola.id})"><i class="bi bi-trash3"></i></button></td>
-                                    
-                                </tr>
-                            `;
-                        });
-                    });
-            }    
 
 
 
-    // Función para abrir el form y editar sus datos :3
-    function editarConsola(id) {
-    // Cargar datos de la consola
-    fetch(`consultar_consolas/${id}/`)
-        .then(response => response.json())
-        .then(consola => {
-            // Rellenar los campos del modal con los datos obtenidos
-            document.getElementById("editConsolaId").value = consola.id;
-            document.getElementById("editCodigo").value = consola.codigo;
-            document.getElementById("editNombre").value = consola.nombre;
-            // Completa los demás campos según tu formulario
-            
-            // Mostrar el modal de edición
-            const modal = new bootstrap.Modal(document.getElementById("modalEditarConsola"));
-            modal.show();
-        });
-}
+    <!-- Modal para Agregar Consola -->
+    {% include 'consolas.html' %}
+       
+<!-- SCRIPT PRINCIPAL PARA EL FORMULARIO CONSOLAS-AGREGAR-ELIMINAR -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    cargarConsolas();
+});
 
-// Escuchar el envío del formulario de edición
+// Guardar consola (método POST)
 document.getElementById('formAgregarConsola').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevenir el envío por defecto
+    event.preventDefault();
 
-    // Obtener datos del formulario
-    const consolaId = document.getElementById("consolaId").value;
-    const data = {
-        codigo: document.getElementById("editCodigo").value,
-        nombre: document.getElementById("editNombre").value,
-        // Completa con los demás datos de la consola
-    };
+    const formData = new FormData(this);
+    const accion = this.dataset.accion; // 'modificar' o 'agregar'
+    const idConsola = this.dataset.idconsola; // Solo estará definido si es 'editar'
 
-    // Realizar la solicitud PUT
-    fetch(`consultar_consolas/${consolaId}/`, {
+    let url = "{% url 'guardar_consola' %}";
+    formData.append('id', idConsola || ''); // Agregar el ID solo si existe
+
+    fetch(url, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+        body: formData,
     })
     .then(response => response.json())
     .then(data => {
         if (data.msg === 'success') {
-            alertify.success('Consola editada exitosamente');
-            cargarConsolas(); // Recargar la tabla
-            // Cerrar el modal de edición
-            const modal = bootstrap.Modal.getInstance(document.getElementById("popoverConsola"));
-            modal.hide();
+            if (accion === 'editar') {
+                const row = document.querySelector(`tr[data-id='${idConsola}']`);
+                row.innerHTML = 
+                    `<td>${data.consola.codigo}</td>
+                    <td><img src="${data.consola.imagen}" style="width: 90px;"></td>
+                    <td>${data.consola.nombre}</td>
+                    <td>${data.consola.descripcion}</td>
+                    <td>${data.consola.categoria}</td>
+                    <td>${data.consola.marca}</td>
+                    <td>${data.consola.precio}</td>
+                    <td>${data.consola.stock}</td>
+                    <td>
+                        <button class="btn btn-warning" type="button" onclick="editarConsola(${data.consola.id})"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn btn-danger" type="button" onclick="eliminarConsola(${data.consola.id})"><i class="bi bi-trash3"></i></button>
+                    </td>`;
+            } else {
+                const tbody = document.getElementById("consolasBody");
+                const nuevaFila = tbody.insertRow();
+                nuevaFila.setAttribute('data-id', data.consola.id);
+                nuevaFila.innerHTML = 
+                    `<td>${data.consola.codigo}</td>
+                    <td><img src="${data.consola.imagen}" style="width: 90px;"></td>
+                    <td>${data.consola.nombre}</td>
+                    <td>${data.consola.descripcion}</td>
+                    <td>${data.consola.categoria}</td>
+                    <td>${data.consola.marca}</td>
+                    <td>${data.consola.precio}</td>
+                    <td>${data.consola.stock}</td>
+                    <td>
+                        <button class="btn btn-warning" type="button" onclick="editarConsola(${data.consola.id})"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn btn-danger" type="button" onclick="eliminarConsola(${data.consola.id})"><i class="bi bi-trash3"></i></button>
+                    </td>`;
+            }
+            cargarConsolas();
+            limpiarConsolas();
+
+            let mensaje = accion === 'editar' ? "Consola editada" : "Consola guardada";
+
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: "success",
+                title: mensaje, /*Mensaje de ambas partes*/
+                showConfirmButton: false,
+                timer: 3000
+            });
+            cerrarPopover();
         } else {
-            alertify.error('Error al editar la consola');
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: "error",
+                title: "Error al guardar la consola",
+                showConfirmButton: false,
+                timer: 3000
+            });
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: "error",
+            title: "Error con la comunicación con el servidor",
+            showConfirmButton: false,
+            timer: 3000
+        });
+        console.error('Error:', error);
+    });
 });
 
-// Función para cerrar el popover
-function cerrarPopover() {
-    document.getElementById("popoverConsola").style.display = "none"; // Ocultar el popover
+    // Cargar las consolas al inicio
+    function cargarConsolas() {
+        fetch("{% url 'consultar_consolas' %}")  // URL para obtener las consolas
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById("consolasBody");
+                tbody.innerHTML = ''; // Limpia la tabla antes de llenarla
+                data.forEach(consola => {
+                    const nuevaFila = tbody.insertRow();
+                    nuevaFila.setAttribute('data-id', consola.id); // Agregar atributo data-id
+                    nuevaFila.innerHTML = 
+                        `<td>${consola.codigo}</td>
+                        <td><img src="${consola.imagen}" style="width: 90px;"></td>
+                        <td>${consola.nombre}</td>
+                        <td>${consola.descripcion}</td>
+                        <td>${consola.categoria}</td>
+                        <td>${consola.marca}</td>
+                        <td>${consola.precio}</td>
+                        <td>${consola.stock}</td>
+                        <td><button class="btn btn-warning" type="button" onclick="editarConsola(${consola.id})"><i class="bi bi-pencil-square"></i></button></td>
+                        <td><button class="btn btn-danger" type="button" onclick="eliminarConsola(${consola.id})"><i class="bi bi-trash3"></i></button></td>
+                    `;
+                });
+            });
+    }
+
+
+    
+    function editarConsola(id) {
+    fetch(`/consultar_consola_edit?id=${id}`) 
+        .then(response => response.json())
+        .then(data => {
+            if (data.msg === 'error') {
+                Swal.fire('Error', data.error, 'error');
+                return;
+            }
+            // Rellenar formulario
+            document.querySelector('input[name="codigo"]').value = data.codigo;
+            document.querySelector('input[name="nombre"]').value = data.nombre;
+            document.querySelector('textarea[name="descripcion"]').value = data.descripcion;
+            document.querySelector('select[name="categoria"]').value = data.categoria;
+            document.querySelector('input[name="marca"]').value = data.marca;
+            document.querySelector('input[name="precio"]').value = data.precio;
+            document.querySelector('input[name="stock"]').value = data.stock;
+            document.getElementById('consolaId').value = data.id;
+
+            // Mostrar imagen si existe
+            const imgElement = document.getElementById('imgPreview');
+            imgElement.src = data.imagen ? data.imagen : '';
+            imgElement.style.display = data.imagen ? 'block' : 'none';
+
+            // Configurar formulario en modo edición
+            const form = document.getElementById('formAgregarConsola');
+            form.dataset.accion = 'editar';
+            form.dataset.idconsola = id;
+            document.getElementById('popoverTitle').innerText = 'Editar Consola';
+            $('#popoverConsola').show();
+        })
+        .catch(error => console.error('Error al cargar los datos:', error));
 }
+
 
 
 //---ELIMINAR CON ALERTAR NO INVASIVAS----
@@ -326,6 +333,7 @@ function eliminarConsola(id) {
                         timer: 3000
                     });
                     cargarConsolas();
+                    limpiarConsolas();
                 } else { 
                     Swal.fire({
                         toast: true,
@@ -362,6 +370,13 @@ function eliminarConsola(id) {
 }
 
 
+ // Limpiar campos del formulario
+ function limpiarConsolas() {
+    document.getElementById('formAgregarConsola').reset();
+    document.getElementById('formAgregarConsola').dataset.accion = 'agregar'; 
+    delete document.getElementById('formAgregarConsola').dataset.idconsola; 
+     
+}
 
 // Función para obtener el token CSRF (puedes agregar esto al final de tu script)
 function getCookie(name) {
@@ -381,7 +396,24 @@ function getCookie(name) {
 }
 
             
-        </script>
+</script>
+
+
+
+    <!-- Script de navbar - menu- CONSOLAS -->
+    <script>
+        // Función para mostrar el formulario
+        document.getElementById("linkConsolas").addEventListener("click", function(event) {
+            event.preventDefault(); // Evita la redirección de enlace
+            document.getElementById("formularioConsolasContainer").classList.remove("d-none");
+        });
+
+        // Función para cerrar el formulario
+        function cerrarFormulario() {
+            document.getElementById("formularioConsolasContainer").classList.add("d-none");
+        }
+
+    </script>
 
     <!-- Script de navbar - menu-logout -->
     <script>
@@ -397,11 +429,9 @@ function getCookie(name) {
                 userMenu.style.display = "none";
             }
         };
-        </script>
+    </script>
         
-        
-    <!-- Script del sweetalert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 
 </body>
 </html>

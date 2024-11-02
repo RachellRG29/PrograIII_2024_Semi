@@ -45,46 +45,39 @@ def guardar_consola(request):
     if request.method == 'POST':
         consola_id = request.POST.get('id')  # Obtener el id de consola si existe
 
-        # Validación básica de campos requeridos
         required_fields = ['codigo', 'nombre', 'descripcion', 'categoria', 'marca', 'precio', 'stock']
         for field in required_fields:
             if field not in request.POST:
                 return JsonResponse({'msg': 'error', 'error': f'El campo {field} es requerido'}, status=400)
 
-        # Verificar si consola_id existe; si sí, se trata de una edición
+        # Si consola_id existe, estamos en modo edición; de lo contrario, creamos una nueva instancia
         if consola_id:
             consola_instance = get_object_or_404(consola, id=consola_id)
-            consola_instance.codigo = request.POST['codigo']
-            consola_instance.nombre = request.POST['nombre']
-            consola_instance.descripcion = request.POST['descripcion']
-            consola_instance.categoria = request.POST['categoria']
-            consola_instance.marca = request.POST['marca']
-            consola_instance.precio = request.POST['precio']
-            consola_instance.stock = request.POST['stock']
-            if 'imagen' in request.FILES:
-                consola_instance.imagen = request.FILES['imagen']
-            consola_instance.save()
             action = 'updated'
         else:
-            # Si no hay id, entonces es una nueva consola
-            consola_instance = consola(
-                codigo=request.POST['codigo'],
-                nombre=request.POST['nombre'],
-                descripcion=request.POST['descripcion'],
-                categoria=request.POST['categoria'],
-                marca=request.POST['marca'],
-                precio=request.POST['precio'],
-                stock=request.POST['stock'],
-            )
-            if 'imagen' in request.FILES:
-                consola_instance.imagen = request.FILES['imagen']
-            consola_instance.save()
+            consola_instance = consola()  # Nueva instancia
             action = 'created'
+
+        # Asignación de valores
+        consola_instance.codigo = request.POST['codigo']
+        consola_instance.nombre = request.POST['nombre']
+        consola_instance.descripcion = request.POST['descripcion']
+        consola_instance.categoria = request.POST['categoria']
+        consola_instance.marca = request.POST['marca']
+        consola_instance.precio = request.POST['precio']
+        consola_instance.stock = request.POST['stock']
+        
+        # Actualización de imagen solo si es necesario
+        if 'imagen' in request.FILES:
+            consola_instance.imagen = request.FILES['imagen']
+        
+        consola_instance.save()
 
         return JsonResponse({
             'msg': 'success',
             'action': action,
             'consola': {
+                'id': consola_instance.id,
                 'codigo': consola_instance.codigo,
                 'imagen': f"{settings.MEDIA_URL}{consola_instance.imagen}" if consola_instance.imagen else None,
                 'nombre': consola_instance.nombre,
@@ -93,50 +86,94 @@ def guardar_consola(request):
                 'marca': consola_instance.marca,
                 'precio': consola_instance.precio,
                 'stock': consola_instance.stock,
-                'id': consola_instance.id,
             }
         })
+
     return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
-
-
 
 @csrf_exempt
-@require_http_methods(["POST"])
-def editar_consola(request, id):
-    if request.method == 'POST':
-        # Cargar el cuerpo de la solicitud
-        data = json.loads(request.body)
+def consultar_consola_edit(request):
+    if request.method == 'GET':
+        consola_id = request.GET.get('id')
+        if consola_id:
+            try:
+                consola_obj = consola.objects.get(id=consola_id)
+                data = {
+                    'id': consola_obj.id,
+                    'imagen': f"{settings.MEDIA_URL}{consola_obj.imagen}" if consola_obj.imagen else None,
+                    'codigo': consola_obj.codigo,
+                    'nombre': consola_obj.nombre,
+                    'descripcion': consola_obj.descripcion,
+                    'categoria': consola_obj.categoria,
+                    'marca': consola_obj.marca,
+                    'precio': consola_obj.precio,
+                    'stock': consola_obj.stock,
+                }
+                return JsonResponse(data)
+            except consola.DoesNotExist:
+                return JsonResponse({'msg': 'error', 'error': 'Consola no encontrada'}, status=404)
 
-        # Obtener la consola a editar
-        consola_instance = get_object_or_404(consola, id=id)
-
-        # Actualizar los campos
-        consola_instance.codigo = data.get('codigo', consola_instance.codigo)
-        consola_instance.nombre = data.get('nombre', consola_instance.nombre)
-        consola_instance.descripcion = data.get('descripcion', consola_instance.descripcion)
-        consola_instance.categoria = data.get('categoria', consola_instance.categoria)
-        consola_instance.marca = data.get('marca', consola_instance.marca)
-        consola_instance.precio = data.get('precio', consola_instance.precio)
-        consola_instance.stock = data.get('stock', consola_instance.stock)
-
-        # Guardar los cambios
-        consola_instance.save()
-
-        # Enviar la respuesta de éxito
-        return JsonResponse({
-            'msg': 'success',
-            'consola': {
-                'id': consola_instance.id,
-                'codigo': consola_instance.codigo,
-                'nombre': consola_instance.nombre,
-                'descripcion': consola_instance.descripcion,
-                'categoria': consola_instance.categoria,
-                'marca': consola_instance.marca,
-                'precio': consola_instance.precio,
-                'stock': consola_instance.stock,
-            }
-        })
     return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
+
+@csrf_exempt
+def editar_consola(request):
+    if request.method == 'POST':
+        import json
+        try:
+            if not request.body:
+                return JsonResponse({'error': 'Cuerpo de la solicitud vacío'}, status=400)
+
+            data = json.loads(request.body)
+
+            # Comprobar que el ID de la consola está presente
+            id_consola = data.get('id')
+            if id_consola is None:
+                return JsonResponse({'error': 'ID de consola no proporcionado'}, status=400)
+
+            # Verificar que todos los campos necesarios están presentes
+            required_fields = ['codigo', 'nombre', 'descripcion', 'categoria', 'marca', 'precio', 'stock','imagen']
+            for field in required_fields:
+                if field not in data:
+                    return JsonResponse({'error': f'Falta el campo: {field}'}, status=400)
+
+            try:
+                consola_obj = consola.objects.get(id=id_consola)
+                consola_obj.codigo = data['codigo']
+                consola_obj.nombre = data['nombre']
+                consola_obj.descripcion = data['descripcion']
+                consola_obj.categoria = data['categoria']
+                consola_obj.marca = data['marca']
+                consola_obj.precio = data['precio']
+                consola_obj.stock = data['stock']
+
+                # Actualizar la imagen si se proporciona
+                if 'imagen' in data:
+                    consola_obj.imagen = data['imagen']
+
+                consola_obj.save()
+
+                return JsonResponse({
+                    'msg': 'success',
+                    'consola': {
+                        'id': consola_obj.id,
+                        'codigo': consola_obj.codigo,
+                        'nombre': consola_obj.nombre,
+                        'descripcion': consola_obj.descripcion,
+                        'categoria': consola_obj.categoria,
+                        'marca': consola_obj.marca,
+                        'precio': str(consola_obj.precio),
+                        'stock': consola_obj.stock,
+                        'imagen': consola_obj.imagen.url if consola_obj.imagen else ''
+                    }
+                })
+            except consola.DoesNotExist:
+                return JsonResponse({'error': 'Consola no encontrada'}, status=404)
+
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'JSON inválido'}, status=400)
+    else:
+        return JsonResponse({'error': 'Método no permitido'}, status=405)
+
 
 
 
