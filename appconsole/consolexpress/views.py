@@ -206,4 +206,4 @@ def verificar_codigo_existente(request):
     return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
 
 def vistaprincipal_producto(request):
-    return render(request, 'vista_principal_producto.html')  
+    return render(request, 'vistaprincipal_producto.html')  
