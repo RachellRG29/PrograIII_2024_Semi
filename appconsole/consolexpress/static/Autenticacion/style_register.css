@@ -130,7 +130,7 @@
         }
 
         #warning-dialog-register button {
-            color: white; /* Color del ícono */
+            color: rgb(252, 53, 53); /* Color del ícono */
             background: none; 
             border: none; 
             cursor: pointer; /* Cambia el cursor al pasar el mouse */
