@@ -143,6 +143,9 @@
        
 <!-- SCRIPT PRINCIPAL PARA EL FORMULARIO CONSOLAS (CRUD)-AGREGAR-EDITAR-ELIMINAR-ACTUALIZAR -->
 <script>
+
+let dataConsolas=[];
+
 document.addEventListener("DOMContentLoaded", function () {
     cargarConsolas();
 });
@@ -157,6 +160,28 @@ document.getElementById('formAgregarConsola').addEventListener('submit', functio
 
     let url = "{% url 'guardar_consola' %}";
     formData.append('id', idConsola || ''); // Agregar el ID solo si existe
+
+    //Validar inputs
+    const codigo = document.querySelector('#codigo');
+    const nombre = document.querySelector('#nombre');
+    const descripcion = document.querySelector('#descripcion');
+    const marca = document.querySelector('#marca');
+    const precio = document.querySelector('#precio');
+    const stock = document.querySelector('#stock');
+    
+
+    //validar los inputs
+    const isCodigoValido = validarCodigo(codigo);
+    const isNombreValido = validarNombre(nombre);
+    const isDescripcionValido = validarDescripcion(descripcion);
+    const isMarcaValido = validarMarca(marca);
+    const isPrecioValido = validarPrecio(precio);
+    const isStockValido = validarStock(stock);
+
+    if(!isCodigoValido || !isNombreValido || !isDescripcionValido ||
+        !isMarcaValido || !isPrecioValido || !isStockValido) {
+        return; //detenemos envio hasta q los datos esten correctos :3
+    }
 
     fetch(url, {
         method: 'POST',
@@ -243,6 +268,8 @@ document.getElementById('formAgregarConsola').addEventListener('submit', functio
         fetch("{% url 'consultar_consolas' %}")  // URL para obtener las consolas
             .then(response => response.json())
             .then(data => {
+                dataConsolas=data; //
+
                 const tbody = document.getElementById("consolasBody");
                 tbody.innerHTML = ''; // Limpia la tabla antes de llenarla
                 data.forEach(consola => {
@@ -265,8 +292,7 @@ document.getElementById('formAgregarConsola').addEventListener('submit', functio
             });
     }
 
-
-    
+    //Editar consolas
     function editarConsola(id) {
     fetch(`/consultar_consola_edit?id=${id}`) 
         .then(response => response.json())
@@ -301,7 +327,36 @@ document.getElementById('formAgregarConsola').addEventListener('submit', functio
         .catch(error => console.error('Error al cargar los datos:', error));
 }
 
+function mostrarFilasConsolas(data = []){
+        let filas = '';
+        data.forEach(consola => {
+            filas += 
+                `<td>${consola.codigo}</td>
+                    <td><img src="${consola.imagen}" style="width: 90px;"></td>
+                    <td>${consola.nombre}</td>
+                    <td>${consola.descripcion}</td>
+                    <td>${consola.presentacion}</td>
+                    <td>${consola.categoria}</td>
+                    <td>${consola.marca}</td>
+                    <td>${consola.precio}</td>
+                    <td>${consola.stock}</td>
+                    <td><button class="btn btn-warning" type="button" onclick="editarConsola(${consola.id})"><i class="bi bi-pencil-square"></i></button></td>
+                    <td><button class="btn btn-danger" type="button" onclick="eliminarConsola(${consola.id})"><i class="bi bi-trash3"></i></button></td>
+                `;
+        });
+        document.querySelector('#tblConsolas > tbody').innerHTML = filas;
+    }
 
+//Buscar consolas
+function buscarConsolas() {
+    const terminoBusqueda = document.getElementById("searchConsola").value.toLowerCase();
+    const filas = document.querySelectorAll("#tblConsolas tbody tr");
+
+    filas.forEach(fila => {
+        const textoFila = fila.innerText.toLowerCase();
+        fila.style.display = textoFila.includes(terminoBusqueda) ? "" : "none";
+    });
+}
 
 //---ELIMINAR CON ALERTAR NO INVASIVAS----
 function eliminarConsola(id) {
@@ -377,8 +432,14 @@ function eliminarConsola(id) {
     document.getElementById('formAgregarConsola').reset();
     document.getElementById('formAgregarConsola').dataset.accion = 'agregar'; 
     delete document.getElementById('formAgregarConsola').dataset.idconsola; 
-     
+    
+    // Limpiar la previsualización de la imagen
+    const imgElement = document.getElementById('imgPreview');
+    imgElement.src = '';
+    imgElement.style.display = 'none'; // Ocultar la imagen
+
 }
+
 
 // Función para obtener el token CSRF
 function getCookie(name) {

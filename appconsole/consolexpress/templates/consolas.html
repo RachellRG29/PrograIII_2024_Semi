@@ -29,15 +29,15 @@
                 <div class="col-8">
                     <div class="mb-3 d-flex align-items-center"> <!-- CODIGO -->
                         <label for="codigo" class="col-form-label me-3">Código:</label>
-                        <input type="text" class="form-control" name="codigo" onblur="validarCodigo(this)" required>
+                        <input type="text" class="form-control" id="codigo" name="codigo" onblur="validarCodigo(this)" required>
                     </div>
                     <div class="mb-3 d-flex align-items-center"> <!-- NOMBRE -->
                         <label for="nombre" class="col-form-label me-3">Nombre:</label>
-                        <input type="text" class="form-control" name="nombre" oninput="validarNombre(this)" required>
+                        <input type="text" class="form-control" id="nombre" name="nombre" onblur="validarNombre(this)" required>
                     </div>
                     <div class="mb-3 d-flex align-items-center"> <!-- DESCRIPCION -->
                         <label for="descripcion" class="col-form-label me-3">Descripción:</label>
-                        <textarea class="form-control" name="descripcion" rows="2" oninput="validarDescripcion(this)" required></textarea>
+                        <textarea class="form-control" id="descripcion" name="descripcion" rows="2" onblur="validarDescripcion(this)" required></textarea>
                     </div>
                     <div class="mb-3 d-flex align-items-center"><!-- PRESENTACION -->
                         <label for="presentacion" class="col-form-label me-3">Presentación:</label>
@@ -56,15 +56,15 @@
                     </div>
                     <div class="mb-3 d-flex align-items-center"> <!-- MARCA -->
                         <label for="marca" class="col-form-label me-3">Marca:</label>
-                        <input type="text" class="form-control" name="marca" oninput="validarMarca(this)" required>
+                        <input type="text" class="form-control" id="marca" name="marca" onblur="validarMarca(this)" required>
                     </div>
                     <div class="mb-3 d-flex align-items-center"> <!-- PRECIO -->
                         <label for="precio" class="col-form-label me-3">Precio:</label>
-                        <input type="text" class="form-control" name="precio" oninput="validarPrecio(this)" required>
+                        <input type="text" class="form-control" id="precio" name="precio" onblur="validarPrecio(this)" required>
                     </div>
                     <div class="mb-3 d-flex align-items-center"> <!-- STOCK -->
                         <label for="stock" class="col-form-label me-3">Stock:</label>
-                        <input type="number" class="form-control" name="stock" oninput="validarStock(this)" required>
+                        <input type="number" class="form-control" id="stock" name="stock" onblur="validarStock(this)" required>
                     </div>
                     <button type="submit" class="btn btn-success mt-2">Guardar</button>
                 </div>
@@ -108,26 +108,13 @@ function validarCodigo(input) {
         return false;
     }
 
-    // Verificar la longitud exacta del código
-    if (codigo.length !== 8) {
+    // Verificar la longitud exacta y el formato del código
+    if (codigo.length !== 8 || !regexCodigo.test(codigo)) {
         Swal.fire({
             toast: true,
             position: 'top-end',
             icon: 'info',
-            title: 'El código debe tener exactamente 8 caracteres (ABCD-123).',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        return false;
-    }
-
-    // Verificar el formato del código
-    if (!regexCodigo.test(codigo)) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'info',
-            title: 'El código debe tener el siguiente formato: ABCD-123',
+            title: 'El código debe tener exactamente 8 caracteres en el formato ABCD-123.',
             showConfirmButton: false,
             timer: 3000
         });
@@ -136,6 +123,7 @@ function validarCodigo(input) {
 
     return true; // El código es válido
 }
+
 
 
 // Ejemplo de uso con el evento blur
@@ -188,8 +176,8 @@ document.getElementById('codigo').addEventListener('blur', function () {
 
 //---VALIDACION DE NOMBRE
 function validarNombre(input) {
-    const nombre = input.value;
-    regexNombre = /[^A-Za-záéíóúÁÉÍÓÚñÑ\s]/;
+    const nombre = input.value.trim();
+    const regexNombre = /[^A-Za-záéíóúÁÉÍÓÚñÑ\s]/;
 
     // Verificar si el campo está vacío
     if (nombre === '') {
@@ -222,8 +210,8 @@ function validarNombre(input) {
 
 //VALIDACION DE DESCRIPCION
 function validarDescripcion(input) {
-    const descripcion= input.value;
-    regexDescripcion = /[^A-Za-záéíóúÁÉÍÓÚñÑ\s-.:;,]/;
+    const descripcion= input.value.trim();
+    const regexDescripcion = /[^A-Za-záéíóúÁÉÍÓÚñÑ\s-.:;,]/;
 
     // Verificar si el campo está vacío
     if (descripcion === '') {
@@ -256,8 +244,8 @@ function validarDescripcion(input) {
 
 //VALIDACION DE MARCA
 function validarMarca(input) {
-    const marca = input.value;
-    regexMarca = /[^A-Za-záéíóúÁÉÍÓÚñÑ\s]/;
+    const marca = input.value.trim();
+    const regexMarca = /[^A-Za-záéíóúÁÉÍÓÚñÑ\s]/;
 
     // Verificar si el campo está vacío
     if (marca === '') {
@@ -332,7 +320,7 @@ function validarPrecio(input){
 
 //VALIDACION DE STOCK
 function validarStock(input){
-    const stock = input.value;
+    const stock = input.value.trim();
     const regexStock = /^[0-9]+$/;
 
     // Verificar si el campo está vacío
