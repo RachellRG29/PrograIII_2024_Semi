@@ -129,13 +129,13 @@
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
 }
 
-.right form .btn.ingresa:hover {
+.right form .register-button:hover {
     background-color: #d4535d;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
 }
 
-.right form .btn.ingresa:active {
+.right form .register-button:active {
     background-color: #c3444d;
     transform: translateY(0);
 }
