@@ -67,7 +67,8 @@
                         <label for="stock" class="col-form-label me-3">Stock:</label>
                         <input type="number" class="form-control" id="stock" name="stock" onblur="validarStock(this)" required>
                     </div>
-                    <button type="submit" class="btnGuardar">Guardar</button>
+                    <button type="reset" class="btnNuevo">Nuevo</button>
+                    <button type="submit" class="btnGuardar">Guardar</button>     
                 </div>
             </div>
         </form>
@@ -400,13 +401,6 @@ function validarStock(input){
 </script>
 
 <style>
-
-    /*popover header*/
-    /*.popover-header{
-        background-color: #dc3e57;
-
-    }*/
-
     .card{
         background: linear-gradient(45deg, #202020 40%, #212121);
         color: #DEDEDE;
@@ -450,7 +444,7 @@ function validarStock(input){
 }
 
 
-    /*Diseño boton guardar*/
+/*Diseño boton guardar*/
 .btnGuardar {
   position: relative;
   font-size: 1.2em;
@@ -461,6 +455,8 @@ function validarStock(input){
   border-radius: 0.5em;
   color: #DEDEDE;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.3);
+  margin-left: 20px;
+
 }
 
 .btnGuardar:before {
@@ -482,6 +478,43 @@ function validarStock(input){
 }
 
 .btnGuardar:active {
+  box-shadow: 0.2em 0.2em 0.3em rgba(0, 0, 0, 0.3);
+  transform: translate(0.1em, 0.1em);
+}
+
+
+/*Diseño boton nuevo*/
+.btnNuevo {
+  position: relative;
+  font-size: 1.2em;
+  padding: 0.7em 1.4em;
+  background-color: #004182;
+  text-decoration: none;
+  border: none;
+  border-radius: 0.5em;
+  color: #DEDEDE;
+  box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.3);
+}
+
+.btnNuevo:before {
+  position: absolute;
+  content: '';
+  height: 0;
+  width: 0;
+  top: 0;
+  left: 0;
+  background: linear-gradient(135deg, rgba(33,33,33,1) 0%, rgb(33, 33, 33) 50%, rgb(0, 65, 130) 50%, rgb(0, 65, 130) 60%);
+  border-radius: 0 0 0.5em 0;
+  box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.3);
+  transition: 0.3s;
+}
+
+.btnNuevo:hover::before {
+  width: 1.6em;
+  height: 1.6em;
+}
+
+.btnNuevo:active {
   box-shadow: 0.2em 0.2em 0.3em rgba(0, 0, 0, 0.3);
   transform: translate(0.1em, 0.1em);
 }
