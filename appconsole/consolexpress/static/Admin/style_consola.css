@@ -59,23 +59,5 @@ body{
 }
 
 
-/*IMAGEN*/
-.image-preview {
-    width: 100%;
-    height: 350px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    display: flex;
-    background-size: cover;
-    align-items: center;
-    justify-content: center;
-    background-color: #f8f8f8;
-    margin-top: 8px;
-    overflow: hidden;
-}
 
-.image-preview img {
-    max-width: 100%;
-    max-height: 100%;
-    display: none; /* Oculto inicialmente */
-}
+
