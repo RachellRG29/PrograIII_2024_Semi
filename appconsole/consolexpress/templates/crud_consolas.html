@@ -1,243 +1,270 @@
-<!-- Contenedor del formulario que aparece al hacer clic en "Consolas" -->
-<form class="frmAbrirConsola container-fluid d-none " id="formularioConsolasContainer" >
-    <div class="card text-white" style="background: rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 0px; border: 1px solid rgba(255, 255, 255, 0.3);  ">
-        <div class="card-header">
-            <div class="d-flex justify-content-between align-items-center">
-                Consolas agregadas
-                <button type="button" class="btn-close btn-close-white" aria-label="Close" onclick="cerrarFormulario()"></button>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <!-- Botón para agregar una nueva consola -->
-                <button type="button" id="btnAgregarConsola" class="btnAgregar" data-bs-toggle="popover" title="Agregar Consola" data-bs-html="true">
-                    Agregar consola 
-                    <div class="icon">
-                        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><defs>
-                            <style>.cls-1{fill:none;stroke:#dc3e57;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs>
-                            <title/><g id="plus"><line class="cls-1" x1="16" x2="16" y1="7" y2="25"/>
-                            <line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+</head>
+<body>
+
+         <!-- Contenedor del formulario que aparece al hacer clic en "Consolas" -->
+         <form class="frmAbrirConsola container-fluid d-none " id="formularioConsolasContainer" >
+            <div class="card text-white" style="background: rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 0px; border: 1px solid rgba(255, 255, 255, 0.3);  ">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        Consolas agregadas
+                        <button type="button" class="btn-close btn-close-white" aria-label="Close" onclick="cerrarFormulario()"></button>
                     </div>
-                </button>
-
-                <script>
-                //FORMULARIO ABRIR NUEVA CONSOLA DENTRO DEL CRUD_ADMI.HMTL
-                // Función para mostrar el popover
-                document.getElementById("btnAgregarConsola").addEventListener("click", function () {
-                    document.getElementById("popoverConsola").style.display = "block";
-                });
-
-                // Función para cerrar el popover
-                function cerrarPopover() {
-                    document.getElementById("popoverConsola").style.display = "none";
-                }
-                </script>
-
-                <!-- Caja de búsqueda -->
-                <div class="col-8">
-                    <input type="text" id="searchConsola" class="form-control border border-danger" placeholder="Buscar consolas" oninput="buscarConsolas()">
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <!-- Botón para agregar una nueva consola -->
+                        <button type="button" id="btnAgregarConsola" class="btn btnAgregar" data-bs-toggle="popover" title="Agregar Consola" data-bs-html="true">
+                            Agregar consola 
+                            <div class="icon">
+                                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><defs>
+                                    <style>.cls-1{fill:none;stroke:#dc3e57;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs>
+                                    <title/><g id="plus"><line class="cls-1" x1="16" x2="16" y1="7" y2="25"/>
+                                    <line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
+                            </div>
+                        </button>
+        
+                        <script>
+                        //FORMULARIO ABRIR NUEVA CONSOLA DENTRO DEL CRUD_ADMI.HMTL
+                        // Función para mostrar el popover
+                        document.getElementById("btnAgregarConsola").addEventListener("click", function () {
+                            document.getElementById("popoverConsola").style.display = "block";
+                        });
+        
+                        // Función para cerrar el popover
+                        function cerrarPopover() {
+                            document.getElementById("popoverConsola").style.display = "none";
+                        }
+                        </script>
+        
+                        <!-- Caja de búsqueda -->
+                        <div class="col-8">
+                            <input type="text" id="searchConsola" class="form-control border border-danger" placeholder="Buscar consolas" oninput="buscarConsolas()">
+                        </div>
+                    </div>
+                    <!-- TABLA DE LAS CONSOLAS AGREGADAS -->
+                    <div class="table-responsive">
+                        <table class="customTable" id="tblConsolas">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Imagen</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Presentación</th>
+                                    <th>Categoría</th>
+                                    <th>Marca</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="consolasBody">
+                                <!-- Aquí irán las filas de consolas agregadas -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <!-- TABLA DE LAS CONSOLAS AGREGADAS -->
-            <div class="table-responsive">
-                <table class="customTable" id="tblConsolas">
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Imagen</th>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Presentación</th>
-                            <th>Categoría</th>
-                            <th>Marca</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="consolasBody">
-                        <!-- Aquí irán las filas de consolas agregadas -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</form>
+        </form>
+        
+            <!-- Modal para Agregar Consola -->
+            {% include 'consolas.html' %}
+               
 
-    <!-- Modal para Agregar Consola -->
-    {% include 'consolas.html' %}
-       
 <!-- SCRIPT PRINCIPAL PARA EL FORMULARIO CONSOLAS (CRUD)-AGREGAR-EDITAR-ELIMINAR-ACTUALIZAR -->
 <script>
-
-let dataConsolas=[];
-
-document.addEventListener("DOMContentLoaded", function () {
-    cargarConsolas();
-});
-
-// Guardar consola (método POST)
-document.getElementById('formAgregarConsola').addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const formData = new FormData(this);
-    const accion = this.dataset.accion; // 'modificar' o 'agregar'
-    const idConsola = this.dataset.idconsola; // Solo estará definido si es 'editar'
-
-    let url = "{% url 'guardar_consola' %}";
-    formData.append('id', idConsola || ''); // Agregar el ID solo si existe
-
-    //Validar inputs
-    const codigo = document.querySelector('#codigo');
-    const nombre = document.querySelector('#nombre');
-    const descripcion = document.querySelector('#descripcion');
-    const marca = document.querySelector('#marca');
-    const precio = document.querySelector('#precio');
-    const stock = document.querySelector('#stock');
+    let dataConsolas=[];
+    document.addEventListener("DOMContentLoaded", function () {
+        cargarConsolas();
+    });
     
-
-    //validar los inputs
-    const isCodigoValido = validarCodigo(codigo);
-    const isNombreValido = validarNombre(nombre);
-    const isDescripcionValido = validarDescripcion(descripcion);
-    const isMarcaValido = validarMarca(marca);
-    const isPrecioValido = validarPrecio(precio);
-    const isStockValido = validarStock(stock);
-
-    if(!isCodigoValido || !isNombreValido || !isDescripcionValido ||
-        !isMarcaValido || !isPrecioValido || !isStockValido) {
-        return; //detenemos envio hasta q los datos esten correctos :3
-    }
-
-    fetch(url, {
-        method: 'POST',
-        body: formData,
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.msg === 'success') {
-            if (accion === 'editar') {
-                const row = document.querySelector(`tr[data-id='${idConsola}']`);
-                row.innerHTML = 
-                    `<td>${data.consola.codigo}</td>
-                    <td><img src="${data.consola.imagen}" style="width: 90px;"></td>
-                    <td>${data.consola.nombre}</td>
-                    <td>${data.consola.descripcion}</td>
-                    <td>${data.consola.presentacion}</td>
-                    <td>${data.consola.categoria}</td>
-                    <td>${data.consola.marca}</td>
-                    <td>${data.consola.precio}</td>
-                    <td>${data.consola.stock}</td>
-                    <td>
-                        <button class="btnEditar" type="button" onclick="editarConsola(${data.consola.id})">
-                            <svg height="1em" viewBox="0 0 512 512">
-                            <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
-                            </svg>  
-                        </button>
-                        
-                        <button class="btnEliminar" type="button" onclick="eliminarConsola(${consola.id})">
-                        <svg class="bin-top"viewBox="0 0 39 7" fill="none" xmlns="http://www.w3.org/2000/svg"> 
-                            <line y1="5" x2="39" y2="5" stroke="white" stroke-width="4"></line>
-                            <line x1="12" y1="1.5" x2="26.0357" y2="1.5" stroke="white" stroke-width="3"></line>
-                        </svg>
-                        <svg class="bin-bottom" viewBox="0 0 33 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <mask id="path-1-inside-1_8_19" fill="white">
-                        <path d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"></path> </mask>
-                        <path d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z" 
-                        fill="white" mask="url(#path-1-inside-1_8_19)" ></path>
-                        <path d="M12 6L12 29" stroke="white" stroke-width="4"></path>
-                        <path d="M21 6V29" stroke="white" stroke-width="4"></path> </svg> 
-                    </button>
-                    </td>`;
+    // Guardar consola (método POST)
+    document.getElementById('formAgregarConsola').addEventListener('submit', function (event) {
+        event.preventDefault();
+    
+        const formData = new FormData(this);
+        const accion = this.dataset.accion; // 'modificar' o 'agregar'
+        const idConsola = this.dataset.idconsola; // Solo estará definido si es 'editar'
+    
+        let url = "{% url 'guardar_consola' %}";
+        formData.append('id', idConsola || ''); // Agregar el ID solo si existe
+    
+        //Validar inputs
+        const codigo = document.querySelector('#codigo');
+        const nombre = document.querySelector('#nombre');
+        const descripcion = document.querySelector('#descripcion');
+        const marca = document.querySelector('#marca');
+        const precio = document.querySelector('#precio');
+        const stock = document.querySelector('#stock');
+        
+        //validar los inputs
+        const isCodigoValido = validarCodigo(codigo);
+        const isNombreValido = validarNombre(nombre);
+        const isDescripcionValido = validarDescripcion(descripcion);
+        const isMarcaValido = validarMarca(marca);
+        const isPrecioValido = validarPrecio(precio);
+        const isStockValido = validarStock(stock);
+        if(!isCodigoValido || !isNombreValido || !isDescripcionValido ||
+            !isMarcaValido || !isPrecioValido || !isStockValido) {
+            return; //detenemos envio hasta q los datos esten correctos :3
+        }
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.msg === 'success') {
+                if (accion === 'editar') {
+                    const row = document.querySelector(`tr[data-id='${idConsola}']`);
+                    row.innerHTML = 
+                        `<td>${data.consola.codigo}</td>
+                        <td><img src="${data.consola.imagen}" style="width: 90px;"></td>
+                        <td>${data.consola.nombre}</td>
+                        <td>${data.consola.descripcion}</td>
+                        <td>${data.consola.presentacion}</td>
+                        <td>${data.consola.categoria}</td>
+                        <td>${data.consola.marca}</td>
+                        <td>${data.consola.precio}</td>
+                        <td>${data.consola.stock}</td>
+                        <td>
+                            <button class="btn btn-warning" type="button" onclick="editarConsola(${data.consola.id})"><i class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-danger" type="button" onclick="eliminarConsola(${data.consola.id})"><i class="bi bi-trash3"></i></button>
+                        </td>`;
+                } else {
+                    const tbody = document.getElementById("consolasBody");
+                    const nuevaFila = tbody.insertRow();
+                    nuevaFila.setAttribute('data-id', data.consola.id);
+                    nuevaFila.innerHTML = 
+                        `<td>${data.consola.codigo}</td>
+                        <td><img src="${data.consola.imagen}" style="width: 90px;"></td>
+                        <td>${data.consola.nombre}</td>
+                        <td>${data.consola.descripcion}</td>
+                        <td>${data.consola.presentacion}</td>
+                        <td>${data.consola.categoria}</td>
+                        <td>${data.consola.marca}</td>
+                        <td>${data.consola.precio}</td>
+                        <td>${data.consola.stock}</td>
+                        <td>
+                            <button class="btn btn-warning" type="button" onclick="editarConsola(${data.consola.id})"><i class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-danger" type="button" onclick="eliminarConsola(${data.consola.id})"><i class="bi bi-trash3"></i></button>
+                        </td>`;
+                }
+                cargarConsolas();
+                limpiarConsolas();
+    
+                let mensaje = accion === 'editar' ? "Consola editada" : "Consola guardada";
+    
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: "success",
+                    title: mensaje, /*Mensaje de ambas partes*/
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                cerrarPopover();
             } else {
-                const tbody = document.getElementById("consolasBody");
-                const nuevaFila = tbody.insertRow();
-                nuevaFila.setAttribute('data-id', data.consola.id);
-                nuevaFila.innerHTML = 
-                    `<td>${data.consola.codigo}</td>
-                    <td><img src="${data.consola.imagen}" style="width: 90px;"></td>
-                    <td>${data.consola.nombre}</td>
-                    <td>${data.consola.descripcion}</td>
-                    <td>${data.consola.presentacion}</td>
-                    <td>${data.consola.categoria}</td>
-                    <td>${data.consola.marca}</td>
-                    <td>${data.consola.precio}</td>
-                    <td>${data.consola.stock}</td>
-                    <td>
-                        <button class="btnEditar" type="button" onclick="editarConsola(${data.consola.id})">
-                            <svg height="1em" viewBox="0 0 512 512">
-                            <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
-                            </svg>  
-                        </button>
-                        
-                        <button class="btnEliminar" type="button" onclick="eliminarConsola(${consola.id})">
-                        <svg class="bin-top"viewBox="0 0 39 7" fill="none" xmlns="http://www.w3.org/2000/svg"> 
-                            <line y1="5" x2="39" y2="5" stroke="white" stroke-width="4"></line>
-                            <line x1="12" y1="1.5" x2="26.0357" y2="1.5" stroke="white" stroke-width="3"></line>
-                        </svg>
-                        <svg class="bin-bottom" viewBox="0 0 33 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <mask id="path-1-inside-1_8_19" fill="white">
-                        <path d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"></path> </mask>
-                        <path d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z" 
-                        fill="white" mask="url(#path-1-inside-1_8_19)" ></path>
-                        <path d="M12 6L12 29" stroke="white" stroke-width="4"></path>
-                        <path d="M21 6V29" stroke="white" stroke-width="4"></path> </svg> 
-                    </button>
-                    </td>`;
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: "error",
+                    title: "Error al guardar la consola",
+                    showConfirmButton: false,
+                    timer: 3000
+                });
             }
-            cargarConsolas();
-            limpiarConsolas();
-
-            let mensaje = accion === 'editar' ? "Consola editada" : "Consola guardada";
-
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: "success",
-                title: mensaje, /*Mensaje de ambas partes*/
-                showConfirmButton: false,
-                timer: 3000
-            });
-            cerrarPopover();
-        } else {
+        })
+        .catch(error => {
             Swal.fire({
                 toast: true,
                 position: 'top-end',
                 icon: "error",
-                title: "Error al guardar la consola",
+                title: "Error con la comunicación con el servidor",
                 showConfirmButton: false,
                 timer: 3000
             });
-        }
-    })
-    .catch(error => {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: "error",
-            title: "Error con la comunicación con el servidor",
-            showConfirmButton: false,
-            timer: 3000
+            console.error('Error:', error);
         });
-        console.error('Error:', error);
     });
-});
-
-    // Cargar las consolas al inicio
-    function cargarConsolas() {
-        fetch("{% url 'consultar_consolas' %}")  // URL para obtener las consolas
+    
+        // Cargar las consolas al inicio
+        function cargarConsolas() {
+            fetch("{% url 'consultar_consolas' %}")  // URL para obtener las consolas
+                .then(response => response.json())
+                .then(data => {
+                    dataConsolas=data; //
+                    const tbody = document.getElementById("consolasBody");
+                    tbody.innerHTML = ''; // Limpia la tabla antes de llenarla
+                    data.forEach(consola => {
+                        const nuevaFila = tbody.insertRow();
+                        nuevaFila.setAttribute('data-id', consola.id); // Agregar atributo data-id
+                        nuevaFila.innerHTML = 
+                            `<td>${consola.codigo}</td>
+                            <td><img src="${consola.imagen}" style="width: 90px;"></td>
+                            <td>${consola.nombre}</td>
+                            <td>${consola.descripcion}</td>
+                            <td>${consola.presentacion}</td>
+                            <td>${consola.categoria}</td>
+                            <td>${consola.marca}</td>
+                            <td>${consola.precio}</td>
+                            <td>${consola.stock}</td>
+                            <td><button class="btn btn-warning" type="button" onclick="editarConsola(${consola.id})"><i class="bi bi-pencil-square"></i></button></td>
+                            <td><button class="btn btn-danger" type="button" onclick="eliminarConsola(${consola.id})"><i class="bi bi-trash3"></i></button></td>
+                        `;
+                    });
+                });
+        }
+    
+        
+        //Editar consolas
+        function editarConsola(id) {
+        fetch(`/consultar_consola_edit?id=${id}`) 
             .then(response => response.json())
             .then(data => {
-                dataConsolas=data; //
-
-                const tbody = document.getElementById("consolasBody");
-                tbody.innerHTML = ''; // Limpia la tabla antes de llenarla
-                data.forEach(consola => {
-                    const nuevaFila = tbody.insertRow();
-                    nuevaFila.setAttribute('data-id', consola.id); // Agregar atributo data-id
-                    nuevaFila.innerHTML = 
-                        `<td>${consola.codigo}</td>
+                if (data.msg === 'error') {
+                    Swal.fire('Error', data.error, 'error');
+                    return;
+                }
+                // Rellenar formulario
+                document.querySelector('input[name="codigo"]').value = data.codigo;
+                document.querySelector('input[name="nombre"]').value = data.nombre;
+                document.querySelector('textarea[name="descripcion"]').value = data.descripcion;
+                document.querySelector('select[name="presentacion"]').value = data.presentacion;
+                document.querySelector('select[name="categoria"]').value = data.categoria;
+                document.querySelector('input[name="marca"]').value = data.marca;
+                document.querySelector('input[name="precio"]').value = data.precio;
+                document.querySelector('input[name="stock"]').value = data.stock;
+                document.getElementById('consolaId').value = data.id;
+    
+                // Mostrar imagen si existe
+                const imgElement = document.getElementById('imgPreview');
+                imgElement.src = data.imagen ? data.imagen : '';
+                imgElement.style.display = data.imagen ? 'block' : 'none';
+    
+                // Configurar formulario en modo edición
+                const form = document.getElementById('formAgregarConsola');
+                form.dataset.accion = 'editar';
+                form.dataset.idconsola = id;
+                document.getElementById('popoverTitle').innerText = 'Editar Consola';
+                $('#popoverConsola').show();
+            })
+            .catch(error => console.error('Error al cargar los datos:', error));
+    }
+    
+    function mostrarFilasConsolas(data = []){
+            let filas = '';
+            data.forEach(consola => {
+                filas += 
+                    `<td>${consola.codigo}</td>
                         <td><img src="${consola.imagen}" style="width: 90px;"></td>
                         <td>${consola.nombre}</td>
                         <td>${consola.descripcion}</td>
@@ -246,421 +273,329 @@ document.getElementById('formAgregarConsola').addEventListener('submit', functio
                         <td>${consola.marca}</td>
                         <td>${consola.precio}</td>
                         <td>${consola.stock}</td>
-                        <td><button class="btnEditar" type="button" onclick="editarConsola(${consola.id})">
-                            <svg height="1em" viewBox="0 0 512 512">
-                            <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
-                            </svg>  
-                        </button></td>
-                        
-                        <td> <button class="btnEliminar" type="button" onclick="eliminarConsola(${consola.id})">
-                        <svg class="bin-top"viewBox="0 0 39 7" fill="none" xmlns="http://www.w3.org/2000/svg"> 
-                            <line y1="5" x2="39" y2="5" stroke="white" stroke-width="4"></line>
-                            <line x1="12" y1="1.5" x2="26.0357" y2="1.5" stroke="white" stroke-width="3"></line>
-                        </svg>
-                        <svg class="bin-bottom" viewBox="0 0 33 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <mask id="path-1-inside-1_8_19" fill="white">
-                        <path d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"></path> </mask>
-                        <path d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z" 
-                        fill="white" mask="url(#path-1-inside-1_8_19)" ></path>
-                        <path d="M12 6L12 29" stroke="white" stroke-width="4"></path>
-                        <path d="M21 6V29" stroke="white" stroke-width="4"></path> </svg> 
-                    </button> </td>
+                        <td><button class="btn btn-warning" type="button" onclick="editarConsola(${consola.id})"><i class="bi bi-pencil-square"></i></button></td>
+                        <td><button class="btn btn-danger" type="button" onclick="eliminarConsola(${consola.id})"><i class="bi bi-trash3"></i></button></td>
                     `;
-                });
             });
-    }
-
-    //Editar consolas
-    function editarConsola(id) {
-    fetch(`/consultar_consola_edit?id=${id}`) 
-        .then(response => response.json())
-        .then(data => {
-            if (data.msg === 'error') {
-                Swal.fire('Error', data.error, 'error');
-                return;
-            }
-            // Rellenar formulario
-            document.querySelector('input[name="codigo"]').value = data.codigo;
-            document.querySelector('input[name="nombre"]').value = data.nombre;
-            document.querySelector('textarea[name="descripcion"]').value = data.descripcion;
-            document.querySelector('select[name="presentacion"]').value = data.presentacion;
-            document.querySelector('select[name="categoria"]').value = data.categoria;
-            document.querySelector('input[name="marca"]').value = data.marca;
-            document.querySelector('input[name="precio"]').value = data.precio;
-            document.querySelector('input[name="stock"]').value = data.stock;
-            document.getElementById('consolaId').value = data.id;
-
-            // Mostrar imagen si existe
-            const imgElement = document.getElementById('imgPreview');
-            imgElement.src = data.imagen ? data.imagen : '';
-            imgElement.style.display = data.imagen ? 'block' : 'none';
-
-            // Configurar formulario en modo edición
-            const form = document.getElementById('formAgregarConsola');
-            form.dataset.accion = 'editar';
-            form.dataset.idconsola = id;
-            document.getElementById('popoverTitle').innerText = 'Editar Consola';
-            $('#popoverConsola').show();
-        })
-        .catch(error => console.error('Error al cargar los datos:', error));
-}
-
-function mostrarFilasConsolas(data = []){
-        let filas = '';
-        data.forEach(consola => {
-            filas += 
-                `<td>${consola.codigo}</td>
-                    <td><img src="${consola.imagen}" style="width: 90px;"></td>
-                    <td>${consola.nombre}</td>
-                    <td>${consola.descripcion}</td>
-                    <td>${consola.presentacion}</td>
-                    <td>${consola.categoria}</td>
-                    <td>${consola.marca}</td>
-                    <td>${consola.precio}</td>
-                    <td>${consola.stock}</td>
-                    <td><button class="btn btnEditar" type="button" onclick="editarConsola(${consola.id})"> 
-                        <svg height="1em" viewBox="0 0 512 512">
-                        <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
-                        </svg>  
-                        </button></td>
-
-                    <td><button class="btnEliminar" type="button" onclick="eliminarConsola(${consola.id})">
-                        <svg class="bin-top"viewBox="0 0 39 7" fill="none" xmlns="http://www.w3.org/2000/svg"> 
-                            <line y1="5" x2="39" y2="5" stroke="white" stroke-width="4"></line>
-                            <line x1="12" y1="1.5" x2="26.0357" y2="1.5" stroke="white" stroke-width="3"></line>
-                        </svg>
-                        <svg class="bin-bottom" viewBox="0 0 33 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <mask id="path-1-inside-1_8_19" fill="white">
-                        <path d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"></path> </mask>
-                        <path d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z" 
-                        fill="white" mask="url(#path-1-inside-1_8_19)" ></path>
-                        <path d="M12 6L12 29" stroke="white" stroke-width="4"></path>
-                        <path d="M21 6V29" stroke="white" stroke-width="4"></path> </svg> 
-                    </button></td>
-                `;
+            document.querySelector('#tblConsolas > tbody').innerHTML = filas;
+        }
+    
+    //Buscar consolas
+    function buscarConsolas() {
+        const terminoBusqueda = document.getElementById("searchConsola").value.toLowerCase();
+        const filas = document.querySelectorAll("#tblConsolas tbody tr");
+        filas.forEach(fila => {
+            const textoFila = fila.innerText.toLowerCase();
+            fila.style.display = textoFila.includes(terminoBusqueda) ? "" : "none";
         });
-        document.querySelector('#tblConsolas > tbody').innerHTML = filas;
     }
-
-//Buscar consolas
-function buscarConsolas() {
-    const terminoBusqueda = document.getElementById("searchConsola").value.toLowerCase();
-    const filas = document.querySelectorAll("#tblConsolas tbody tr");
-
-    filas.forEach(fila => {
-        const textoFila = fila.innerText.toLowerCase();
-        fila.style.display = textoFila.includes(terminoBusqueda) ? "" : "none";
-    });
-}
-
-//---ELIMINAR CON ALERTAR NO INVASIVAS----
-function eliminarConsola(id) {
-    Swal.fire({
-        title: "¿Estás seguro de eliminar esta consola?",
-        text: "Recuerda que esto no es reversible",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, eliminar",
-        cancelButtonText: "Cancelar"
-    }).then((result) => {
-        if (result.isConfirmed) { 
-            fetch("{% url 'eliminar_consola' %}", {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRFToken': getCookie('csrftoken'),
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ id: id }),
-            })
-            .then(response => {
-                if (response.ok) { 
-                    Swal.fire({
-                        toast: true,
-                        position: 'top-end',
-                        icon: "success",
-                        title: "Consola eliminada con éxito",
-                        showConfirmButton: false,
-                        timer: 3000
-                    });
-                    cargarConsolas();
-                    limpiarConsolas();
-                } else { 
+    
+    //---ELIMINAR CON ALERTAR NO INVASIVAS----
+    function eliminarConsola(id) {
+        Swal.fire({
+            title: "¿Estás seguro de eliminar esta consola?",
+            text: "Recuerda que esto no es reversible",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) { 
+                fetch("{% url 'eliminar_consola' %}", {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id: id }),
+                })
+                .then(response => {
+                    if (response.ok) { 
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: "success",
+                            title: "Consola eliminada con éxito",
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                        cargarConsolas();
+                        limpiarConsolas();
+                    } else { 
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: "error",
+                            title: "Error al eliminar la consola",
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                    }
+                })
+                .catch(error => {
                     Swal.fire({
                         toast: true,
                         position: 'top-end',
                         icon: "error",
-                        title: "Error al eliminar la consola",
+                        title: "Error en la comunicación con el servidor",
                         showConfirmButton: false,
                         timer: 3000
                     });
-                }
-            })
-            .catch(error => {
+                    console.error("Error:", error);
+                });
+            } else { 
                 Swal.fire({
                     toast: true,
                     position: 'top-end',
-                    icon: "error",
-                    title: "Error en la comunicación con el servidor",
+                    icon: "info",
+                    title: "Se canceló la eliminación",
                     showConfirmButton: false,
                     timer: 3000
                 });
-                console.error("Error:", error);
-            });
-        } else { 
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: "info",
-                title: "Se canceló la eliminación",
-                showConfirmButton: false,
-                timer: 3000
-            });
-        }
-    });
-}
-
-
- // Limpiar campos del formulario
- function limpiarConsolas() {
-    document.getElementById('formAgregarConsola').reset();
-    document.getElementById('formAgregarConsola').dataset.accion = 'agregar'; 
-    delete document.getElementById('formAgregarConsola').dataset.idconsola; 
+            }
+        });
+    }
     
-    // Limpiar la previsualización de la imagen
-    const imgElement = document.getElementById('imgPreview');
-    imgElement.src = '';
-    imgElement.style.display = 'none'; // Ocultar la imagen
-
-}
-
-
-// Función para obtener el token CSRF
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Verifica si este es el cookie que estás buscando
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
+    
+     // Limpiar campos del formulario
+     function limpiarConsolas() {
+        document.getElementById('formAgregarConsola').reset();
+        document.getElementById('formAgregarConsola').dataset.accion = 'agregar'; 
+        delete document.getElementById('formAgregarConsola').dataset.idconsola; 
+         
+        
+        // Limpiar la previsualización de la imagen
+        const imgElement = document.getElementById('imgPreview');
+        imgElement.src = '';
+        imgElement.style.display = 'none'; // Ocultar la imagen
+    }
+    
+    // Función para obtener el token CSRF
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Verifica si este es el cookie que estás buscando
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
             }
         }
+        return cookieValue;
     }
-    return cookieValue;
-}
-
-            
-</script>
-
-
-<!-- Diseño de tabla, botones, Crud -->
-<style>
-    table {
-        font-size: 1rem;
-        border-radius: 16px;
-        overflow: hidden;      
-    }
-
-    .customTable {
-        background: rgba(31, 31, 31, 0.8) !important;
-        border-radius: 16px;
-        overflow: hidden;
-        width: 100%;
-        margin-top: 20px;
-        border-collapse: separate;
-        border-spacing: 0;
-    }
-
-    .customTable thead {
-        background-color: rgba(19, 18, 18, 0.7);
-        color: #ffffff;
-        text-align: center;
-    }
-
-    .customTable thead th {
-        padding: 15px;
-        font-size: 0.95rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-
-    .customTable tbody td {
-        padding: 10px;
-        font-size: 0.93rem;
-        color: #eaeaea;
-        text-align: center;
-        background-color: rgba(31, 31, 31, 0.5);
-    }
-
-    .customTable tr:nth-child(even){background: rgba(31, 31, 31, 0.9);}
-
-    .customTable tbody tr:hover {
-        background-color: rgba(228, 30, 60, 0.3);
-        transition: background-color 0.3s ease;
-    }
-
-    /*Boton agregar*/
-    .btnAgregar {
-    background:linear-gradient(to right, #dc3e57, #FFC700);
-    color: white;
-    font-family: inherit;
-    padding: 0.35em;
-    padding-left: 1.2em;
-    font-size: 17px;
-    font-weight: 500;
-    border-radius: 0.9em;
-    border: none;
-    letter-spacing: 0.05em;
-    display: flex;
-    align-items: center;
-    box-shadow: inset 0 0 1.6em -0.6em #dc3e57;
-    overflow: hidden;
-    position: relative;
-    height: 2.8em;
-    padding-right: 3.3em;
-    }
-
-    .btnAgregar .icon {
-    background: white;
-    margin-left: 1em;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 2.2em;
-    width: 2.2em;
-    border-radius: 0.7em;
-    box-shadow: 0.1em 0.1em 0.6em 0.2em #dc3e57;
-    right: 0.3em;
-    transition: all 0.3s;
-    }
-
-    .btnAgregar:hover .icon {
-    width: calc(100% - 0.6em);
-    }
-
-    .btnAgregar .icon svg {
-    width: 1.1em;
-    transition: transform 0.3s;
-    color: #dc3e57;
-    }
-
-    .btnAgregar:hover .icon svg {
-    transform: translateX(0.1em);
-    }
-
-    .btnAgregar:active .icon {
-    transform: scale(0.95);
-    }
-
-
-    /*Boton editar*/
-    .btnEditar {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    border: 2px solid rgb(32, 32, 32);
-    background-color: rgb(255, 222, 77);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.123);
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
-    }
-    .btnEditar::before {
-    content: "";
-    width: 200%;
-    height: 200%;
-    background-color: rgb(255, 178, 44);
-    position: absolute;
-    z-index: 1;
-    transform: scale(0);
-    transition: all 0.3s;
-    border-radius: 50%;
-    filter: blur(10px);
-    }
-
-    .btnEditar:hover::before {
-    transform: scale(1);
-    }
-    .btnEditar:hover {
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.336);
-    }
-    .btnEditar svg {
-    height: 17px;
-    fill: #202020;
-    z-index: 3;
-    transition: all 0.2s;
-    transform-origin: bottom;
-    }
-    .btnEditar:hover svg {
-    transform: rotate(-15deg) translateX(5px);
-    }
-    .btnEditar::after {
-    content: "";
-    width: 20px;
-    height: 1.5px;
-    position: absolute;
-    bottom: 9px; /*linea de trazo posicion*/
-    left: -5px;
-    background-color: rgb(32, 32, 32);
-    border-radius: 2px;
-    z-index: 2;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.5s ease-out;
-    }
-    .btnEditar:hover::after {
-    transform: scaleX(1);
-    left: 0px;
-    transform-origin: right;
-    }
-   
-
-    /* Boton eliminar*/
-    .btnEliminar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background-color: rgb(255, 100, 110);
-    cursor: pointer;
-    border: 2px solid rgb(32, 32, 32);
-    transition-duration: 0.3s;
-    fill: #202020;
-    }
-    .bin-bottom {
-    width: 15px;   
-    }
-    .bin-top {
-    width: 17px;
-    transform-origin: right;
-    transition-duration: 0.3s;
-    }
-    .btnEliminar:hover .bin-top {
-    transform: rotate(45deg);
-    }
-    .btnEliminar:hover {
-    background-color: rgb(210, 19, 18);
-    }
-    .btnEliminar:active {
-    transform: scale(0.9);
-    }
-
-
-
-
-
-
-
-</style>
+    
+    
+    </script>  
+        
+        
+        
+        <!-- Diseño de tabla, botones, Crud -->
+        <style>
+            table {
+                font-size: 1rem;
+                border-radius: 16px;
+                overflow: hidden;      
+            }
+        
+            .customTable {
+                background: rgba(31, 31, 31, 0.8) !important;
+                border-radius: 16px;
+                overflow: hidden;
+                width: 100%;
+                margin-top: 20px;
+                border-collapse: separate;
+                border-spacing: 0;
+            }
+        
+            .customTable thead {
+                background-color: rgba(19, 18, 18, 0.7);
+                color: #ffffff;
+                text-align: center;
+            }
+        
+            .customTable thead th {
+                padding: 15px;
+                font-size: 0.95rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+        
+            .customTable tbody td {
+                padding: 10px;
+                font-size: 0.93rem;
+                color: #eaeaea;
+                text-align: center;
+                background-color: rgba(31, 31, 31, 0.5);
+            }
+        
+            .customTable tr:nth-child(even){background: rgba(31, 31, 31, 0.9);}
+        
+            .customTable tbody tr:hover {
+                background-color: rgba(228, 30, 60, 0.3);
+                transition: background-color 0.3s ease;
+            }
+        
+            /*Boton agregar*/
+            .btnAgregar {
+            background:linear-gradient(to right, #dc3e57, #FFC700);
+            color: white;
+            font-family: inherit;
+            padding: 0.35em;
+            padding-left: 1.2em;
+            font-size: 17px;
+            font-weight: 500;
+            border-radius: 0.9em;
+            border: none;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 0 1.6em -0.6em #dc3e57;
+            overflow: hidden;
+            position: relative;
+            height: 2.8em;
+            padding-right: 3.3em;
+            }
+        
+            .btnAgregar .icon {
+            background: white;
+            margin-left: 1em;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 2.2em;
+            width: 2.2em;
+            border-radius: 0.7em;
+            box-shadow: 0.1em 0.1em 0.6em 0.2em #dc3e57;
+            right: 0.3em;
+            transition: all 0.3s;
+            }
+        
+            .btnAgregar:hover .icon {
+            width: calc(100% - 0.6em);
+            }
+        
+            .btnAgregar .icon svg {
+            width: 1.1em;
+            transition: transform 0.3s;
+            color: #dc3e57;
+            }
+        
+            .btnAgregar:hover .icon svg {
+            transform: translateX(0.1em);
+            }
+        
+            .btnAgregar:active .icon {
+            transform: scale(0.95);
+            }
+        
+        
+            /*Boton editar*/
+            .btnEditar {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 2px solid rgb(32, 32, 32);
+            background-color: rgb(255, 222, 77);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.123);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            }
+            .btnEditar::before {
+            content: "";
+            width: 200%;
+            height: 200%;
+            background-color: rgb(255, 178, 44);
+            position: absolute;
+            z-index: 1;
+            transform: scale(0);
+            transition: all 0.3s;
+            border-radius: 50%;
+            filter: blur(10px);
+            }
+        
+            .btnEditar:hover::before {
+            transform: scale(1);
+            }
+            .btnEditar:hover {
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.336);
+            }
+            .btnEditar svg {
+            height: 17px;
+            fill: #202020;
+            z-index: 3;
+            transition: all 0.2s;
+            transform-origin: bottom;
+            }
+            .btnEditar:hover svg {
+            transform: rotate(-15deg) translateX(5px);
+            }
+            .btnEditar::after {
+            content: "";
+            width: 20px;
+            height: 1.5px;
+            position: absolute;
+            bottom: 9px; /*linea de trazo posicion*/
+            left: -5px;
+            background-color: rgb(32, 32, 32);
+            border-radius: 2px;
+            z-index: 2;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease-out;
+            }
+            .btnEditar:hover::after {
+            transform: scaleX(1);
+            left: 0px;
+            transform-origin: right;
+            }
+           
+        
+            /* Boton eliminar*/
+            .btnEliminar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: rgb(255, 100, 110);
+            cursor: pointer;
+            border: 2px solid rgb(32, 32, 32);
+            transition-duration: 0.3s;
+            fill: #202020;
+            }
+            .bin-bottom {
+            width: 15px;   
+            }
+            .bin-top {
+            width: 17px;
+            transform-origin: right;
+            transition-duration: 0.3s;
+            }
+            .btnEliminar:hover .bin-top {
+            transform: rotate(45deg);
+            }
+            .btnEliminar:hover {
+            background-color: rgb(210, 19, 18);
+            }
+            .btnEliminar:active {
+            transform: scale(0.9);
+            }
+        
+    
+        </style>
+    
+</body>
+</html>

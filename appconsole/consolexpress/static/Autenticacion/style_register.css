@@ -31,28 +31,44 @@
         /* Estilo del botón en la parte inferior del panel izquierdo */
         .left .btn_ingresa {
             position: absolute;
-            bottom: 100px;
-            background-color: rgba(64, 64, 64, 0.9); 
-            color: #fff;
-            padding: 10px 80px;
-            border: 1.5px solid #202020;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            font-family: 'Comfortaa';
-            text-decoration: none;
-        }
+    top: 33px;
+    left: 32px;
+    background-color: rgba(64, 64, 64, 0.9);
+    color: #fff;
+    padding: 10px 30px;
+    border: 1.5px solid #202020;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Comfortaa';
+    text-decoration: none; 
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    
+}
+
+.left .btn_ingresa:hover {
+    background-color: rgba(80, 80, 80, 0.9);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.left .btn_ingresa:active {
+    background-color: rgba(50, 50, 50, 0.9);
+    transform: scale(1);
+}
+
 
         /* Estilos para el panel derecho */
         .right {
-            background-color: #004182;
-            width: 50%;
+            background: linear-gradient(145deg, #002f6c, #004182, #5a80b2, #a0c1e8);
+            color: white;
+            width: 60%;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            color: #fff;
-            position: relative;
+            padding: 20px;
         }
 
         /* Estilos para el encabezado dentro del panel derecho */
@@ -105,15 +121,25 @@
         /* Estilo del botón de registro */
         .right form .register-button {
             background-color: #e1646e;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 89%;
-            font-family: 'Comfortaa';
-        }
+    color: #fff;
+    width: 58%; 
+    padding: 12px 0;
+    font-weight: bold;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.right form .register-button:hover {
+    background-color: #d4535d;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.right form .register-button:active {
+    background-color: #c3444d;
+    transform: translateY(0);
+}
+        
 
         /* Estilo para el diálogo de advertencia */
         #warning-dialog-register {
