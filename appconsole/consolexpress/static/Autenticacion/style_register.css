@@ -45,14 +45,14 @@
 
         /* Estilos para el panel derecho */
         .right {
-            background-color: #004182;
-            width: 50%;
+            background: linear-gradient(145deg, #002f6c, #004182, #5a80b2, #a0c1e8);
+            color: white;
+            width: 60%;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            color: #fff;
-            position: relative;
+            padding: 20px;
         }
 
         /* Estilos para el encabezado dentro del panel derecho */
@@ -104,7 +104,7 @@
 
         /* Estilo del botón de registro */
         .right form .register-button {
-            background-color: #6481e1;
+            background-color: #e1646e;
             color: #fff;
             padding: 10px;
             border: none;
