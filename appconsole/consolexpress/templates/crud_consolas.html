@@ -14,7 +14,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                         Consolas agregadas
-                        <button type="button" class="btn-close btn-close-white" aria-label="Close" onclick="cerrarFormulario()"></button>
+                        <button type="button" class="btn-close btn-custom" aria-label="Close" onclick="cerrarFormulario()"></button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -45,9 +45,30 @@
         
                         <!-- Caja de búsqueda -->
                         <div class="col-8">
-                            <input type="text" id="searchConsola" class="form-control border border-danger" placeholder="Buscar consolas" oninput="buscarConsolas()">
+                            <input type="text" id="searchConsola" class="form-control custom-input" placeholder="Buscar consolas" oninput="buscarConsolas()">
                         </div>
                     </div>
+
+                <style>
+                    /*SearchConsola*/
+                    .custom-input {
+                        background-color: rgba(255, 255, 255, 0.7)  !important; 
+                        border: 1px solid rgba(220, 62, 87, 0.7) !important; 
+                        backdrop-filter: blur(10px); 
+                        color: black !important; 
+                    }
+                    .custom-input::placeholder {
+                        color: rgba(0, 0, 0, 0.7) !important; 
+                    }
+                    
+                    .custom-input:focus {
+                        background-color: rgba(225, 255, 255, 0.9) !important; 
+                        border-color: #dc3e57 !important; 
+                        box-shadow: 0 0 0 0.2rem rgba(220, 62, 87, 0.4) !important; 
+                    }
+                </style>  
+                    
+
                     <!-- TABLA DE LAS CONSOLAS AGREGADAS -->
                     <div class="table-responsive">
                         <table class="customTable" id="tblConsolas">
