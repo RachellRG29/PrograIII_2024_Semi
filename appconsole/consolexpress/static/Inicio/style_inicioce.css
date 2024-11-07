@@ -25,19 +25,6 @@ header .line {
     background: linear-gradient(#dc3e57, #e1646e);
 }
 
-/* Cuerpo de sitio inicio */
-body {
-    background-color: #004182;  
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* cubre el 100% pantalla */
-    width: 100%; /* cubre 100% ancho de la pantalla */
-    max-width: 100%; /* Evita que el contenido se extienda demas */
-    height: 100%;
-    margin: 0;
-    padding: 0; 
-    overflow-x: hidden; /* Previene que haya scroll horizontal si el contenido excede el ancho */
-}
 
 /* efectos de blur */
 .blob {

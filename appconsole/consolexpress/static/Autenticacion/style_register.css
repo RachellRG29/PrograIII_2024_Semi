@@ -1,40 +1,48 @@
-        /* Estilos generales para el cuerpo del documento */
-        body {
-            margin: 0;
-            font-family: 'League Spartan';
-        }
-        .container {
-            display: flex;
-            height: 100vh;
-        }
+*{
+    box-sizing: border-box;
+    scrollbar-width: none;
+}
 
-        /* Estilos para el panel izquierdo */
-        .left {
-            background-color: #e60012;
-            width: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            padding: 0;
-            margin: 0;
-        }
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
 
-        /* Imagen de fondo que cubre todo el panel izquierdo */
-        .left img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+/*Frase de bienvenida*/
+.lbl_spanFraseRg {
+    position: absolute;
+    left: 30px;
+    bottom: 40px;
+    display: block; /* Hace que el contenedor sea de bloque, permitiendo el salto de línea */
+    text-align: left; 
+    color: white;
+    font-family: 'League Spartan';
+    margin-right: 40px;
+    padding-right: 40px;
+}
 
-        /* Estilo del botón en la parte inferior del panel izquierdo */
-        .left .btn_ingresa {
-            position: absolute;
+.line1 {
+    display: block; 
+    font-size: 1.8em; 
+    font-weight: bold; 
+}
+
+.line2 {
+    display: block; 
+    font-size: 1.2em; 
+    margin-top: 10px; 
+}
+
+/*Boton para pasar a Login de ingresar*/
+/* Boton de ingresar, en caso de estar logeado */
+.btn_ingresa {
+    position: absolute;
     top: 33px;
     left: 32px;
-    background-color: rgba(64, 64, 64, 0.9);
-    color: #fff;
+    background-color: rgba(242, 242, 242, 0.902);
+    color: #dc3e57;
     padding: 10px 30px;
     border: 1.5px solid #202020;
     border-radius: 25px;
@@ -47,125 +55,171 @@
     
 }
 
-.left .btn_ingresa:hover {
-    background-color: rgba(80, 80, 80, 0.9);
+.btn_ingresa:hover {
+    background-color:rgba(242, 242, 242, 0.902);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
     transform: scale(1.05);
 }
 
-.left .btn_ingresa:active {
-    background-color: rgba(50, 50, 50, 0.9);
+.btn_ingresa:active {
+    background-color: rgba(242, 242, 242, 0.902);
     transform: scale(1);
 }
 
-
-        /* Estilos para el panel derecho */
-        .right {
-            background: linear-gradient(145deg, #002f6c, #004182, #5a80b2, #a0c1e8);
-            color: white;
-            width: 60%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        /* Estilos para el encabezado dentro del panel derecho */
-        .right .header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        /* Estilo para el título del formulario de registro */
-        .right .header h2 {
-            font-size: 29px;
-            margin: 0;
-            margin-right: 20px;
-            text-align: right;
-        }
-
-        /* Tamaño del icono */
-        .right .icon {
-            font-size: 40px;
-        }
-
-        /* Estilo del formulario de registro */
-        .right form {
-            display: flex;
-            flex-direction: column;
-            width: 60%;
-            align-items: center;
-        }
-
-        .left-panel img {
-            width: 80px;
-            height: 80px;
-            filter: brightness(0) invert(1); /* Cambia el icono a color blanco */
-        }
+ /* Card de register */
+ .card-register {
+    box-sizing: border-box;
+    width: 88vh;
+    height: 100vh;
+    border: 1px solid white;
+    border-radius:50px 0 0;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: center;
+    font-weight: bolder;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    user-select: none;
+    cursor:default;
+    font-weight: bolder;
+    padding: 40px 20px;
+  }
 
 
-        /* Estilo de los campos de entrada en el formulario */
 
-        .right form input {
-            margin-bottom: 15px;
-            padding: 10px;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            width: 105%;
-            font-family: 'Comfortaa';
-        }
+/* fondo para la card y no afectar el contenido*/
+  .card_background {
+    position: absolute;
+    user-select: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: hsla(0, 0%, 95%, 0.80);
+    backdrop-filter: blur(6px); 
+    border-radius:50px 0 0;
+    z-index: 1;
+    
+}
 
-        /* Estilo del botón de registro */
-        .right form .register-button {
-            background-color: #e1646e;
-    color: #fff;
-    width: 58%; 
-    padding: 12px 0;
+/*contenido para el register*/
+.content-register{
+    position: relative;
+    user-select: none;
+    z-index: 3; /* Coloca el contenido por encima del desenfoque */
+    
+}
+
+/*Logo vector svg- consolexpress contorno*/
+.logo_register .icon {
+    width: 80px;
+    height: 80px;
+    color: #dc3e57;
+}
+
+/*Lbl register (crea una cuenta)*/
+.lbl_register{
+    font-family: 'League Spartan';
+    background-image: linear-gradient(to right, #004182, #dc3e57);
+    background-clip: text;
+    color: transparent;
+}
+
+/*linea decorativa*/
+.line{
+    position: relative;
+    justify-self: center;
+    bottom: 6px;
+    margin-bottom: 20px;
+    width: calc(50% - 10px);
+    height: 2.5px;
+    background: linear-gradient(to right, #004182,#dc3e57, #e1646e);
+}
+
+/*FORM REGISTER*/
+/* inputs de los formularios*/
+form input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    width: 90%;
+    font-family: 'Comfortaa';
+}
+
+form input:focus {
+    outline: none;
+  }
+
+form input:focus-within {
+    border: 1.5px solid #dc3e57;
+  }
+
+/* Estilo del botón de registro */
+form .btn-register {
+    position: relative;
+    width: 40%; 
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    padding-block: 0.7rem; /*largo boton*/
+    padding-inline: 1.25rem; /*linea de boton*/
+    background-color: #dc3e57;
+    transition: all 0.3s ease-in-out;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #ffff;
+    gap: 10px;
     font-weight: bold;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    border: 3px solid #ffffff4d;
+    outline: none;
+    overflow: hidden;
+    font-size: 15px;
+    margin-bottom: 20px;
+    top: 20px;
+
 }
 
-.right form .register-button:hover {
-    background-color: #d4535d;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+form .btn-register:hover {
+    transform: scale(1.05);
+    border-color: #fff9;
 }
 
-.right form .register-button:active {
-    background-color: #c3444d;
-    transform: translateY(0);
-}
-        
-
-        /* Estilo para el diálogo de advertencia */
-        #warning-dialog-register {
-            display: none;
-            position: absolute;
-            top: 60%;
-            transform: translate(2%,90%);
-            background: #dc3e57;
-            color: white;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-        }
-
-        #warning-dialog-register button {
-            color: rgb(252, 53, 53); /* Color del ícono */
-            background: none; 
-            border: none; 
-            cursor: pointer; /* Cambia el cursor al pasar el mouse */
-            font-size: 18px; 
-        }
-
-        /* Alineación del texto y el botón */
-        #warning-dialog-register div {
-            display: flex;
-            align-items: center; 
-            justify-content: space-between; 
-        }
+form .btn-register:hover::before {
+    animation: shine 1.5s ease-out infinite;
+  }
+  
+ form .btn-register::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100%;
+    background-image: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0) 30%,
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0) 70%
+    );
+    top: 0;
+    left: -100px;
+    opacity: 0.6;
+  }
+  
+  @keyframes shine {
+    0% {
+      left: -100px;
+    }
+  
+    60% {
+      left: 100%;
+    }
+  
+    to {
+      left: 100%;
+    }
+  } 

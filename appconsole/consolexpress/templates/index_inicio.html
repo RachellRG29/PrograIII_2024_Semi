@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,13 +13,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    {% load static %}
 
-    <link rel="stylesheet" href="{% static 'Inicio/style_inicioce.css'  %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'Inicio/style_inicioce.css'%}">
     <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
 
     <!-- Nombre e icono de sitio web -->
     <title>Inicio ConsoleXpress</title>
+
+    <style>
+        /* Cuerpo de sitio inicio */
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("{% static 'fondo_ce_gradient01.png' %}");
+    background-size: cover;
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden; /* Previene que haya scroll horizontal si el contenido excede el ancho */
+    min-height: 100vh; /* cubre el 100% pantalla */
+    width: 100%; /* cubre 100% ancho de la pantalla */
+    max-width: 100%; /* Evita que el contenido se extienda demas */
+    height: 100%;
+    
+}
+    </style>
 
 </head>
 <body>
@@ -89,7 +108,7 @@
 
                     <div class="animation_console">
                         <div class="consola_img"> 
-                            <img src="{% static 'consola_nintendo_oled.avif' %}" style="width: 580px;"> 
+                            <img src="{% static 'consola_nintendo4k.png' %}" style="width: 580px;"> 
         
                                 <div class="animation_sparkle">
                                     <img src="{% static 'sparkle.png' %}" alt="" class="star-1">
