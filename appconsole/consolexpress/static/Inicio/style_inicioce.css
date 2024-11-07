@@ -270,50 +270,51 @@ body .line2{
 /* Boton explorar */
 .btn_explorar{ /*propiedades*/
     position: relative;
+    font-family: 'Comfortaa';
     width: 200px;
     height: 60px;
-    background-color: #e1646e;
-    border-radius: 30px;
+    background-color: #04315e; 
+    border: 1px solid #e0eaf2;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Comfortaa';
-    font-size: 16px;
-    color: white;
-    text-decoration: none;
-    letter-spacing: 2px;
-    border-top: 0.5px solid #84b9ef;
-    border-left: 0.5px solid #84b9ef;
-    padding-left: 30px;
-
+    margin-right: 20px;
+    padding: 1rem; 
+    text-align: left; /* text-left */
+    color: #f5f5f5; /* text-gray-50 */
+    font-size: 1rem; /* text-base */
+    font-weight: bold; /* font-bold */
+    border-radius: 0.5rem; /* rounded-lg */
+    overflow: hidden;
+    text-decoration: underline;
+    text-underline-offset: 0.5rem; /* underline-offset-2 */
+    transition: all 0.5s ease;
+    gap: 12px;
 }
 
-.btn_explorar:hover{ /* animacion boton*/
-    padding-left: 0%;
-    padding-right: 40px;
-    color: white;
-
+.btn_explorar:hover {
+    color: #ffe3b3; /* Tono crema claro */
+    border-color: #ffe3b3; 
+    text-underline-offset: 0.55rem;
+    text-decoration-thickness: 2px;
+    background: linear-gradient(0deg,#dc3e57,#a32034);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4),
+    inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
+    0px 0px 0px 4px rgba(255, 255, 255, 0.2),
+    0px 0px 180px 0px #e1646e;
 }
 
-.btn_explorar span{ /*formato circulo*/
-    position: absolute;
-    left: 5px;
-    width: 50px;
-    height: 50px;
-    background-color: white;
-    border-radius: 50%;
-    transition: 0.5s ease-in-out;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #e1646e;
-    font-size: 1.5em;
-
+.sparkle {
+    fill: #AAAAAA;
+    transition: all 800ms ease;
 }
 
-.btn_explorar:hover span{ /*animacion circulo*/
-    left: calc(100% - 55px);
-}
+.btn_explorar:hover .sparkle {
+    fill: white;
+    transform: scale(1.2);
+    
+} 
+
+
+
 
 /*Categorias de las consolas*/
 .categorias_inicio{
