@@ -1,140 +1,44 @@
-body {
-    margin: 0;
-    font-family: 'Comfortaa'; 
+* {
+    box-sizing: border-box;
+    scrollbar-width: none;
 }
 
-/* Contenedor principal que divide la pantalla en dos paneles (izquierdo y derecho) */
 .container {
     display: flex;
+    align-items: center;
+    justify-content: center;
     height: 100vh;
 }
 
-/* Panel izquierdo */
-.left-panel {     
-    background: linear-gradient(145deg, #002f6c, #004182, #5a80b2, #a0c1e8);
+/* Frase */
+.lbl_spanFraseLg {
+    position: absolute;
+    right: 110px;
+    bottom: 37px;
     color: white;
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-/* Estilos específicos para el título dentro del panel izquierdo */
-.left-panel h1 {       
-    font-size: 32px; 
-    margin-bottom: 20px;  
-    text-align: center;
-    font-family: 'League Spartan'; 
-    margin-top: -2px; 
-}
-
-/* Estilo del ícono en el panel izquierdo */
-.left-panel .icon {
-    font-size: 50px;
-    margin-bottom: 20px;
-    animation: glow 1.5s infinite alternate;
-}
-
-/* Estilo de la imagen del icono en el panel izquierdo */
-.left-panel img {
-    width: 84px;
-    height: 82px;
-    filter: brightness(0) invert(1); /* Cambia el icono a color blanco */
-}
-
-/* Estilos de los campos de entrada de usuario y contraseña */
-.left-panel input {
-    width: 74%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 25px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    font-family: 'Comfortaa', sans-serif;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.left-panel input:focus {
-    outline: none;
-    border-color: #4a90e2;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Estilos de los botones dentro del panel izquierdo */
-.left-panel .btn {
-    width: 80%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 25px;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    font-family: 'Comfortaa', sans-serif;
-}
-
-/* Estilos para el botón de "Ingresar" */
-.left-panel .btn.ingresa {
-    background-color: #e1646e;
-    color: #fff;
-    width: 58%; 
-    padding: 12px 0;
-    font-weight: bold;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-}
-
-.left-panel .btn.ingresa:hover {
-    background-color: #d4535d;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
-}
-
-.left-panel .btn.ingresa:active {
-    background-color: #c3444d;
-    transform: translateY(0);
-}
-
-/* Estilos para  ¿Olvidaste la contraseña? */
-.left-panel .forgot-password {
-    margin-top: 10px;
-    font-size: 14px;
-    font-family: 'Comfortaa', sans-serif;
-    text-align: 30px; 
-    width: 80%; 
-}
-
-
-/* Centrar los elementos del input */
-.left-panel form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Mensaje de bienvenida */
-.welcome-message {
-    text-align: center;
-    position: relative;
-    top: -80px; 
-    font-size: 25px;
-    font-weight: bold;
-    color: whitesmoke;
-    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
     font-family: 'League Spartan';
-    margin-left: -330px;
+    font-size: 14px;
 }
 
-/* Estilo del botón de "Regístrate" en el panel derecho */
-.right-panel .btn_registrate {
+.line1 {
+    display: block; 
+    font-size: 1.8em; 
+    font-weight: bold; 
+}
+
+.line2 {
+    display: block; 
+    font-size: 1.2em; 
+    margin-top: 10px; 
+}
+
+/* Botón de Regístrate */
+.btn_ingresa {
     position: absolute;
     top: 33px;
     right: 32px;
-    background-color: rgba(64, 64, 64, 0.9);
-    color: #fff;
+    background-color: rgba(242, 242, 242, 0.902);
+    color: #dc3e57;
     padding: 10px 30px;
     border: 1.5px solid #202020;
     border-radius: 25px;
@@ -144,47 +48,174 @@ body {
     text-decoration: none; 
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    
 }
 
-.right-panel .btn_registrate:hover {
-    background-color: rgba(80, 80, 80, 0.9);
+.btn_ingresa:hover {
+    background-color:rgba(242, 242, 242, 0.902);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
     transform: scale(1.05);
 }
 
-.right-panel .btn_registrate:active {
-    background-color: rgba(50, 50, 50, 0.9);
-    transform: scale(1);
+
+ /* Card de login */
+ .card-login {
+    width: 88vh;
+    height: 100vh;
+    border: 1px solid white;
+    border-radius: 0 50px 0 0; /* Redondear la esquina superior derecha */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-weight: bolder;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    user-select: none;
+    padding: 40px 20px;
+   
 }
 
-/* Estilo del botón de IA login */
-.left-panel .btn.ia-btn {
-    background-color: black;
+.card_background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: hsla(0, 0%, 95%, 0.80);
+    backdrop-filter: blur(6px); 
+    border-radius: 0 50px 0 0; /* Redondear la esquina superior derecha */
+    z-index: 1;
+}
+
+
+.content-login {
+    position: relative;
+    z-index: 3;
+}
+
+.logo_login .icon {
+    width: 80px;
+    height: 80px;
+    color: #dc3e57;
+    position: relative;
+    top: 30px; /* Ajusta el valor para mover el icono más hacia abajo */
+}
+
+
+/* Lbl login */
+.lbl_login {
+    font-family: 'League Spartan';
+    background-image: linear-gradient( #004182, #dc3e57);
+    background-clip: text;
+    color: transparent;
+    margin-top: 50px;
+    
+}
+
+/* Línea decorativa */
+.line {
+    margin-bottom: 50px;
+    width: calc(39% - 10px);
+    height: 2.5px;
+    background: linear-gradient(to right, #004182, #dc3e57, #e1646e);
+    margin-left: 162px;
+}
+
+/* Inputs de formulario */
+form input {
+    margin-bottom: 15px;
+    padding: 10px;
     border: none;
-    padding: 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    width: 90%;
+    font-family: 'Comfortaa';
+    
+}
+
+form input:focus {
+    outline: none;
+}
+
+form input:focus-within {
+    border: 1.5px solid #dc3e57;
+}
+
+/* Estilos para el enlace "Olvidaste la contraseña?" */
+.forgot-password {
+    text-decoration: underline; 
+    color: black; 
+    display: inline-block;
+    margin-top: 7px; 
+    font-size: 14px;
+    font-family: 'comfortaa';
+    margin-top: 10px;
+    left: -50px; 
+    position: relative;
+
+  }
+
+/* Estilo del botón de ingresar */
+form .btn-login {
+    position: relative;
+    width: 40%; 
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    padding-block: 0.7rem; 
+    padding-inline: 1.25rem; 
+    background-color: #dc3e57;
+    transition: all 0.3s ease-in-out;
     border-radius: 10px;
-    cursor: pointer;
-    display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px; 
-    height: 52px; 
-    margin-top: 30px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-    height: 40px;
+    cursor: pointer;
+    color: #ffff;
+    gap: 10px;
+    font-weight: bold;
+    border: 3px solid #ffffff4d;
+    outline: none;
+    overflow: hidden;
+    font-size: 15px;
+    margin-bottom: 20px;
+    top: 55px;
+    left: -104px; 
 }
 
-/* Ajuste del tamaño del icono dentro del botón IA */
-.left-panel .btn.ia-btn .icon-img {
-    width: 40px; 
-    height: 35px;
-    
-}
-
-/* Efecto hover botón IA */
-.left-panel .btn.ia-btn:hover {
+form .btn-login:hover {
     transform: scale(1.05);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    border-color: #fff9;
 }
+
+form .btn-login:hover::before {
+    animation: shine 1.5s ease-out infinite;
+  }
+
+  form .btn-login::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100%;
+    background-image: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0) 30%,
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0) 70%
+    );
+    top: 0;
+    left: -100px;
+    opacity: 0.6;
+  }
+  
+  @keyframes shine {
+    0% {
+      left: -100px;
+    }
+  
+    60% {
+      left: 100%;
+    }
+  
+    to {
+      left: 100%;
+    }
+  } 
