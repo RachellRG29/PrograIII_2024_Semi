@@ -240,14 +240,24 @@ body .line2{
     text-decoration: none;
     padding: 10px 20px;
     background: linear-gradient(to right, #dc3e57, #e1646e);
-    border-top: 0.5px solid #404040;
-    border-left: 0.5px solid #404040;
+    border-top: 0.5px solid #641e1e;
+    border-left: 0.5px solid #641e1e;
     border-right: 0.5px solid #fbe4c9;
     border-bottom: 0.5px solid #fbe4c9;
-    border-radius: 8px;
+    border-radius: 20px;
     margin-left: 15px;
     margin-right: 15px; 
 }
+
+.btn_login:hover{
+    transition-duration: 0.3s;
+    box-shadow: 0px 6px 12px #641e1e33;  
+}
+
+.btn_login:active {
+    scale: 0.95;
+}
+  
 
 .btn_register{
     display: inline-block;
@@ -261,11 +271,19 @@ body .line2{
     border-left: 0.5px solid #404040;
     border-right: 0.5px solid #fbe4c9;
     border-bottom: 0.5px solid #fbe4c9; 
-    border-radius: 8px;
+    border-radius: 20px;
     margin-left: 15px;
     margin-right: 15px; 
 }
 
+.btn_register:hover{
+    transition-duration: 0.3s;
+    box-shadow: 0px 6px 12px #04315e33;  
+}
+
+.btn_register:active {
+    scale: 0.95;
+}
 
 /* Boton explorar */
 .btn_explorar{ /*propiedades*/
@@ -286,7 +304,7 @@ body .line2{
     overflow: hidden;
     text-decoration: underline;
     text-underline-offset: 0.5rem; /* underline-offset-2 */
-    transition: all 0.5s ease;
+    transition: all 0.4s ease;
     gap: 12px;
 }
 
@@ -300,11 +318,13 @@ body .line2{
     inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
     0px 0px 0px 4px rgba(255, 255, 255, 0.2),
     0px 0px 180px 0px #e1646e;
+    
 }
 
 .sparkle {
     fill: #AAAAAA;
     transition: all 800ms ease;
+    z-index: 3;
 }
 
 .btn_explorar:hover .sparkle {
@@ -313,7 +333,9 @@ body .line2{
     
 } 
 
-
+.btn_explorar:hover::after {
+    right: -2rem;
+}
 
 
 /*Categorias de las consolas*/
