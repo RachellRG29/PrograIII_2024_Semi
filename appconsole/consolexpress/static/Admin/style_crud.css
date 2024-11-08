@@ -94,17 +94,6 @@ header {
     transition: color 0.1s;
 }
 
-/* Sección de usuario (alineada a la derecha) */
-.user_admin {
-    display: flex;
-    align-items: center;
-}
-
-.lblUserAdmin {
-    margin-right: 10px;
-    color: white;
-}
-
 .btn_user_img,
 .btn_logout {
     display: flex;

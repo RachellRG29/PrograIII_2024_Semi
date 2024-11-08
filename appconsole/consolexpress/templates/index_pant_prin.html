@@ -20,16 +20,30 @@
     <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
 
     <title>Pantalla principal ConsoleXpress</title>
+
+    <style>
+        /* Estilo general del cuerpo de la página */
+    body {
+        font-family: 'League Spartan';
+        background-image: url("{% static 'fondo_ce_gradient00.png' %}");
+        margin: 0;
+        padding: 0;
+        color: white;
+    }
+    </style>
 </head>
 <body>
     <!-- Header: Logo, barra de búsqueda y perfil de usuario -->
-    <div class="header">
-        <div class="logo">
+    <header>
+        <nav class="navbar">
+            <div class="container-fluid">
+        <div class="logo d-flex align-items-center">
             <!-- Logo de ConsoleXpress -->
-            <img alt="ConsoleXpress Logo" height="50" src="{% static 'icono_ConsoleXpress.svg' %}" width="40"/>
-            <span>ConsoleXpress</span>
-        </div>
-           <!-- Categorías -->
+            <img alt="ConsoleXpress Logo" height="50" style="filter: invert();" src="{% static 'icono_ConsoleXpress.svg '%}" width="40"/>
+            <span class="text-white ms-2">ConsoleXpress</span>
+        </div>  
+
+              <!-- Categorías -->
         <div class="category-dropdown">
             <button class="category-button">Categorías</button>
             <div class="dropdown-content">
@@ -38,7 +52,7 @@
                 <a href="#">Categoría Normal</a>
             </div>
         </div>
-        
+
         <div class="search-bar">
             <!-- Barra de búsqueda única -->
             <input placeholder="Buscar" type="text"/>
@@ -46,21 +60,95 @@
         </div>
         <!-- Contenedor para el ícono del carrito -->
         <div class="header-cart">
-            <i class="bi bi-cart header-cart-icon"></i> 
+            <button class="btn_CompraMenu">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" fill="none" opacity="0"/>
+                    <g transform="scale(0.74)">
+                        <path fill="#fff" d="M2 2c-.36 0-.7.19-.88.5s-.18.7 0 1c.18.31.52.5.88.5h1.88c.23 0 .42.14.48.36l4.26 14.49c.37 1.27 1.55 2.14 2.88 2.14h10.98c1.35 0 2.54-.91 2.89-2.21l2.6-9.53c.08-.3 0-.62-.18-.86s-.49-.39-.82-.39H7.51L6.28 3.79c-.31-1.06-1.29-1.79-2.4-1.79H2zM12 23c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                    </g>
+                </svg>
+            </button>
         </div>
+
+
+            <!-- MENU PARA USUARIO -->
+            <div class="user_user">
+                <span id="lblUser" style="color: white;">Usuario</span>
+                
+                <button class="btn_user_img" onclick="toggleUserMenu()">
+                    <svg width="28px" height="28px" class="user-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                        <rect fill="none" height="256" width="256"/>
+                        <circle cx="128" cy="120" r="44"/>
+                        <path d="M128,24A104,104,0,1,0,232,128,104.2,104.2,0,0,0,128,24Zm65.8,162.4a81.3,81.3,0,0,0-24.5-23,59.7,59.7,0,0,1-82.6,0,81.3,81.3,0,0,0-24.5,23,88,88,0,1,1,131.6,0Z"/>
+                    </svg>
+                </button>
         
-        <div class="admin">
+                <!-- Menú desplegable de usuario user -->
+                <div id="user-menu" class="user-menu">
+                    <button class="btn_logout">
+                        <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Logout
+                    </button>
+                </div>
+            </div>
 
-            <!-- Botón de Chatbot -->
-<button class="chatbot-btn">
-    <img src="{% static 'chatbot.png' %}" alt="Chatbot Icon" class="chatbot-icon">
-</button>
 
-            <!-- Sección Usuario -->
-            <span style="color: white;">Usuario</span>
-            <i class="fas fa-user" style="color: white;"></i>
         </div>
-    </div>
+    </nav>
+</header>
+
+
+    <!-- Botón de Chatbot -->
+    <button class="chatbot-btn">
+        <!-- Primer SVG (icono inicial) -->
+        <svg class="custom-icon" stroke="none" viewBox="0 0 24 24" fill="currentColor">
+        <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5zM16.5 15a.75.75 0 01.712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 010 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 01-1.422 0l-.395-1.183a1.5 1.5 0 00-.948-.948l-1.183-.395a.75.75 0 010-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0116.5 15z"
+        ></path>
+        </svg>
+    
+        <!-- Segundo SVG (chatbot) -->
+        <svg class="custom-chatbot" version="1.0" xmlns="http://www.w3.org/2000/svg"
+        width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000"
+        preserveAspectRatio="xMidYMid meet">
+
+        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+        fill="currentColor" stroke="none">
+        <path d="M1060 5103 c-47 -24 -77 -73 -85 -136 -3 -29 -5 -425 -3 -882 3 -809
+        4 -831 23 -864 11 -19 33 -43 48 -55 28 -20 40 -21 507 -26 l479 -5 215 -270
+        c134 -168 228 -277 248 -287 40 -22 90 -23 133 -2 23 10 100 100 251 289 l218
+        274 477 3 c468 3 478 3 506 24 15 12 37 36 48 55 20 33 20 52 20 909 0 857 0
+        876 -20 909 -11 19 -33 43 -48 55 l-28 21 -1477 3 c-1391 2 -1479 1 -1512 -15z
+        m2281 -526 c94 -63 88 -193 -12 -252 -33 -20 -52 -20 -769 -20 -717 0 -736 0
+        -769 20 -100 59 -106 189 -12 252 l34 23 747 0 747 0 34 -23z m0 -600 c94 -63
+        88 -193 -12 -252 -33 -20 -52 -20 -769 -20 -717 0 -736 0 -769 20 -100 59
+        -106 189 -12 252 l34 23 747 0 747 0 34 -23z"/>
+        <path d="M550 2393 c-19 -10 -45 -33 -57 -52 l-23 -34 0 -709 c0 -686 1 -711
+        20 -769 41 -122 121 -211 237 -267 59 -28 89 -35 157 -39 91 -6 191 11 182 31
+        -68 148 -117 313 -136 458 -7 52 -10 223 -8 452 l3 368 -45 -5 c-25 -3 -59 -9
+        -77 -13 l-32 -6 -3 250 c-3 235 -4 252 -24 278 -50 68 -129 91 -194 57z"/>
+        <path d="M4445 2396 c-40 -18 -73 -56 -85 -97 -6 -19 -10 -137 -10 -263 l0
+        -228 -32 6 c-18 4 -53 10 -78 13 l-45 5 3 -377 c3 -338 1 -389 -17 -493 -22
+        -129 -58 -253 -102 -351 -16 -35 -29 -65 -29 -66 0 -13 117 -27 186 -22 163
+        10 300 104 373 256 l36 76 3 726 3 725 -23 35 c-41 61 -117 84 -183 55z"/>
+        <path d="M1745 2245 c-177 -39 -346 -159 -433 -307 -84 -142 -114 -330 -77
+        -492 41 -188 175 -360 345 -444 151 -74 123 -72 981 -72 731 0 769 1 843 20
+        118 30 208 82 302 175 141 140 201 298 192 504 -8 174 -66 307 -188 431 -78
+        79 -157 129 -265 167 l-80 28 -780 2 c-619 1 -792 -1 -840 -12z m216 -528
+        c122 -81 65 -271 -81 -271 -146 0 -203 190 -81 271 23 16 49 23 81 23 32 0 58
+        -7 81 -23z m1360 0 c122 -81 65 -271 -81 -271 -146 0 -203 190 -81 271 23 16
+        49 23 81 23 32 0 58 -7 81 -23z"/>
+        <path d="M1284 813 c4 -15 27 -70 51 -120 140 -297 395 -523 707 -628 169 -56
+        271 -67 568 -62 265 5 330 13 465 59 340 116 614 377 746 709 11 29 18 53 16
+        56 -2 2 -28 -13 -58 -33 -78 -53 -207 -112 -302 -137 -81 -22 -88 -22 -917
+        -22 l-835 0 -84 23 c-107 29 -214 78 -298 137 -65 46 -65 46 -59 18z"/>
+        </g>
+        </svg>
+
+    </button>
+  
+
 
     <!-- Contenido principal: Título de la página y productos -->
     <div class="content">
@@ -97,5 +185,42 @@
             </div>
         </div>
     </div>
+    
+
+        
+
+
+
+
+
+    
+
+
+
+
+
+    <!-- Menú desplegable de usuario user -->
+    <!-- Script de navbar - menu-logout -->
+    <script>
+        function toggleUserMenu() {
+            const userMenu = document.getElementById("user-menu");
+            userMenu.style.display = userMenu.style.display === "none" || userMenu.style.display === "" ? "block" : "none";
+        }
+        
+        // Cerrar el menú al hacer clic fuera de él
+        window.onclick = function(event) {
+            const userMenu = document.getElementById("user-menu");
+            if (!event.target.closest('.btn_user_img') && !event.target.closest('.user-menu')) {
+                userMenu.style.display = "none";
+            }
+        };
+    </script>
+
+
+
+
+
+
+
 </body>
 </html> 

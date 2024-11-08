@@ -23,51 +23,41 @@
     background-color: #0d0d0e;
 }
 
-/* Estilo general del cuerpo de la página */
-body {
-    font-family: 'League Spartan';
-    background: radial-gradient(#dc3e57 , #205ea5);
-    margin: 0;
-    padding: 0;
-    color: white;
+/* Encabezado principal de la página */
+/* Header */
+header {
+    background-color: #e1646e;
+    padding: 0px 20px;
 }
 
-/* Encabezado principal de la página */
-.header {
-    background-color: #e1646e; 
-    padding: 2px 20px;
+/* Navbar */
+.navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    align-items: center;
-    padding: auto;
-    margin:0;
-}
-
-/* Estilo de la imagen del logo */
-.header img {
-    height: 55px;
-    width: 55px;
-    margin-right: 10px;
-    filter: invert(1);
-}
-
-/* Contenedor del logo dentro del encabezado */
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-/* Estilo del texto ConsoleXpress */
-.header .logo span {
-    color: whitesmoke;
-    font-size: 23px;
-    font-weight: bold;
+    color: white;
     font-family: 'League Spartan';
 }
 
+
+/* Logo alineado a la izquierda */
+.logo{
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    
+}
+
+.logo img { 
+    margin-right: 8px;
+    height: 55px;
+    width: 55px;
+    color: white;
+}
+
 /* Contenedor de la barra de búsqueda */
-.header .search-bar {
+.search-bar {
     display: flex;
     align-items: center;
     background-color: white;
@@ -78,7 +68,7 @@ body {
 }
 
 /* Estilo del campo input de la barra de búsqueda */
-.header .search-bar input {
+.search-bar input {
     border: none;
     outline: none;
     padding: 5px;
@@ -87,34 +77,83 @@ body {
     font-family: 'Comfortaa';
 }
 
-/* Icono de lupa en la barra de búsqueda */
-.header .search-bar i {
+/* Icono de lupa en la barra de búsqueda */ 
+.search-bar i {
     color: black;
 }
 
-/* Palabra usuario del encabezado */
-.header .admin {
+/* Sección de usuario (alineada a la derecha) */
+.user_user{
     display: flex;
     align-items: center;
-    font-family: 'Comfortaa';
-
-    
 }
 
-/* Icono de la sección de usuario */
-.header .admin i {
-    margin-left: 18px;
-    font-size: 20px; 
+.lblUser {
+    margin-right: 10px;
+    color: white;
 }
 
 /* Estilo icono de compra en el encabezado */
-.header-cart-icon {
-    font-size: 26px; 
-    color: white; 
-    position: absolute;
-    margin-left: -55px; 
-     transform: translateY(-50%); /* Ajusta para centrar mejor el icono */   
+.btn_user_img,
+.btn_CompraMenu {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    margin-left: 6px;
+    padding: 8px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
+
+.btn_user_img svg,
+.btn_CompraMenu svg{
+    fill: white;
+}
+
+
+.btn_CompraMenu:hover{
+    background-color:  #dc3e57;
+}
+
+/* Estilos para el menú de usuario */
+.user_user {
+    position: relative;
+    margin-right: 2rem;
+    margin-left: 2rem;
+}
+
+.user-menu {
+    display: none;
+    position: absolute;
+    top: 40px; /* Ajusta según el tamaño del botón de usuario */
+    right: 0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    min-width: 120px;
+}
+
+.user-menu .btn_logout {
+    width: 100%;
+    background-color: transparent;
+    color: #333;
+    text-align: left;
+    padding: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.user-menu:hover {
+    background-color:  #dc3e57;
+    color: white;
+    border-radius: 8px;
+}
+
+
 
 /* Contenido principal de la página */
 .content {
@@ -241,38 +280,107 @@ body {
     transform: scale(1.1);
 }
 
-
+/* Variables para el chatbot */
+:root {
+    --sz-btn: 70px;
+    --space: calc(var(--sz-btn) / 5.5);
+    --gen-sz: calc(var(--space) * 2);
+    --sz-text: calc(var(--sz-btn) - var(--gen-sz));
+}
 
 /* Estilo del botón de Chatbot */
 .chatbot-btn {
     position: fixed;
     bottom: 37px;
     right: 40px;
-    background-color: black;
     border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    color: white;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    padding: 15px 25px; /* Ajuste de padding para dar un tamaño adecuado */
+    background: linear-gradient(45deg, #efad21, #ffd60f); 
+    border-radius: 8px; /* Bordes redondeados en la parte superior */
+    transition: background-color 0.3s ease;
+}
+
+/*esquina del mensaje simulacion triangulo*/
+.chatbot-btn::after {
+    content: "";
+    position: absolute;
+    bottom: -15px; /* Ubicamos la punta justo debajo del botón */
+    left: 6px; /* Alineamos la punta a la izquierda */
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #efad21; /* Color de la punta que coincide con el fondo del botón */
 }
 
 .chatbot-btn:hover {
-    
-    transform: scale(1.1);
-   
+    background: linear-gradient(45deg, #225590, #04315e);
+    border: 1px solid #ffd60f;
 }
 
-/* Estilo del icono del Chatbot */
-.chatbot-icon {
-    width: 41px !important;  
-    height: 41px !important; 
- 
+.chatbot-btn:active {
+    transform: scale(0.95);
 }
+
+/* Estilo inicial de custom-icon (visible por defecto) */
+.custom-icon {
+    width: 24px;
+    height: 24px;
+    animation: blink 1.5s infinite;
+    transition: opacity 0.3s ease;
+}
+
+/* Estilo inicial de custom-chatbot (oculto por defecto) */
+.custom-chatbot {
+    width: 24px;
+    height: 24px;
+    opacity: 0;
+    position: absolute;
+    transform: scale(0.5);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Animación de parpadeo */
+@keyframes blink {
+    0%, 60% { opacity: 1; }
+    50% { opacity: 0.30; }
+}
+
+/* Al pasar el mouse, ocultar el icono inicial y mostrar el icono del chatbot */
+.chatbot-btn:hover .custom-icon {
+    opacity: 0;
+    animation: none; /* Detiene el parpadeo */
+    transition: opacity 0.3s ease;
+}
+
+.chatbot-btn:hover .custom-chatbot {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Cambia el color del texto al pasar el mouse */
+.chatbot-btn:hover {
+    color: #e0e0e0;
+}
+
+
+
+.custom-text {
+  font-size: var(--sz-text);
+  font-weight: 800;
+  color: white;
+  transition: opacity 0.2s;
+}
+
+.chatbot-btn:hover .custom-text {
+  opacity: 0;
+}
+
 
 /* Estilo del contenedor de categorías */
 .category-dropdown {
