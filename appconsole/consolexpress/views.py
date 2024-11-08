@@ -1,25 +1,68 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
 import json
 from .models import consola  # Asegúrate de que el modelo se llame correctamente
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
+from django.contrib.auth.decorators import login_required, user_passes_test #para registrar y no permitir q cualquiera ingrese
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib import messages #mandar mensajes con sweetalert2
 
 # Create your views here.
 def index_inicio(request):
     return render(request, 'index_inicio.html')
 
+#DEF PARA LOGEARSE EN LA PAGINA CONSOLEXPRESS
 def index_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            if user.is_superuser:  # Verifica si el usuario es superusuario
+                return redirect('crud_admi')  # Redirige al CRUD de administrador
+            else:
+                return redirect('index_pant_prin')  # Redirige a la pantalla principal
+        else:
+            messages.error(request, "Credenciales incorrectas.")
+
     return render(request, 'index_login.html')
 
+#DEF PARA REGISTRAR USUARIOS
 def index_register(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+
+        if password == confirm_password:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, "El nombre de usuario ya está en uso.")
+            elif User.objects.filter(email=email).exists():
+                messages.error(request, "El correo electrónico ya está en uso.")
+            else:
+                user = User.objects.create_user(username=username, email=email, password=password)
+                user.save()
+                messages.success(request, "Usuario registrado correctamente.")
+                return redirect('index_login')  # Redirigir a la página de inicio de sesión después del registro
+        else:
+            messages.error(request, "Las contraseñas no coinciden.")
+
     return render(request, 'index_register.html')
+
 
 def index_pant_prin(request):
     return render(request, 'index_pant_prin.html')
     
 
+#validar crud admin solo para administradores
+@login_required
 def crud_admi(request):
     return render(request, 'crud_admi.html')
 

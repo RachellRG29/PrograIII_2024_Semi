@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Fuentes utilizadas -->
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
@@ -103,20 +109,84 @@
                 <h1 class="lbl_register">CREA UNA CUENTA</h1>
                 <div class="line"></div>
 
-                <form method="POST" action="/register" onsubmit="return handleSubmit();">
+                <form method="POST" action="{% url 'index_register' %}" id="formRegister" onsubmit="return handleSubmit();">
+                    {% csrf_token %}
                     <input name="username" placeholder="Usuario" type="text" required />
                     <input name="email" placeholder="Correo electrónico" type="email" required />
                     <input name="password" placeholder="Contraseña" type="password" required />
                     <input name="confirm_password" placeholder="Confirmar contraseña" type="password" required />
-                    
+
                     <button class="btn-register" type="submit">REGISTRAR</button>
                 </form>
 
-
+               <!-- {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert {{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}  -->
             </div>
            
         </div>
     </div>
+
+    {% if messages %}
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          {'% for message in messages %'}
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+              icon: "{{ message.tags }}",  // 'success' o 'error'
+              title: "{{ message }}",
+              showConfirmButton: false,
+              timer: 3000
+            });
+          {'% endfor %'}
+        });
+      </script>
+    {% endif %}
+  
+<script>
+fetch('register/', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(datos),
+})
+  .then(response => response.json())
+  .then(data => {
+    if (data.exito) {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: "success",
+        title: "Registro exitoso",
+        showConfirmButton: false,
+        timer: 3000
+      });
+    } else {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: "error",
+        title: "Error: " + data.mensaje,
+        showConfirmButton: false,
+        timer: 3000
+      });
+    }
+  })
+  .catch(error => {
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      icon: "error",
+      title: "Error con la comunicación con el servidor",
+      showConfirmButton: false,
+      timer: 3000
+    });
+    console.error('Error:', error);
+  });
+
+    </script>
 
     
 </body>
