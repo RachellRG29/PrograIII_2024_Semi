@@ -28,9 +28,10 @@
         body {
             margin: 0;
             padding: 0;
-            background-image: url("{% static 'img_fondoCrud4k.jpeg' %}");
+            background-image: url("{% static 'img_crud2kConsola.jpeg' %}");
             background-size: cover;
-            height: 100vh; 
+            height: 100vh;
+            display: block; 
         }
     </style>
 
@@ -52,11 +53,12 @@
                     <li class="nav-item"><a href="#" id="linkClientes" class="nav-link text-white" >Clientes</a></li>
                 </ul>
 
+                <!-- Menú para usuario administrador -->
                 <div class="user_admin">
                     <span id="lblUserAdmin" style="color: white;">Usuario</span>
                     
-                    <button class="btn_user_img" onclick="toggleUserMenu()">
-                        <svg width="28px" height="28px" class="user-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                    <button class="btn_useradmin_img" onclick="toggleUserMenuAdmin()">
+                        <svg width="28px" height="28px" class="user-iconadmin" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
                             <rect fill="none" height="256" width="256"/>
                             <circle cx="128" cy="120" r="44"/>
                             <path d="M128,24A104,104,0,1,0,232,128,104.2,104.2,0,0,0,128,24Zm65.8,162.4a81.3,81.3,0,0,0-24.5-23,59.7,59.7,0,0,1-82.6,0,81.3,81.3,0,0,0-24.5,23,88,88,0,1,1,131.6,0Z"/>
@@ -64,12 +66,13 @@
                     </button>
         
                     <!-- Menú desplegable de usuario -->
-                    <div id="user-menu" class="user-menu">
-                        <button class="btn_logout">
+                    <div id="user-menuAdmin" class="user-menuAdmin">
+                        <button class="btn_logout_admin">
                             <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Logout
                         </button>
                     </div>
                 </div>
+
             </div>
         </nav>
     </header>
@@ -96,18 +99,18 @@
 
     </script>
 
-    <!-- Script de navbar - menu-logout -->
+    <!-- Script de navbar - menu-logout CRUD -->
     <script>
-        function toggleUserMenu() {
-            const userMenu = document.getElementById("user-menu");
-            userMenu.style.display = userMenu.style.display === "none" || userMenu.style.display === "" ? "block" : "none";
+        function toggleUserMenuAdmin() {
+            const userMenuAdmin = document.getElementById("user-menuAdmin");
+            userMenuAdmin.style.display = userMenuAdmin.style.display === "none" || userMenuAdmin.style.display === "" ? "block" : "none";
         }
-        
+    
         // Cerrar el menú al hacer clic fuera de él
         window.onclick = function(event) {
-            const userMenu = document.getElementById("user-menu");
-            if (!event.target.closest('.btn_user_img') && !event.target.closest('.user-menu')) {
-                userMenu.style.display = "none";
+            const userMenuAdmin = document.getElementById("user-menuAdmin");
+            if (userMenuAdmin && !event.target.closest('.btn_useradmin_img') && !event.target.closest('.user-menuAdmin')) {
+                userMenuAdmin.style.display = "none";
             }
         };
     </script>

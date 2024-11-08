@@ -94,7 +94,17 @@ header {
 }
 
 /* Estilo icono de compra en el encabezado */
-.btn_user_img,
+.btn_user_img{
+    align-items: center;
+    background: transparent;
+    border: none;
+    margin-left: 6px;
+    padding: 8px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
 .btn_CompraMenu {
     display: flex;
     align-items: center;

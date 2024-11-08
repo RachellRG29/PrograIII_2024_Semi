@@ -94,8 +94,30 @@ header {
     transition: color 0.1s;
 }
 
-.btn_user_img,
-.btn_logout {
+/* Estilos para el menú de usuario versión admin */
+.user_admin {
+    position: relative;
+    margin-right: 2rem;
+    margin-left: 2rem;
+}
+
+.lblUserAdmin {
+    margin-right: 10px;
+    color: white;
+}
+
+.btn_useradmin_img{
+    background: transparent;
+    border: none;
+    margin-left: 6px;
+    padding: 8px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+.btn_logout_admin {
     display: flex;
     align-items: center;
     background: transparent;
@@ -107,27 +129,18 @@ header {
     transition: background-color 0.3s;
 }
 
-.btn_user_img svg,
-.btn_logout svg {
-    fill: white; /* Cambia el color de relleno del SVG a blanco */
+.btn_useradmin_img svg {
+    fill: white;
 }
 
-/* Hover para boton de usuario */
-.btn_user_img:hover {
+.btn_useradmin_img:hover {
     background-color: #e1646e;
 }
 
-/* Estilos para el menú de usuario */
-.user_admin {
-    position: relative;
-    margin-right: 2rem;
-    margin-left: 2rem;
-}
-
-.user-menu {
+.user-menuAdmin {
     display: none;
     position: absolute;
-    top: 40px; /* Ajusta según el tamaño del botón de usuario */
+    top: 40px;
     right: 0;
     background-color: #ffffff;
     border-radius: 8px;
@@ -137,20 +150,20 @@ header {
     min-width: 120px;
 }
 
-.user-menu .btn_logout {
+.user-menuAdmin .btn_logout_admin {
     width: 100%;
-    background-color: transparent;
     color: #333;
     text-align: left;
     padding: 8px;
     border: none;
     cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
 }
 
-.user-menu:hover {
-    background-color:  #e1646e;
+.user-menuAdmin .btn_logout_admin:hover {
+    background-color: #e1646e;
     color: white;
-    border-radius: 8px;
 }
 
 
