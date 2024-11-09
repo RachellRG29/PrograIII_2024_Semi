@@ -119,9 +119,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "appconsole" / "consolexpress" / "static",
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -131,7 +128,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-#Configuracion de mensajes con django para registrar, logear etc
+#LOGICA PARA INICIAR SESIÓN
+LOGIN_URL = 'login/'  # Configura para que las vistas protegidas redirijan aquí
+LOGIN_REDIRECT_URL = 'pantalla_prin'  # Redirige después del login
+LOGOUT_REDIRECT_URL = 'index_inicio'  # Redirige después del logout
+
+#Configuracion de mensajes(sweetalert2) con django para registrar, logear
 MESSAGE_TAGS = {
     messages.DEBUG: 'debug',
     messages.INFO: 'info',

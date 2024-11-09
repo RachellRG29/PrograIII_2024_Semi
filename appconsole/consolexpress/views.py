@@ -5,10 +5,10 @@ import json
 from .models import consola  # Asegúrate de que el modelo se llame correctamente
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
-from django.contrib.auth.decorators import login_required, user_passes_test #para registrar y no permitir q cualquiera ingrese
-from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required #para registrar y no permitir q cualquiera ingrese
+from django.contrib.auth.models import User #Para conectar con la base de datos y mandar los usuarios
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages #mandar mensajes con sweetalert2
 
 # Create your views here.
@@ -25,11 +25,12 @@ def index_login(request):
         if user is not None:
             login(request, user)
             if user.is_superuser:  # Verifica si el usuario es superusuario
-                return redirect('crud_admi')  # Redirige al CRUD de administrador
+                return redirect('crud_admi')  # Redirige a la vista de administración
             else:
-                return redirect('index_pant_prin')  # Redirige a la pantalla principal
+                return redirect('index_pant_prin')  # Redirige a la página principal si no es superusuario
         else:
             messages.error(request, "Credenciales incorrectas.")
+            return redirect('index_login')  # Redirige al login si falla
 
     return render(request, 'index_login.html')
 
@@ -56,7 +57,13 @@ def index_register(request):
 
     return render(request, 'index_register.html')
 
+#Para logout o salir de sesion
+def user_logout(request):
+    logout(request)
+    return redirect('index_inicio')
 
+# Pantalla principal
+#@login_required
 def index_pant_prin(request):
     return render(request, 'index_pant_prin.html')
     
@@ -67,6 +74,7 @@ def crud_admi(request):
     return render(request, 'crud_admi.html')
 
 # Función para consultar todas las consolas
+@login_required
 def consultar_consolas(request):
     datos = consola.objects.all()  # Obtener todas las consolas
     data = [
@@ -87,7 +95,7 @@ def consultar_consolas(request):
     return JsonResponse(data, safe=False)
 
 # Función para guardar consola
-@csrf_exempt
+@login_required
 def guardar_consola(request):
     if request.method == 'POST':
         consola_id = request.POST.get('id')  # Obtener el id de consola si existe
@@ -141,7 +149,7 @@ def guardar_consola(request):
     return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
 
 # Función para consultar 1 consola y editarla
-@csrf_exempt
+@login_required
 def consultar_consola_edit(request):
     if request.method == 'GET':
         consola_id = request.GET.get('id')
@@ -167,7 +175,7 @@ def consultar_consola_edit(request):
     return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
 
 # Función para editar consola
-@csrf_exempt
+@login_required
 def editar_consola(request):
     if request.method == 'POST':
         import json
@@ -200,8 +208,8 @@ def editar_consola(request):
                 consola_obj.stock = data['stock']
 
                 # Actualizar la imagen si se proporciona
-                if 'imagen' in data:
-                    consola_obj.imagen = data['imagen']
+                if 'imagen' in request.FILES:
+                    consola_obj.imagen = request.FILES['imagen']
 
                 consola_obj.save()
 
@@ -229,7 +237,7 @@ def editar_consola(request):
         return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 # Función para eliminar consola
-@csrf_exempt
+@login_required
 def eliminar_consola(request):
     if request.method == 'DELETE':
         data = json.loads(request.body)
@@ -239,7 +247,7 @@ def eliminar_consola(request):
         return JsonResponse({'msg': 'success'})
     return JsonResponse({'msg': 'error'}, status=400)
 
-@csrf_exempt
+@login_required
 def verificar_codigo_existente(request):
     if request.method == 'GET':
         codigo = request.GET.get('codigo')

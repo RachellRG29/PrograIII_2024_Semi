@@ -132,7 +132,7 @@
     {% if messages %}
       <script>
         document.addEventListener('DOMContentLoaded', function() {
-          {'% for message in messages %'}
+          {% for message in messages %}
             Swal.fire({
               toast: true,
               position: 'top-end',
@@ -141,7 +141,7 @@
               showConfirmButton: false,
               timer: 3000
             });
-          {'% endfor %'}
+          {% endfor %}
         });
       </script>
     {% endif %}

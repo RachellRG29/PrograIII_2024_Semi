@@ -54,7 +54,13 @@
 
                 <!-- Menú para usuario administrador -->
                 <div class="user_admin">
-                    <span id="lblUserAdmin" style="color: white;">Usuario</span>
+                    <span id="lblUserAdmin" style="color: white;">
+                        {% if request.user.is_authenticated and request.user.is_superuser %}
+                            {{ request.user.username }}
+                        {% else %}
+                            Usuario
+                        {% endif %}
+                    </span>
                     
                     <button class="btn_useradmin_img" onclick="toggleUserMenuAdmin()">
                         <svg width="28px" height="28px" class="user-iconadmin" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
@@ -66,9 +72,9 @@
         
                     <!-- Menú desplegable de usuario -->
                     <div id="user-menuAdmin" class="user-menuAdmin">
-                        <button class="btn_logout_admin">
+                        <a href="{% url 'user_logout' %}" class="btn_logout_admin">
                             <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Logout
-                        </button>
+                        </a>
                     </div>
                 </div>
 

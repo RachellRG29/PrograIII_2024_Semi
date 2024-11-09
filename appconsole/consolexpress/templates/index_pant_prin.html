@@ -73,7 +73,13 @@
 
             <!-- MENU PARA USUARIO -->
             <div class="user_user">
-                <span id="lblUser" style="color: white;">Usuario</span>
+                <span id="lblUser" style="color: white;">
+                    {% if request.user.is_authenticated %}
+                        {{ request.user.username }}
+                    {% else %}
+                        Usuario
+                    {% endif %}
+                </span>
                 
                 <button class="btn_user_img" onclick="toggleUserMenu()">
                     <svg width="28px" height="28px" class="user-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
@@ -85,9 +91,9 @@
         
                 <!-- Menú desplegable de usuario user -->
                 <div id="user-menu" class="user-menu">
-                    <button class="btn_logout">
+                    <a href="{% url 'user_logout' %}" class="btn_logout" >
                         <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Logout
-                    </button>
+                    </a>
                 </div>
             </div>
 
@@ -188,15 +194,6 @@
     
 
         
-
-
-
-
-
-    
-
-
-
 
 
     <!-- Menú desplegable de usuario user -->
