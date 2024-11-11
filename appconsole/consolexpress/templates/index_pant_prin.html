@@ -58,11 +58,11 @@
             <input placeholder="Buscar" type="text"/>
             <i class="fas fa-search"></i>
         </div>
+
         <!-- Contenedor para el ícono del carrito -->
         <div class="header-cart">
-            <button class="btn_CompraMenu">
+            <button class="btn_CompraMenu" id="openCartMenu">
                 <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="24" height="24" fill="none" opacity="0"/>
                     <g transform="scale(0.74)">
                         <path fill="#fff" d="M2 2c-.36 0-.7.19-.88.5s-.18.7 0 1c.18.31.52.5.88.5h1.88c.23 0 .42.14.48.36l4.26 14.49c.37 1.27 1.55 2.14 2.88 2.14h10.98c1.35 0 2.54-.91 2.89-2.21l2.6-9.53c.08-.3 0-.62-.18-.86s-.49-.39-.82-.39H7.51L6.28 3.79c-.31-1.06-1.29-1.79-2.4-1.79H2zM12 23c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
                     </g>
@@ -193,6 +193,17 @@
     </div>
     
 
+    <!-- Menú Deslizable de Compra -->
+    <div id="cartMenu" class="cart-menu">
+        <div class="cart-menu-header">
+            <h5>Carrito de Compras</h5>
+            <button id="closeCartMenu">&times;</button>
+        </div>
+        <div class="cart-menu-footer">
+            <button type="button" class="btn btn-secondary" id="closeCartMenuBtn">Cerrar</button>
+            <button type="button" class="btn btn-primary">Finalizar Compra</button>
+        </div>
+    </div>
         
 
 
@@ -214,6 +225,28 @@
     </script>
 
 
+<!-- MENU COMPRA-ABRIR MENU -->
+<script>
+    // Variables del menú y los botones
+    const cartMenu = document.getElementById('cartMenu');
+    const openCartMenu = document.getElementById('openCartMenu');
+    const closeCartMenu = document.getElementById('closeCartMenu');
+    const closeCartMenuBtn = document.getElementById('closeCartMenuBtn');
+
+    // Función para abrir el menú de compra
+    openCartMenu.addEventListener('click', () => {
+        cartMenu.classList.add('show');
+    });
+
+    // Funciones para cerrar el menú de compra
+    closeCartMenu.addEventListener('click', () => {
+        cartMenu.classList.remove('show');
+    });
+
+    closeCartMenuBtn.addEventListener('click', () => {
+        cartMenu.classList.remove('show');
+    });
+</script>
 
 
 

@@ -67,14 +67,24 @@ def user_logout(request):
 def index_pant_prin(request):
     return render(request, 'index_pant_prin.html')
     
+# Verificación de permisos para superusuario
+def superuser_required(view_func):
+    def _wrapped_view_func(request, *args, **kwargs):
+        if not request.user.is_superuser:
+            messages.error(request, "Acceso denegado: no tienes permisos de administrador.")
+            return redirect('index_pant_prin')  # Redirige a la pantalla principal
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view_func
 
 #validar crud admin solo para administradores
 @login_required
+@superuser_required
 def crud_admi(request):
     return render(request, 'crud_admi.html')
 
 # Función para consultar todas las consolas
 @login_required
+@superuser_required
 def consultar_consolas(request):
     datos = consola.objects.all()  # Obtener todas las consolas
     data = [
@@ -96,6 +106,7 @@ def consultar_consolas(request):
 
 # Función para guardar consola
 @login_required
+@superuser_required
 def guardar_consola(request):
     if request.method == 'POST':
         consola_id = request.POST.get('id')  # Obtener el id de consola si existe
@@ -150,6 +161,7 @@ def guardar_consola(request):
 
 # Función para consultar 1 consola y editarla
 @login_required
+@superuser_required
 def consultar_consola_edit(request):
     if request.method == 'GET':
         consola_id = request.GET.get('id')
@@ -176,6 +188,7 @@ def consultar_consola_edit(request):
 
 # Función para editar consola
 @login_required
+@superuser_required
 def editar_consola(request):
     if request.method == 'POST':
         import json
@@ -238,6 +251,7 @@ def editar_consola(request):
 
 # Función para eliminar consola
 @login_required
+@superuser_required
 def eliminar_consola(request):
     if request.method == 'DELETE':
         data = json.loads(request.body)
@@ -248,6 +262,7 @@ def eliminar_consola(request):
     return JsonResponse({'msg': 'error'}, status=400)
 
 @login_required
+@superuser_required
 def verificar_codigo_existente(request):
     if request.method == 'GET':
         codigo = request.GET.get('codigo')
