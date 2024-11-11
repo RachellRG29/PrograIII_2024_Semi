@@ -446,3 +446,34 @@ header {
     display: block;
 }
 
+
+/*MODAL O MENU DESPLAZABLE DE COMPRAS*/
+
+    /* Estilos del Menú Deslizable */
+    .cart-menu {
+        position: fixed;
+        top: 0;
+        right: -400px; /* Oculto inicialmente */
+        width: 400px;
+        height: 100vh;
+        background-color: #fff;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+        transition: right 0.3s ease;
+        z-index: 1050;
+    }
+
+    .cart-menu.show {
+        right: 0; /* Se muestra cuando se añade la clase .show */
+    }
+
+    .cart-menu-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .cart-menu-footer {
+        padding: 1rem;
+        border-top: 1px solid #ddd;
+    }
