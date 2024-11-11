@@ -456,7 +456,7 @@ header {
         right: -400px; /* Oculto inicialmente */
         width: 400px;
         height: 100vh;
-        background-color: #fff;
+        background: linear-gradient(45deg, #225590, #04315e);
         box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
         transition: right 0.3s ease;
         z-index: 1050;
@@ -467,13 +467,29 @@ header {
     }
 
     .cart-menu-header {
+        position: relative;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
+        align-items: center;
         padding: 1rem;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid #1a1919;
+        background: linear-gradient(#dc3e57, #e1646e);
     }
-
-    .cart-menu-footer {
-        padding: 1rem;
-        border-top: 1px solid #ddd;
+    
+    .cart-title {
+        margin: 0;
+        text-align: center;
     }
+    
+    .close-button {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        background: none;
+        font-size: 1.5rem;
+        color: #fff;
+        cursor: pointer;
+    }
+    
