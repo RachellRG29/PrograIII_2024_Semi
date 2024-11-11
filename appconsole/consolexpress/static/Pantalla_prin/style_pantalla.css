@@ -489,42 +489,81 @@ header {
     }
     
     .closeCartMenu {
-    display: flex;
-    height: 3em;
-    width: 100px;
-    align-items: center;
-    justify-content: center;
-    background-color: #eeeeee4b;
-    border-radius: 3px;
-    letter-spacing: 1px;
-    transition: all 0.2s linear;
-    cursor: pointer;
-    border: none;
-    background: #fff;
-   }
+        position: relative;
+        width: 6em;
+        height: 4em;
+        border: none;
+        background: none;
+      }
    
-   .closeCartMenu > svg {
-    margin-right: 5px;
-    margin-left: 5px;
-    font-size: 20px;
-    transition: all 0.4s ease-in;
-   }
-   
-   .closeCartMenu:hover > svg {
-    font-size: 1.2em;
-    transform: translateX(-5px);
-   }
-   
-   .closeCartMenu:hover:hover {
-    box-shadow: 9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff;
-    transform: translateY(-2px);
-   }
-
+      .closeCartMenu {
+        position: relative;
+        width: 6em;
+        height: 4em;
+        border: none;
+        background: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .X, .Y {
+        position: absolute;
+        width: 2em;
+        height: 1.5px;
+        background-color: #fff;
+        left: 1%;
+    }
+    
+    .X {
+        transform: rotate(45deg);
+    }
+    
+    .Y {
+        transform: rotate(-45deg);
+    }
+    
+      
+      .close {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        bottom: -40%;
+        left: 70%;
+        width: 3em;
+        height: 1.7em;
+        font-size: 16px;
+        background-color: rgb(254, 255, 225);
+        color: #000;
+        border: 1px solid #000;
+        pointer-events: none;
+        opacity: 0;
+      }
+      
+      .closeCartMenu:hover {
+        background-color: rgb(210, 0, 0);
+      }
+      
+      .closeCartMenu:active {
+        background-color: rgb(130, 0, 0);
+      }
+      
+      .closeCartMenu:hover > .close {
+        animation: close 0.2s forwards 1.25s;
+      }
+      
+      @keyframes close {
+        100% {
+          opacity: 1;
+        }
+      }
+ 
    .cart-menu-footer {
     margin-top: auto; /* Empuja el pie de página hacia abajo */
     padding: 10px;
     display: flex;
     justify-content: space-between;
-    background-color: #f8f9fa; /* Color de fondo opcional para el pie de página */
+    background-color: #0c0c0c; /* Color de fondo opcional para el pie de página */
     box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Sombra opcional para separación */
 }
