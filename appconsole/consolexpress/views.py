@@ -278,6 +278,8 @@ def verificar_codigo_existente(request):
 def vistaprincipal_producto(request):
     return render(request, 'vistaprincipal_producto.html')  
 
- 
+#Chatbot ia
+def chatbotIA(request):
+    return render(request, 'chatbotIA.html')
 
   
