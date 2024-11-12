@@ -312,6 +312,7 @@ header {
     background: linear-gradient(45deg, #efad21, #ffd60f); 
     border-radius: 8px; /* Bordes redondeados en la parte superior */
     transition: background-color 0.3s ease;
+    z-index: 1;
 }
 
 /*esquina del mensaje simulacion triangulo*/
