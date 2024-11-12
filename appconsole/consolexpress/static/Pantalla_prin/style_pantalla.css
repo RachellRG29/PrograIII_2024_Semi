@@ -468,7 +468,7 @@ header {
 
     }
 
-    .cart-menu.show {
+        .cart-menu.show {
         right: 0; /* Se muestra cuando se añade la clase .show */
     }
 
@@ -487,78 +487,29 @@ header {
         text-align: center;
        font-weight: bold;
     }
-    
-    .closeCartMenu {
-        position: relative;
-        width: 6em;
-        height: 4em;
-        border: none;
-        background: none;
-      }
-   
-      .closeCartMenu {
-        position: relative;
-        width: 6em;
-        height: 4em;
-        border: none;
-        background: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    /* Estilos del botón en forma de X */
+    .close-button {
+        background: none; 
+        border: none; 
+        color: white; 
+        font-size: 1.5em; 
+        cursor: pointer; 
+        padding: 0;
     }
     
-    .X, .Y {
-        position: absolute;
-        width: 2em;
-        height: 1.5px;
-        background-color: #fff;
-        left: 1%;
+    .close-button:hover {
+        color: red;
     }
     
-    .X {
-        transform: rotate(45deg);
+    .close-button .X::before {
+        content: "✕"; 
+        font-size: inherit; 
+        color: inherit; 
     }
     
-    .Y {
-        transform: rotate(-45deg);
-    }
+
     
-      
-      .close {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        bottom: -40%;
-        left: 70%;
-        width: 3em;
-        height: 1.7em;
-        font-size: 16px;
-        background-color: rgb(254, 255, 225);
-        color: #000;
-        border: 1px solid #000;
-        pointer-events: none;
-        opacity: 0;
-      }
-      
-      .closeCartMenu:hover {
-        background-color: rgb(210, 0, 0);
-      }
-      
-      .closeCartMenu:active {
-        background-color: rgb(130, 0, 0);
-      }
-      
-      .closeCartMenu:hover > .close {
-        animation: close 0.2s forwards 1.25s;
-      }
-      
-      @keyframes close {
-        100% {
-          opacity: 1;
-        }
-      }
- 
+    
    .cart-menu-footer {
     margin-top: auto; /* Empuja el pie de página hacia abajo */
     padding: 10px;
@@ -567,3 +518,54 @@ header {
     background-color: #0c0c0c; /* Color de fondo opcional para el pie de página */
     box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Sombra opcional para separación */
 }
+
+/* From Uiverse.io by Creatlydev */ 
+.btn-continuarcompra {
+    width: 130px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(15, 15, 15);
+    border: none;
+    color: white;
+    font-weight: 600;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
+    position: relative;
+    overflow: hidden;
+    transition-duration: .3s;
+  }
+  
+  .svgIcon {
+    width: 16px;
+  }
+  
+  .svgIcon path {
+    fill: white;
+  }
+  
+  .btn-continuarcompra ::before {
+    width: calc(100% + 40px);
+    aspect-ratio: 1/1;
+    position: absolute;
+    content: "";
+    background-color: white;
+    border-radius: 50%;
+    left: -20px;
+    top: 50%;
+    transform: translate(-150%, -50%);
+    transition-duration: .5s;
+    mix-blend-mode: difference;
+  }
+  
+  .btn-continuarcompra:hover::before {
+    transform: translate(0, -50%);
+  }
+  
+  .btn-continuarcompra:active {
+    transform: translateY(4px);
+    transition-duration: .3s;
+  }
+  
