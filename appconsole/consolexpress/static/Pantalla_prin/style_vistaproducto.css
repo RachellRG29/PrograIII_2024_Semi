@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     max-height: 100%;
-    height: 100%;   
+    height: 100%;
 }
 
 /* barra encabezado */
@@ -14,13 +14,14 @@ body {
     align-items: center;
     justify-content: space-between;
     margin: 0;
-    
+    flex-wrap: wrap;
 }
-  
-/* Alineación texto ConsoleXpress  */
+
+/* Alineación texto ConsoleXpress */
 .header .logo {
     display: flex;
     align-items: center;
+    flex: 1;
 }
 
 /* estilo texto ConsoleXpress */
@@ -30,8 +31,8 @@ body {
     font-weight: bold;
     font-family: 'League Spartan';
 }
-  
- /* Cambia color icono de ConsoleXpress  */
+
+/* Cambia color icono de ConsoleXpress */
 .header img {
     height: 55px;
     width: 55px;
@@ -60,12 +61,12 @@ body {
     border-radius: 10px;
     margin: 2px 20px;
     position: relative;
-    height: 85vh; 
+    height: 85vh;
     min-width: 85vh;
     padding-bottom: 0;
-
+    flex-wrap: wrap;
 }
- 
+
 /* Diseño fondo izquierdo */
 .product-details {
     flex: 1;
@@ -73,16 +74,18 @@ body {
     background-color: whitesmoke;
     border-radius: 10px;
     margin-right: 20px;
+    min-width: 300px;
+    box-sizing: border-box;
 }
 
-  /* Diseño del texto nombre del producto */
+/* Diseño del texto nombre del producto */
 .product-details h2 {
     font-size: 18px;
     margin-bottom: 10px;
     font-family: 'Comfortaa';
 }
 
-  /* Diseño del texto Nintendo switch oled */
+/* Diseño del texto Nintendo switch oled */
 .product-details .product-name {
     font-size: 28px;
     margin-bottom: 10px;
@@ -90,7 +93,7 @@ body {
     font-family: 'League Spartan';
 }
 
-/* Linea decorativa  */
+/* Linea decorativa */
 .product-details .product-name::after {
     content: '';
     display: block;
@@ -126,11 +129,9 @@ body {
 
 /* Imagen consola */
 .product-details .product-image img {
-    width: 350px;
+    width: 100%; /* Ajusta la imagen al tamaño del contenedor */
     height: auto;
     margin-right: 10px;
-    position: relative;
-    z-index: 1;
 }
 
 /* Botón de añadir "+" */
@@ -142,7 +143,7 @@ body {
     padding: 18px;
     position: relative;
     z-index: 2;
-    top: 60px;  
+    top: 60px;
     margin-left: -56px;
 }
 
@@ -160,14 +161,14 @@ body {
     z-index: 0;
 }
 
- /* Diseño precio del producto  */
+/* Diseño precio del producto */
 .product-details .product-price {
     font-size: 30px;
     font-weight: bold;
     margin-bottom: 10px;
     margin-left: 400px;
     position: relative;
-    top: -36px; 
+    top: -36px;
     font-family: 'League Spartan';
 }
 
@@ -189,14 +190,13 @@ body {
     border-radius: 0px;
     max-width: 370px;
     transform: translateX(-60px);
-    min-height: 472px; 
+    min-height: 472px;
     margin-top: -22px;
     height: 100%;
     justify-content: center;
-
 }
- 
-  /* Texto de agregar producto en ConsoleXpress */
+
+/* Texto de agregar producto en ConsoleXpress */
 .product-form h2 {
     font-size: 28px;
     margin-bottom: 20px;
@@ -211,7 +211,6 @@ body {
     margin-bottom: 5px;
     font-family: 'League Spartan';
 }
-
 
 /* Diseño información input del producto */
 .product-form input, .product-form select {
@@ -252,7 +251,7 @@ body {
     border-radius: 50%;
     cursor: pointer;
 }
- 
+
 /* flecha izquierda */
 .arrow-left {
     left: -20px;
@@ -261,4 +260,53 @@ body {
 /* flecha derecha */
 .arrow-right {
     right: -20px;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+    .header {
+        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .product-details {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .product-details .product-price {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    /* Asegura que los inputs se ajusten bien */
+    .product-form input, .product-form select {
+        width: 100%;
+        font-size: 14px;
+    }
+}
+
+/* Responsividad para pantallas medianas */
+@media (max-width: 1024px) {
+    .product-details {
+        max-width: 45%;
+    }
+
+    .product-form {
+        max-width: 100%;
+        transform: translateX(0);
+    }
+}
+
+/* Responsividad para pantallas grandes */
+@media (min-width: 1025px) {
+    .product-details {
+        max-width: 50%;
+    }
 }

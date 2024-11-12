@@ -19,6 +19,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Pantalla_prin/style_pantalla.css' %}">
     <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
 
+    <head>
+        <link rel="stylesheet" href="{% static 'ruta/a/tu/style_vista_productos.css' %}">
+    </head>
+    
+
     <title>Pantalla principal ConsoleXpress</title>
 
     <style>
@@ -70,6 +75,9 @@
             </button>
         </div>
 
+      
+        
+    
 
             <!-- MENU PARA USUARIO -->
             <div class="user_user">
@@ -156,42 +164,44 @@
   
 
 
-    <!-- Contenido principal: Título de la página y productos -->
-    <div class="content">
-        <!-- Título de la sección -->
-        <h1>Productos disponibles</h1>
-
-        <div class="product-list">
-            <!-- Card 1 -->
-            <div class="product-card">
-                <img src="https://i.blogs.es/4e64e6/playstation-5/1366_2000.webp" alt="Nintendo Switch OLED" class="product-image">
-                <div class="details">
-                    <h2>Nintendo Switch </h2>
-                    <p class="price">$100</p>
-                    <p class="category">Categoría especial</p>
-                    <p>Consola especial, color rosa con blanco.</p>
-                    <button class="cart-btn">
-                        <i class="bi bi-cart"></i>
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Card 2 -->
-            <div class="product-card">
-                <img src="https://storage.googleapis.com/a1aa/image/IGYeeZGaBTg1TkgWoiTClrvPUEooA88pJtrwsfc37jFMb5FnA.jpg" alt="Nintendo Switch OLED" class="product-image">
-                <div class="details">
-                    <h2>Nintendo Switch </h2>
-                    <p class="price">$100</p>
-                    <p class="category">Categoría especial</p>
-                    <p>Consola especial, color rosa con blanco.</p>
-                    <button class="cart-btn">
-                        <i class="bi bi-cart"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+    <div class="product-list" id="product-list">
+        <!-- Los productos serán insertados aquí por JavaScript -->
     </div>
     
+    <script>
+        // Fetch para obtener las consolas en formato JSON
+        fetch("{% url 'consultar_consolas' %}")
+            .then(response => response.json())
+            .then(data => {
+                const productList = document.getElementById('product-list');
+                // Verifica si hay productos
+                if (data.length > 0) {
+                    data.forEach(producto => {
+                        const productCard = document.createElement('div');
+                        productCard.classList.add('product-card');
+                        
+                        productCard.innerHTML = `
+                            <img src="${producto.imagen}" alt="${producto.nombre}">
+                            <div class="details">
+                                <h2>${producto.nombre}</h2>
+                                <p class="price">$${producto.precio}</p>
+                                <p class="category">${producto.categoria}</p>
+                                <p>${producto.descripcion}</p>
+                                <button class="cart-btn">
+                                    <i class="bi bi-cart"></i>
+                                </button>
+                            </div>
+                        `;
+                        productList.appendChild(productCard);
+                    });
+                } else {
+                    productList.innerHTML = "<p>No hay productos disponibles.</p>";
+                }
+            })
+            .catch(error => console.error('Error al cargar las consolas:', error));
+    </script>
+    
+      
 
    <!-- Menú Deslizable de Compra -->
 <div id="cartMenu" class="cart-menu">
@@ -256,6 +266,8 @@
         cartMenu.classList.remove('show');
     });
 </script>
+
+
 
 
 

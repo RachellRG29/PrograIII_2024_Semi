@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
+from django.shortcuts import render
 import json
 from .models import consola  # Asegúrate de que el modelo se llame correctamente
 from django.views.decorators.csrf import csrf_exempt
@@ -65,7 +66,9 @@ def user_logout(request):
 # Pantalla principal
 #@login_required
 def index_pant_prin(request):
-    return render(request, 'index_pant_prin.html')
+    consolas = consola.objects.all()  # Recupera todos los objetos de la tabla consola
+    return render(request, 'index_pant_prin.html', {'consolas': consolas})
+   
     
 # Verificación de permisos para superusuario
 def superuser_required(view_func):
@@ -274,3 +277,7 @@ def verificar_codigo_existente(request):
 
 def vistaprincipal_producto(request):
     return render(request, 'vistaprincipal_producto.html')  
+
+ 
+
+  
