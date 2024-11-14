@@ -19,9 +19,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Pantalla_prin/style_pantalla.css' %}">
     <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
 
-
-    
-
     <title>Pantalla principal ConsoleXpress</title>
 
     <style>
@@ -43,7 +40,7 @@
         <div class="logo d-flex align-items-center">
             <!-- Logo de ConsoleXpress -->
             <img alt="ConsoleXpress Logo" height="50" style="filter: invert();" src="{% static 'icono_ConsoleXpress.svg '%}" width="40"/>
-            <span class="text-white ms-2">ConsoleXpress</span>
+            <a href="{% url 'index_inicio' %}" class="text-white ms-2">ConsoleXpress</a>
         </div>  
 
               <!-- Categorías -->
@@ -168,7 +165,7 @@
     
     <script>
         // Fetch para obtener las consolas en formato JSON
-        fetch("{% url 'consultar_consolas' %}")
+        fetch("{% url 'consultar_consolas_pant_prin' %}")
             .then(response => response.json())
             .then(data => {
                 const productList = document.getElementById('product-list');

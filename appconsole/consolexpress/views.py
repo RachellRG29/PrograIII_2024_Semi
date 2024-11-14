@@ -107,6 +107,27 @@ def consultar_consolas(request):
     ]
     return JsonResponse(data, safe=False)
 
+#Consultar todas las consolas unicamente para ver en pantalla principal
+#@login_required
+def consultar_consolas_pant_prin(request):
+    datos = consola.objects.all()  
+    data = [
+        {
+            'id': c.id,
+            'imagen': f"{settings.MEDIA_URL}{c.imagen}" if c.imagen else None,  # URL completa de la imagen
+            'codigo': c.codigo,
+            'nombre': c.nombre,
+            'descripcion': c.descripcion,
+            'presentacion': c.presentacion,
+            'categoria': c.categoria,
+            'marca': c.marca,
+            'precio': c.precio,
+            'stock': c.stock,
+        }
+        for c in datos
+    ]
+    return JsonResponse(data, safe=False)
+
 # Función para guardar consola
 @login_required
 @superuser_required
