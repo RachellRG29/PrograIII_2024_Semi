@@ -457,33 +457,31 @@ header {
         right: -400px; /* Oculto inicialmente */
         width: 400px;
         height: 100vh;
-        background: linear-gradient(45deg, #225590, #04315e);
+        background: hsla(0, 0%, 95%, 0.80);
         box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
         transition: right 0.3s ease;
         z-index: 1050;
-
         display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-
-    }
+        flex-direction: column;
+        justify-content: space-between;
+        }
 
         .cart-menu.show {
         right: 0; /* Se muestra cuando se añade la clase .show */
     }
 
+    /* diseño de la parte superior del menu */
     .cart-menu-header {
         position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 10px;;
-        border-bottom: 1px solid #1a1919;
-        background: linear-gradient(#dc3e57, #e1646e);
-    }
-    
-    .cart-title {
+        border-bottom: 1px solid #dc3e57;
+        background:hsla(0, 0%, 95%, 0.80);
+        color:#dc3e57;
+        }
+    .cart-title {/* Posicion del titulo del menu */
         flex: 1;
         text-align: center;
        font-weight: bold;
@@ -492,30 +490,92 @@ header {
     .close-button {
         background: none; 
         border: none; 
-        color: white; 
+        color: #dc3e57; 
         font-size: 1.5em; 
         cursor: pointer; 
         padding: 0;
     }
-    
     .close-button:hover {
-        color: red;
+        color: red  ;
     }
-    
     .close-button .X::before {
         content: "✕"; 
         font-size: inherit; 
         color: inherit; 
     }
     
-
+    .cart-menu-footer {
+        margin-top: auto;
+        padding: 10px;
+        display: flex;
+        flex-direction: column; /* Apilar etiquetas y botón verticalmente */
+        align-items: center; /* Centrar el botón horizontalmente */
+        background-color: #0c0c0c;
+        box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+    }
     
+    .labels-container {
+        width: 100%; /* Ocupa todo el ancho del contenedor */
+        display: flex;
+        justify-content: space-between; /* Coloca las etiquetas en los extremos */
+        margin-bottom: 10px; /* Espacio entre las etiquetas y el botón */
+    }
     
-   .cart-menu-footer {
-    margin-top: auto; /* Empuja el pie de página hacia abajo */
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    background-color: #0c0c0c; /* Color de fondo opcional para el pie de página */
-    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Sombra opcional para separación */
-}
+    .compramenu {
+        text-align: left; /* Alinea el texto de la etiqueta a la izquierda */
+    }
+    
+    .total-compra {
+        text-align: right; /* Alinea el texto de la etiqueta a la derecha */
+    }
+    
+    .btn-continuarcompra {
+        width: 130px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(15, 15, 15);
+        border: none;
+        color: white;
+        font-weight: 600;
+        gap: 8px;
+        cursor: pointer;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
+        position: relative;
+        overflow: hidden;
+        transition-duration: .3s;
+    }
+    
+    .svgIcon {
+        width: 16px;
+    }
+    
+    .svgIcon path {
+        fill: white;
+    }
+    
+    /* Animación del pseudo-elemento ::before */
+    .btn-continuarcompra::before {
+        width: 130px;
+        height: 130px;
+        position: absolute;
+        content: "";
+        background-color: red;
+        border-radius: 50%;
+        left: -100%;
+        top: 0;
+        transition: transform 0.3s ease, border-radius 0.3s ease;
+        mix-blend-mode: difference;
+    }
+    
+    .btn-continuarcompra:hover::before {
+        transform: translate(100%, -50%);
+        border-radius: 0;
+    }
+    
+    .btn-continuarcompra:active {
+        transform: translate(5px, 5px);
+        transition-duration: .3s;
+    }
+    
