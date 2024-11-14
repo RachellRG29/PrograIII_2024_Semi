@@ -150,20 +150,20 @@ header {
     min-width: 120px;
 }
 
-.user-menuAdmin .btn_logout_admin {
-    width: 100%;
+.user-menuAdmin .btn_logout_admin, .btn_iniciarsesion_admin {
+    width: 100%; 
     color: #333;
     text-align: left;
     padding: 8px;
     border: none;
     cursor: pointer;
-    border-radius: 8px;
     transition: background-color 0.3s;
 }
 
-.user-menuAdmin .btn_logout_admin:hover {
-    background-color: #e1646e;
+.user-menuAdmin:hover {
+    background-color:  #ffffffe0;;
     color: white;
+    border-radius: 8px;
 }
 
 

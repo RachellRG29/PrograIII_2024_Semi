@@ -43,7 +43,7 @@
                 <div class="logo d-flex align-items-center">
                     <!-- Logo de ConsoleXpress -->
                     <img alt="ConsoleXpress Logo" height="50" style="filter: invert();" src="{% static 'icono_ConsoleXpress.svg '%}" width="40"/>
-                    <span class="text-white ms-2">ConsoleXpress</span>
+                    <a href="{% url 'index_inicio' %}" class="text-white ms-2" style="text-decoration: underline dotted #e1646e;">ConsoleXpress</a>
                 </div>  
 
                 <!-- Navbar para enlaces del CRUD -->
@@ -80,9 +80,21 @@
         
                     <!-- Menú desplegable de usuario -->
                     <div id="user-menuAdmin" class="user-menuAdmin">
-                        <a href="{% url 'user_logout' %}" class="btn_logout_admin">
-                            <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Logout
-                        </a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'user_logout' %}" class="btn_logout_admin">
+                                <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Logout
+                            </a>
+
+                        {% else %}    
+                            <!-- Mostrar "Iniciar sesión" si el usuario administrador no está autenticado -->
+                            <a href="{% url 'index_login' %}" class="btn_iniciarsesion_admin">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="#000000" width="20px" height="20px">
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                                </svg> Iniciar sesión
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
 

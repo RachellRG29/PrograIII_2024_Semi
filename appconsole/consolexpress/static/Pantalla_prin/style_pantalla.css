@@ -27,7 +27,13 @@
 /* Header */
 header {
     background-color: #e1646e;
-    padding: 0px 20px;
+    padding: 0px 20px; /* Ajusta el padding según lo necesites */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; 
+    flex-wrap: wrap;
 }
 
 /* Navbar */
@@ -38,7 +44,6 @@ header {
     color: white;
     font-family: 'League Spartan';
 }
-
 
 /* Logo alineado a la izquierda */
 .logo{
@@ -117,14 +122,17 @@ header {
     transition: background-color 0.3s;
 }
 
+.btn_CompraMenu:hover{
+    background-color:  #dc3e57;
+}
+
 .btn_user_img svg,
 .btn_CompraMenu svg{
     fill: white;
 }
 
-
-.btn_CompraMenu:hover{
-    background-color:  #dc3e57;
+.btn_user_img:hover {
+    background-color: #dc3e57;
 }
 
 /* Estilos para el menú de usuario */
@@ -147,9 +155,8 @@ header {
     min-width: 120px;
 }
 
-.user-menu .btn_logout {
-    width: 100%;
-    background-color: transparent;
+.user-menu .btn_logout, .btn_iniciarsesion, .btn_superuserCrudAdmi {
+    width: 100%; 
     color: #333;
     text-align: left;
     padding: 8px;
@@ -158,7 +165,7 @@ header {
 }
 
 .user-menu:hover {
-    background-color:  #dc3e57;
+    background-color:  #ffffffe0;;
     color: white;
     border-radius: 8px;
 }
@@ -192,12 +199,21 @@ header {
     font-weight: 700;
 }
 
-/* Contenedor de la lista de productos */
+
+/*CONTENEDOR DE LA LISTA DE PRODUCTOS - TARJETAS consolas*/
 .product-list {
+    margin-top: 80px;
+    padding: 20px; 
     display: flex;
-    flex-wrap: wrap; 
-    justify-content: flex-start; 
-    padding: 20px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+ 
+}  
+
+/* Clase que hace que las tarjetas se dispongan en columnas */
+.product-list.column-view {
+    flex-direction: column;
+    align-items: flex-start; /* Centra las tarjetas cuando están en columnas */
 }
 
 /* Estilo de las cards */
@@ -578,4 +594,5 @@ header {
         transform: translate(5px, 5px);
         transition-duration: .3s;
     }
-    
+
+  
