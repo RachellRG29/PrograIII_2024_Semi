@@ -111,12 +111,38 @@
                 <form method="POST" action="{% url 'index_login' %}" onsubmit="return handleLogin();">
                     {% csrf_token %}
                     <input name="username" placeholder="Usuario" type="text" required />
-                    <input name="password" placeholder="Contraseña" type="password" required />
                     
-                    <a href="#" class="forgot-password">¿Olvidaste la contraseña?</a>
+                    <div class="input-container">
+                      <input name="password" id="passwordInput" placeholder="Contraseña" type="password" class="form-control" required />
+                      <span type="button" id="togglePassword" style="cursor: pointer;">
+                          <i class="bi bi-eye-fill" id="toggleIcon"></i>
+                      </span>
+                  </div>
+                    
+                    <a href="#" class="forgot-password" style="color: #004182;">¿Olvidaste la contraseña?</a>
                     
                     <button class="btn-login" type="submit">INGRESAR</button>
                 </form>
+
+                <script>
+                  // Selecciona el campo de contraseña y el ícono de alternar
+                  const passwordInput = document.getElementById('passwordInput');
+                  const togglePassword = document.getElementById('togglePassword');
+                  const toggleIcon = document.getElementById('toggleIcon');
+              
+                  // Función para alternar la visibilidad de la contraseña
+                  togglePassword.addEventListener('click', () => {
+                      if (passwordInput.type === 'password') {
+                          passwordInput.type = 'text';
+                          toggleIcon.classList.remove('bi-eye-fill');
+                          toggleIcon.classList.add('bi-eye-slash-fill');
+                      } else {
+                          passwordInput.type = 'password';
+                          toggleIcon.classList.remove('bi-eye-slash-fill');
+                          toggleIcon.classList.add('bi-eye-fill');
+                      }
+                  });
+              </script>
 
                 
             </div>

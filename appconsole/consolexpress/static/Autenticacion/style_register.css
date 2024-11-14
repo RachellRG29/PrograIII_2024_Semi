@@ -1,6 +1,7 @@
 *{
     box-sizing: border-box;
     scrollbar-width: none;
+    font-family: 'Comfortaa';
 }
 
 .container {
@@ -131,37 +132,62 @@
 
 /*linea decorativa*/
 .line{
-    position: relative;
-    justify-self: center;
-    bottom: 6px;
-    margin-bottom: 20px;
-    width: calc(50% - 10px);
-    height: 2.5px;
-    background: linear-gradient(to right, #004182,#dc3e57, #e1646e);
+  margin-bottom: 50px;
+  width: calc(39% - 10px);
+  height: 2.5px;
+  background: linear-gradient(to right, #004182, #dc3e57, #e1646e);
+  margin:0 auto;
+  margin-bottom: 20px;
 }
 
 /*FORM REGISTER*/
-/* inputs de los formularios*/
-form input {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: none;
-    border-radius: 25px;
-    font-size: 16px;
-    width: 90%;
-    font-family: 'Comfortaa';
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100vh;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-form input:focus {
-    outline: none;
-  }
+/* inputs de los formularios*/
+form input {
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 16px;
+  width: 100%;
+  font-family: 'Comfortaa';
+  position: relative; 
+}
 
-form input:focus-within {
-    border: 1.5px solid #dc3e57;
-  }
+/* Contenedor para la contraseña */
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Estilo del ícono de mostrar/ocultar contraseña */
+.input-container span {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #dc3e57;
+  cursor: pointer;
+}
+
+/* Estilo de los inputs cuando están en foco */
+form input:focus {
+  outline: none;
+  border: 1.5px solid #dc3e57;
+}
 
 /* Estilo del botón de registro */
-form .btn-register {
+.btn-register {
     position: relative;
     width: 40%; 
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
@@ -182,19 +208,20 @@ form .btn-register {
     font-size: 15px;
     margin-bottom: 20px;
     top: 20px;
+    margin: 0 auto;  /* Esto centra el botón */
 
 }
 
-form .btn-register:hover {
+.btn-register:hover {
     transform: scale(1.05);
     border-color: #fff9;
 }
 
-form .btn-register:hover::before {
+.btn-register:hover::before {
     animation: shine 1.5s ease-out infinite;
-  }
+}
   
- form .btn-register::before {
+.btn-register::before {
     content: "";
     position: absolute;
     width: 100px;

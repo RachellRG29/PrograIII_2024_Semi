@@ -37,6 +37,12 @@ body {
 header {
     background-color: #dc3e57;
     padding: 0px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; 
+    flex-wrap: wrap;
 }
 
 /* Navbar */
@@ -70,6 +76,7 @@ header {
     flex-grow: 1;
     justify-content: center;
     list-style: none;
+    font-size: 18px;
 }
 
 .nav-links li {
@@ -174,16 +181,3 @@ header {
     padding: 10px;
     
 }
-
-
-/*
-.table-glass {
-    background: rgba(255, 255, 255, 0.15); 
-    border-radius: 12px;
-    backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px); 
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-}
-*/
-

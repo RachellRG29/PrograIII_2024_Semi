@@ -1,6 +1,7 @@
 * {
     box-sizing: border-box;
     scrollbar-width: none;
+    font-family: 'Comfortaa';
 }
 
 .container {
@@ -119,26 +120,54 @@
     width: calc(39% - 10px);
     height: 2.5px;
     background: linear-gradient(to right, #004182, #dc3e57, #e1646e);
-    margin-left: 162px;
+    margin:0 auto;
+    margin-bottom: 20px;
+}
+
+/*FORM LOGIN*/
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100vh;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 /* Inputs de formulario */
 form input {
-    margin-bottom: 15px;
+    box-sizing: border-box;
     padding: 10px;
-    border: none;
+    border: 1px solid #ccc;
     border-radius: 25px;
     font-size: 16px;
-    width: 90%;
+    width: 100%;
     font-family: 'Comfortaa';
+    position: relative; 
     
 }
 
-form input:focus {
-    outline: none;
+/* Contenedor para la contraseña */
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
-form input:focus-within {
+/* Estilo del ícono de mostrar/ocultar contraseña */
+.input-container span {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #dc3e57;
+    cursor: pointer;
+}
+
+/* Estilo de los inputs cuando están en foco */
+form input:focus {
+    outline: none;
     border: 1.5px solid #dc3e57;
 }
 
@@ -147,50 +176,45 @@ form input:focus-within {
     text-decoration: underline; 
     color: black; 
     display: inline-block;
-    margin-top: 7px; 
     font-size: 14px;
     font-family: 'comfortaa';
     margin-top: 10px;
-    left: -50px; 
     position: relative;
-
-  }
+}
 
 /* Estilo del botón de ingresar */
-form .btn-login {
+.btn-login {
     position: relative;
-    width: 40%; 
+    width: 60%; /* Ajusta el tamaño si es necesario */
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-    padding-block: 0.7rem; 
-    padding-inline: 1.25rem; 
+    padding-block: 0.7rem;
+    padding-inline: 1.25rem;
     background-color: #dc3e57;
     transition: all 0.3s ease-in-out;
     border-radius: 10px;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
-    color: #ffff;
-    gap: 10px;
+    color: #fff;
+    gap: 20px;
     font-weight: bold;
     border: 3px solid #ffffff4d;
     outline: none;
     overflow: hidden;
     font-size: 15px;
-    margin-bottom: 20px;
-    top: 55px;
-    left: -104px; 
+    top: 20px;
+    margin: 0 auto;  /* Esto centra el botón */
+
 }
 
-form .btn-login:hover {
+.btn-login:hover {
     transform: scale(1.05);
     border-color: #fff9;
 }
 
-form .btn-login:hover::before {
+.btn-login:hover::before {
     animation: shine 1.5s ease-out infinite;
   }
 
-  form .btn-login::before {
+.btn-login::before {
     content: "";
     position: absolute;
     width: 100px;
