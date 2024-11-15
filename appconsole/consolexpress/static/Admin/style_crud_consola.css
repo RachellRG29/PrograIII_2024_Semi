@@ -1,0 +1,163 @@
+    /*CRUD CONSOLAS - FORMULARIO Y BASE DE DATOS DE PRODUCTOS CONSOLAS*/
+/*SearchConsola*/
+.custom-input {
+    background-color: rgba(255, 255, 255, 0.7)  !important; 
+    border: 1px solid rgba(220, 62, 87, 0.7) !important; 
+    backdrop-filter: blur(10px); 
+    color: black !important; 
+}
+.custom-input::placeholder {
+    color: rgba(0, 0, 0, 0.7) !important; 
+}
+
+.custom-input:focus {
+    background-color: rgba(225, 255, 255, 0.9) !important; 
+    border-color: #dc3e57 !important; 
+    box-shadow: 0 0 0 0.2rem rgba(220, 62, 87, 0.4) !important; 
+}
+
+/*CRUD CONSOLAS TABLA*/
+table {
+    font-size: 1rem;
+    border-radius: 16px;
+    overflow: hidden;  
+        
+}
+
+.customTable {
+    background: rgba(31, 31, 31, 0.8) !important;
+    border-radius: 16px;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.customTable thead {
+    background-color: rgba(19, 18, 18, 0.7);
+    color: #ffffff;
+    text-align: center;
+}
+
+.customTable thead th {
+    padding: 15px;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.customTable tbody td {
+    padding: 10px;
+    font-size: 0.93rem;
+    color: #eaeaea;
+    text-align: center;
+    background-color: rgba(31, 31, 31, 0.5);
+}
+
+.customTable tr:nth-child(even){background: rgba(31, 31, 31, 0.9);}
+
+.customTable tbody tr:hover {
+    background-color: rgba(228, 30, 60, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+
+    /*Boton editar*/
+    .btnEditar {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid rgb(32, 32, 32);
+    background-color: rgb(255, 222, 77);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.123);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    }
+    .btnEditar::before {
+    content: "";
+    width: 200%;
+    height: 200%;
+    background-color: rgb(255, 178, 44);
+    position: absolute;
+    z-index: 1;
+    transform: scale(0);
+    transition: all 0.3s;
+    border-radius: 50%;
+    filter: blur(10px);
+    }
+
+    .btnEditar:hover::before {
+    transform: scale(1);
+    }
+    .btnEditar:hover {
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.336);
+    }
+    .btnEditar svg {
+    height: 17px;
+    fill: #202020;
+    z-index: 3;
+    transition: all 0.2s;
+    transform-origin: bottom;
+    }
+    .btnEditar:hover svg {
+    transform: rotate(-15deg) translateX(5px);
+    }
+    .btnEditar::after {
+    content: "";
+    width: 20px;
+    height: 1.5px;
+    position: absolute;
+    bottom: 9px; /*linea de trazo posicion*/
+    left: -5px;
+    background-color: rgb(32, 32, 32);
+    border-radius: 2px;
+    z-index: 2;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease-out;
+    }
+    .btnEditar:hover::after {
+    transform: scaleX(1);
+    left: 0px;
+    transform-origin: right;
+    }
+   
+
+    /* Boton eliminar*/
+    .btnEliminar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: rgb(255, 100, 110);
+    cursor: pointer;
+    border: 2px solid rgb(32, 32, 32);
+    transition-duration: 0.3s;
+    fill: #202020;
+    }
+    .bin-bottom {
+    width: 15px;   
+    }
+    .bin-top {
+    width: 17px;
+    transform-origin: right;
+    transition-duration: 0.3s;
+    }
+    .btnEliminar:hover .bin-top {
+    transform: rotate(45deg);
+    }
+    .btnEliminar:hover {
+    background-color: rgb(210, 19, 18);
+    }
+    .btnEliminar:active {
+    transform: scale(0.9);
+    }
