@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.urls import path
 from consolexpress.views import (index_inicio, index_login, user_logout, index_register, index_pant_prin, 
                                  crud_admi, guardar_consola, consultar_consolas, editar_consola, consultar_consola_edit, eliminar_consola, verificar_codigo_existente,
-                                 consultar_consolas_pant_prin,vistaprincipal_producto,chatbotIA)
+                                 consultar_consolas_pant_prin,vistaprincipal_producto,chatbotIA,chat)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +23,7 @@ urlpatterns = [
     path('verificar_codigo_existente/', verificar_codigo_existente, name='verificar_codigo_existente'),
     path('vistaprincipal_producto/', vistaprincipal_producto, name='vistaprincipal_producto'),   
     path('chatbotIA/', chatbotIA, name='chatbotIA'), 
+    path('chat/', chat, name='chat'),
 ]
 
 if settings.DEBUG:
