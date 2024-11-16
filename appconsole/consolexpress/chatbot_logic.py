@@ -1,9 +1,3 @@
-from flask import Flask, request, jsonify, render_template
-import nltk
-from nltk.chat.util import Chat, reflections
-import time
-from fuzzywuzzy import fuzz  # Importar fuzzywuzzy para coincidencia aproximada
-
 # Definición de pares de preguntas y respuestas
 pairs = [
     # Saludos
@@ -102,39 +96,3 @@ pairs = [
     (r"gracias|muchas gracias|te agradezco|gracias por tu ayuda", ["¡De nada! Si tienes más preguntas, no dudes en preguntar."]),
     (r"adios|hasta luego|nos vemos|hasta pronto", ["¡Hasta luego! Que tengas un buen día."]),
 ]
-
-# Inicializando el chatbot
-chatbot = Chat(pairs, reflections)
-
-# Configuración de la aplicación Flask
-app = Flask(__name__)
-
-# Función para encontrar la pregunta más cercana usando fuzzywuzzy
-def get_closest_match(user_input):
-    closest_match = None
-    highest_score = 0
-    for pattern, responses in pairs:
-        score = fuzz.ratio(user_input, pattern)  # Calcular similitud
-        if score > highest_score:
-            highest_score = score
-            closest_match = responses[0]
-    return closest_match if highest_score >= 60 else "Lo siento, no entiendo lo que quieres consultar."
-
-@app.route("/")
-def home():
-    return render_template("chatbotIA.html")
-
-@app.route("/chat", methods=["POST"])
-def chat():
-    user_input = request.form["message"]
-    response = chatbot.respond(user_input)
-    
-    # Si no hay respuesta exacta, buscar coincidencia aproximada
-    if response is None:
-        response = get_closest_match(user_input)
-    
-    time.sleep(0.3)  # Esperar 0.3 segundos antes de enviar la respuesta
-    return jsonify({"response": response})
-
-if __name__ == "__main__":
-    app.run(debug=True)

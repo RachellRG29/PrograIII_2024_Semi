@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
 from django.shortcuts import render
-import json
 from .models import consola  # Asegúrate de que el modelo se llame correctamente
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
@@ -11,6 +10,12 @@ from django.contrib.auth.models import User #Para conectar con la base de datos 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages #mandar mensajes con sweetalert2
+from nltk.chat.util import Chat, reflections
+from fuzzywuzzy import fuzz
+from .chatbot_logic import pairs
+import json
+import time
+
 
 # Create your views here.
 def index_inicio(request):
@@ -299,8 +304,32 @@ def verificar_codigo_existente(request):
 def vistaprincipal_producto(request):
     return render(request, 'vistaprincipal_producto.html')  
 
+#CHATBOT IA IMPLEMENTOS
+# Inicializando el chatbot
+chatbot = Chat(pairs, reflections)
+
+# Función para encontrar la pregunta más cercana usando fuzzywuzzy
+def get_closest_match(user_input):
+    closest_match = None
+    highest_score = 0
+    for pattern, responses in pairs:
+        score = fuzz.ratio(user_input, pattern)
+        if score > highest_score:
+            highest_score = score
+            closest_match = responses[0]
+    return closest_match if highest_score >= 60 else "Lo siento, no entiendo lo que quieres consultar."
+
 #Chatbot ia
 def chatbotIA(request):
     return render(request, 'chatbotIA.html')
 
-  
+@csrf_exempt
+def chat(request):
+    if request.method == "POST":
+        user_input = request.POST.get("message", "")
+        response = chatbot.respond(user_input)
+        if response is None:
+            response = get_closest_match(user_input)
+        time.sleep(0.3)  # Esperar 0.3 segundos antes de enviar la respuesta
+        return JsonResponse({"response": response})
+    return JsonResponse({"error": "Invalid request"}, status=400)
