@@ -216,6 +216,76 @@ fetch('register/', {
 
     </script>
 
+
+
+<!-- 
+
+<form method="POST" action="{% url 'index_register' %}" id="formRegister" onsubmit="return handleSubmit();"> 
+  {% csrf_token %}
+  <input name="username" id="usernameInput" placeholder="Usuario" type="text" required />
+  <input name="email" id="emailInput" placeholder="Correo electrónico" type="email" required />
+
+
+  <div class="input-container"> 
+    <input name="password" id="passwordInput" placeholder="Contraseña" type="password" class="form-control" required>
+    <span type="button" id="togglePassword" style="cursor: pointer;">
+      <i class="bi bi-eye-fill" id="toggleIcon"></i>
+    </span>
+  </div>
+                    
+  <input name="confirm_password" id="confirmPasswordInput" placeholder="Confirmar contraseña" type="password" required />
+
+  <button class="btn-register" type="submit">REGISTRAR</button>
+</form>
+
+
+  function handleSubmit() {
+    const usernameInput = document.getElementById('usernameInput');
+    const emailInput = document.getElementById('emailInput');
+    const username = usernameInput.value.trim();
+    const email = emailInput.value.trim();
+
+    // Validar que el nombre de usuario solo contenga letras y números
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
+    if (!usernameRegex.test(username)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Usuario inválido',
+        text: 'El nombre de usuario solo puede contener letras y números.',
+        confirmButtonText: 'Aceptar'
+      });
+      return false; // Evitar el envío del formulario
+    }
+
+    // Validar que el correo sea de Gmail
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!emailRegex.test(email)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Correo inválido',
+        text: 'El correo electrónico debe ser un correo de Gmail.',
+        confirmButtonText: 'Aceptar'
+      });
+      return false; // Evitar el envío del formulario
+    }
+
+    return true; // Permitir el envío del formulario si las validaciones son correctas
+  }
+
+  // Mostrar/ocultar contraseña
+  const togglePassword = document.getElementById('togglePassword');
+  togglePassword.addEventListener('click', function () {
+    const passwordInput = document.getElementById('passwordInput');
+    const toggleIcon = document.getElementById('toggleIcon');
+    const isPasswordVisible = passwordInput.type === 'password';
+
+    passwordInput.type = isPasswordVisible ? 'text' : 'password';
+    toggleIcon.classList.toggle('bi-eye-fill');
+    toggleIcon.classList.toggle('bi-eye-slash-fill');
+  });
+
+
+-->
     
 </body>
 </html>

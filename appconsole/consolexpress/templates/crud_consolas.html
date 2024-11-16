@@ -8,96 +8,77 @@
 </head>
 <body>
 
-         <!-- Contenedor del formulario que aparece al hacer clic en "Consolas" -->
-         <form class="frmAbrirConsola container-fluid d-none " id="formularioConsolasContainer" style="margin-top: 80px;">
-            <div class="card" style="background: rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 0px; border: 1px solid rgba(255, 255, 255, 0.3); ">
-                <div class="card-header" style="color: #333;">
-                    <div class="d-flex justify-content-between align-items-center">
-                        Consolas agregadas
-                        <button type="button" class="btn-close btn-custom" aria-label="Close" onclick="cerrarFormulario()"></button>
+<!-- Contenedor del formulario que aparece al hacer clic en "Consolas" -->
+<form class="frmAbrirConsola container-fluid d-none " id="formularioConsolasContainer" style="margin-top: 80px;">
+    <div class="card" style="background: rgba(255, 255, 255, 0.3); border-radius: 16px; padding: 0px; border: 1px solid rgba(255, 255, 255, 0.3); ">
+        <div class="card-header" style="color: #333;">
+            <div class="d-flex justify-content-between align-items-center">
+                Consolas agregadas
+                <button type="button" class="btn-close btn-custom" aria-label="Close" onclick="cerrarFormulario()"></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <!-- Botón para agregar una nueva consola -->
+                <button type="button" id="btnAgregarConsola" class="btn btnAgregar" data-bs-toggle="popover" title="Agregar Consola" data-bs-html="true">
+                    Agregar consola 
+                    <div class="icon">
+                        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><defs>
+                            <style>.cls-1{fill:none;stroke:#dc3e57;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs>
+                            <title/><g id="plus"><line class="cls-1" x1="16" x2="16" y1="7" y2="25"/>
+                            <line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
                     </div>
-                </div>
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <!-- Botón para agregar una nueva consola -->
-                        <button type="button" id="btnAgregarConsola" class="btn btnAgregar" data-bs-toggle="popover" title="Agregar Consola" data-bs-html="true">
-                            Agregar consola 
-                            <div class="icon">
-                                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><defs>
-                                    <style>.cls-1{fill:none;stroke:#dc3e57;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs>
-                                    <title/><g id="plus"><line class="cls-1" x1="16" x2="16" y1="7" y2="25"/>
-                                    <line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
-                            </div>
-                        </button>
-        
-                        <script>
-                        //FORMULARIO ABRIR NUEVA CONSOLA DENTRO DEL CRUD_ADMI.HMTL
-                        // Función para mostrar el popover
-                        document.getElementById("btnAgregarConsola").addEventListener("click", function () {
-                            document.getElementById("popoverConsola").style.display = "block";
-                        });
-        
-                        // Función para cerrar el popover
-                        function cerrarPopover() {
-                            document.getElementById("popoverConsola").style.display = "none";
-                        }
-                        </script>
-        
-                        <!-- Caja de búsqueda -->
-                        <div class="col-8">
-                            <input type="text" id="searchConsola" class="form-control custom-input" placeholder="Buscar consolas" oninput="buscarConsolas()">
-                        </div>
-                    </div>
+                </button>
 
-                <style>
-                    /*SearchConsola*/
-                    .custom-input {
-                        background-color: rgba(255, 255, 255, 0.7)  !important; 
-                        border: 1px solid rgba(220, 62, 87, 0.7) !important; 
-                        backdrop-filter: blur(10px); 
-                        color: black !important; 
-                    }
-                    .custom-input::placeholder {
-                        color: rgba(0, 0, 0, 0.7) !important; 
-                    }
-                    
-                    .custom-input:focus {
-                        background-color: rgba(225, 255, 255, 0.9) !important; 
-                        border-color: #dc3e57 !important; 
-                        box-shadow: 0 0 0 0.2rem rgba(220, 62, 87, 0.4) !important; 
-                    }
-                </style>  
-                    
+                <script>
+                //FORMULARIO ABRIR NUEVA CONSOLA DENTRO DEL CRUD_ADMI.HMTL
+                // Función para mostrar el popover
+                document.getElementById("btnAgregarConsola").addEventListener("click", function () {
+                    document.getElementById("popoverConsola").style.display = "block";
+                });
 
-                    <!-- TABLA DE LAS CONSOLAS AGREGADAS -->
-                    <div class="table-responsive">
-                        <table class="customTable" id="tblConsolas">
-                            <thead>
-                                <tr>
-                                    <th>Código</th>
-                                    <th>Imagen</th>
-                                    <th>Nombre</th>
-                                    <th>Descripción</th>
-                                    <th>Presentación</th>
-                                    <th>Categoría</th>
-                                    <th>Marca</th>
-                                    <th>Precio</th>
-                                    <th>Stock</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody id="consolasBody">
-                                <!-- Aquí irán las filas de consolas agregadas -->
-                            </tbody>
-                        </table>
-                    </div>
+                // Función para cerrar el popover
+                function cerrarPopover() {
+                    document.getElementById("popoverConsola").style.display = "none";
+                }
+                </script>
+
+                <!-- Caja de búsqueda -->
+                <div class="col-8">
+                    <input type="text" id="searchConsola" class="form-control custom-input" placeholder="Buscar consolas" oninput="buscarConsolas()">
                 </div>
             </div>
-        </form>
+
+
+            <!-- TABLA DE LAS CONSOLAS AGREGADAS -->
+            <div class="table-responsive">
+                <table class="customTable" id="tblConsolas">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Presentación</th>
+                            <th>Categoría</th>
+                            <th>Marca</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="consolasBody">
+                        <!-- Aquí irán las filas de consolas agregadas -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
         
-            <!-- Modal para Agregar Consola -->
-            {% include 'consolas.html' %}
+<!-- Modal para Agregar Consola -->
+{% include 'consolas.html' %}
                
 
 <!-- SCRIPT PRINCIPAL PARA EL FORMULARIO CONSOLAS (CRUD)-AGREGAR-EDITAR-ELIMINAR-ACTUALIZAR -->
@@ -415,209 +396,64 @@
         
         
         
-        <!-- Diseño de tabla, botones, Crud -->
-        <style>
-            table {
-                font-size: 1rem;
-                border-radius: 16px;
-                overflow: hidden;  
-                    
-            }
-        
-            .customTable {
-                background: rgba(31, 31, 31, 0.8) !important;
-                border-radius: 16px;
-                overflow: hidden;
-                width: 100%;
-                margin-top: 20px;
-                border-collapse: separate;
-                border-spacing: 0;
-            }
-        
-            .customTable thead {
-                background-color: rgba(19, 18, 18, 0.7);
-                color: #ffffff;
-                text-align: center;
-            }
-        
-            .customTable thead th {
-                padding: 15px;
-                font-size: 0.95rem;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-            }
-        
-            .customTable tbody td {
-                padding: 10px;
-                font-size: 0.93rem;
-                color: #eaeaea;
-                text-align: center;
-                background-color: rgba(31, 31, 31, 0.5);
-            }
-        
-            .customTable tr:nth-child(even){background: rgba(31, 31, 31, 0.9);}
-        
-            .customTable tbody tr:hover {
-                background-color: rgba(228, 30, 60, 0.3);
-                transition: background-color 0.3s ease;
-            }
-        
-            /*Boton agregar*/
-            .btnAgregar {
-            background:linear-gradient(to right, #dc3e57, #FFC700);
-            color: white;
-            font-family: inherit;
-            padding: 0.35em;
-            padding-left: 1.2em;
-            font-size: 17px;
-            font-weight: 500;
-            border-radius: 0.9em;
-            border: none;
-            letter-spacing: 0.05em;
-            display: flex;
-            align-items: center;
-            box-shadow: inset 0 0 1.6em -0.6em #dc3e57;
-            overflow: hidden;
-            position: relative;
-            height: 2.8em;
-            padding-right: 3.3em;
-            }
-        
-            .btnAgregar .icon {
-            background: white;
-            margin-left: 1em;
-            position: absolute;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 2.2em;
-            width: 2.2em;
-            border-radius: 0.7em;
-            box-shadow: 0.1em 0.1em 0.6em 0.2em #dc3e57;
-            right: 0.3em;
-            transition: all 0.3s;
-            }
-        
-            .btnAgregar:hover .icon {
-            width: calc(100% - 0.6em);
-            }
-        
-            .btnAgregar .icon svg {
-            width: 1.1em;
-            transition: transform 0.3s;
-            color: #dc3e57;
-            }
-        
-            .btnAgregar:hover .icon svg {
-            transform: translateX(0.1em);
-            }
-        
-            .btnAgregar:active .icon {
-            transform: scale(0.95);
-            }
-        
-        
-            /*Boton editar*/
-            .btnEditar {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            border: 2px solid rgb(32, 32, 32);
-            background-color: rgb(255, 222, 77);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.123);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-            }
-            .btnEditar::before {
-            content: "";
-            width: 200%;
-            height: 200%;
-            background-color: rgb(255, 178, 44);
-            position: absolute;
-            z-index: 1;
-            transform: scale(0);
-            transition: all 0.3s;
-            border-radius: 50%;
-            filter: blur(10px);
-            }
-        
-            .btnEditar:hover::before {
-            transform: scale(1);
-            }
-            .btnEditar:hover {
-            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.336);
-            }
-            .btnEditar svg {
-            height: 17px;
-            fill: #202020;
-            z-index: 3;
-            transition: all 0.2s;
-            transform-origin: bottom;
-            }
-            .btnEditar:hover svg {
-            transform: rotate(-15deg) translateX(5px);
-            }
-            .btnEditar::after {
-            content: "";
-            width: 20px;
-            height: 1.5px;
-            position: absolute;
-            bottom: 9px; /*linea de trazo posicion*/
-            left: -5px;
-            background-color: rgb(32, 32, 32);
-            border-radius: 2px;
-            z-index: 2;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.5s ease-out;
-            }
-            .btnEditar:hover::after {
-            transform: scaleX(1);
-            left: 0px;
-            transform-origin: right;
-            }
-           
-        
-            /* Boton eliminar*/
-            .btnEliminar {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background-color: rgb(255, 100, 110);
-            cursor: pointer;
-            border: 2px solid rgb(32, 32, 32);
-            transition-duration: 0.3s;
-            fill: #202020;
-            }
-            .bin-bottom {
-            width: 15px;   
-            }
-            .bin-top {
-            width: 17px;
-            transform-origin: right;
-            transition-duration: 0.3s;
-            }
-            .btnEliminar:hover .bin-top {
-            transform: rotate(45deg);
-            }
-            .btnEliminar:hover {
-            background-color: rgb(210, 19, 18);
-            }
-            .btnEliminar:active {
-            transform: scale(0.9);
-            }
-        
-    
-        </style>
+<!-- Diseño de tabla, botones, Crud -->
+<style>
+
+    /*Boton agregar*/
+    .btnAgregar {
+    background:linear-gradient(to right, #dc3e57, #FFC700);
+    color: white;
+    font-family: inherit;
+    padding: 0.35em;
+    padding-left: 1.2em;
+    font-size: 17px;
+    font-weight: 500;
+    border-radius: 0.9em;
+    border: none;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0 0 1.6em -0.6em #dc3e57;
+    overflow: hidden;
+    position: relative;
+    height: 2.8em;
+    padding-right: 3.3em;
+    }
+
+    .btnAgregar .icon {
+    background: white;
+    margin-left: 1em;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.2em;
+    width: 2.2em;
+    border-radius: 0.7em;
+    box-shadow: 0.1em 0.1em 0.6em 0.2em #dc3e57;
+    right: 0.3em;
+    transition: all 0.3s;
+    }
+
+    .btnAgregar:hover .icon {
+    width: calc(100% - 0.6em);
+    }
+
+    .btnAgregar .icon svg {
+    width: 1.1em;
+    transition: transform 0.3s;
+    color: #dc3e57;
+    }
+
+    .btnAgregar:hover .icon svg {
+    transform: translateX(0.1em);
+    }
+
+    .btnAgregar:active .icon {
+    transform: scale(0.95);
+    }
+
+</style>
     
 </body>
 </html>
