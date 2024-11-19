@@ -95,7 +95,7 @@
                     {% if user.is_authenticated %}
                         <!-- Mostrar "Logout" si el usuario está autenticado -->
                         <a href="{% url 'user_logout' %}" class="btn_logout">
-                            <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Logout
+                            <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Cerrar sesión
                         </a>
                         
                         {% if user.is_superuser %}

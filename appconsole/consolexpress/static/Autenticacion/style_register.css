@@ -32,8 +32,9 @@
 
 .line2 {
     display: block; 
-    font-size: 1.2em; 
+    font-size: 15px; 
     margin-top: 10px; 
+    text-wrap: pretty;
 }
 
 /*Boton para pasar a Login de ingresar*/
@@ -250,3 +251,12 @@ form input:focus {
       left: 100%;
     }
   } 
+
+
+
+  @media (max-width: 768px) {
+    .card-register{
+      width: 90%;
+    }
+
+}
