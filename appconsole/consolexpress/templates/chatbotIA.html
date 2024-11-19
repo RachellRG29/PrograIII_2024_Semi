@@ -2,31 +2,67 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
-    <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <!-- Bootstrap CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+      <!-- Bootstrap icons -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+      <!-- Fuentes utilizadas -->
+      <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+  
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+   
+      <link rel="stylesheet" type="text/css" href="{% static 'Chatbot/style_chatbot.css' %}">
+      <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
+  
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+      <title>Chatbot IA</title>
+
+      <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Comfortaa';
             background-image: url("{% static 'Chatbot/fondochatbotprincipal.png' %}");
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            color: #333;
+            margin: 0;
+            padding: 50px 20px 20px;
+            display: flex;
+            height: 100vh;
+            justify-content: space-between; /* Distribuye la imagen y el chatbot */
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 20px; /* Espacio entre elementos principales (imagen y chatbot) */
+            padding-top: 60px; /*Altura header con el contenido*/
+        }
+
+        .chat-container {
+            width: 70%; /* Ancho del contenedor en pantallas grandes */
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            height: 100vh;
-            margin: 0;
-            padding: 20px;
-            position: relative;
-            }
-            #chat-box {
-            width: 800px; /* Ancho más pequeño para el chatbox */
-            height: 435px; /* Altura más pequeña para el chatbox */
+            align-items: flex-end;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            margin-left: 20px; /* Compensa el ancho de la imagen + margen adicional */
+        }
+
+        /* Estilo del chatbox */
+        #chat-box {
+            width: 100%; 
+            height: 440px; 
             border: 1px solid #ccc;
             border-radius: 8px;
             overflow-y: auto;
-            padding: 25px;
+            padding: 10px;
             background-image: url("{% static 'Chatbot/fondochatbot.png' %}");/* Agrega la imagen de fondo */
             background-size: cover; /* Ajusta la imagen para que cubra todo el fondo */
             background-repeat: no-repeat; /* Evita que la imagen se repita */
@@ -36,201 +72,201 @@
             display: flex;
             flex-direction: column;
             }
-            .left-image {
-    position: absolute;
-    top: 130px; /* Ajusta la posición vertical */
-    left: 10px; /* Ajusta la posición horizontal */
-    width: 500px; /* Ajusta el ancho del cuadrado */
-    height: 400px; /* Ajusta el alto del cuadrado */
-    background-image: url("{% static 'Chatbot/nahun3.png' %}");
-    background-size: cover;
-    background-repeat: no-repeat;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Suaviza la transición */
-}
 
-.left-image:hover {
-    animation: move-scale-rotate 3s ease forwards; /* Aplica la animación completa */
-}
-
-/* Definimos la animación combinada */
-@keyframes move-scale-rotate {
-    0% {
-        transform: scale(1) translateX(0) rotate(0deg); /* Estado inicial */
-    }
-    25% {
-        transform: scale(1.2) translateX(20px) rotate(0deg); /* Mueve a la derecha */
-    }
-    50% {
-        transform: scale(1.2) translateX(-20px) rotate(0deg); /* Mueve a la izquierda */
-    }
-    75% {
-        transform: scale(1.1) translateX(0) rotate(15deg); /* Gira hacia la derecha */
-    }
-    87.5% {
-        transform: scale(1.1) translateX(0) rotate(-15deg); /* Gira hacia la izquierda */
-    }
-    100% {
-        transform: scale(1.1) translateX(0) rotate(0deg); /* Regresa al centro */
-        
-    }
-    
-}
-
-
-
-
-    </style>
-    
-    <body>
-        <div class="left-image"></div>
-        <!-- Tu contenido aquí -->
-    </body>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Bootstrap icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <!-- Fuentes utilizadas -->
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
- 
-    <link rel="stylesheet" type="text/css" href="{% static 'Chatbot/style_chatbot.css' %}">
-    <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
-
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   
-    <title>Chatbot IA</title>
-    <head>
-        <style>
-    #send-btn {
-        padding: 12px 25px;
-        background: linear-gradient(135deg, #f13847, #ff6b6b);
-        color: white;
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        font-size: 16px;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    #send-btn:hover {
-        background: linear-gradient(135deg, #ff6b6b, #f13847);
-        transform: scale(1.1);
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    #send-btn:active {
-        transform: scale(1);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    .svg-wrapper-1 {
-        display: inline-flex;
-    }
-
-    .svg-wrapper {
-        display: inline-flex;
-    }
-
-    .svg-wrapper svg {
-        fill: white;
-    }
-
-</style>
-</head>
-
-<header>
-<h1>CHATBOT</h1>
-
-
-</header>
-
-<body>
-    <h2>ConsoleXpress</h2>
-<div class="chat-container">
-    <div id="chat-box"></div>
-    <div class="input-container">
-        <input type="text" id="user-input" placeholder="Escribe tu mensaje..." />
-        <button id="send-btn">
-            <div class="svg-wrapper-1">
-                
-                <div class="svg-wrapper">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                        <path fill="none" d="M0 0h24v24H0z"></path>
-                        <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
-                    </svg>
-                    
-                </div>
-            </div>
-            <span>Enviar</span>
-        </button>
-    </div>
-    
-</div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        // Función para simular el efecto de máquina de escribir
-        function typeWriter(text, element, delay = 100) {
-            let index = 0;
-
-            function type() {
-                if (index < text.length) {
-                    element.append(text.charAt(index));
-                    index++;
-                    setTimeout(type, delay);
-                }
-            }
-
-            type();
+        .input-container {
+            display: flex;
+            width: 100%;
+            margin-top: 15px;
         }
 
-        // Evento para enviar el mensaje al hacer clic en el botón
-        $("#send-btn").click(function() {
-            var userMessage = $("#user-input").val();
-            if (userMessage.trim() !== "") {
-                // Agrega el mensaje del usuario al chat
-                $("#chat-box").append("<div class='message user-message'><strong>Tú:</strong> " + userMessage + "</div>");
-                $("#user-input").val("");
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
 
-                // Enviar mensaje al servidor mediante POST
-                $.post("/chat/", { message: userMessage }, function(data) {
-                    $("#chat-box").append("<div class='message bot-message'><strong>Chatbot:</strong> </div>");
-                    var botMessageElement = $("#chat-box").children().last();
-                    setTimeout(function() {
-                        // Efecto de máquina de escribir para la respuesta del bot
-                        typeWriter(data.response, botMessageElement, 50);
-                        // Desplazar el chat hacia abajo para mostrar el último mensaje
-                        $("#chat-box").scrollTop($("#chat-box")[0].scrollHeight);
-                    }, 1000); 
-                }).fail(function() {
-                    // Manejo de errores si falla la solicitud al servidor
-                    $("#chat-box").append("<div class='message bot-message error'><strong>Chatbot:</strong> Hubo un error al procesar tu mensaje.</div>");
-                });
-            }
-        });
+        #send-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #f13847;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+    </style>
 
-        // Evento para enviar el mensaje al presionar Enter
-        $("#user-input").keypress(function(e) {
-            if (e.which == 13) {
-                $("#send-btn").click();
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="logo d-flex align-items-center">
+                    <!-- Logo de ConsoleXpress -->
+                    <img alt="ConsoleXpress Logo" height="50" style="filter: invert();" src="{% static 'icono_ConsoleXpress.svg '%}" width="40"/>
+                    <a href="{% url 'index_inicio' %}" class="text-white ms-2" style="text-decoration: underline dotted #dc3e57; font-size: 16px;">ConsoleXpress</a>
+                </div> 
+
+            <!-- MENU PARA USUARIO CHATBOT -->
+            <div class="user_user_chatbot">
+                <span id="lblUserChatbot" class="lblUserChatbot">
+                    {% if request.user.is_authenticated %}
+                        {{ request.user.username }}
+                    {% else %}
+                        Usuario
+                    {% endif %}
+                </span>
+                
+                <button class="btn_user_img" onclick="toggleUserMenu()">
+                    <svg width="28px" height="28px" class="user-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                        <rect fill="none" height="256" width="256"/>
+                        <circle cx="128" cy="120" r="44"/>
+                        <path d="M128,24A104,104,0,1,0,232,128,104.2,104.2,0,0,0,128,24Zm65.8,162.4a81.3,81.3,0,0,0-24.5-23,59.7,59.7,0,0,1-82.6,0,81.3,81.3,0,0,0-24.5,23,88,88,0,1,1,131.6,0Z"/>
+                    </svg>
+                </button>
+
+                <!-- Menú desplegable de usuario -->
+                <div id="user-menu" class="user-menu">
+                    {% if request.user.is_authenticated %}
+                        <!-- Mostrar "Logout" si el usuario está autenticado -->
+                        <a href="{% url 'user_logout' %}" class="btn_logout">
+                            <img src="{% static 'icon_logout_door.svg' %}" alt="Logout" width="20px"> Logout
+                        </a>
+                        
+                        {% if request.user.is_superuser %}
+                            <!-- Enlace visible solo para superusuarios -->
+                            <a href="{% url 'crud_admi' %}" class="btn_superuserCrudAdmi">
+                                <i class="bi bi-database-fill"></i> Crud-Admi
+                            </a>
+                        {% endif %}
+
+                    {% else %}
+                        <!-- Mostrar "Iniciar sesión" si el usuario no está autenticado -->
+                        <a href="{% url 'index_login' %}" class="btn_iniciarsesion">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000" width="20px" height="20px">
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                            </svg> Iniciar sesión
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </nav>
+    </header>
+
+    
+
+    <div class="espacio"> </div>  <!-- Espacio  -->
+
+    <div class="content">
+        <h1>CHATBOT</h1>
+    </div>
+
+    <aside class="left-image">
+        <img src="{% static 'Chatbot/chatbot-bot.png' %}" alt="Chatbot" style="width: 400px; height: auto;">
+    </aside>
+
+    <!-- CHATBOT IA DISEÑO-->
+    <div class="chat-container">
+        <div id="chat-box"></div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Escribe tu mensaje..." />
+            <button id="send-btn">
+                <div class="svg-wrapper-1">
+                    
+                    <div class="svg-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+                        </svg>
+                        
+                    </div>
+                </div>
+                <span>Enviar</span>
+            </button>
+        </div>
+        
+    </div>
+
+   
+
+ <!-- CHATBOT IA -->
+    <!-- Funcion para escribir y enviar -->
+    <script>
+        $(document).ready(function() {
+            // Función para simular el efecto de máquina de escribir
+            function typeWriter(text, element, delay = 100) {
+                let index = 0;
+    
+                function type() {
+                    if (index < text.length) {
+                        element.append(text.charAt(index));
+                        index++;
+                        setTimeout(type, delay);
+                    }
+                }
+    
+                type();
             }
+    
+            // Evento para enviar el mensaje al hacer clic en el botón
+            $("#send-btn").click(function() {
+                var userMessage = $("#user-input").val();
+                if (userMessage.trim() !== "") {
+                    // Agrega el mensaje del usuario al chat
+                    $("#chat-box").append("<div class='message user-message'><strong>Tú:</strong> " + userMessage + "</div>");
+                    $("#user-input").val("");
+    
+                    // Enviar mensaje al servidor mediante POST
+                    $.post("/chat/", { message: userMessage }, function(data) {
+                        $("#chat-box").append("<div class='message bot-message'><strong>Chatbot:</strong> </div>");
+                        var botMessageElement = $("#chat-box").children().last();
+                        setTimeout(function() {
+                            // Efecto de máquina de escribir para la respuesta del bot
+                            typeWriter(data.response, botMessageElement, 50);
+                            // Desplazar el chat hacia abajo para mostrar el último mensaje
+                            $("#chat-box").scrollTop($("#chat-box")[0].scrollHeight);
+                        }, 1000); 
+                    }).fail(function() {
+                        // Manejo de errores si falla la solicitud al servidor
+                        $("#chat-box").append("<div class='message bot-message error'><strong>Chatbot:</strong> Hubo un error al procesar tu mensaje.</div>");
+                    });
+                }
+            });
+    
+            // Evento para enviar el mensaje al presionar Enter
+            $("#user-input").keypress(function(e) {
+                if (e.which == 13) {
+                    $("#send-btn").click();
+                }
+            });
         });
-    });
-</script>
+    </script>
+
+    <!-- Menú desplegable de usuario user -->
+    <!-- Script de navbar - menu-logout -->
+    <script>
+        function toggleUserMenu() {
+            const userMenu = document.getElementById("user-menu");
+            userMenu.style.display = userMenu.style.display === "none" || userMenu.style.display === "" ? "block" : "none";
+        }
+        
+        // Cerrar el menú al hacer clic fuera de él
+        window.onclick = function(event) {
+            const userMenu = document.getElementById("user-menu");
+            if (!event.target.closest('.btn_user_img') && !event.target.closest('.user-menu')) {
+                userMenu.style.display = "none";
+            }
+        };
+    </script>
+    
+
+
+    
 </body>
 </html>
