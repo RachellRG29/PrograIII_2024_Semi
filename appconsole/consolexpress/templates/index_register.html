@@ -110,7 +110,7 @@
             <h1 class="lbl_register">CREA UNA CUENTA</h1>
             <div class="line"></div>
 
-            <form method="POST" action="{% url 'index_register' %}" id="formRegister" onsubmit="return handleSubmit();">
+            <form method="POST" action="{% url 'index_register' %}" id="formRegister" onsubmit="return handleRegister();">
                 {% csrf_token %}
                 <input type="text" name="username" placeholder="Usuario" onblur="validarUsuario(this)" required />
                 <input type="email" name="email" placeholder="Correo electrónico"  onblur="validarEmail(this)" required />
@@ -156,7 +156,27 @@
     </div>
 
     <!-- VALIDACION DE INPUTS DEL FORMULARIO REGISTER -->
-    <script>
+<script>
+function handleRegister() {
+    const usuarioInput = document.querySelector('input[name="username"]');
+    const emailInput = document.querySelector('input[name="email"]');
+    const passwordInput = document.querySelector('input[name="password"]');
+    const confirmpasswordInput = document.querySelector('input[name="confirm_password"]');
+
+    const isUsuarioValido = validarUsuario(usuarioInput);
+    const isEmailValido = validarEmail(emailInput);
+    const isPasswordValido = validarPassword(passwordInput);
+    const isConfirmPasswordValido = validarConfirmPassword(confirmpasswordInput)
+
+    // Si alguna validación falla, se cancela el envío
+    if (!isUsuarioValido || !isEmailValido || !isPasswordValido || !isConfirmPasswordValido) {
+        return false;
+    }
+
+    return true; // Permitir el envío si todo es válido
+}
+
+
 //---VALIDACION DE NOMBRE DE USUARIO
 function validarUsuario(input) {
     const usuarioRegister = input.value.trim();
@@ -240,8 +260,14 @@ function validarEmail(input) {
 //---VALIDACION DE CONTRASEÑA
 function validarPassword(input) {
     const password = input.value.trim();
-    const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;"'<>?,./\\|-]).{8,}$/;
 
+    // Expresión regular para contraseña segura (al menos una letra, un número y un carácter especial).
+    const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;"'<>?,./\\|-])[A-Za-z\d!@#$%^&*()_+={}\[\]:;"'<>?,./\\|-]{6,15}$/;
+
+    // Limpiar posibles mensajes de error anteriores
+    limpiarMensajeError(input);
+
+    // Validación: Contraseña vacía
     if (password === '') {
         Swal.fire({
             toast: true,
@@ -254,7 +280,7 @@ function validarPassword(input) {
         return false;
     }
 
-    // Verificar si la contraseña tiene espacios
+    // Validación: Espacios en la contraseña
     if (/\s/.test(password)) {
         Swal.fire({
             toast: true,
@@ -267,61 +293,51 @@ function validarPassword(input) {
         return false;
     }
 
-    // Verificar si la contraseña contiene solo letras
-    if (/^[A-Za-z]+$/.test(password)) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'error',
-            title: 'La contraseña no puede contener solo letras.',
-            showConfirmButton: false,
-            timer: 3000
-        });
+    // Validación: Contraseña demasiado corta
+    if (password.length < 6) {
+        mostrarErrorDebajo(input, 'Contraseña demasiado corta e insegura.');
         return false;
     }
 
-    // Verificar si la contraseña contiene solo números
-    if (/^\d+$/.test(password)) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'error',
-            title: 'La contraseña no puede contener solo números.',
-            showConfirmButton: false,
-            timer: 3000
-        });
+    // Validación: Contraseña demasiado larga
+    if (password.length > 15) {
+        mostrarErrorDebajo(input, 'La contraseña no puede exceder los 15 caracteres.');
         return false;
     }
 
-    // Verificar si la contraseña contiene solo caracteres especiales
-    if (/^[!@#$%^&*()_+={}\[\]:;"'<>?,./\\|-]+$/.test(password)) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'error',
-            title: 'La contraseña no puede contener solo caracteres especiales.',
-            showConfirmButton: false,
-            timer: 3000
-        });
+    // Validación: Contraseña insegura (solo letras o solo números)
+    if (/^[A-Za-z]+$/.test(password) || /^\d+$/.test(password)) {
+        mostrarErrorDebajo(input, 'Contraseña insegura. Use letras, números y caracteres especiales.');
         return false;
     }
 
-    // Verificar si la contraseña cumple con los requisitos de la expresión regular
+    // Validación: Contraseña cumple todos los requisitos
     if (!regexPassword.test(password)) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'info',
-            title: 'La contraseña debe contener al menos una letra, un número y un carácter especial.',
-            showConfirmButton: false,
-            timer: 3000
-        });
+        mostrarErrorDebajo(input, 'Debe contener al menos una letra, un número y un carácter especial.');
         return false;
     }
 
-    return true;  // Si pasa todas las validaciones
+    return true; // Si pasa todas las validaciones
 }
 
+//---Mostrar mensaje de error debajo del input
+function mostrarErrorDebajo(input, mensaje) {
+    const errorSpan = document.createElement('span');
+    errorSpan.classList.add('error-message');
+    errorSpan.textContent = mensaje;
+
+    const parent = input.parentNode;
+    parent.appendChild(errorSpan);
+}
+
+//---Limpiar mensajes de error previos
+function limpiarMensajeError(input) {
+    const parent = input.parentNode;
+    const errorSpan = parent.querySelector('.error-message');
+    if (errorSpan) {
+        errorSpan.remove();
+    }
+}
 //---VALIDACION DE CONFIRMAR CONTRASEÑA
 function validarConfirmPassword(input) {
     const confirmPassword = input.value.trim();
@@ -355,7 +371,16 @@ function validarConfirmPassword(input) {
     return true;  // Si las contraseñas coinciden
 }
 
-    </script>
+</script>
+
+  <style>
+.error-message {
+  display: block;
+  color: red;
+  font-size: 12px;
+  margin-top: 35px;
+}
+  </style>
 
     {% if messages %}
       <script>
@@ -415,77 +440,6 @@ fetch('register/', {
   });
 
     </script>
-
-
-
-<!-- 
-
-<form method="POST" action="{% url 'index_register' %}" id="formRegister" onsubmit="return handleSubmit();"> 
-  {% csrf_token %}
-  <input name="username" id="usernameInput" placeholder="Usuario" type="text" required />
-  <input name="email" id="emailInput" placeholder="Correo electrónico" type="email" required />
-
-
-  <div class="input-container"> 
-    <input name="password" id="passwordInput" placeholder="Contraseña" type="password" class="form-control" required>
-    <span type="button" id="togglePassword" style="cursor: pointer;">
-      <i class="bi bi-eye-fill" id="toggleIcon"></i>
-    </span>
-  </div>
-                    
-  <input name="confirm_password" id="confirmPasswordInput" placeholder="Confirmar contraseña" type="password" required />
-
-  <button class="btn-register" type="submit">REGISTRAR</button>
-</form>
-
-
-  function handleSubmit() {
-    const usernameInput = document.getElementById('usernameInput');
-    const emailInput = document.getElementById('emailInput');
-    const username = usernameInput.value.trim();
-    const email = emailInput.value.trim();
-
-    // Validar que el nombre de usuario solo contenga letras y números
-    const usernameRegex = /^[a-zA-Z0-9]+$/;
-    if (!usernameRegex.test(username)) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Usuario inválido',
-        text: 'El nombre de usuario solo puede contener letras y números.',
-        confirmButtonText: 'Aceptar'
-      });
-      return false; // Evitar el envío del formulario
-    }
-
-    // Validar que el correo sea de Gmail
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-    if (!emailRegex.test(email)) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Correo inválido',
-        text: 'El correo electrónico debe ser un correo de Gmail.',
-        confirmButtonText: 'Aceptar'
-      });
-      return false; // Evitar el envío del formulario
-    }
-
-    return true; // Permitir el envío del formulario si las validaciones son correctas
-  }
-
-  // Mostrar/ocultar contraseña
-  const togglePassword = document.getElementById('togglePassword');
-  togglePassword.addEventListener('click', function () {
-    const passwordInput = document.getElementById('passwordInput');
-    const toggleIcon = document.getElementById('toggleIcon');
-    const isPasswordVisible = passwordInput.type === 'password';
-
-    passwordInput.type = isPasswordVisible ? 'text' : 'password';
-    toggleIcon.classList.toggle('bi-eye-fill');
-    toggleIcon.classList.toggle('bi-eye-slash-fill');
-  });
-
-
--->
-    
+   
 </body>
 </html>

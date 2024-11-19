@@ -20,9 +20,9 @@
     <!-- Nombre e icono de sitio web -->
     <title>Inicio ConsoleXpress</title>
 
-    <style>
-        /* Cuerpo de sitio inicio */
-body {
+<style>
+    /* Cuerpo de sitio inicio */
+    body {
     margin: 0;
     padding: 0;
     background-image: url("{% static 'fondo_ce_gradient01.png' %}");
@@ -35,9 +35,8 @@ body {
     width: 100%; /* cubre 100% ancho de la pantalla */
     max-width: 100%; /* Evita que el contenido se extienda demas */
     height: 100%;
-    
-}
-    </style>
+    }
+</style>
 
 </head>
 <body>
@@ -46,27 +45,27 @@ body {
     <div class="blob blob2"></div>
     <div class="blob blob3"></div>
 
-        <!-- Encabezado -->
-        <header>
-            <div class="circle"></div>
+    <!-- Encabezado -->
+    <header>
+        <div class="circle"></div>
 
-            <div class="autenticacion">
+        <div class="autenticacion">
 
-                <a class="btn_login" href="{% url 'index_login' %}">Iniciar sesión</a> <!-- login -->
-                <a class="btn_register" href="{% url 'index_register' %}">Registrar</a> <!-- register -->
-            </div>
-                
-            <div class="icon_ConsoleXpress">
-                <img src="{% static 'icono_ConsoleXpress.svg' %}" width="60px" height="60px">
-            </div>
+            <a class="btn_login" href="{% url 'index_login' %}">Iniciar sesión</a> <!-- login -->
+            <a class="btn_register" href="{% url 'index_register' %}">Registrar</a> <!-- register -->
+        </div>
+            
+        <div class="icon_ConsoleXpress">
+            <img src="{% static 'icono_ConsoleXpress.svg' %}" width="60px" height="60px">
+        </div>
 
-            <div class="line"></div>
-               
-        </header>
+        <div class="line"></div>
+            
+    </header>
 
     
 
-        <!-- Cuerpo de la pagina inicio -->
+    <!-- Cuerpo de la pagina inicio -->
     <div class="main_inicio">
         <main>
             
@@ -90,17 +89,17 @@ body {
             <div class="categorias_inicio">
                 <div class="catg1">
                     <p>Consolas</p>
-                    <img src="{% static 'relleno_consola.png' %}" class="catg_cons">
+                    <img src="{% static 'Inicio/relleno_consola.png' %}" class="catg_cons">
                 </div>
 
                 <div class="catg2">
                     <p>Edición Especial</p>
-                    <img src="{% static 'relleno_consola_esp.png' %}" class="catg_cons_esp" > 
+                    <img src="{% static 'Inicio/relleno_consola_esp.png' %}" class="catg_cons_esp" > 
                 </div>
 
                 <div class="catg3">
                     <p>Accesorios</p>
-                    <img src="{% static 'relleno_accesorio_consola.png' %}" class="catg_cons_acc" >
+                    <img src="{% static 'Inicio/relleno_accesorio_consola.png' %}" class="catg_cons_acc" >
                 </div>
 
             </div>
@@ -129,7 +128,9 @@ body {
 
     </div>
 
-    <div class="line2"></div>   
+    <div class="line2"></div>  
+    
+
 
     
 </body>

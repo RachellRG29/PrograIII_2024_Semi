@@ -143,6 +143,8 @@ body .line2{
     width: 630px;
     height: 500px;
     margin: 0;
+    bottom: 0;
+    right: 0;
     align-self: flex-end; 
     margin-left: 60px;
     

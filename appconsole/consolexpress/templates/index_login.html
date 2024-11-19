@@ -150,61 +150,58 @@
     </div>
 
   <!-- VALIDACION DE INPUTS DEL FORMULARIO LOGIN -->
-    <script>
+<script>
+// Validación del formulario antes de enviarlo
+function handleLogin() {
+    const usuarioInput = document.querySelector('input[name="username"]');
+    const passwordInput = document.querySelector('input[name="password"]');
+
+    const isUsuarioValido = validarUsuario(usuarioInput);
+    const isPasswordValido = validarPassword(passwordInput);
+
+    // Si alguna validación falla, se cancela el envío
+    if (!isUsuarioValido || !isPasswordValido) {
+        return false;
+    }
+
+    return true; // Permitir el envío si todo es válido
+}
+
 //---VALIDACION DE NOMBRE DE USUARIO
 function validarUsuario(input) {
     const usuarioLogin = input.value.trim();
     const regexUsuarioLogin = /^[A-Za-z0-9\s]+$/; // Solo letras, números y espacios
-    const soloNumeros = /^[0-9\s]+$/;    // Solo números
+    const soloNumeros = /^[0-9\s]+$/; // Solo números
 
-    // Verificar si el campo está vacío
+    limpiarMensajeError(input);
+
     if (usuarioLogin === '') {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'error',
-            title: 'El nombre de usuario no puede estar vacío.',
-            showConfirmButton: false,
-            timer: 3000
-        });
+        mostrarErrorDebajo(input, 'El nombre de usuario no puede estar vacío.');
         return false;
     }
 
     if (soloNumeros.test(usuarioLogin)) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: "info",
-            title: "El nombre de usuario no puede contener solo números.",
-            showConfirmButton: false,
-            timer: 3000
-        });
+        mostrarErrorDebajo(input, 'El nombre de usuario no puede contener solo números.');
         return false;
     }
 
-    // Si contiene caracteres no permitidos
     if (!regexUsuarioLogin.test(usuarioLogin)) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: "info",
-            title: "Solo se permiten letras, números y espacios en el nombre de usuario.",
-            showConfirmButton: false,
-            timer: 3000
-        });
-        // Elimina lo que no se permite
-        input.value = usuarioLogin.replace(/[^A-Za-z0-9\s]/g, '');  // Elimina cualquier cosa que no sea letra, número o espacio
+        mostrarErrorDebajo(input, 'Solo se permiten letras, números y espacios.');
+        input.value = usuarioLogin.replace(/[^A-Za-z0-9\s]/g, '');
         return false;
     }
 
-    return true;  // Si pasa la validación
+    return true;
 }
 
 //---VALIDACION DE CONTRASEÑA
 function validarPassword(input) {
     const password = input.value.trim();
-    const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;"'<>?,./\\|-]).{8,}$/;
 
+    // Expresión regular para contraseña segura (al menos una letra, un número y un carácter especial).
+    const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;"'<>?,./\\|-])[A-Za-z\d!@#$%^&*()_+={}\[\]:;"'<>?,./\\|-]{6,15}$/;
+
+    // Validación: Contraseña vacía
     if (password === '') {
         Swal.fire({
             toast: true,
@@ -217,7 +214,7 @@ function validarPassword(input) {
         return false;
     }
 
-    // Verificar si la contraseña tiene espacios
+    // Validación: Espacios en la contraseña
     if (/\s/.test(password)) {
         Swal.fire({
             toast: true,
@@ -230,64 +227,22 @@ function validarPassword(input) {
         return false;
     }
 
-    // Verificar si la contraseña contiene solo letras
-    if (/^[A-Za-z]+$/.test(password)) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'error',
-            title: 'La contraseña no puede contener solo letras.',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        return false;
-    }
-
-    // Verificar si la contraseña contiene solo números
-    if (/^\d+$/.test(password)) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'error',
-            title: 'La contraseña no puede contener solo números.',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        return false;
-    }
-
-    // Verificar si la contraseña contiene solo caracteres especiales
-    if (/^[!@#$%^&*()_+={}\[\]:;"'<>?,./\\|-]+$/.test(password)) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'error',
-            title: 'La contraseña no puede contener solo caracteres especiales.',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        return false;
-    }
-
-    // Verificar si la contraseña cumple con los requisitos de la expresión regular
+    // Validación: Contraseña no cumple con el formato requerido
     if (!regexPassword.test(password)) {
         Swal.fire({
             toast: true,
             position: 'top-end',
-            icon: 'info',
-            title: 'La contraseña debe contener al menos una letra, un número y un carácter especial.',
+            icon: 'error',
+            title: 'Debe contener al menos una letra, un número y un carácter especial.',
             showConfirmButton: false,
             timer: 3000
         });
         return false;
     }
 
-    return true;  // Si pasa todas las validaciones
+    return true; // Si pasa todas las validaciones
 }
-
-
-    </script>
-
+</script>
 
     {% if messages %}
     <script>
