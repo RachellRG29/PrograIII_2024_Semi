@@ -19,7 +19,7 @@ pairs = [
     (r"3", ["En el caso de la Nintendo Switch OLED, el paquete incluye la consola con una pantalla OLED de 7 pulgadas, los dos Joy-Con, el dock (que además incluye un puerto LAN para conexión a Internet por cable), el soporte para los Joy-Con, dos correas para los Joy-Con, el cable HDMI y el adaptador de corriente. Este modelo ofrece colores más vibrantes y un almacenamiento interno de 64 GB en lugar de los 32 GB de las versiones anteriores."]),
     (r"4", ["Nintendo Switch Lite, que es un modelo exclusivamente portátil, incluye solo la consola con controles integrados y el adaptador de corriente, ya que no necesita dock ni accesorios adicionales."]),
     # Consultas sobre consolas
-    (r"tienen consolas Nintendo Switch?|tienen consolas Nintendo Switch|tienen consolas?", ["Sí, tenemos consolas Nintendo Switch disponibles. ¿Te gustaría saber los precios?"]),
+    (r"tienen consolas Nintendo Switch?|tienen consolas Nintendo Switch|tienen consolas?|de cuales tienen?|de cuales?", ["Sí, tenemos consolas Nintendo Switch disponibles."]),
     (r"puedo comprar una consola Nintendo Switch?|puedo comprar una consola Nintendo Switch", ["Por supuesto, puedes comprarla directamente en nuestro sitio."]),
     (r"que modelos de Nintendo Switch tienen?|modelos?|que modelos hay?|que modelos de Nintendo Switch tienen", ["Disponemos de varios modelos, incluyendo Nintendo Switch estándar, Nintendo Switch Lite, y Nintendo Switch OLED."]),
     
@@ -125,5 +125,21 @@ pairs = [
   (r"Tienen ofertas en consolas actualmente?", ["si por el momento tenemos en oferta la Nintendo Switch Oled en 300"]),
   (r"Los productos que compre tienen garantia?|tienen garantia las consolas?|hay garantia?", ["Claro que si todos nuestros productos tienen una garantia de 3 meses"]),
  
+   # Variaciones de errores de ortografía
+    (r"holaa|holas|holla|holaa|holiiii|buenasss|buenasss|heey|holaaaa|holaa", ["¡Hola! ¿En qué puedo ayudarte hoy?"]),
+    (r"cuanto estan las consolas?|cuanto cuestan las nintendo swicht|cuanto cuestan las switch", ["Aquí tienes los precios de las consolas Nintendo Switch:\n"
+        "- Nintendo Switch (Versión 1): $299.99\n"
+        "- Nintendo Switch (Versión 2): $299.99\n"
+        "- Nintendo Switch OLED: $349.99\n"
+        "- Ediciones especiales de Nintendo Switch (como la edición especial de Mario): $349.99."]),
+    (r"hay precentacion?|presentasion|presentasion hay?|presentacion tiene?", [
+        "Sí, tenemos presentaciones completas de cada consola. Si quieres saber las presentaciones de cada una, elige la opción que deseas ver:\n"
+        "1 - Switch v1\n"
+        "2 - Switch v2\n"
+        "3 - Switch Oled\n"
+        "4 - Switch Lite"
+    ]),
+    (r"hay consolas swich|hay consola swicht|tienen consolas de swicth?", ["Sí, tenemos consolas Nintendo Switch disponibles."]),
+    (r"gracias por la ayda|gracias por tu atncion|muchas grcias", ["¡De nada! Si tienes más preguntas, no dudes en preguntar."]),
 
 ]
