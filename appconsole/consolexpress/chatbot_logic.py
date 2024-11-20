@@ -1,7 +1,7 @@
 # Definición de pares de preguntas y respuestas
 pairs = [
     # Saludos
-    (r"hola|buenas|buenos dias|oli|holi|buenas tardes|buenas noches|hey|que hondas|hi|hello", ["¡Hola! ¿En qué puedo ayudarte hoy?"]),
+    (r"hola|buenas|ola|holo|olo|buenos dias|oli|holi|buenas tardes|buenas noches|hey|que hondas|hi|hello", ["¡Hola! ¿En qué puedo ayudarte hoy?"]),
     # presentaciones y especificaciones
     (r"Hay presentacion?|presentacion|presentacion hay|presentacion tienen", [
     "Sí, tenemos presentaciones completas de cada consola. Si quieres saber las presentaciones de cada una, elige la opción que deseas ver:\n"
