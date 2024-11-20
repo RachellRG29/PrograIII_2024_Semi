@@ -3,7 +3,7 @@ pairs = [
     # Saludos
     (r"hola|buenas|ola|holo|olo|buenos dias|oli|holi|buenas tardes|buenas noches|hey|que hondas|hi|hello", ["¡Hola! ¿En qué puedo ayudarte hoy?"]),
     # presentaciones y especificaciones
-    (r"Hay presentacion?|presentacion|presentacion hay|presentacion tienen", [
+    (r"Hay presentacion?|presentacion?|presentacion hay?|presentacion tienen?", [
     "Sí, tenemos presentaciones completas de cada consola. Si quieres saber las presentaciones de cada una, elige la opción que deseas ver:\n"
     "1 - Switch v1\n"
     "2 - Switch v2\n"
@@ -102,11 +102,11 @@ pairs = [
 
     # Agradecimientos y despedidas
     (r"gracias|muchas gracias|te agradezco|gracias por tu ayuda", ["¡De nada! Si tienes más preguntas, no dudes en preguntar."]),
-    (r"adios|hasta luego|nos vemos|hasta pronto", ["¡Hasta luego! Que tengas un buen día."]),
+    (r"adios|hasta luego|nos vemos|hasta pronto|chao|bye", ["¡Hasta luego! Que tengas un buen día."]),
 
-    (r"Qué diferencia hay entre la Switch OLED y la normal?|comparación entre modelos|¿cuál es mejor, Switch OLED o V2?", ["La Switch OLED tiene una pantalla más grande y colores más vivos. También tiene 64 GB de almacenamiento interno. ¿Te interesa conocer más detalles?"]),
+    (r"Que diferencia hay entre la Switch OLED y la normal?|comparación entre modelos|¿cuál es mejor, Switch OLED o V2?", ["La Switch OLED tiene una pantalla más grande y colores más vivos. También tiene 64 GB de almacenamiento interno. ¿Te interesa conocer más detalles?"]),
 
-    (r"¿Qué tan buena es la batería?|duración de batería de la Switch", ["La duración de batería depende del modelo: entre 2.5 y 9 horas. ¿Quieres saber de algún modelo específico?"]),
+    (r"¿Que tan buena es la batería?|duración de batería de la Switch", ["La duración de batería depende del modelo: entre 2.5 y 9 horas. ¿Quieres saber de algún modelo específico?"]),
 
  (r"mi consola no prende|mi consola no enciende|la consola no funciona|la switch no prende", ["Si tu consola no enciende, intenta mantener presionado el botón de encendido durante 15 segundos. Si persiste el problema, conecta el adaptador de corriente directamente al puerto de carga y verifica si responde. ¿Necesitas más ayuda?"]),
  (r"que accesorios tienen?|tienen accesorios?|que accesorios hay?", ["Contamos con una variedad de accesorios como controles Pro, estuches de transporte, protectores de pantalla, y estaciones de carga para Joy-Con. ¿Te interesa alguno en particular?"]),
@@ -120,7 +120,7 @@ pairs = [
   (r"Cómo se entregan las consolas de edición especial?", ["Entregamos las consolas en paquete completo o individual, en excelente calidad, hasta la puerta de tu casa :3"]),
   (r"Hay accesorios de buena calidad?", ["Claro que si tenemos accerios de buena calida puedes darte una vuelta en nuestra tienda y verlos"]),
   (r"Como se entregan las consolas?|como entregan las consolas?", ["Entregamos el producto que has ordenado dependiendo como pediste la consola es decir cómo paquete completo O individual"]),
-  (r"Tienen redes sociales?", ["Claro que si por el momento contamos con whatsapp"]),
+  (r"Tienen redes sociales?|redes sociales|como puedo comunicarme|quiero llamarles", ["Claro que si por el momento contamos con whatsapp"]),
   (r"Cual es el numero de teléfono para comunicarme?|Cual es el numero de whatsapp?|cual es el numero?|dame el numero|podrias darme el numero ", ["Nuestro numero de whatsapp es 74725100"]),
   (r"Tienen ofertas en consolas actualmente?", ["si por el momento tenemos en oferta la Nintendo Switch Oled en 300"]),
   (r"Los productos que compre tienen garantia?|tienen garantia las consolas?|hay garantia?", ["Claro que si todos nuestros productos tienen una garantia de 3 meses"]),
