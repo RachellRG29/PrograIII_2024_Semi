@@ -1,6 +1,31 @@
 /*Paleta colores
 azul #004182 - azul2 #225590 - rojo 1 #dc3e57 - rojo 2 #e1646e - amarillo #fbe4c9*/
 
+/* Personalizar ancho de la scrollbar */
+::-webkit-scrollbar {
+    width: 12px; 
+    height: 12px; 
+}
+
+/* Color de fondo de la scrollbar */
+::-webkit-scrollbar-track {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+}
+
+
+/* Color y diseño de la barra de desplazamiento */
+::-webkit-scrollbar-thumb {
+    background-color: #202020;
+    border-radius: 10px;
+    border: 3px solid #f1f1f1;
+}
+
+/* Color cuando se pasa el mouse por encima de la scrollbar */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #0d0d0e;
+}
+
 * { 
     box-sizing: border-box;
 }
@@ -15,14 +40,28 @@ header{
 
 }
 
-/* linea decorativa */
+/* Línea decorativa */
 header .line {
     position: absolute;
     top: 120px;
     right: 0;
-    width: calc(30% - 22px);
+    width: 0; /* Comienza desde 0 para animar el ancho */
     height: 2px;
     background: linear-gradient(#dc3e57, #e1646e);
+    margin-bottom: 40px;
+
+    /* Añadimos la animación */
+    animation: drawLine 2s ease-in-out forwards; /* Cambia "2s" según la duración deseada */
+}
+
+/* Animación para la línea */
+@keyframes drawLine {
+    0% {
+        width: 0; /* Comienza desde 0 */
+    }
+    100% {
+        width: calc(30% - 22px); /* Termina en su tamaño original */
+    }
 }
 
 
@@ -63,14 +102,29 @@ header .line {
     to { opacity: 1 }
 }
 
-body .line2{
+/* Línea decorativa que crece de izquierda a derecha */
+.line2 {
     position: relative;
     bottom: 30px;
     left: 0;
-    width: calc(30% - 20px);
+    width: 0; /* Comienza desde 0 */
     height: 2px;
-    background: linear-gradient(#dc3e57, #e1646e);
+    background: linear-gradient(to right, #dc3e57, #e1646e); /* Asegura el gradiente correcto */
+    
+    /* Animación */
+    animation: drawLineLeftToRight 2s ease-in-out forwards;
 }
+
+/* Animación para la línea */
+@keyframes drawLineLeftToRight {
+    0% {
+        width: 0; /* Comienza desde 0 */
+    }
+    100% {
+        width: calc(30% - 20px); /* Termina en el tamaño original */
+    }
+}
+
 
 
 /* Main inicio ConsoleXpress */
@@ -81,7 +135,7 @@ body .line2{
     justify-content: space-between;
     flex-wrap: nowrap; 
     flex: 1;
-    left: 4.5%;
+    left: 5%;
 }
 
 /* Lado derecho inicio */
@@ -92,10 +146,12 @@ body .line2{
     flex: 1;
     align-items: flex-end;
     margin-left: 30px;
+    margin-right: 20px;
+    margin-top: 7%; /*Margen de arriba*/
 }
 
 /* Ajustes para el flex de inicio, main, derecha y semicuadrado, para visualizar en distintas pantallas */
-@media all and (max-width: 550px) {
+@media all and (max-width: 800px) {
     .main_inicio {
         flex-direction: column; 
         align-items: center;
@@ -147,67 +203,85 @@ body .line2{
     right: 0;
     align-self: flex-end; 
     margin-left: 60px;
-    
+    transition: all 0.2s;
 }
 
-/* Imagen consola*/
-.consola_img{
+/* Imagen consola */
+.consola_img {
     align-self: center;
     position: relative;
-    left:-50px;
-    top: 80px; 
+    left: -50px;
+    top: 80px;
+    transition: transform 0.1s ease; /* Suaviza el movimiento */
 }
 
+/* Efecto hover adicional */
 .consola_img:hover {
-    display: block;
     filter: drop-shadow(0 0 4px #fbe4c9);
 }
 
-/* Efecto estrellitas*/
 
-.animation_console img{
-    position: relative;
-    transition: transform .4s;
-    pointer-events: none;
-    z-index: 1;
-}
-
-
-/* estrellitas */
-.animation_sparkle {
-    position: relative;
-    pointer-events: none;
-    transition: transform -3s;
-    filter: drop-shadow(0 0 3px #e1646e);
-}
-
-.star-1{
+/*Animacion estrella*/
+.stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Evita que las estrellas interfieran con los clics */
+  }
+  
+  .star {
+    position: absolute;
     width: 30px;
-    top: -38px;
-    right: -8px;
-    transform: rotate(38deg) scale(.1);
-}
+    height: 30px;
+    animation: twinkle 2s infinite ease-in-out;
+  }
 
-.star-2{
-    width: 55px;
-    right: -480px;
-    top: -390px;
-    transform: rotate(-48deg) scale(.1);
-}
+  .star:nth-child(1) {
+    width: 20px;
+    height: 20px;
+    top: 32%;
+    left: 5%;
+    animation-delay: 0s;
+  }
+  
+  .star:nth-child(2) {
+    top: -2%;
+    left: 86%;
+    animation-delay: 0.5s;
+  }
+  
+  .star:nth-child(3) {
+    top: 60%;
+    left: 60%;
+    animation-delay: 1s;
+  }
 
-.animation_console:hover img {
-    opacity: 1;
+  .star:nth-child(4) {
+    width: 20px;
+    height: 20px;
+    top: 76%;
+    left: 72%;
+    animation-delay: 0.8s;
   }
   
-  .animation_console:hover .star-1 {
-    transform: scale(1.1);
-    transition-delay: .1s;
+  /* Efecto de destello */
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 0.2;
+      transform: scale(0.8);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
   }
-  
-  .animation_console:hover .star-2 {
-    transform: scale(1.1);
-  }
-  
+
+
+
+
+
 
 .circle{
     right: 32%;
@@ -217,9 +291,8 @@ body .line2{
     border-radius: 50%;
     margin-left: 15px;
     margin-right: 15px; 
+}
   
-}  
-
 
 /* icono de consoleXpress */
 .icon_ConsoleXpress{
@@ -296,7 +369,6 @@ body .line2{
     background-color: #04315e; 
     border: 1px solid #e0eaf2;
     display: flex;
-    margin-right: 20px;
     padding: 1rem; 
     text-align: left; /* text-left */
     color: #f5f5f5; /* text-gray-50 */
@@ -307,7 +379,7 @@ body .line2{
     text-decoration: underline;
     text-underline-offset: 0.5rem; /* underline-offset-2 */
     transition: all 0.4s ease;
-    gap: 12px;
+    gap: 36px;
 }
 
 .btn_explorar:hover {
@@ -324,13 +396,14 @@ body .line2{
 }
 
 .sparkle {
-    fill: #AAAAAA;
+    width: 52px;
+    height: 52px;
+    margin-top: -12px;
     transition: all 800ms ease;
     z-index: 3;
 }
 
 .btn_explorar:hover .sparkle {
-    fill: white;
     transform: scale(1.2);
     
 } 
@@ -363,4 +436,19 @@ body .line2{
 .catg_cons, .catg_cons_esp, .catg_cons_acc{
     filter: invert(1);
     width: 60px;
+}
+
+
+/* Footer */
+footer {
+    height: 60px;
+    background-color: #04315e;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }

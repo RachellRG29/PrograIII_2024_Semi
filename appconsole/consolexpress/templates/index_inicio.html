@@ -74,15 +74,11 @@
             </div>
 
             <div>
-                <!-- Boton explorar -->
-                <a class="btn_explorar" href="{% url 'index_pant_prin' %}">Explorar       
-                    <svg class="sparkle" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                        <path d="m24 4 5.303 9.697 9.697 5.303-9.697 5.303-5.303 9.697-5.303-9.697-9.697-5.303 9.697-5.303z" fill="#000000" style="fill: rgb(255, 255, 255);"></path>
-                        <path d="m45 29 3.536 6.464 6.464 3.536-6.464 3.536-3.536 6.464-3.536-6.464-6.464-3.536 6.464-3.536z" fill="#000000" style="fill: rgb(255, 255, 255);"></path>
-                        <path d="m24 50 1.768 3.232 3.232 1.768-3.232 1.768-1.768 3.232-1.768-3.232-3.232-1.768 3.232-1.768z" fill="#000000" style="fill: rgb(255, 255, 255);"></path>
-                </svg>
+                <!-- Botón explorar -->
+                <a class="btn_explorar" href="{% url 'index_pant_prin' %}">
+                    Explorar
+                    <!--<img class="sparkle" src="{% static 'Inicio/stars_.png' %}" >-->
                 </a>
-                
             </div>
             
             <!-- Categorias iconos -->
@@ -114,24 +110,62 @@
                         <div class="consola_img"> 
                             <img src="{% static 'consola_nintendo4k.png' %}" style="width: 580px;"> 
         
-                                <div class="animation_sparkle">
-                                    <img src="{% static 'sparkle.png' %}" alt="" class="star-1">
-                                    <img src="{% static 'sparkle.png' %}" alt="" class="star-2">
-                                </div>
+                            <!-- efectos -->
+                            <div class="stars">
+                                <!-- Estrella 1 -->
+                                <svg class="star" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z" fill="#fff"/>
+                                </svg>
+                                <!-- Estrella 2 -->
+                                <svg class="star" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z" fill="#fff"/>
+                                </svg>
+                                <!-- Estrella 3 -->
+                                <svg class="star" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M93.781 51.578C95 50.969 96 49.359 96 48c0-1.375-1-2.969-2.219-3.578 0 0-22.868-1.514-31.781-10.422-8.915-8.91-10.438-31.781-10.438-31.781C50.969 1 49.375 0 48 0s-2.969 1-3.594 2.219c0 0-1.5 22.87-10.406 31.781-8.908 8.913-31.781 10.422-31.781 10.422C1 45.031 0 46.625 0 48c0 1.359 1 2.969 2.219 3.578 0 0 22.873 1.51 31.781 10.422 8.906 8.911 10.406 31.781 10.406 31.781C45.031 95 46.625 96 48 96s2.969-1 3.562-2.219c0 0 1.523-22.871 10.438-31.781 8.913-8.908 31.781-10.422 31.781-10.422Z" fill="#fff"/>
+                                </svg>
+                               
+                              </div>
+
                         </div> 
 
                     </div>
                 </div>
             </aside>
 
-         
+            <main>
+                
+            </main>
+            
 
     </div>
 
     <div class="line2"></div>  
+
+    <footer>
+        <p>ConsoleXpress</p>
+    </footer>
     
 
+<script>
+    // Selecciona el contenedor y la imagen
+const container = document.querySelector('.animation_console');
+const image = document.querySelector('.consola_img');
 
+// Detecta el movimiento del mouse dentro del contenedor
+container.addEventListener('mousemove', (event) => {
+    const containerRect = container.getBoundingClientRect();
+    const mouseX = event.clientX - containerRect.left; // Posición del mouse dentro del contenedor
+    const mouseY = event.clientY - containerRect.top;
+
+    // Calcula el movimiento relativo para la imagen
+    const offsetX = (mouseX / containerRect.width - 0.5) * 15; // Ajusta el multiplicador (20) para más o menos movimiento
+    const offsetY = (mouseY / containerRect.height - 0.5) * 15;
+
+    // Aplica la transformación a la imagen
+    image.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+});
+</script>
     
 </body>
 </html>
