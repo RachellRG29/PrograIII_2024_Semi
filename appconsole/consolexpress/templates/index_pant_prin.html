@@ -60,17 +60,18 @@
         </div>
 
         <!-- Contenedor para el ícono del carrito -->
-        <div class="header-cart">
-            <button class="btn_CompraMenu" id="openCartMenu">
-                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <g transform="scale(0.74)">
-                        <path fill="#fff" d="M2 2c-.36 0-.7.19-.88.5s-.18.7 0 1c.18.31.52.5.88.5h1.88c.23 0 .42.14.48.36l4.26 14.49c.37 1.27 1.55 2.14 2.88 2.14h10.98c1.35 0 2.54-.91 2.89-2.21l2.6-9.53c.08-.3 0-.62-.18-.86s-.49-.39-.82-.39H7.51L6.28 3.79c-.31-1.06-1.29-1.79-2.4-1.79H2zM12 23c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-                    </g>
-                </svg>
-            </button>
-        </div>
+<div class="header-cart d-flex align-items-center">
+    <button class="btn_CompraMenu" id="openCartMenu">
+        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <g transform="scale(0.74)">
+                <path fill="#fff" d="M2 2c-.36 0-.7.19-.88.5s-.18.7 0 1c.18.31.52.5.88.5h1.88c.23 0 .42.14.48.36l4.26 14.49c.37 1.27 1.55 2.14 2.88 2.14h10.98c1.35 0 2.54-.91 2.89-2.21l2.6-9.53c.08-.3 0-.62-.18-.86s-.49-.39-.82-.39H7.51L6.28 3.79c-.31-1.06-1.29-1.79-2.4-1.79H2zM12 23c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+            </g>
+        </svg>
+    </button>
+</div>
 
-    
+
+
 
             <!-- MENU PARA USUARIO -->
             <div class="user_user">
@@ -175,126 +176,181 @@
         </svg>
 
     </a>
-  
-
-
-    <div class="product-list" id="product-list">
-        <!-- Los productos serán insertados aquí por JavaScript -->
-    </div>
     
-    <script>
-        // Fetch para obtener las consolas en formato JSON
-        fetch("{% url 'consultar_consolas_pant_prin' %}")
-            .then(response => response.json())
-            .then(data => {
-                const productList = document.getElementById('product-list');
-                // Verifica si hay productos
-                if (data.length > 0) {
-                    data.forEach(producto => {
-                        const productCard = document.createElement('div');
-                        productCard.classList.add('product-card');
-                        
-                        productCard.innerHTML = `
-                            <img src="${producto.imagen}" alt="${producto.nombre}">
-                            <div class="details">
-                                <h2>${producto.nombre}</h2>
-                                <p class="price">$${producto.precio}</p>
-                                <p class="category">${producto.categoria}</p>
-                                <p>${producto.descripcion}</p>
-                                <button class="cart-btn">
-                                    <i class="bi bi-cart"></i>
-                                </button>
-                            </div>
-                        `;
-                        productList.appendChild(productCard);
-                    });
-                } else {
-                    productList.innerHTML = "<p>No hay productos disponibles.</p>";
-                }
-            })
-            .catch(error => console.error('Error al cargar las consolas:', error));
-    </script>
-    
-      
+<!-- Contenedor de los productos -->
+<div class="product-list" id="product-list">
+    <!-- Los productos serán insertados aquí por JavaScript -->
+</div>
 
-   <!-- Menú Deslizable de Compra -->
-    <div id="cartMenu" class="cart-menu">
-        <div class="cart-menu-header">
-                <!-- Boton de cerrar menu de compra  -->
-                <button id="closeCartMenu" class="close-button"> 
-                <span class="X"></span>
-                </button>
-                <h5 class="cart-title">Carrito de Compras</h5>
-        </div>
-        <div class="cart-menu-body">
-            <!-- Contenido del carrito -->
-        </div>
-        <div class="cart-menu-footer">
-            <div class="labels-container">
-                <label for="compramenu" class="compramenu">TOTAL</label>
-                <label for="TOTALCOMPRA" class="total-compra">$1,000</label>
-            </div>
-            <button type="button" class="btn-continuarcompra">
-                Comprar
-                <svg viewBox="0 0 576 512" class="svgIcon">
-                    <path d="M512 80c8.8 0 16 7.2 16 16v32H48V96c0-8.8 7.2-16 16-16H512zm16 144V416c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V224H528zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm56 304c-13.3 0-24 10.7-24 24s10.7 24 24 24h48c13.3 0 24-10.7 24-24s-10.7-24-24-24H120zm128 0c-13.3 0-24 10.7-24 24s10.7 24 24 24H360c13.3 0 24-10.7 24-24s-10.7-24-24-24H248z"></path>
-                </svg>
-            </button>
-        </div>
+<!-- Menú Deslizable de Compra -->
+<div id="cartMenu" class="cart-menu">
+    <div class="cart-menu-header">
+        <!-- Botón de cerrar menú de compra -->
+        <button id="closeCartMenu" class="close-cart">
+            <span class="X">X</span>
+        </button>
+        <h5 class="cart-title">Carrito de Compras</h5>
     </div>
-     
+    <div class="cart-menu-body">
+        <!-- Contenido del carrito (productos añadidos) -->
+    </div>
+    <div class="cart-menu-footer">
+        <div class="labels-container">
+            <label for="compramenu" class="compramenu">TOTAL</label>
+            <label for="TOTALCOMPRA" class="total-compra">0.00 $</label>
+        </div>
+        <button type="button" class="btn-checkout">
+            Comprar
+        </button>
+    </div>
+</div>
 
-        
+<!-- Botón para abrir el carrito 
+<button id="openCartMenu" class="btn-open-cart">Ver Carrito</button>-->
 
-
-    <!-- Menú desplegable de usuario user -->
-    <!-- Script de navbar - menu-logout -->
-    <script>
-        function toggleUserMenu() {
-            const userMenu = document.getElementById("user-menu");
-            userMenu.style.display = userMenu.style.display === "none" || userMenu.style.display === "" ? "block" : "none";
-        }
-        
-        // Cerrar el menú al hacer clic fuera de él
-        window.onclick = function(event) {
-            const userMenu = document.getElementById("user-menu");
-            if (!event.target.closest('.btn_user_img') && !event.target.closest('.user-menu')) {
-                userMenu.style.display = "none";
-            }
-        };
-    </script>
-
-
-<!-- MENU COMPRA-ABRIR MENU -->
 <script>
-    // Variables del menú, botones y contenedor de tarjetas
-    const cartMenu = document.getElementById('cartMenu');
+// Variables del menú y botones
+const cartMenu = document.getElementById('cartMenu');
+const openCartMenu = document.getElementById('openCartMenu');
+const closeCartMenu = document.getElementById('closeCartMenu');
+const cartItems = document.getElementById('cartItems');
+const cartBody = document.querySelector('.cart-menu-body');
+const totalCompraLabel = document.querySelector('.total-compra');
+
+// Inicializa el carrito
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+// Función para abrir el menú del carrito
+function abrirCarrito() {
+    cartMenu.classList.add('show');
+    actualizarCarrito();
+}
+
+// Función para cerrar el menú del carrito
+closeCartMenu.addEventListener('click', () => {
+    cartMenu.classList.remove('show');
+});
+
+// Función para agregar un producto al carrito
+function agregarAlCarrito(producto) {
+    const productoExistente = carrito.find(item => item.codigo === producto.codigo);
+    if (productoExistente) {
+        productoExistente.cantidad++;
+    } else {
+        carrito.push({ ...producto, cantidad: 1 });
+    }
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    actualizarCarrito();
+}
+
+// Función para actualizar el carrito visualmente
+function actualizarCarrito() {
+    cartBody.innerHTML = '';
+    let total = 0;
+
+    carrito.forEach(producto => {
+        total += producto.precio * producto.cantidad;
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+        cartItem.innerHTML = `
+            <img src="${producto.imagen}" alt="${producto.nombre}" class="cart-item-img">
+            <div class="cart-item-info">
+                <h5>${producto.nombre}</h5>
+                <p>${producto.precio} $</p>
+                <div class="quantity-control">
+                    <button onclick="decrementarCantidad('${producto.codigo}')">-</button>
+                    <span class="quantity">${producto.cantidad}</span>
+                    <button onclick="incrementarCantidad('${producto.codigo}')">+</button>
+                </div>
+                <button class="remove-btn" onclick="eliminarProducto('${producto.codigo}')">Eliminar</button>
+            </div>
+        `;
+        cartBody.appendChild(cartItem);
+    });
+    totalCompraLabel.textContent = `${total.toFixed(2)} $`;
+}
+
+// Incrementar cantidad
+function incrementarCantidad(codigo) {
+    const producto = carrito.find(item => item.codigo === codigo);
+    if (producto) {
+        producto.cantidad++;
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        actualizarCarrito();
+    }
+}
+
+// Decrementar cantidad
+function decrementarCantidad(codigo) {
+    const producto = carrito.find(item => item.codigo === codigo);
+    if (producto && producto.cantidad > 1) {
+        producto.cantidad--;
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        actualizarCarrito();
+    }
+}
+
+// Eliminar producto del carrito
+function eliminarProducto(codigo) {
+    carrito = carrito.filter(item => item.codigo !== codigo);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    actualizarCarrito();
+}
+
+// Asignar el evento al botón para abrir el carrito
+openCartMenu.addEventListener('click', abrirCarrito);
+
+fetch("{% url 'consultar_consolas_pant_prin' %}")
+.then(response => response.json())
+.then(data => {
     const productList = document.getElementById('product-list');
-    const openCartMenu = document.getElementById('openCartMenu');
-    const closeCartMenu = document.getElementById('closeCartMenu');
-    const closeCartMenuBtn = document.getElementById('closeCartMenuBtn');
-
-    // Función para abrir el menú de compra y cambiar disposición a columnas
-    openCartMenu.addEventListener('click', () => {
-        cartMenu.classList.add('show');
-        productList.classList.add('column-view'); // Cambia a vista en columnas
+    data.forEach(producto => {
+        const productCard = document.createElement('div');
+        productCard.classList.add('product-card');
+        productCard.innerHTML = `
+            <div class="product-image-container">
+                <!-- Generamos la URL para la página de detalles dinámicamente -->
+                <a href="/producto/${producto.codigo}/">
+                    <img src="${producto.imagen}" alt="${producto.nombre}" class="product-image">
+                </a>
+            </div>
+            <div class="product-details">
+                <h2 class="product-name">${producto.nombre}</h2>
+                <p class="product-price">${producto.precio} $</p>
+                <p class="product-category"><strong>Categoría:</strong> ${producto.categoria || 'Sin categoría'}</p>
+                <p class="product-description"><strong>Descripción:</strong> ${producto.descripcion}</p>
+                <button class="cart-btn" onclick='agregarAlCarrito(${JSON.stringify(producto)})'>
+                    Agregar al Carrito
+                </button>
+            </div>
+        `;
+        productList.appendChild(productCard);
     });
+});
 
-    // Funciones para cerrar el menú de compra y volver a disposición en filas
-    closeCartMenu.addEventListener('click', () => {
-        cartMenu.classList.remove('show');
-        productList.classList.remove('column-view'); // Vuelve a disposición original
-    });
 
-    closeCartMenuBtn.addEventListener('click', () => {
-        cartMenu.classList.remove('show');
-        productList.classList.remove('column-view'); // Vuelve a disposición original
-    });
 </script>
 
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="message {{ message.tags }}">
+                {{ message }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
 
-
-
+<script>
+    // Limpiar el carrito si se realiza el pago con éxito
+    if (window.localStorage) {
+        let carrito = localStorage.getItem('carrito');
+        if (carrito && document.location.pathname === "/") {
+            // El carrito se limpia
+            localStorage.removeItem('carrito');
+        }
+    }
+</script>
 
 </body>
-</html> 
+</html>

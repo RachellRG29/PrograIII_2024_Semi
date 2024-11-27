@@ -1,0 +1,201 @@
+/* Estilos generales */
+body {
+    background-color: #fbe4c9; /* Color claro de fondo */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos para el detalle del producto */
+.product-detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinea todo a la izquierda */
+    margin-top: 30px;
+    padding-left: 20px;
+}
+
+.product-detail {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Alinea los elementos a la izquierda */
+    background-color: #f4f4f4;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 0; /* Elimina el margen automático */
+    width: 100%; /* Asegura que ocupe todo el espacio */
+}
+
+.product-image {
+    flex: 1;
+    max-width: 450px; /* Aumenta el tamaño de la imagen */
+    margin-right: 40px;
+}
+
+.product-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-info {
+    flex: 2;
+    max-width: 500px;
+}
+
+.product-name {
+    font-size: 2.5rem; /* Aumenta el tamaño de la fuente */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.product-price {
+    font-size: 2rem; /* Aumenta el tamaño de la fuente */
+    color: #007bff; /* Color azul para precio */
+    margin-top: 10px;
+}
+
+.product-category,
+.product-description {
+    font-size: 1.2rem; /* Aumenta el tamaño de la fuente */
+    color: #555;
+    margin-top: 10px;
+}
+
+.product-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+}
+
+.btn-add-to-cart, .btn-buy-now {
+    background-color: #004182; /* Azul oscuro */
+    color: white;
+    padding: 15px 30px; /* Aumenta el tamaño del botón */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1.2rem; /* Aumenta el tamaño de la fuente */
+}
+
+.btn-add-to-cart:hover, .btn-buy-now:hover {
+    background-color: #225590; /* Azul intermedio */
+}
+
+/* Estilos para el carrito */
+.cart-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px; /* Reducido el ancho del carrito */
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+
+.cart-menu h2 {
+    font-size: 2rem; /* Aumenta el tamaño de la fuente */
+    color: #333;
+    text-align: center;
+}
+
+.close-cart {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    border: none;
+    font-size: 2rem; /* Aumenta el tamaño del ícono */
+    color: #333;
+    cursor: pointer;
+}
+
+.cart-item {
+    display: flex;
+    margin-bottom: 20px; /* Aumenta el espacio entre elementos */
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+
+.cart-item-img {
+    width: 80px; /* Aumenta el tamaño de la imagen */
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-name {
+    font-size: 1.2rem; /* Aumenta el tamaño de la fuente */
+    font-weight: bold;
+    color: #333;
+}
+
+.cart-item-price {
+    font-size: 1.2rem; /* Aumenta el tamaño de la fuente */
+    color: #007bff;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.quantity {
+    margin: 0 15px; /* Aumenta el espacio entre cantidad */
+}
+
+#totalCompra {
+    font-size: 1.5rem; /* Aumenta el tamaño de la fuente */
+    font-weight: bold;
+    color: #333;
+    margin-top: 30px;
+}
+
+.btn-checkout {
+    background-color: #dc3e57; /* Rojo */
+    color: white;
+    padding: 15px 30px; /* Aumenta el tamaño del botón */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 30px;
+    font-size: 1.2rem; /* Aumenta el tamaño de la fuente */
+}
+
+.btn-checkout:hover {
+    background-color: #e1646e; /* Rojo más suave */
+}
+
+/* Estilo adicional para el botón de "Ver carrito" */
+#cartButton {
+    background-color: #84b9ef; /* Azul claro */
+    color: white;
+    padding: 15px 30px; /* Aumenta el tamaño del botón */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem; /* Aumenta el tamaño de la fuente */
+    transition: background-color 0.3s ease;
+}
+
+#cartButton:hover {
+    background-color: #225590; /* Azul intermedio */
+}

@@ -310,3 +310,267 @@ body {
         max-width: 50%;
     }
 }
+
+/* Desactivar el color azul y el subrayado de los enlaces */
+.product-link {
+    color: inherit; /* Hereda el color del contenedor */
+    text-decoration: none; /* Elimina el subrayado */
+}
+
+/* Agregar un estilo de hover para los enlaces, si lo deseas */
+.product-link:hover {
+    color: #007bff; /* Cambiar el color cuando el enlace esté en hover */
+    text-decoration: underline; /* Opcional: subrayado en hover */
+}
+
+/* Estilo general de la tarjeta de producto */
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Efecto cuando el usuario pasa el ratón sobre la tarjeta */
+.product-card:hover {
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+}
+
+/* Estilo de la imagen dentro de la tarjeta */
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Solo la imagen será el enlace */
+.product-link {
+    display: block; /* Hace que el enlace ocupe todo el espacio de la imagen */
+}
+
+/* Estilo de la imagen dentro del enlace */
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* El resto del contenido no es un enlace, se muestra normalmente */
+.product-details {
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.product-name, .product-price, .product-category, .product-description {
+    color: #333; /* Puedes cambiar el color si es necesario */
+}
+
+/* Estilos adicionales para los textos */
+.product-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.product-price {
+    color: #e74c3c;
+}
+
+.product-category {
+    color: #7f8c8d;
+}
+
+.product-description {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+
+
+
+
+
+
+.cart-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.cart-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100%;
+    background-color: #fff;
+    transition: right 0.3s ease-in-out;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.cart-menu.show {
+    right: 0;
+}
+
+.cart-menu-header {
+    padding: 20px;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-menu-body {
+    padding: 20px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.cart-menu-footer {
+    padding: 20px;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+/* Estilo general del carrito */
+.cart-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px; /* Reduce el ancho del carrito */
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 1000;
+    transition: all 0.3s ease; /* Suaviza la transición */
+}
+
+/* Mostrar carrito cuando se abra */
+.cart-menu.show {
+    display: block;
+}
+
+.cart-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.cart-menu-body {
+    margin-bottom: 20px;
+    flex-grow: 1;
+    overflow-y: auto; /* Hace que el carrito se desplace si el contenido es largo */
+}
+
+.cart-menu-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.cart-title {
+    font-size: 1.5rem; /* Reduce el tamaño de la fuente */
+    font-weight: bold;
+    color: #333;
+}
+
+.cart-item {
+    display: flex;
+    margin-bottom: 15px; /* Reduce el espacio entre los productos */
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 10px; /* Reduce el padding */
+}
+
+.cart-item-img {
+    width: 60px; /* Reduce el tamaño de la imagen */
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px; /* Reduce el espacio entre la imagen y el nombre */
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-info h5 {
+    font-size: 1rem; /* Reduce el tamaño del nombre del producto */
+    font-weight: bold;
+    color: #333;
+}
+
+.cart-item-info p {
+    font-size: 0.9rem; /* Reduce el tamaño del precio */
+    color: #555;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.quantity {
+    margin: 0 10px; /* Reduce el espacio entre los botones */
+}
+
+.btn-checkout {
+    background-color: #dc3e57;
+    color: white;
+    padding: 12px 24px; /* Reduce el tamaño del botón */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem; /* Reduce el tamaño del texto en el botón */
+    margin-top: 20px;
+}
+
+.btn-checkout:hover {
+    background-color: #e1646e;
+}
+
+.btn-open-cart {
+    background-color: #84b9ef;
+    color: white;
+    padding: 12px 24px; /* Reduce el tamaño del botón */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem; /* Reduce el tamaño del texto en el botón */
+    transition: background-color 0.3s ease;
+}
+
+.btn-open-cart:hover {
+    background-color: #225590;
+}
+
+.close-cart {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+}

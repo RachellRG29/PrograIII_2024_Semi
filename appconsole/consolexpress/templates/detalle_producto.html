@@ -1,0 +1,151 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'Pantalla_prin/detalle_producto.css' %}">
+<!-- Detalle del Producto -->
+<div class="product-detail-container">
+    <div class="product-detail">
+        <!-- Imagen del Producto -->
+        <div class="product-image">
+            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="product-img">
+        </div>
+        
+        <!-- Detalles del Producto -->
+        <div class="product-info">
+            <h2 class="product-name">{{ producto.nombre }}</h2>
+            <p class="product-price" id="productPrice">{{ producto.precio }} €</p>
+            <p class="product-category">{{ producto.categoria }}</p>
+            <p class="product-description">{{ producto.descripcion }}</p>
+
+            <!-- Botones para agregar al carrito y comprar -->
+            <div class="product-actions">
+                <button id="addToCartButton" class="btn-add-to-cart">Agregar al carrito</button>
+                <button id="buyNowButton" class="btn-buy-now">Comprar ahora</button>
+                <button id="openCartButton" class="btn-open-cart">Ver Carrito</button>  <!-- Aquí está el botón "Ver Carrito" -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Carrito -->
+<div id="cartMenu" class="cart-menu">
+    <button id="closeCartMenu" class="close-cart">X</button>
+    <h2>Tu Carrito</h2>
+    <div id="cartItems"></div>
+    <p>Total: <span id="totalCompra">0.00 €</span></p>
+    <button class="btn-checkout">Finalizar Compra</button>
+</div>
+
+<script>
+    // Variables del carrito
+    const cartMenu = document.getElementById('cartMenu');
+    const closeCartMenu = document.getElementById('closeCartMenu');
+    const cartItems = document.getElementById('cartItems');
+    const totalCompraLabel = document.getElementById('totalCompra');
+    const openCartButton = document.getElementById('openCartButton');
+
+    // Recuperar el carrito desde localStorage al cargar la página
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    // Función para abrir el carrito
+    openCartButton.addEventListener('click', () => {
+        cartMenu.style.display = 'block';  // Mostrar el carrito
+    });
+
+    // Función para cerrar el carrito
+    closeCartMenu.addEventListener('click', () => {
+        cartMenu.style.display = 'none';  // Ocultar el carrito
+    });
+
+    // Función para agregar al carrito
+    const addToCartButton = document.getElementById("addToCartButton");
+    addToCartButton.addEventListener("click", function() {
+        const producto = {
+            nombre: "{{ producto.nombre }}", 
+            precio: parseFloat(document.getElementById("productPrice").innerText), 
+            imagen: "{{ producto.imagen.url }}",  // Usar .url para la imagen
+            cantidad: 1
+        };
+
+        // Verificar si el producto ya está en el carrito
+        const productoExistente = carrito.find(item => item.nombre === producto.nombre);
+
+        if (productoExistente) {
+            // Si el producto ya está en el carrito, solo aumentamos la cantidad
+            productoExistente.cantidad++;
+        } else {
+            // Si no, lo agregamos al carrito
+            carrito.push(producto);
+        }
+
+        // Guardar el carrito en localStorage
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+
+        // Actualizamos la vista del carrito
+        actualizarCarrito();
+    });
+
+    // Función para actualizar el carrito
+    function actualizarCarrito() {
+        // Limpiar el contenido actual del carrito
+        cartItems.innerHTML = '';
+
+        let total = 0;
+
+        carrito.forEach(producto => {
+            total += producto.precio * producto.cantidad;
+
+            // Crear el HTML del producto
+            const cartItem = document.createElement('div');
+            cartItem.classList.add('cart-item');
+            cartItem.innerHTML = `
+                <img src="${producto.imagen}" alt="${producto.nombre}" class="cart-item-img">
+                <div class="cart-item-info">
+                    <p class="cart-item-name">${producto.nombre}</p>
+                    <p class="cart-item-price">${producto.precio} €</p>
+                    <div class="quantity-control">
+                        <button class="btn-decrease" onclick="adjustQuantity('${producto.nombre}', -1)">-</button>
+                        <span class="quantity">${producto.cantidad}</span>
+                        <button class="btn-increase" onclick="adjustQuantity('${producto.nombre}', 1)">+</button>
+                    </div>
+                </div>
+            `;
+            cartItems.appendChild(cartItem);
+        });
+
+        totalCompraLabel.innerText = `${total.toFixed(2)} €`;
+    }
+
+    function adjustQuantity(productName, change) {
+        const producto = carrito.find(item => item.nombre === productName);
+        if (producto) {
+            producto.cantidad += change;
+
+            if (producto.cantidad <= 0) {
+                carrito = carrito.filter(item => item !== producto);
+            }
+
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+
+            actualizarCarrito();
+        }
+    }
+
+    // Evento para redirigir al usuario a la página de pago
+    const btnCheckout = document.querySelector('.btn-checkout');
+    btnCheckout.addEventListener('click', function() {
+        if (carrito.length > 0) {
+            window.location.href = '/pago/';  // Redirige a la página de pago
+        } else {
+            alert("Tu carrito está vacío.");
+        }
+    });
+
+    // Evento para "Comprar ahora"
+    const buyNowButton = document.getElementById("buyNowButton");
+    buyNowButton.addEventListener("click", function() {
+        window.location.href = '/pago/';  // Redirige directamente a la página de pago
+    });
+
+    actualizarCarrito();
+</script>
+
+

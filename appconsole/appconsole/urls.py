@@ -2,9 +2,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from consolexpress.views import (index_inicio, index_login, user_logout, index_register, index_pant_prin, 
+from consolexpress.views import (index_inicio, index_login, user_logout, index_register, index_pant_prin,chatbotIA,chat, 
                                  crud_admi, guardar_consola, consultar_consolas, editar_consola, consultar_consola_edit, eliminar_consola, verificar_codigo_existente,
-                                 consultar_consolas_pant_prin,vistaprincipal_producto,chatbotIA,chat)
+                                 consultar_consolas_pant_prin,vistaprincipal_producto,detalle_producto,procesar_pago)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +24,8 @@ urlpatterns = [
     path('vistaprincipal_producto/', vistaprincipal_producto, name='vistaprincipal_producto'),   
     path('chatbotIA/', chatbotIA, name='chatbotIA'), 
     path('chat/', chat, name='chat'),
+    path('producto/<str:codigo>/', detalle_producto, name='detalle_producto'),
+    path('pago/', procesar_pago, name='pago'),
 ]
 
 if settings.DEBUG:

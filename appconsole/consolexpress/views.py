@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
 from django.shortcuts import render
-from .models import consola  # Asegúrate de que el modelo se llame correctamente
+from .models import consola  #MODELO
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.contrib.auth.decorators import login_required #para registrar y no permitir q cualquiera ingrese
@@ -13,8 +13,13 @@ from django.contrib import messages #mandar mensajes con sweetalert2
 from nltk.chat.util import Chat, reflections
 from fuzzywuzzy import fuzz
 from .chatbot_logic import pairs
+from .models import consola
 import json
 import time
+from .models import Tarjeta
+from datetime import datetime
+from decimal import Decimal, InvalidOperation
+from django.urls import reverse
 
 
 # Create your views here.
@@ -299,10 +304,7 @@ def verificar_codigo_existente(request):
             existe = consola.objects.filter(codigo=codigo).exists()  # Verificar si el código ya existe
             return JsonResponse({'existe': existe})
         return JsonResponse({'existe': False})  # Si no hay código, devuelve false
-    return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405)
-
-def vistaprincipal_producto(request):
-    return render(request, 'vistaprincipal_producto.html')  
+    return JsonResponse({'msg': 'error', 'error': 'Método no permitido'}, status=405) 
 
 #CHATBOT IA IMPLEMENTOS
 # Inicializando el chatbot
@@ -333,3 +335,89 @@ def chat(request):
         time.sleep(0.3)  # Esperar 0.3 segundos antes de enviar la respuesta
         return JsonResponse({"response": response})
     return JsonResponse({"error": "Invalid request"}, status=400)
+
+def vistaprincipal_producto(request):
+    return render(request, 'vistaprincipal_producto.html') 
+
+def detalle_producto(request, codigo):
+    try:
+        producto = consola.objects.get(codigo=codigo)  # Recupera el producto usando el código
+        return render(request, 'detalle_producto.html', {'producto': producto})  # Pasa el producto a la plantilla
+    except consola.DoesNotExist:
+        return render(request, '404.html')
+    
+def crear_y_listar_tarjetas(request):
+    if request.method == "POST":
+        numero_tarjeta = request.POST['numero_tarjeta']
+        titular = request.POST['titular']
+        fecha_vencimiento = request.POST['fecha_vencimiento']
+        tipo_tarjeta = request.POST['tipo_tarjeta']
+        saldo = request.POST['saldo']
+
+        # Crear una nueva tarjeta
+        Tarjeta.objects.create(
+            numero_tarjeta=numero_tarjeta,
+            titular=titular,
+            fecha_vencimiento=fecha_vencimiento,
+            tipo_tarjeta=tipo_tarjeta,
+            saldo=saldo
+        )
+
+        # Mensaje de éxito
+        messages.success(request, '¡Tarjeta creada con éxito!')
+
+    # Obtener todas las tarjetas
+    tarjetas = Tarjeta.objects.all()
+
+    return render(request, 'vistaprincipal_producto.html', {'tarjetas': tarjetas})
+
+@login_required
+def procesar_pago(request):
+    if request.method == "POST":
+        # Recoger los datos del formulario
+        numero_tarjeta = request.POST['numero_tarjeta']
+        cvv = request.POST['cvv']
+        fecha_vencimiento = request.POST['fecha_vencimiento']  # Recibido como 'YYYY-MM'
+        
+        # Intentar convertir el total a Decimal de forma segura
+        try:
+            total = Decimal(request.POST['total'])
+        except (InvalidOperation, ValueError) as e:
+            messages.error(request, "El valor total es inválido.")
+            return redirect('pago')
+        
+        # Validación de los datos de la tarjeta
+        try:
+            tarjeta = Tarjeta.objects.get(numero_tarjeta=numero_tarjeta)
+        except Tarjeta.DoesNotExist:
+            messages.error(request, "El número de tarjeta no es válido.")
+            return redirect('pago')
+
+        # Validación de la fecha de vencimiento
+        fecha_vencimiento = datetime.strptime(fecha_vencimiento + '-01', '%Y-%m-%d').date()
+        if fecha_vencimiento < datetime.now().date():
+            messages.error(request, "La tarjeta ha expirado.")
+            return redirect('pago')
+
+        # Validación del CVV
+        if tarjeta.cvv != cvv:
+            messages.error(request, "El CVV es incorrecto.")
+            return redirect('pago')
+
+        # Verificar si la tarjeta tiene saldo suficiente
+        if tarjeta.saldo < total:
+            messages.error(request, "No tienes saldo suficiente en la tarjeta.")
+            return redirect('pago')
+
+        # Si todo es válido, proceder con el pago (deducir saldo)
+        tarjeta.saldo -= total
+        tarjeta.save()
+
+        # Limpiar el carrito en el lado del cliente (esto se hace con JavaScript)
+        messages.success(request, 'Pago realizado con éxito.')
+
+        # Redirigir a la página de pago, pero indicando que el pago fue exitoso
+        return render(request, 'pago.html', {'pago_exitoso': True})
+
+    # Si no es un POST, simplemente renderizamos la página de pago
+    return render(request, 'pago.html')

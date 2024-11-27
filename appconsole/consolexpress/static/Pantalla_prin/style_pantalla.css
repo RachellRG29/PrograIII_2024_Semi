@@ -486,39 +486,99 @@ header {
         right: 0; /* Se muestra cuando se añade la clase .show */
     }
 
-    /* diseño de la parte superior del menu */
+    /* Cabecera del menú */
     .cart-menu-header {
-        position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px;;
+        padding: 10px;
         border-bottom: 1px solid #dc3e57;
-        background:hsla(0, 0%, 95%, 0.80);
-        color:#dc3e57;
-        }
-    .cart-title {/* Posicion del titulo del menu */
+        background: hsla(0, 0%, 95%, 0.80);
+        color: #dc3e57;
+    }
+
+    .cart-title {
         flex: 1;
         text-align: center;
-       font-weight: bold;
+        font-weight: bold;
     }
-    /* Estilos del botón en forma de X */
-    .close-button {
-        background: none; 
-        border: none; 
-        color: #dc3e57; 
-        font-size: 1.5em; 
-        cursor: pointer; 
+    
+    /* Botón de cierre */
+    .close-cart {
+        background: none;
+        border: none;
+        color: #dc3e57;
+        font-size: 1.5em;
+        cursor: pointer;
         padding: 0;
     }
-    .close-button:hover {
-        color: red  ;
+
+    .close-cart:hover {
+        color: red;
     }
-    .close-button .X::before {
-        content: "✕"; 
-        font-size: inherit; 
-        color: inherit; 
-    }
+
+    /* Cuerpo del menú */
+.cart-menu-body {
+    flex: 1;
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    padding: 10px;
+}
+
+.menubody{
+    flex: 1;
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    filter: blur(10px);
+    padding: 10px;
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Estilos de los ítems */
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.cart-item-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.cart-item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: #0c0c0c;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.quantity-control button {
+    background: #dc3e57;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.quantity-control button:hover {
+    background: #b12a3c;
+}
     
     .cart-menu-footer {
         margin-top: auto;
@@ -596,3 +656,4 @@ header {
     }
 
   
+
