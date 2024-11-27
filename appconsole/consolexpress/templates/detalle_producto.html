@@ -1,4 +1,5 @@
 {% load static %}
+<link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
 <link rel="stylesheet" type="text/css" href="{% static 'Pantalla_prin/detalle_producto.css' %}">
 <!-- Detalle del Producto -->
 <div class="product-detail-container">
@@ -19,13 +20,224 @@
             <div class="product-actions">
                 <button id="addToCartButton" class="btn-add-to-cart">Agregar al carrito</button>
                 <button id="buyNowButton" class="btn-buy-now">Comprar ahora</button>
-                <button id="openCartButton" class="btn-open-cart">Ver Carrito</button>  <!-- Aquí está el botón "Ver Carrito" -->
+                <button id="openCartButton">Ver Carrito</button> <!-- Aquí está el botón "Ver Carrito" -->
             </div>
         </div>
     </div>
 </div>
 
-<!-- Carrito -->
+<!-- Menú Deslizable de Compra -->
+<div id="cartMenu" class="cart-menu">
+    <div class="cart-menu-header">
+        <!-- Botón de cerrar menú de compra -->
+        <button id="closeCartMenu" class="close-cart">
+            <span class="X">X</span>
+        </button>
+        <h5 class="cart-title">Carrito de Compras</h5>
+        <button onclick="limpiarCarrito()">Vaciar Carrito</button>
+    </div>
+    <div class="cart-menu-body">
+        <!-- Contenido del carrito (productos añadidos) -->
+    </div>
+    <div class="cart-menu-footer">
+        <div class="labels-container">
+            <label for="compramenu" class="compramenu">TOTAL</label>
+            <label for="TOTALCOMPRA" class="total-compra">0.00 $</label>
+        </div>
+        <button type="button" class="btn-checkout">
+            Comprar
+        </button>
+    </div>
+</div>
+
+
+<script>
+    // Variables del menú y botones
+    const cartMenu = document.getElementById('cartMenu');
+    const openCartButton = document.getElementById('openCartButton');
+    const closeCartMenu = document.getElementById('closeCartMenu');
+    const cartItems = document.getElementById('cartItems');
+    const cartBody = document.querySelector('.cart-menu-body');
+    const totalCompraLabel = document.querySelector('.total-compra');
+    
+    // Inicializa el carrito
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    
+    // Función para abrir el menú del carrito
+    function abrirCarrito() {
+        cartMenu.classList.add('show');
+        actualizarCarrito();
+    }
+
+    // Función para cerrar el menú del carrito
+    closeCartMenu.addEventListener('click', () => {
+        cartMenu.classList.remove('show');
+    });
+    
+    // Función para agregar al carrito
+    const addToCartButton = document.getElementById("addToCartButton");
+    addToCartButton.addEventListener("click", function() {
+        const producto = {
+            nombre: "{{ producto.nombre }}", 
+            precio: parseFloat(document.getElementById("productPrice").innerText), 
+            imagen: "{{ producto.imagen.url }}",  // Usar .url para la imagen
+            cantidad: 1,
+            codigo: "{{ producto.codigo }}"  // Asegúrate de agregar un código único
+        };
+
+        // Verificar si el producto ya está en el carrito
+        const productoExistente = carrito.find(item => item.codigo === producto.codigo);
+
+        if (productoExistente) {
+            // Si el producto ya está en el carrito, solo aumentamos la cantidad
+            productoExistente.cantidad++;
+        } else {
+            // Si no, lo agregamos al carrito
+            carrito.push(producto);
+        }
+
+        // Guardar el carrito en localStorage
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+
+        // Actualizamos la vista del carrito
+        actualizarCarrito();
+    });
+
+    // Función para actualizar el carrito visualmente
+    function actualizarCarrito() {
+        cartBody.innerHTML = ''; // Limpia el contenido actual del carrito
+        let total = 0;
+
+        carrito.forEach(producto => {
+            total += producto.precio * producto.cantidad;
+            const cartItem = document.createElement('div');
+            cartItem.classList.add('cart-item');
+            cartItem.innerHTML = `
+                <img src="${producto.imagen}" alt="${producto.nombre}" class="cart-item-img">
+                <div class="cart-item-info">
+                    <h5>${producto.nombre}</h5>
+                    <p>${producto.precio} $</p>
+                    <div class="quantity-control">
+                        <button onclick="decrementarCantidad('${producto.codigo}')">-</button>
+                        <span class="quantity">${producto.cantidad}</span>
+                        <button onclick="incrementarCantidad('${producto.codigo}')">+</button>
+                    </div>
+                    <button class="remove-btn" onclick="eliminarProducto('${producto.codigo}')">Eliminar</button>
+                </div>
+            `;
+            cartBody.appendChild(cartItem);
+        });
+
+        totalCompraLabel.textContent = `${total.toFixed(2)} $`;
+    }
+
+    // Incrementar cantidad
+    function incrementarCantidad(codigo) {
+        const producto = carrito.find(item => item.codigo === codigo);
+        if (producto) {
+            producto.cantidad++;
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            actualizarCarrito();
+        }
+    }
+
+    // Decrementar cantidad
+    function decrementarCantidad(codigo) {
+        const producto = carrito.find(item => item.codigo === codigo);
+        if (producto && producto.cantidad > 1) {
+            producto.cantidad--;
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            actualizarCarrito();
+        }
+    }
+
+    // Eliminar producto del carrito
+    function eliminarProducto(codigo) {
+        carrito = carrito.filter(item => item.codigo !== codigo);
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        actualizarCarrito();
+    }
+
+    // Asignar el evento al botón para abrir el carrito
+    openCartButton.addEventListener('click', abrirCarrito);
+
+    // Actualizar el carrito al cargar la página
+    actualizarCarrito();
+
+
+
+        // Evento para redirigir al usuario a la página de pago
+        const btnCheckout = document.querySelector('.btn-checkout');
+    btnCheckout.addEventListener('click', function() {
+        if (carrito.length > 0) {
+            window.location.href = '/pago/';  // Redirige a la página de pago
+        } else {
+            alert("Tu carrito está vacío.");
+        }
+    });
+
+    // Evento para "Comprar ahora"
+    const buyNowButton = document.getElementById("buyNowButton");
+    buyNowButton.addEventListener("click", function() {
+        window.location.href = '/pago/';  // Redirige directamente a la página de pago
+    });
+
+    actualizarCarrito();
+</script>
+
+    
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="message {{ message.tags }}">
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+    <script>
+        // Limpiar el carrito si se realiza el pago con éxito
+        if (window.localStorage) {
+            let carrito = localStorage.getItem('carrito');
+            if (carrito && document.location.pathname === "/") {
+                // El carrito se limpia
+                localStorage.removeItem('carrito');
+            }
+        }
+    </script>
+
+
+
+    <script>
+            // Limpiar el carrito completo
+    function limpiarCarrito() {
+        // Vaciar el carrito
+        carrito = [];
+
+        // Limpiar el localStorage
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+
+        // Actualizar la UI del carrito
+        actualizarCarrito();
+    }
+
+    // Eliminar producto del carrito
+    function eliminarProducto(codigo) {
+        // Filtramos los productos que no tienen el código que se quiere eliminar
+        carrito = carrito.filter(item => item.codigo !== codigo);
+
+        // Actualizamos el carrito en el localStorage
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+
+        // Actualizamos la UI del carrito (limpiamos y volvemos a mostrar los productos)
+        actualizarCarrito();
+    }
+    </script>
+
+
+
+<!-- Carrito 
 <div id="cartMenu" class="cart-menu">
     <button id="closeCartMenu" class="close-cart">X</button>
     <h2>Tu Carrito</h2>
@@ -148,4 +360,4 @@
     actualizarCarrito();
 </script>
 
-
+-->

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    {% load static %}
+    
     <link rel="stylesheet" type="text/css" href="{% static 'Pantalla_prin/style_pantalla.css' %}">
     <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
 
@@ -71,8 +72,6 @@
 </div>
 
 
-
-
             <!-- MENU PARA USUARIO -->
             <div class="user_user">
                 <span id="lblUser" style="color: white;">
@@ -96,7 +95,7 @@
                     {% if user.is_authenticated %}
                         <!-- Mostrar "Logout" si el usuario está autenticado -->
                         <a href="{% url 'user_logout' %}" class="btn_logout">
-                            <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Cerrar sesión
+                            <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Logout
                         </a>
                         
                         {% if user.is_superuser %}
@@ -120,6 +119,22 @@
                 </div>
             </div>
 
+                <!-- Menú desplegable de usuario user -->
+    <!-- Script de navbar - menu-logout -->
+    <script>
+        function toggleUserMenu() {
+            const userMenu = document.getElementById("user-menu");
+            userMenu.style.display = userMenu.style.display === "none" || userMenu.style.display === "" ? "block" : "none";
+        }
+        
+        // Cerrar el menú al hacer clic fuera de él
+        window.onclick = function(event) {
+            const userMenu = document.getElementById("user-menu");
+            if (!event.target.closest('.btn_user_img') && !event.target.closest('.user-menu')) {
+                userMenu.style.display = "none";
+            }
+        };
+    </script>
 
         </div>
     </nav>
@@ -182,6 +197,7 @@
     <!-- Los productos serán insertados aquí por JavaScript -->
 </div>
 
+
 <!-- Menú Deslizable de Compra -->
 <div id="cartMenu" class="cart-menu">
     <div class="cart-menu-header">
@@ -190,6 +206,7 @@
             <span class="X">X</span>
         </button>
         <h5 class="cart-title">Carrito de Compras</h5>
+        <button onclick="limpiarCarrito()">Vaciar Carrito</button>
     </div>
     <div class="cart-menu-body">
         <!-- Contenido del carrito (productos añadidos) -->
@@ -223,12 +240,14 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 // Función para abrir el menú del carrito
 function abrirCarrito() {
     cartMenu.classList.add('show');
+    productList.classList.add('column-view'); // Cambia a vista en columnas
     actualizarCarrito();
 }
 
 // Función para cerrar el menú del carrito
 closeCartMenu.addEventListener('click', () => {
     cartMenu.classList.remove('show');
+    productList.classList.remove('column-view'); // Vuelve a disposición original
 });
 
 // Función para agregar un producto al carrito
@@ -270,32 +289,32 @@ function actualizarCarrito() {
     totalCompraLabel.textContent = `${total.toFixed(2)} $`;
 }
 
-// Incrementar cantidad
-function incrementarCantidad(codigo) {
-    const producto = carrito.find(item => item.codigo === codigo);
-    if (producto) {
-        producto.cantidad++;
+    // Incrementar cantidad
+    function incrementarCantidad(codigo) {
+        const producto = carrito.find(item => item.codigo === codigo);
+        if (producto) {
+            producto.cantidad++;
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            actualizarCarrito();
+        }
+    }
+    
+    // Decrementar cantidad
+    function decrementarCantidad(codigo) {
+        const producto = carrito.find(item => item.codigo === codigo);
+        if (producto && producto.cantidad > 1) {
+            producto.cantidad--;
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            actualizarCarrito();
+        }
+    }
+    
+    // Eliminar producto del carrito
+    function eliminarProducto(codigo) {
+        carrito = carrito.filter(item => item.codigo !== codigo);
         localStorage.setItem('carrito', JSON.stringify(carrito));
         actualizarCarrito();
     }
-}
-
-// Decrementar cantidad
-function decrementarCantidad(codigo) {
-    const producto = carrito.find(item => item.codigo === codigo);
-    if (producto && producto.cantidad > 1) {
-        producto.cantidad--;
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-        actualizarCarrito();
-    }
-}
-
-// Eliminar producto del carrito
-function eliminarProducto(codigo) {
-    carrito = carrito.filter(item => item.codigo !== codigo);
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-    actualizarCarrito();
-}
 
 // Asignar el evento al botón para abrir el carrito
 openCartMenu.addEventListener('click', abrirCarrito);
@@ -320,13 +339,32 @@ fetch("{% url 'consultar_consolas_pant_prin' %}")
                 <p class="product-category"><strong>Categoría:</strong> ${producto.categoria || 'Sin categoría'}</p>
                 <p class="product-description"><strong>Descripción:</strong> ${producto.descripcion}</p>
                 <button class="cart-btn" onclick='agregarAlCarrito(${JSON.stringify(producto)})'>
-                    Agregar al Carrito
+                    <i class="bi bi-cart-fill"></i> 
                 </button>
             </div>
         `;
         productList.appendChild(productCard);
     });
 });
+
+
+    // Evento para redirigir al usuario a la página de pago
+    const btnCheckout = document.querySelector('.btn-checkout');
+    btnCheckout.addEventListener('click', function() {
+        if (carrito.length > 0) {
+            window.location.href = '/pago/';  // Redirige a la página de pago
+        } else {
+            alert("Tu carrito está vacío.");
+        }
+    });
+
+    // Evento para "Comprar ahora"
+    const buyNowButton = document.getElementById("buyNowButton");
+    buyNowButton.addEventListener("click", function() {
+        window.location.href = '/pago/';  // Redirige directamente a la página de pago
+    });
+
+    actualizarCarrito();
 
 
 </script>
@@ -351,6 +389,34 @@ fetch("{% url 'consultar_consolas_pant_prin' %}")
         }
     }
 </script>
+
+
+<script>
+        // Limpiar el carrito completo
+    function limpiarCarrito() {
+    // Vaciar el carrito
+    carrito = [];
+
+    // Limpiar el localStorage
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+
+    // Actualizar la UI del carrito
+    actualizarCarrito();
+    }
+
+    // Eliminar producto del carrito
+    function eliminarProducto(codigo) {
+    // Filtramos los productos que no tienen el código que se quiere eliminar
+    carrito = carrito.filter(item => item.codigo !== codigo);
+
+    // Actualizamos el carrito en el localStorage
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+
+    // Actualizamos la UI del carrito (limpiamos y volvemos a mostrar los productos)
+    actualizarCarrito();
+    }
+</script>
+
 
 </body>
 </html>

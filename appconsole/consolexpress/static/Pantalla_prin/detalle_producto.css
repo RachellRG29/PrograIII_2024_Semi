@@ -88,114 +88,196 @@ body {
     background-color: #225590; /* Azul intermedio */
 }
 
-/* Estilos para el carrito */
-.cart-menu {
-    display: none;
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 300px; /* Reducido el ancho del carrito */
-    height: 100%;
-    background-color: #fff;
-    box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    overflow-y: auto;
-    z-index: 1000;
+
+
+/*MODAL O MENU DESPLAZABLE DE COMPRAS*/
+
+    /* Estilos del Menú Deslizable */
+    .cart-menu {
+        position: fixed;
+        top: 0;
+        right: -400px; /* Oculto inicialmente */
+        width: 400px;
+        height: 100vh;
+        background: hsla(0, 0%, 95%, 0.80);
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+        transition: right 0.3s ease;
+        z-index: 1050;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        }
+
+        .cart-menu.show {
+        right: 0; /* Se muestra cuando se añade la clase .show */
+    }
+
+    /* Cabecera del menú */
+    .cart-menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #dc3e57;
+        background: hsla(0, 0%, 95%, 0.80);
+        color: #dc3e57;
+    }
+
+    .cart-title {
+        flex: 1;
+        text-align: center;
+        font-weight: bold;
+    }
+    
+    /* Botón de cierre */
+    .close-cart {
+        background: none;
+        border: none;
+        color: #dc3e57;
+        font-size: 1.5em;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .close-cart:hover {
+        color: red;
+    }
+
+    /* Cuerpo del menú */
+.cart-menu-body {
+    flex: 1;
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    padding: 10px;
 }
 
-
-.cart-menu h2 {
-    font-size: 2rem; /* Aumenta el tamaño de la fuente */
-    color: #333;
-    text-align: center;
+.menubody{
+    flex: 1;
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    filter: blur(10px);
+    padding: 10px;
 }
 
-.close-cart {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: transparent;
-    border: none;
-    font-size: 2rem; /* Aumenta el tamaño del ícono */
-    color: #333;
-    cursor: pointer;
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
+/* Estilos de los ítems */
 .cart-item {
     display: flex;
-    margin-bottom: 20px; /* Aumenta el espacio entre elementos */
-    border-bottom: 1px solid #f0f0f0;
-    padding-bottom: 15px;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
 }
 
 .cart-item-img {
-    width: 80px; /* Aumenta el tamaño de la imagen */
+    width: 80px;
     height: 80px;
     object-fit: cover;
     border-radius: 5px;
-    margin-right: 15px;
 }
 
 .cart-item-info {
     flex: 1;
-}
-
-.cart-item-name {
-    font-size: 1.2rem; /* Aumenta el tamaño de la fuente */
-    font-weight: bold;
-    color: #333;
-}
-
-.cart-item-price {
-    font-size: 1.2rem; /* Aumenta el tamaño de la fuente */
-    color: #007bff;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: #0c0c0c;
 }
 
 .quantity-control {
     display: flex;
     align-items: center;
-    margin-top: 10px;
+    gap: 5px;
 }
 
-.quantity {
-    margin: 0 15px; /* Aumenta el espacio entre cantidad */
-}
-
-#totalCompra {
-    font-size: 1.5rem; /* Aumenta el tamaño de la fuente */
-    font-weight: bold;
-    color: #333;
-    margin-top: 30px;
-}
-
-.btn-checkout {
-    background-color: #dc3e57; /* Rojo */
+.quantity-control button {
+    background: #dc3e57;
     color: white;
-    padding: 15px 30px; /* Aumenta el tamaño del botón */
     border: none;
-    border-radius: 5px;
+    padding: 5px 10px;
     cursor: pointer;
-    width: 100%;
-    margin-top: 30px;
-    font-size: 1.2rem; /* Aumenta el tamaño de la fuente */
+    border-radius: 3px;
 }
 
-.btn-checkout:hover {
-    background-color: #e1646e; /* Rojo más suave */
+.quantity-control button:hover {
+    background: #b12a3c;
 }
+    
+    .cart-menu-footer {
+        margin-top: auto;
+        padding: 10px;
+        display: flex;
+        flex-direction: column; /* Apilar etiquetas y botón verticalmente */
+        align-items: center; /* Centrar el botón horizontalmente */
+        background-color: #0c0c0c;
+        box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .labels-container {
+        width: 100%; /* Ocupa todo el ancho del contenedor */
+        display: flex;
+        justify-content: space-between; /* Coloca las etiquetas en los extremos */
+        margin-bottom: 10px; /* Espacio entre las etiquetas y el botón */
+    }
+    
+    .compramenu {
+        text-align: left; /* Alinea el texto de la etiqueta a la izquierda */
+    }
+    
+    .total-compra {
+        text-align: right; /* Alinea el texto de la etiqueta a la derecha */
+    }
+    
+    .btn-continuarcompra {
+        width: 130px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(15, 15, 15);
+        border: none;
+        color: white;
+        font-weight: 600;
+        gap: 8px;
+        cursor: pointer;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
+        position: relative;
+        overflow: hidden;
+        transition-duration: .3s;
+    }
+    
+    .svgIcon {
+        width: 16px;
+    }
+    
+    .svgIcon path {
+        fill: white;
+    }
+    
+    /* Animación del pseudo-elemento ::before */
+    .btn-continuarcompra::before {
+        width: 130px;
+        height: 130px;
+        position: absolute;
+        content: "";
+        background-color: red;
+        border-radius: 50%;
+        left: -100%;
+        top: 0;
+        transition: transform 0.3s ease, border-radius 0.3s ease;
+        mix-blend-mode: difference;
+    }
+    
+    .btn-continuarcompra:hover::before {
+        transform: translate(100%, -50%);
+        border-radius: 0;
+    }
+    
+    .btn-continuarcompra:active {
+        transform: translate(5px, 5px);
+        transition-duration: .3s;
+    }
 
-/* Estilo adicional para el botón de "Ver carrito" */
-#cartButton {
-    background-color: #84b9ef; /* Azul claro */
-    color: white;
-    padding: 15px 30px; /* Aumenta el tamaño del botón */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.2rem; /* Aumenta el tamaño de la fuente */
-    transition: background-color 0.3s ease;
-}
-
-#cartButton:hover {
-    background-color: #225590; /* Azul intermedio */
-}
