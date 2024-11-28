@@ -557,7 +557,7 @@ header {
     align-items: center;
     gap: 10px;
     padding: 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #1f1e1e;
 }
 
 .cart-item-img {
@@ -574,6 +574,69 @@ header {
     gap: 5px;
     color: #0c0c0c;
 }
+
+/* Botón de eliminar */
+.remove-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(20, 20, 20);
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+    position: relative;
+    margin-left: auto; /* Coloca el botón al extremo derecho */
+}
+
+/* Ícono SVG */
+.svgIcon {
+    width: 12px;
+    transition-duration: 0.3s;
+}
+
+.svgIcon path {
+    fill: white;
+}
+
+/* Efectos al pasar el cursor */
+.remove-btn:hover {
+    width: 80px; /* Reduce el ancho máximo al hover */
+    height: 40px; /* Reduce la altura máxima al hover */
+    border-radius: 20px; /* Ajusta el borde redondeado */
+    transition-duration: 0.3s;
+    background-color: rgb(255, 69, 69);
+    align-items: center;
+}
+
+.remove-btn:hover .svgIcon {
+    width: 30px; /* Reduce el tamaño del ícono */
+    transition-duration: 0.3s;
+    transform: translateY(50%); /* Ajusta la posición al expandir */
+}
+
+.remove-btn::before {
+    position: absolute;
+    top: -20px;
+    content: "Delete";
+    color: white;
+    transition-duration: 0.3s;
+    font-size: 2px;
+}
+
+.remove-btn:hover::before {
+    font-size: 10px; /* Reduce el tamaño del texto al hover */
+    opacity: 1;
+    transform: translateY(25px); /* Ajusta la posición del texto */
+    transition-duration: 0.3s;
+}
+
+
 
 .quantity-control {
     display: flex;
@@ -619,7 +682,7 @@ header {
         text-align: right; /* Alinea el texto de la etiqueta a la derecha */
     }
     
-    .btn-continuarcompra {
+    .btn-checkout {
         width: 130px;
         height: 40px;
         display: flex;
@@ -642,16 +705,16 @@ header {
     }
     
     .svgIcon path {
-        fill: white;
+        fill: rgb(253, 247, 247);
     }
     
     /* Animación del pseudo-elemento ::before */
-    .btn-continuarcompra::before {
+    .btn-checkout:before {
         width: 130px;
         height: 130px;
         position: absolute;
         content: "";
-        background-color: red;
+        background-color: rgb(253, 251, 251);
         border-radius: 50%;
         left: -100%;
         top: 0;
@@ -659,15 +722,78 @@ header {
         mix-blend-mode: difference;
     }
     
-    .btn-continuarcompra:hover::before {
+    .btn-checkout:hover:before {
         transform: translate(100%, -50%);
         border-radius: 0;
     }
     
-    .btn-continuarcompra:active {
+    .btn-checkout:active {
         transform: translate(5px, 5px);
         transition-duration: .3s;
     }
 
+  /* From Uiverse.io by andrew-demchenk0 */ 
+.limpiar-carrito {
+    --main-focus: #2d8cf0;
+    --font-color: #323232;
+    --bg-color-sub: #dedede;
+    --bg-color: #eee;
+    --main-color: #323232;
+    position: relative;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--main-color);
+    box-shadow: 4px 4px var(--main-color);
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .limpiar-carrito, .button__icon, .button__text {
+    transition: all 0.3s;
+  }
+  
+  .limpiar-carrito.button__text {
+    transform: translateX(30px);
+    color: var(--font-color);
+    font-weight: 600;
+  }
+  
+  .limpiar-carrito .button__icon {
+    position: absolute;
+    transform: translateX(109px);
+    height: 100%;
+    width: 39px;
+    background-color: var(--bg-color-sub);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .limpiar-carrito .svg {
+    width: 20px;
+    fill: var(--main-color);
+  }
+  
+  .limpiar-carrito:hover {
+    background: var(--bg-color);
+  }
+  
+  .limpiar-carrito:hover .button__text {
+    color: transparent;
+  }
+  
+  .limpiar-carrito:hover .button__icon {
+    width: 148px;
+    transform: translateX(0);
+  }
+  
+  .limpiar-carrito:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px var(--main-color);
+  }
   
 

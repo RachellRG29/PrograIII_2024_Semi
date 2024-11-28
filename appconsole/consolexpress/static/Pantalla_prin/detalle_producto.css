@@ -90,194 +90,419 @@ body {
 
 
 
-/*MODAL O MENU DESPLAZABLE DE COMPRAS*/
-
-    /* Estilos del Menú Deslizable */
-    .cart-menu {
-        position: fixed;
-        top: 0;
-        right: -400px; /* Oculto inicialmente */
-        width: 400px;
-        height: 100vh;
-        background: hsla(0, 0%, 95%, 0.80);
-        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-        transition: right 0.3s ease;
-        z-index: 1050;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        }
-
-        .cart-menu.show {
-        right: 0; /* Se muestra cuando se añade la clase .show */
+/* Estilos del Menú Deslizable */
+.cart-menu {
+    position: fixed;
+    top: 0;
+    right: -400px; /* Oculto inicialmente */
+    width: 400px;
+    height: 100vh;
+    background: hsla(0, 0%, 95%, 0.80);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease;
+    z-index: 1050;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     }
 
-    /* Cabecera del menú */
-    .cart-menu-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-        border-bottom: 1px solid #dc3e57;
-        background: hsla(0, 0%, 95%, 0.80);
-        color: #dc3e57;
-    }
+    .cart-menu.show {
+    right: 0; /* Se muestra cuando se añade la clase .show */
+}
 
-    .cart-title {
-        flex: 1;
-        text-align: center;
-        font-weight: bold;
-    }
-    
-    /* Botón de cierre */
-    .close-cart {
-        background: none;
-        border: none;
-        color: #dc3e57;
-        font-size: 1.5em;
-        cursor: pointer;
-        padding: 0;
-    }
-
-    .close-cart:hover {
-        color: red;
-    }
-
-    /* Cuerpo del menú */
-.cart-menu-body {
-    flex: 1;
-    overflow-y: auto; /* Habilita el desplazamiento vertical */
+/* Cabecera del menú */
+.cart-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px;
+    border-bottom: 1px solid #dc3e57;
+    background: hsla(0, 0%, 95%, 0.80);
+    color: #dc3e57;
+}
+
+.cart-title {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Botón de cierre */
+.close-cart {
+    background: none;
+    border: none;
+    color: #dc3e57;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 0;
+}
+
+.close-cart:hover {
+    color: red;
+}
+
+/* Cuerpo del menú */
+.cart-menu-body {
+flex: 1;
+overflow-y: auto; /* Habilita el desplazamiento vertical */
+padding: 10px;
 }
 
 .menubody{
-    flex: 1;
-    overflow-y: auto; /* Habilita el desplazamiento vertical */
-    filter: blur(10px);
-    padding: 10px;
+flex: 1;
+overflow-y: auto; /* Habilita el desplazamiento vertical */
+filter: blur(10px);
+padding: 10px;
 }
 
 .cart-items {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+display: flex;
+flex-direction: column;
+gap: 10px;
 }
 
 /* Estilos de los ítems */
 .cart-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
+display: flex;
+align-items: center;
+gap: 10px;
+padding: 10px;
+border-bottom: 1px solid #1f1e1e;
 }
 
 .cart-item-img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 5px;
+width: 80px;
+height: 80px;
+object-fit: cover;
+border-radius: 5px;
 }
 
 .cart-item-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    color: #0c0c0c;
+flex: 1;
+display: flex;
+flex-direction: column;
+gap: 5px;
+color: #0c0c0c;
 }
 
+/* Botón de eliminar */
+.remove-btn {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+background-color: rgb(20, 20, 20);
+border: none;
+font-weight: 600;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+cursor: pointer;
+transition-duration: 0.3s;
+overflow: hidden;
+position: relative;
+margin-left: auto; /* Coloca el botón al extremo derecho */
+}
+
+/* Ícono SVG */
+.svgIcon {
+width: 12px;
+transition-duration: 0.3s;
+}
+
+.svgIcon path {
+fill: white;
+}
+
+/* Efectos al pasar el cursor */
+.remove-btn:hover {
+width: 80px; /* Reduce el ancho máximo al hover */
+height: 40px; /* Reduce la altura máxima al hover */
+border-radius: 20px; /* Ajusta el borde redondeado */
+transition-duration: 0.3s;
+background-color: rgb(255, 69, 69);
+align-items: center;
+}
+
+.remove-btn:hover .svgIcon {
+width: 30px; /* Reduce el tamaño del ícono */
+transition-duration: 0.3s;
+transform: translateY(50%); /* Ajusta la posición al expandir */
+}
+
+.remove-btn::before {
+position: absolute;
+top: -20px;
+content: "Delete";
+color: white;
+transition-duration: 0.3s;
+font-size: 2px;
+}
+
+.remove-btn:hover::before {
+font-size: 10px; /* Reduce el tamaño del texto al hover */
+opacity: 1;
+transform: translateY(25px); /* Ajusta la posición del texto */
+transition-duration: 0.3s;
+}
+
+
+
 .quantity-control {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+display: flex;
+align-items: center;
+gap: 5px;
 }
 
 .quantity-control button {
-    background: #dc3e57;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
+background: #dc3e57;
+color: white;
+border: none;
+padding: 5px 10px;
+cursor: pointer;
+border-radius: 3px;
 }
 
 .quantity-control button:hover {
-    background: #b12a3c;
+background: #b12a3c;
 }
-    
-    .cart-menu-footer {
-        margin-top: auto;
-        padding: 10px;
-        display: flex;
-        flex-direction: column; /* Apilar etiquetas y botón verticalmente */
-        align-items: center; /* Centrar el botón horizontalmente */
-        background-color: #0c0c0c;
-        box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-    }
-    
-    .labels-container {
-        width: 100%; /* Ocupa todo el ancho del contenedor */
-        display: flex;
-        justify-content: space-between; /* Coloca las etiquetas en los extremos */
-        margin-bottom: 10px; /* Espacio entre las etiquetas y el botón */
-    }
-    
-    .compramenu {
-        text-align: left; /* Alinea el texto de la etiqueta a la izquierda */
-    }
-    
-    .total-compra {
-        text-align: right; /* Alinea el texto de la etiqueta a la derecha */
-    }
-    
-    .btn-continuarcompra {
-        width: 130px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: rgb(15, 15, 15);
-        border: none;
-        color: white;
-        font-weight: 600;
-        gap: 8px;
-        cursor: pointer;
-        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
-        position: relative;
-        overflow: hidden;
-        transition-duration: .3s;
-    }
-    
-    .svgIcon {
-        width: 16px;
-    }
-    
-    .svgIcon path {
-        fill: white;
-    }
-    
-    /* Animación del pseudo-elemento ::before */
-    .btn-continuarcompra::before {
-        width: 130px;
-        height: 130px;
-        position: absolute;
-        content: "";
-        background-color: red;
-        border-radius: 50%;
-        left: -100%;
-        top: 0;
-        transition: transform 0.3s ease, border-radius 0.3s ease;
-        mix-blend-mode: difference;
-    }
-    
-    .btn-continuarcompra:hover::before {
-        transform: translate(100%, -50%);
-        border-radius: 0;
-    }
-    
-    .btn-continuarcompra:active {
-        transform: translate(5px, 5px);
-        transition-duration: .3s;
-    }
 
+.cart-menu-footer {
+    margin-top: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column; /* Apilar etiquetas y botón verticalmente */
+    align-items: center; /* Centrar el botón horizontalmente */
+    background-color: #0c0c0c;
+    box-shadow: 0 -1px 5px rgba(10, 0, 0, 0.1);
+    color:#dedede;
+
+}
+
+.labels-container {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    display: flex;
+    justify-content: space-between; /* Coloca las etiquetas en los extremos */
+    margin-bottom: 10px; /* Espacio entre las etiquetas y el botón */
+}
+
+.compramenu {
+    text-align: left; /* Alinea el texto de la etiqueta a la izquierda */
+}
+
+.total-compra {
+    text-align: right; /* Alinea el texto de la etiqueta a la derecha */
+}
+
+.btn-checkout {
+    width: 130px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(15, 15, 15);
+    border: none;
+    color: white;
+    font-weight: 600;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
+    position: relative;
+    overflow: hidden;
+    transition-duration: .3s;
+}
+
+.svgIcon {
+    width: 16px;
+}
+
+.svgIcon path {
+    fill: rgb(253, 247, 247);
+}
+
+/* Animación del pseudo-elemento ::before */
+.btn-checkout:before {
+    width: 130px;
+    height: 130px;
+    position: absolute;
+    content: "";
+    background-color: rgb(253, 251, 251);
+    border-radius: 50%;
+    left: -100%;
+    top: 0;
+    transition: transform 0.3s ease, border-radius 0.3s ease;
+    mix-blend-mode: difference;
+}
+
+.btn-checkout:hover:before {
+    transform: translate(100%, -50%);
+    border-radius: 0;
+}
+
+.btn-checkout:active {
+    transform: translate(5px, 5px);
+    transition-duration: .3s;
+}
+
+/* From Uiverse.io by andrew-demchenk0 */ 
+.limpiar-carrito {
+--main-focus: #2d8cf0;
+--font-color: #323232;
+--bg-color-sub: #dedede;
+--bg-color: #eee;
+--main-color: #323232;
+position: relative;
+width: 150px;
+height: 40px;
+cursor: pointer;
+display: flex;
+align-items: center;
+border: 2px solid var(--main-color);
+box-shadow: 4px 4px var(--main-color);
+background-color: var(--bg-color);
+border-radius: 10px;
+overflow: hidden;
+}
+
+.limpiar-carrito, .button__icon, .button__text {
+transition: all 0.3s;
+}
+
+.limpiar-carrito.button__text {
+transform: translateX(30px);
+color: var(--font-color);
+font-weight: 600;
+}
+
+.limpiar-carrito .button__icon {
+position: absolute;
+transform: translateX(109px);
+height: 100%;
+width: 39px;
+background-color: var(--bg-color-sub);
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.limpiar-carrito .svg {
+width: 20px;
+fill: var(--main-color);
+}
+
+.limpiar-carrito:hover {
+background: var(--bg-color);
+}
+
+.limpiar-carrito:hover .button__text {
+color: transparent;
+}
+
+.limpiar-carrito:hover .button__icon {
+width: 148px;
+transform: translateX(0);
+}
+
+.limpiar-carrito:active {
+transform: translate(3px, 3px);
+box-shadow: 0px 0px var(--main-color);
+}
+
+/* Estilos para el botón de agregar al carrito */
+.btn-add-to-cart {
+    width: 130px; /* Igual al botón de "Agregar al carrito" */
+    height: 130px; /* Igual al botón de "Agregar al carrito" */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 15px;
+  background-color: #181717; /* Fondo inicial */
+  outline: 3px #181717 solid;
+  outline-offset: -3px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 400ms;
+}
+
+.btn-add-to-cart .text {
+  color: white; /* Texto blanco */
+  font-weight: 700;
+  font-size: 1em;
+  transition: 400ms;
+}
+
+.btn-add-to-cart svg path {
+  transition: 400ms;
+}
+
+.btn-add-to-cart:hover {
+  background-color: transparent; /* Fondo transparente al pasar el mouse */
+}
+
+.btn-add-to-cart:hover .text {
+  color: #181717; /* Texto cambia a negro */
+}
+
+.btn-add-to-cart:hover svg path {
+  fill: #181717; /* Icono cambia a negro */
+}
+
+/* Estilo del botón "Comprar ahora" */
+.btn-buy-now {
+    width: 130px; /* Ajustado para que coincida con el tamaño del botón anterior */
+    height: 130px; /* Ajustado para mantener la proporción */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(15, 15, 15);
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 14px; /* Ajustar el tamaño de la fuente si es necesario */
+    gap: 6px; /* Espaciado reducido entre texto e ícono */
+    cursor: pointer;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
+    position: relative;
+    overflow: hidden;
+    transition-duration: 0.3s;
+  }
+  
+  /* Estilo del ícono SVG */
+  .btn-buy-now .svgIcon {
+    width: 14px; /* Tamaño del icono ajustado para que sea proporcional */
+    height: 14px;
+  }
+  
+  .btn-buy-now .svgIcon path {
+    fill: white;
+  }
+  
+  /* Efecto del fondo animado */
+  .btn-buy-now::before {
+    width: calc(100% + 30px);
+    aspect-ratio: 1 / 1;
+    position: absolute;
+    content: "";
+    background-color: white;
+    border-radius: 50%;
+    left: -15px;
+    top: 50%;
+    transform: translate(-150%, -50%);
+    transition-duration: 0.5s;
+    mix-blend-mode: difference;
+  }
+  
+  /* Animación en hover */
+  .btn-buy-now:hover::before {
+    transform: translate(0, -50%);
+  }
+  
+  /* Efecto en clic */
+  .btn-buy-now:active {
+    transform: translateY(3px);
+    transition-duration: 0.3s;
+  }
+  
+  

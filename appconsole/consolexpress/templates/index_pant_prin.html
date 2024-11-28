@@ -206,7 +206,15 @@
             <span class="X">X</span>
         </button>
         <h5 class="cart-title">Carrito de Compras</h5>
-        <button onclick="limpiarCarrito()">Vaciar Carrito</button>
+        <button type="button" class="limpiar-carrito" onclick="limpiarCarrito()">
+            <span class="limpiar-carrito__text">Vaciar Carrito</span>
+            <span class="limpiar-carrito__icon">
+              <svg class="svg" height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M35.3 12.7c-2.89-2.9-6.88-4.7-11.3-4.7-8.84 0-15.98 7.16-15.98 16s7.14 16 15.98 16c7.45 0 13.69-5.1 15.46-12h-4.16c-1.65 4.66-6.07 8-11.3 8-6.63 0-12-5.37-12-12s5.37-12 12-12c3.31 0 6.28 1.38 8.45 3.55l-6.45 6.45h14v-14l-4.7 4.7z"></path>
+                <path d="M0 0h48v48h-48z" fill="none"></path>
+              </svg>
+            </span>
+          </button> 
     </div>
     <div class="cart-menu-body">
         <!-- Contenido del carrito (productos añadidos) -->
@@ -268,24 +276,32 @@ function actualizarCarrito() {
     let total = 0;
 
     carrito.forEach(producto => {
-        total += producto.precio * producto.cantidad;
-        const cartItem = document.createElement('div');
-        cartItem.classList.add('cart-item');
-        cartItem.innerHTML = `
-            <img src="${producto.imagen}" alt="${producto.nombre}" class="cart-item-img">
-            <div class="cart-item-info">
-                <h5>${producto.nombre}</h5>
-                <p>${producto.precio} $</p>
-                <div class="quantity-control">
-                    <button onclick="decrementarCantidad('${producto.codigo}')">-</button>
-                    <span class="quantity">${producto.cantidad}</span>
-                    <button onclick="incrementarCantidad('${producto.codigo}')">+</button>
-                </div>
-                <button class="remove-btn" onclick="eliminarProducto('${producto.codigo}')">Eliminar</button>
-            </div>
-        `;
-        cartBody.appendChild(cartItem);
-    });
+    total += producto.precio * producto.cantidad;
+    const cartItem = document.createElement('div');
+    cartItem.classList.add('cart-item');
+    cartItem.innerHTML = `
+    <img src="${producto.imagen}" alt="${producto.nombre}" class="cart-item-img">
+    <div class="cart-item-info">
+        <h5>${producto.nombre}</h5>
+        <p>${producto.precio} $</p>
+        <div class="quantity-control">
+            <button onclick="decrementarCantidad('${producto.codigo}')">-</button>
+            <span class="quantity">${producto.cantidad}</span>
+            <button onclick="incrementarCantidad('${producto.codigo}')">+</button>
+        </div>
+    </div>
+    <button class="remove-btn" onclick="eliminarProducto('${producto.codigo}')">
+        <svg viewBox="0 0 448 512" class="svgIcon">
+            <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+        </svg>
+    </button>
+</div>
+
+    `;
+    cartBody.appendChild(cartItem);
+});
+
+    
     totalCompraLabel.textContent = `${total.toFixed(2)} $`;
 }
 
@@ -392,8 +408,12 @@ fetch("{% url 'consultar_consolas_pant_prin' %}")
 
 
 <script>
-        // Limpiar el carrito completo
-    function limpiarCarrito() {
+        function limpiarCarrito() {
+    if (carrito.length === 0) {
+        alert('El carrito ya está vacío');
+        return;
+    }
+
     // Vaciar el carrito
     carrito = [];
 
@@ -402,7 +422,10 @@ fetch("{% url 'consultar_consolas_pant_prin' %}")
 
     // Actualizar la UI del carrito
     actualizarCarrito();
-    }
+
+    
+}
+
 
     // Eliminar producto del carrito
     function eliminarProducto(codigo) {
