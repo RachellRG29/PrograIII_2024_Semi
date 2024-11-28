@@ -251,11 +251,12 @@ header {
 }
 
 .product-card img {
-    width: 230px;
-    height: 230px;
+    width: 228px;
+    height: 228px;
     object-fit: cover;
     border-radius: 16px 0 0 16px;
     transition: transform 0.3s ease;
+    margin-right: 13px;
 }
 
 .product-card:hover img {
