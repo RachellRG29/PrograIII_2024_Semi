@@ -246,11 +246,11 @@ const totalCompraLabel = document.querySelector('.total-compra');
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 // Función para abrir el menú del carrito
-function abrirCarrito() {
+/*function abrirCarrito() {
     cartMenu.classList.add('show');
     productList.classList.add('column-view'); // Cambia a vista en columnas
     actualizarCarrito();
-}
+}*/
 
 // Función para cerrar el menú del carrito
 closeCartMenu.addEventListener('click', () => {
@@ -333,7 +333,14 @@ function actualizarCarrito() {
     }
 
 // Asignar el evento al botón para abrir el carrito
-openCartMenu.addEventListener('click', abrirCarrito);
+//openCartMenu.addEventListener('click', abrirCarrito);
+
+ // Función para abrir el menú de compra y cambiar disposición a columnas
+    openCartMenu.addEventListener('click', () => {
+        cartMenu.classList.add('show');
+        productList.classList.add('column-view'); // Cambia a vista en columnas
+        actualizarCarrito();
+    });
 
 fetch("{% url 'consultar_consolas_pant_prin' %}")
 .then(response => response.json())
@@ -355,7 +362,7 @@ fetch("{% url 'consultar_consolas_pant_prin' %}")
                 <p class="product-category"><strong>Categoría:</strong> ${producto.categoria || 'Sin categoría'}</p>
                 <p class="product-description"><strong>Descripción:</strong> ${producto.descripcion}</p>
                 <button class="cart-btn" onclick='agregarAlCarrito(${JSON.stringify(producto)})'>
-                    <i class="bi bi-cart-fill"></i> 
+                    <i class="bi bi-cart-plus-fill"></i>
                 </button>
             </div>
         `;
