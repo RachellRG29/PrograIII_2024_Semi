@@ -28,7 +28,7 @@ def __str__(self):
     return self.nombre
 
 class Tarjeta(models.Model):
-    numero_tarjeta = models.CharField(max_length=16, unique=True)  # Número único para evitar duplicados
+    numero_tarjeta = models.CharField(max_length=16)  # Número único para evitar duplicados
     titular = models.CharField(max_length=100)  # Nombre del titular
     fecha_vencimiento = models.DateField()  # Fecha en formato AAAA-MM-DD
     tipo_tarjeta = models.CharField(max_length=50, choices=[('credito', 'Crédito'), ('debito', 'Débito')])  # Tipo de tarjeta
@@ -36,14 +36,15 @@ class Tarjeta(models.Model):
     cvv = models.CharField(max_length=3)  # Código de seguridad (3 dígitos)
 
     def save(self, *args, **kwargs):
-        # Eliminar espacios y asegurarse de que el número de tarjeta tenga exactamente 16 dígitos
+    # Eliminar espacios y asegurarse de que el número de tarjeta tenga exactamente 16 dígitos
         self.numero_tarjeta = self.numero_tarjeta.replace(' ', '')  # Eliminar espacios
         self.numero_tarjeta = self.numero_tarjeta[:16]  # Limitar a 16 caracteres
-
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.numero_tarjeta} - {self.titular}"  # Sin coma al final para evitar tupla
+        return f"**** **** **** {self.numero_tarjeta[-4:]}"  # Mostrar solo los últimos 4 dígitos de la tarjeta
+
+
 
 
     

@@ -370,6 +370,7 @@ def crear_y_listar_tarjetas(request):
     tarjetas = Tarjeta.objects.all()
 
     return render(request, 'vistaprincipal_producto.html', {'tarjetas': tarjetas})
+
 @login_required
 def procesar_pago(request):
     if request.method == "POST":
@@ -419,7 +420,7 @@ def procesar_pago(request):
 
         # Mensaje de éxito
         messages.success(request, '¡Pago realizado con éxito!')
-        
+
         # Redirigir al usuario a la pantalla principal
         return redirect('index_pant_prin')
 
