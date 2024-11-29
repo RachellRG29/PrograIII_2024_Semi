@@ -15,7 +15,11 @@
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <link rel="stylesheet" type="text/css" href="{% static 'Pantalla_prin/style_pantalla.css' %}">
     <link rel="website icon" href="{% static 'icon_consola.png' %}" type="image/png">
@@ -72,54 +76,54 @@
 </div>
 
 
-            <!-- MENU PARA USUARIO -->
-            <div class="user_user">
-                <span id="lblUser" style="color: white;">
-                    {% if request.user.is_authenticated %}
-                        {{ request.user.username }}
-                    {% else %}
-                        Usuario
-                    {% endif %}
-                </span>
-                
-                <button class="btn_user_img" onclick="toggleUserMenu()">
-                    <svg width="28px" height="28px" class="user-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                        <rect fill="none" height="256" width="256"/>
-                        <circle cx="128" cy="120" r="44"/>
-                        <path d="M128,24A104,104,0,1,0,232,128,104.2,104.2,0,0,0,128,24Zm65.8,162.4a81.3,81.3,0,0,0-24.5-23,59.7,59.7,0,0,1-82.6,0,81.3,81.3,0,0,0-24.5,23,88,88,0,1,1,131.6,0Z"/>
-                    </svg>
-                </button>
+    <!-- MENU PARA USUARIO -->
+    <div class="user_user">
+        <span id="lblUser" style="color: white;">
+            {% if request.user.is_authenticated %}
+                {{ request.user.username }}
+            {% else %}
+                Usuario
+            {% endif %}
+        </span>
         
-                <!-- Menú desplegable de usuario -->
-                <div id="user-menu" class="user-menu">
-                    {% if user.is_authenticated %}
-                        <!-- Mostrar "Logout" si el usuario está autenticado -->
-                        <a href="{% url 'user_logout' %}" class="btn_logout">
-                            <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Logout
-                        </a>
-                        
-                        {% if user.is_superuser %}
-                        <p></p>
-                            <!-- Enlace visible solo para superusuarios -->
-                            <a href="{% url 'crud_admi' %}" class="btn_superuserCrudAdmi">
-                                <i class="bi bi-database-fill"></i> Crud-Admi
-                            </a>
-                        {% endif %}
+        <button class="btn_user_img" onclick="toggleUserMenu()">
+            <svg width="28px" height="28px" class="user-icon" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                <rect fill="none" height="256" width="256"/>
+                <circle cx="128" cy="120" r="44"/>
+                <path d="M128,24A104,104,0,1,0,232,128,104.2,104.2,0,0,0,128,24Zm65.8,162.4a81.3,81.3,0,0,0-24.5-23,59.7,59.7,0,0,1-82.6,0,81.3,81.3,0,0,0-24.5,23,88,88,0,1,1,131.6,0Z"/>
+            </svg>
+        </button>
 
-                    {% else %}
-                        <!-- Mostrar "Iniciar sesión" si el usuario no está autenticado -->
-                        <a href="{% url 'index_login' %}" class="btn_iniciarsesion">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                            fill="#000000" width="20px" height="20px">
-                            <path d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
-                            </svg> Iniciar sesión
-                        </a>
-                    {% endif %}
-                </div>
-            </div>
+        <!-- Menú desplegable de usuario -->
+        <div id="user-menu" class="user-menu">
+            {% if user.is_authenticated %}
+                <!-- Mostrar "Logout" si el usuario está autenticado -->
+                <a href="{% url 'user_logout' %}" class="btn_logout">
+                    <img src="{% static 'icon_logout_door.svg' %}" alt="" width="20px"> Logout
+                </a>
+                
+                {% if user.is_superuser %}
+                <p></p>
+                    <!-- Enlace visible solo para superusuarios -->
+                    <a href="{% url 'crud_admi' %}" class="btn_superuserCrudAdmi">
+                        <i class="bi bi-database-fill"></i> Crud-Admi
+                    </a>
+                {% endif %}
 
-                <!-- Menú desplegable de usuario user -->
+            {% else %}
+                <!-- Mostrar "Iniciar sesión" si el usuario no está autenticado -->
+                <a href="{% url 'index_login' %}" class="btn_iniciarsesion">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="#000000" width="20px" height="20px">
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                    </svg> Iniciar sesión
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Menú desplegable de usuario user -->
     <!-- Script de navbar - menu-logout -->
     <script>
         function toggleUserMenu() {
@@ -139,7 +143,6 @@
         </div>
     </nav>
 </header>
-
 
     <!-- Botón de Chatbot -->
     <a class="chatbot-btn" href="{% url 'chatbotIA' %}" >
@@ -226,12 +229,10 @@
         </div>
         <button type="button" class="btn-checkout">
             Comprar
+            <i class="bi bi-cart-plus-fill"></i>
         </button>
     </div>
 </div>
-
-<!-- Botón para abrir el carrito 
-<button id="openCartMenu" class="btn-open-cart">Ver Carrito</button>-->
 
 <script>
 // Variables del menú y botones
@@ -245,17 +246,15 @@ const totalCompraLabel = document.querySelector('.total-compra');
 // Inicializa el carrito
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-// Función para abrir el menú del carrito
-/*function abrirCarrito() {
-    cartMenu.classList.add('show');
-    productList.classList.add('column-view'); // Cambia a vista en columnas
-    actualizarCarrito();
-}*/
-
-// Función para cerrar el menú del carrito
-closeCartMenu.addEventListener('click', () => {
-    cartMenu.classList.remove('show');
-    productList.classList.remove('column-view'); // Vuelve a disposición original
+ // Función para abrir el menú de compra y cambiar disposición a columnas
+ openCartMenu.addEventListener('click', () => {
+    cartMenu.classList.add('show');  // Muestra el carrito
+    const productList = document.querySelector('.product-list');
+    productList.classList.add('column-view');  // Cambia a vista en columnas
+    productList.style.alignItems = 'start';  // Centra las tarjetas horizontalmente
+    productList.style.justifyContent = 'flex-start';  // Centra las tarjetas desde arriba
+    productList.style.height = 'auto';  // Ajusta la altura para que las tarjetas apilen sin límite
+    actualizarCarrito();  // Actualiza el carrito (si es necesario)
 });
 
 // Función para agregar un producto al carrito
@@ -332,15 +331,6 @@ function actualizarCarrito() {
         actualizarCarrito();
     }
 
-// Asignar el evento al botón para abrir el carrito
-//openCartMenu.addEventListener('click', abrirCarrito);
-
- // Función para abrir el menú de compra y cambiar disposición a columnas
-    openCartMenu.addEventListener('click', () => {
-        cartMenu.classList.add('show');
-        productList.classList.add('column-view'); // Cambia a vista en columnas
-        actualizarCarrito();
-    });
 
 fetch("{% url 'consultar_consolas_pant_prin' %}")
 .then(response => response.json())
@@ -370,17 +360,44 @@ fetch("{% url 'consultar_consolas_pant_prin' %}")
     });
 });
 
+  // Funciones para cerrar el menú de compra y volver a disposición en filas
+closeCartMenu.addEventListener('click', () => {
+    cartMenu.classList.remove('show');  // Oculta el carrito
+    const productList = document.querySelector('.product-list');
+    productList.classList.remove('column-view');  // Vuelve a disposición en filas
+    productList.style.alignItems = 'flex-start';  // Restaura la alineación original
+    productList.style.justifyContent = 'flex-start';  // Restaura la justificación original
+    productList.style.height = '700px';  // Restaura la altura original
+});
 
     // Evento para redirigir al usuario a la página de pago
-    const btnCheckout = document.querySelector('.btn-checkout');
+   /* const btnCheckout = document.querySelector('.btn-checkout');
     btnCheckout.addEventListener('click', function() {
         if (carrito.length > 0) {
             window.location.href = '/pago/';  // Redirige a la página de pago
         } else {
             alert("Tu carrito está vacío.");
         }
-    });
+    });*/
+    
+    // Evento para redirigir al usuario a la página de pago
+const btnCheckout = document.querySelector('.btn-checkout');
 
+btnCheckout.addEventListener('click', function() {
+    if (carrito.length > 0) {
+        window.location.href = '/pago/';  // Redirige a la página de pago
+    } else {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'error',
+            title: 'Tu carrito está vacío.',
+            showConfirmButton: false,
+            timer: 3000
+        });
+    }
+});
+    
     // Evento para "Comprar ahora"
     const buyNowButton = document.getElementById("buyNowButton");
     buyNowButton.addEventListener("click", function() {
@@ -429,8 +446,7 @@ fetch("{% url 'consultar_consolas_pant_prin' %}")
 
     // Actualizar la UI del carrito
     actualizarCarrito();
-
-    
+  
 }
 
 

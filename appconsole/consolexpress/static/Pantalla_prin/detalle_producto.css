@@ -1,24 +1,4 @@
 /* Estilos generales */
-body {
-    background-color: #fbe4c9; /* Color claro de fondo */
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    background-image: url("{% static 'fondo_prod.png' %}");
-    background-size: cover; /* La imagen se escala para cubrir toda la pantalla */
-    background-position: center; /* Centra la imagen */
-    background-repeat: no-repeat; /* Evita que se repita */
-    height: 100vh; /* Asegura que el fondo cubra la altura de la ventana */
-    width: 100vw; /* Asegura que el fondo cubra el ancho de la ventana */
-    overflow-x: hidden; /* Evita el scroll horizontal */
-  }
-  
-  
 
 /* Estilos para el detalle del producto */
 .product-detail-container {
@@ -33,7 +13,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start; /* Alinea los elementos a la izquierda */
-    background-color: #0e0d0d;
+    background-color: #1a1717;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

@@ -207,15 +207,17 @@ header {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
- 
+    height: 700px;
 }  
 
-/* Clase que hace que las tarjetas se dispongan en columnas */
+/* Clase que hace que las tarjetas se dispongan en una columna centrada */
 .product-list.column-view {
-    flex-direction: column;
-    align-items: flex-start; /* Centra las tarjetas cuando están en columnas */
+    flex-direction: column;  /* Cambia la disposición a columna */
+    align-items: start;     /* Centra las tarjetas horizontalmente */
+    justify-content: flex-start; /* Centra las tarjetas desde arriba */
+    height: auto;            /* Deja que las tarjetas se apilen sin límite */
+    overflow-y: auto;        /* Permite hacer scroll si hay demasiadas tarjetas */
 }
-
 
 /* Estilo de las cards */
 .product-card {
@@ -233,17 +235,7 @@ header {
     cursor: pointer;
 }
 
-/* Ajuste para diseño en columnas */
-.product-list.column-view .product-card {
-    width: 100%; /* Las tarjetas ocupan todo el ancho en columnas */
-    margin-right: 0; /* Sin espacio lateral */
-}
 
-/* Clase que hace que las tarjetas se dispongan en columnas */
-.product-list.column-view {
-    flex-direction: column; /* Disposición en columnas */
-    align-items: flex-start; /* Tarjetas alineadas al inicio */
-}
 
 .product-card:hover {
     transform: translateY(-8px);
