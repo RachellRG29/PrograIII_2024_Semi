@@ -370,54 +370,58 @@ def crear_y_listar_tarjetas(request):
     tarjetas = Tarjeta.objects.all()
 
     return render(request, 'vistaprincipal_producto.html', {'tarjetas': tarjetas})
-
 @login_required
 def procesar_pago(request):
     if request.method == "POST":
-        # Recoger los datos del formulario
-        numero_tarjeta = request.POST['numero_tarjeta']
-        cvv = request.POST['cvv']
-        fecha_vencimiento = request.POST['fecha_vencimiento']  # Recibido como 'YYYY-MM'
-        
-        # Intentar convertir el total a Decimal de forma segura
+        # Obtener y limpiar el número de tarjeta (eliminar espacios)
+        numero_tarjeta = request.POST.get('numero_tarjeta').replace(' ', '')  # Eliminar espacios
+        cvv = request.POST.get('cvv')
+        fecha_vencimiento = request.POST.get('fecha_vencimiento')
+        total = request.POST.get('total')
+
+        # Imprimir el número de tarjeta recibido para verificar
+        print(f"Numero de tarjeta recibido: '{numero_tarjeta}'")
+
+        # Validar entrada de datos
         try:
-            total = Decimal(request.POST['total'])
-        except (InvalidOperation, ValueError) as e:
+            total = Decimal(total)
+        except (InvalidOperation, ValueError):
             messages.error(request, "El valor total es inválido.")
             return redirect('pago')
-        
-        # Validación de los datos de la tarjeta
+
         try:
+            # Buscar la tarjeta en la base de datos sin espacios
             tarjeta = Tarjeta.objects.get(numero_tarjeta=numero_tarjeta)
+            print(f"Numero de tarjeta encontrado en base de datos: '{tarjeta.numero_tarjeta}'")
         except Tarjeta.DoesNotExist:
+            print("No se encontró la tarjeta.")
             messages.error(request, "El número de tarjeta no es válido.")
             return redirect('pago')
 
-        # Validación de la fecha de vencimiento
-        fecha_vencimiento = datetime.strptime(fecha_vencimiento + '-01', '%Y-%m-%d').date()
-        if fecha_vencimiento < datetime.now().date():
+        # Verificar fecha de vencimiento
+        if tarjeta.fecha_vencimiento < datetime.now().date():
             messages.error(request, "La tarjeta ha expirado.")
             return redirect('pago')
 
-        # Validación del CVV
+        # Verificar el CVV
         if tarjeta.cvv != cvv:
             messages.error(request, "El CVV es incorrecto.")
             return redirect('pago')
 
-        # Verificar si la tarjeta tiene saldo suficiente
+        # Verificar saldo suficiente
         if tarjeta.saldo < total:
             messages.error(request, "No tienes saldo suficiente en la tarjeta.")
             return redirect('pago')
 
-        # Si todo es válido, proceder con el pago (deducir saldo)
+        # Procesar el pago (restar saldo)
         tarjeta.saldo -= total
         tarjeta.save()
 
-        # Limpiar el carrito en el lado del cliente (esto se hace con JavaScript)
-        messages.success(request, 'Pago realizado con éxito.')
+        # Mensaje de éxito
+        messages.success(request, '¡Pago realizado con éxito!')
+        
+        # Redirigir al usuario a la pantalla principal
+        return redirect('index_pant_prin')
 
-        # Redirigir a la página de pago, pero indicando que el pago fue exitoso
-        return render(request, 'pago.html', {'pago_exitoso': True})
-
-    # Si no es un POST, simplemente renderizamos la página de pago
+    # Si no es un POST, renderizar la página de pago
     return render(request, 'pago.html')

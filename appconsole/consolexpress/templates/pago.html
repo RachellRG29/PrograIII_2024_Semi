@@ -64,7 +64,7 @@
                     <h2>Detalles de la Tarjeta</h2>
                     <div class="form-group">
                         <label for="numero_tarjeta">Número de Tarjeta</label>
-                        <input type="text" id="numero_tarjeta" name="numero_tarjeta" maxlength="19" onblur="validarNTarjetaPago(this)" placeholder="Ej: 1234 5678 9012 3456" required>
+                        <input type="text" id="numero_tarjeta" name="numero_tarjeta" maxlength="16" onblur="validarNTarjetaPago(this)" placeholder="Ej: 1234567890123456" required>
                     </div>
                     <div class="form-group">
                         <label for="fecha_vencimiento">Fecha de Vencimiento</label>
@@ -285,42 +285,42 @@
     }
     */
     function validarNTarjetaPago(input) {
-        let tarjeta = input.value.replace(/\D/g, ''); // Eliminar caracteres no numéricos
-        tarjeta = tarjeta.slice(0, 16); // Limitar a un máximo de 16 dígitos
+    let tarjeta = input.value.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+    tarjeta = tarjeta.slice(0, 16); // Limitar a un máximo de 16 dígitos
 
-        // Agregar espacios automáticamente cada 4 dígitos
-        let tarjetaFormateada = tarjeta.match(/.{1,4}/g)?.join(' ') || '';
+    // Actualizar el campo de entrada sin espacios
+    input.value = tarjeta;
 
-        input.value = tarjetaFormateada; // Actualizar el campo de entrada con el formato
-        // Verificar si el campo está vacío
-        if (tarjeta === '') {
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'error',
-                title: 'El Número de la tarjeta no puede estar vacío.',
-                showConfirmButton: false,
-                timer: 3000
-            });
-            return false;
-        }
-
-        // Validar si el formato completo es correcto (#### #### #### ####)
-        const regexTarjeta = /^(\d{4} ){3}\d{4}$/;
-        if (tarjetaFormateada.length === 19 && !regexTarjeta.test(tarjetaFormateada)) {
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: "info",
-                title: "El formato del número de tarjeta debe ser #### #### #### ####.",
-                showConfirmButton: false,
-                timer: 3000
-            });
-            return false;
-        }
-
-        return true;
+    // Verificar si el campo está vacío
+    if (tarjeta === '') {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'error',
+            title: 'El Número de la tarjeta no puede estar vacío.',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        return false;
     }
+
+    // Validar si el número de tarjeta tiene exactamente 16 dígitos
+    if (tarjeta.length !== 16) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: "info",
+            title: "El número de tarjeta debe tener 16 dígitos.",
+            showConfirmButton: false,
+            timer: 3000
+        });
+        return false;
+    }
+
+    return true;
+}
+
+
 
     function validarFVPago(input) {
         const fechaVencimiento = input.value.trim();
@@ -500,20 +500,46 @@
     </script>
 
 {% if pago_exitoso %}
-    <div class="mensaje-exito">
-        <h2>¡Pago realizado con éxito!</h2>
-        <p>Tu pago ha sido procesado correctamente. Haz clic en el botón para regresar a la pantalla principal.</p>
-        <a href="{% url 'index_pant_prin' %}" class="boton-regresar">Regresar a la pantalla principal</a>
-    </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // Limpiar el carrito en el localStorage
-        if (window.localStorage) {
-            localStorage.removeItem('carrito');
-        }
+        // Mostrar mensaje de éxito con SweetAlert
+        Swal.fire({
+            title: '¡Pago realizado con éxito!',
+            text: 'Tu pago ha sido procesado correctamente.',
+            icon: 'success',
+            confirmButtonText: 'Regresar a la pantalla principal',
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Limpiar el carrito en el localStorage
+                if (window.localStorage) {
+                    localStorage.removeItem('carrito');
+                }
+                // Redirigir a la pantalla principal
+                window.location.href = "{% url 'index_pant_prin.html' %}";
+            }
+        });
     </script>
 {% else %}
     <!-- Aquí puedes mantener tu formulario de pago si no se ha procesado un pago -->
 {% endif %}
+
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: '{{ message|escapejs }}',
+                showConfirmButton: true,
+                timer: 3000,
+                timerProgressBar: true,
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                // Opcional: redirigir o realizar otra acción
+            });
+        </script>
+    {% endfor %}
+{% endif %}
+
 </body>
 </html>
